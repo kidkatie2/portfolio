@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>State Affairs — Kate Chaparro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Surfaces */
+    --bg: #f4f1ea;
+    --surface: #ebe6db;
+    --surface-deep: #e2dccd;
+
+    /* Text */
+    --text-primary: #1a1815;
+    --text-secondary: #6b665c;
+    --text-tertiary: #908a7d;
+
+    /* Accent — sage green (State Affairs brand) */
+    --accent: #4A6B5C;
+    --accent-soft: #d5e0d8;
+
+    /* Divider */
+    --rule: #d6cfc0;
+
+    /* Typography */
+    --font-serif: 'Newsreader', Georgia, serif;
+    --font-sans: 'IBM Plex Sans', -apple-system, sans-serif;
+    --font-mono: 'IBM Plex Mono', 'SF Mono', monospace;
+
+    /* Layout */
+    --max-width: 1100px;
+    --gutter: 48px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- Top nav ---------- */
+  .nav {
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--rule);
+    z-index: 10;
+  }
+  .nav-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 20px var(--gutter);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-brand {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 120px var(--gutter) 80px;
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+  }
+  .hero h1 {
+    font-family: var(--font-serif);
+    font-size: 84px;
+    line-height: 1.02;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero-lead {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    line-height: 1.5;
+    font-weight: 400;
+    color: var(--text-secondary);
+    max-width: 720px;
+  }
+
+  /* ---------- Meta strip ---------- */
+  .meta {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 32px var(--gutter);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .meta-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+  .meta-value {
+    font-size: 14px;
+    color: var(--text-primary);
+  }
+
+  /* ---------- Section base ---------- */
+  section.case {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 120px var(--gutter);
+    border-bottom: 1px solid var(--rule);
+    scroll-margin-top: 80px;
+  }
+  section.case:last-of-type {
+    border-bottom: none;
+  }
+  .case-number {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 24px;
+  }
+  .case h2 {
+    font-family: var(--font-serif);
+    font-size: 48px;
+    line-height: 1.1;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    margin-bottom: 16px;
+    max-width: 720px;
+  }
+  .case-tagline {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 20px;
+    color: var(--text-secondary);
+    margin-bottom: 56px;
+    max-width: 640px;
+  }
+
+  /* Two-column body */
+  .case-body {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px;
+    margin-bottom: 56px;
+  }
+  .case-side {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+  .case-side strong {
+    display: block;
+    color: var(--text-primary);
+    font-weight: 500;
+    margin-bottom: 4px;
+    font-size: 11px;
+  }
+  .case-side-block { margin-bottom: 24px; }
+  .case-content p {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    max-width: 640px;
+  }
+  .case-content p.lede {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    line-height: 1.55;
+    color: var(--text-primary);
+    margin-bottom: 32px;
+  }
+  .case-content h3 {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-top: 40px;
+    margin-bottom: 16px;
+  }
+  .case-content ul {
+    list-style: none;
+    margin-bottom: 24px;
+    max-width: 640px;
+  }
+  .case-content ul li {
+    font-size: 16px;
+    line-height: 1.6;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    gap: 16px;
+  }
+  .case-content ul li::before {
+    content: counter(list-item, decimal-leading-zero);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-tertiary);
+    min-width: 28px;
+    padding-top: 4px;
+  }
+  .case-content ul { counter-reset: list-item; }
+  .case-content ul li { counter-increment: list-item; }
+
+  /* ---------- Image placeholders ---------- */
+  .figure {
+    margin: 48px 0;
+  }
+  .figure-image {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    aspect-ratio: 16 / 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .figure-image::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(45deg, var(--surface-deep) 25%, transparent 25%),
+      linear-gradient(-45deg, var(--surface-deep) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, var(--surface-deep) 75%),
+      linear-gradient(-45deg, transparent 75%, var(--surface-deep) 75%);
+    background-size: 24px 24px;
+    background-position: 0 0, 0 12px, 12px -12px, -12px 0;
+    opacity: 0.5;
+  }
+  .figure-image-label {
+    position: relative;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    background: var(--bg);
+    padding: 6px 12px;
+    border: 1px solid var(--rule);
+  }
+  .figure-image.tall { aspect-ratio: 4 / 5; }
+  .figure-image.wide { aspect-ratio: 21 / 9; }
+  .figure-caption {
+    margin-top: 16px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--text-tertiary);
+    display: flex;
+    gap: 12px;
+  }
+  .figure-caption-num {
+    color: var(--accent);
+  }
+  .figure-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  /* ---------- Pull quote ---------- */
+  .pull {
+    border-left: 2px solid var(--accent);
+    padding-left: 24px;
+    margin: 40px 0;
+    max-width: 640px;
+  }
+  .pull p {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.5;
+    color: var(--text-primary);
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 80px var(--gutter) 120px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: end;
+  }
+  footer h3 {
+    font-family: var(--font-serif);
+    font-size: 36px;
+    line-height: 1.2;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+  }
+  footer h3 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .footer-end { max-width: 720px; }
+  .footer-actions {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .footer-link {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 4px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .footer-link:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .footer-link-accent { color: var(--accent); border-color: var(--accent-soft); }
+  .footer-meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    text-align: right;
+    line-height: 1.8;
+  }
+
+  /* ---------- Table of contents ---------- */
+  .toc {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 48px var(--gutter) 24px;
+  }
+  .toc-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 16px;
+  }
+  .toc-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px 32px;
+  }
+  .toc-list a {
+    display: flex;
+    gap: 16px;
+    padding: 10px 0;
+    text-decoration: none;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--rule);
+    transition: color 0.15s;
+  }
+  .toc-list a:hover { color: var(--accent); }
+  .toc-list a:hover .toc-num { color: var(--accent); }
+  .toc-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-tertiary);
+    min-width: 28px;
+    padding-top: 4px;
+    transition: color 0.15s;
+  }
+  .toc-title {
+    font-family: var(--font-serif);
+    font-size: 17px;
+    line-height: 1.4;
+  }
+
+  /* ---------- Responsive ---------- */
+
+  /* Tablet — between desktop and phone */
+  @media (max-width: 1000px) {
+    :root { --gutter: 32px; }
+    .hero { padding: 96px var(--gutter) 64px; }
+    .hero h1 { font-size: 64px; }
+    section.case { padding: 96px var(--gutter); }
+    .case h2 { font-size: 40px; }
+    .case-body { grid-template-columns: 160px 1fr; gap: 32px; }
+  }
+
+  /* Phone */
+  @media (max-width: 720px) {
+    :root { --gutter: 20px; }
+
+    /* Nav */
+    .nav-inner { padding: 16px var(--gutter); }
+    .nav-links { gap: 16px; }
+    .nav-links a { font-size: 11px; letter-spacing: 0.04em; }
+
+    /* Hero */
+    .hero { padding: 56px var(--gutter) 40px; }
+    .hero h1 {
+      font-size: 38px;
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+    }
+    .hero-lead { font-size: 17px; line-height: 1.55; }
+    .eyebrow { margin-bottom: 24px; }
+
+    /* Meta strip */
+    .meta {
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      padding: 24px var(--gutter);
+    }
+
+    /* Case sections */
+    section.case { padding: 64px var(--gutter); }
+    .case h2 { font-size: 28px; line-height: 1.15; }
+    .case-tagline { font-size: 17px; margin-bottom: 40px; }
+
+    .case-body {
+      grid-template-columns: 1fr;
+      gap: 28px;
+      margin-bottom: 40px;
+    }
+    .case-side {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px 32px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .case-side-block { margin-bottom: 0; }
+
+    .case-content p { font-size: 16px; }
+    .case-content p.lede { font-size: 18px; line-height: 1.5; }
+    .case-content ul li { font-size: 15px; }
+
+    /* Figures */
+    .figure { margin: 32px 0; }
+    .figure-pair { grid-template-columns: 1fr; gap: 12px; }
+    .figure-image.tall { aspect-ratio: 3 / 4; }
+    .figure-image.wide { aspect-ratio: 16 / 10; }
+
+    /* Pull quote */
+    .pull { padding-left: 20px; margin: 32px 0; }
+    .pull p { font-size: 18px; line-height: 1.5; }
+
+    /* Footer */
+    footer {
+      grid-template-columns: 1fr;
+      padding: 56px var(--gutter) 80px;
+      gap: 24px;
+    }
+    footer h3 { font-size: 26px; margin-bottom: 20px; }
+    .footer-meta { text-align: left; }
+    .footer-actions { gap: 24px; }
+
+    /* TOC */
+    .toc { padding: 32px var(--gutter) 16px; }
+    .toc-list { grid-template-columns: 1fr; gap: 0; }
+    .toc-title { font-size: 16px; }
+  }
+
+  /* Small phone */
+  @media (max-width: 380px) {
+    .hero h1 { font-size: 34px; }
+    .case h2 { font-size: 24px; }
+    .nav-brand { display: none; }
+  }
+</style>
+
+<style>
+/* ============ PORTFOLIO SHELL CHROME — kc- prefixed to avoid collisions ============ */
+@keyframes kc-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
+@keyframes kc-blink { 0%,50% { opacity: 1; } 51%,100% { opacity: 0; } }
+
+:root {
+  --kc-bg: #fff0e6;
+  --kc-surface: #ffe2d4;
+  --kc-ink: #101218;
+  --kc-ink-2: #784a4e;
+  --kc-ink-3: #b08890;
+  --kc-accent: #dd5045;
+  --kc-status: #5a7a3e;
+  --kc-rule: #f5cec0;
+  --kc-rule-strong: #e0a89a;
+  --kc-mono: 'JetBrains Mono', 'SF Mono', monospace;
+}
+
+[data-theme="dark"] {
+  --kc-bg: #0e1118;
+  --kc-surface: #181c26;
+  --kc-ink: #e8ecf5;
+  --kc-ink-2: #a8b0c4;
+  --kc-ink-3: #6a7088;
+  --kc-accent: #ff6680;
+  --kc-status: #88b070;
+  --kc-rule: #252a38;
+  --kc-rule-strong: #363c4e;
+}
+
+.kc-statusbar {
+  background: var(--kc-bg);
+  border-bottom: 1px solid var(--kc-rule);
+  font-family: var(--kc-mono);
+}
+.kc-statusbar-inner {
+  max-width: 1240px; margin: 0 auto; padding: 10px 40px;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  font-size: 11px; letter-spacing: 0.04em;
+}
+.kc-status-left { display: flex; gap: 24px; align-items: center; color: var(--kc-ink-3); }
+.kc-status-dot { display: inline-flex; align-items: center; gap: 6px; color: var(--kc-ink-2); }
+.kc-status-dot::before {
+  content: ''; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--kc-status); box-shadow: 0 0 6px rgba(90,122,62,0.5);
+  animation: kc-pulse 2.4s ease-in-out infinite;
+}
+.kc-status-time { color: var(--kc-ink-3); font-variant-numeric: tabular-nums; }
+.kc-status-right { display: flex; gap: 4px; align-items: center; color: var(--kc-ink-3); }
+.kc-status-right > span { padding: 0 6px; border-left: 1px solid var(--kc-rule); }
+.kc-status-right > span:first-child { border-left: none; }
+.kc-status-right .kc-theme-toggle { margin-left: 4px; }
+
+.kc-shell-nav {
+  background: var(--kc-bg);
+  border-bottom: 1px solid var(--kc-rule);
+  font-family: var(--kc-mono);
+}
+.kc-shell-nav-inner {
+  max-width: 1240px; margin: 0 auto; padding: 18px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.kc-nav-brand {
+  font-size: 13px; font-weight: 600; letter-spacing: 0.02em;
+  color: var(--kc-ink); text-decoration: none;
+}
+.kc-nav-brand .kc-slash { color: var(--kc-accent); margin: 0 2px; }
+.kc-nav-brand:hover { color: var(--kc-accent); }
+.kc-nav-links { display: flex; gap: 4px; list-style: none; padding: 0; margin: 0; }
+.kc-nav-links a {
+  font-family: var(--kc-mono); font-size: 12px; letter-spacing: 0.04em;
+  color: var(--kc-ink-2); border: 1px solid transparent;
+  padding: 6px 12px; text-decoration: none; transition: all 0.15s;
+}
+.kc-nav-links a:hover { color: var(--kc-ink); border-color: var(--kc-rule); }
+.kc-nav-links a.kc-is-active { color: var(--kc-accent); border-color: var(--kc-accent); }
+.kc-nav-links a.ext-link {
+  color: var(--kc-accent);
+  border-color: var(--kc-accent);
+  background: rgba(221, 80, 69, 0.12);
+  font-weight: 500;
+}
+.kc-nav-links a.ext-link:hover {
+  color: var(--kc-bg);
+  background: var(--kc-accent);
+  border-color: var(--kc-accent);
+}
+
+.kc-theme-toggle {
+  background: none;
+  border: 1px solid var(--kc-rule);
+  color: var(--kc-ink-2);
+  font-family: var(--kc-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1;
+}
+.kc-theme-toggle:hover { color: var(--kc-accent); border-color: var(--kc-accent); }
+.kc-theme-toggle .icon { display: inline-block; width: 12px; text-align: center; font-size: 12px; }
+
+
+/* Scoped accent override: dark grounds use bright tangerine instead of coral */
+.kc-contact, .kc-shell-footer, .kc-footer { --kc-accent: #ff8a3d; }
+
+.kc-contact {
+  background: var(--kc-ink); color: var(--kc-bg);
+  font-family: var(--kc-mono);
+  border-top: 1px solid var(--kc-rule-strong);
+}
+[data-theme="dark"] .kc-contact { background: #080a10; }
+.kc-contact-inner {
+  max-width: 1240px; margin: 0 auto; padding: 96px 40px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end;
+}
+.kc-contact-headline {
+  font-family: var(--kc-mono); font-size: 56px; font-weight: 500;
+  line-height: 1.0; letter-spacing: -0.025em; color: var(--kc-bg); margin: 0;
+}
+.kc-accent { color: var(--kc-accent); }
+.kc-cursor {
+  display: inline-block; width: 0.5em; height: 0.85em;
+  background: var(--kc-accent); margin-left: 6px; vertical-align: baseline;
+  animation: kc-blink 1.1s step-end infinite;
+}
+.kc-contact-meta { display: flex; flex-direction: column; gap: 0; }
+.kc-contact-row {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 18px 0; border-bottom: 1px solid #1f2230;
+}
+.kc-contact-row:first-child { border-top: 1px solid #1f2230; }
+[data-theme="dark"] .kc-contact-row,
+[data-theme="dark"] .kc-contact-row:first-child { border-color: #1a1d28; }
+.kc-contact-row-label {
+  font-family: var(--kc-mono); font-size: 10px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: #7a85a0;
+}
+.kc-contact-row-label::before { content: '> '; color: var(--kc-accent); }
+.kc-contact-row a {
+  font-family: var(--kc-mono); font-size: 17px; color: var(--kc-bg);
+  text-decoration: none; transition: color 0.15s;
+}
+.kc-contact-row a:hover { color: var(--kc-accent); }
+
+.kc-shell-footer {
+  background: var(--kc-ink); color: #7a85a0;
+  border-top: 1px solid #1f2230;
+  font-family: var(--kc-mono);
+}
+[data-theme="dark"] .kc-shell-footer { background: #080a10; border-top-color: #1a1d28; }
+.kc-shell-footer-inner {
+  max-width: 1240px; margin: 0 auto; padding: 32px 40px 40px;
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 32px; align-items: end;
+  font-size: 11px; letter-spacing: 0.04em;
+}
+.kc-shell-footer-meta { line-height: 1.7; }
+.kc-shell-footer-meta strong { color: var(--kc-bg); font-weight: 500; }
+.kc-shell-footer-socials { display: flex; gap: 20px; }
+.kc-shell-footer-socials a {
+  color: #9aa5c0; text-decoration: none;
+  transition: color 0.15s; text-transform: uppercase; letter-spacing: 0.1em;
+}
+.kc-shell-footer-socials a:hover { color: var(--kc-accent); }
+
+@media (max-width: 900px) {
+  .kc-statusbar-inner, .kc-shell-nav-inner,
+  .kc-contact-inner, .kc-shell-footer-inner { padding-left: 28px; padding-right: 28px; }
+  .kc-contact-inner { grid-template-columns: 1fr; gap: 40px; padding-top: 64px; padding-bottom: 64px; }
+  .kc-contact-headline { font-size: 36px; }
+}
+@media (max-width: 560px) {
+  .kc-statusbar-inner, .kc-shell-nav-inner,
+  .kc-contact-inner, .kc-shell-footer-inner { padding-left: 20px; padding-right: 20px; }
+  .kc-statusbar-inner { font-size: 10px; gap: 12px; padding-top: 8px; padding-bottom: 8px; }
+  .kc-status-left { gap: 12px; }
+  .kc-status-right > span:not(:last-of-type) { display: none; }
+  .kc-shell-nav-inner { padding-top: 14px; padding-bottom: 14px; }
+  .kc-nav-links { gap: 0; }
+  .kc-nav-links a { padding: 5px 8px; font-size: 11px; }
+  .kc-contact-headline { font-size: 26px; }
+  .kc-shell-footer-inner { grid-template-columns: 1fr; gap: 16px; }
+}
+
+
+
+
+/* DARK_MODE_BLOCK_V3 */
+/* ============================================================
+   DARK MODE — shell-only.
+   The case study content keeps its native styling regardless of theme.
+   Only the kc- prefixed shell chrome (status bar, nav, contact, footer) flips.
+   ============================================================ */
+:root[data-theme="dark"] {
+  --kc-bg: #0e1118;
+  --kc-surface: #181c26;
+  --kc-ink: #e8ecf5;
+  --kc-ink-2: #a8b0c4;
+  --kc-ink-3: #6a7088;
+  --kc-accent: #dd5045;
+  --kc-status: #88b070;
+  --kc-rule: #252a38;
+  --kc-rule-strong: #363c4e;
+}
+:root[data-theme="dark"] .kc-contact,
+:root[data-theme="dark"] .kc-shell-footer,
+:root[data-theme="dark"] .kc-footer {
+  background: #080a10;
+  border-top-color: #1a1d28;
+}
+:root[data-theme="dark"] .kc-contact-row { border-bottom-color: #1a1d28; }
+:root[data-theme="dark"] .kc-contact-row:first-child { border-top-color: #1a1d28; }
+
+</style>
+<link rel="stylesheet" href="assets/theme.css">
+<script src="assets/theme.js"></script>
+</head>
+<body>
+
+<!-- ============ PORTFOLIO SHELL: TOP CHROME ============ -->
+<div class="kc-statusbar">
+  <div class="kc-statusbar-inner">
+    <div class="kc-status-left">
+      <span class="kc-status-dot">ONLINE</span>
+      <span class="kc-status-time" id="kc-status-time">--:--:-- PT</span>
+      <span>v.1.0.0</span>
+    </div>
+    <div class="kc-status-right">
+      <span>SF/CA</span>
+      <span>2026</span>
+      <span>ISSUE 01</span>
+      <button class="kc-theme-toggle" data-theme-toggle aria-label="Toggle theme">
+        <span class="icon">☾</span>
+        <span class="label">DARK</span>
+      </button>
+    </div>
+  </div>
+</div>
+<nav class="kc-shell-nav">
+  <div class="kc-shell-nav-inner">
+    <a class="kc-nav-brand" href="index.html">KATE<span class="kc-slash">/</span>CHAPARRO</a>
+    <ul class="kc-nav-links">
+      <li><a href="index.html">Work</a></li>
+      <li><a href="state-affairs.html" class="kc-is-active">State Affairs</a></li>
+      <li><a href="index.html#contact-section">Contact</a></li>
+      <li><a href="https://happy-novel-ashen.figma.site/" target="_blank" rel="noopener" class="ext-link">Older work ↗</a></li>
+    </ul>
+  </div>
+</nav>
+<!-- ============ END PORTFOLIO SHELL TOP CHROME ============ -->
+
+<header class="hero">
+  <div class="eyebrow">Case Study · 2024 — Present</div>
+  <h1>Designing the platform behind <em>50-state policy intelligence.</em></h1>
+  <p class="hero-lead">
+    Two years of work at State Affairs — a B2B legislative tracking platform used by enterprise teams to monitor policy across all fifty US states. Below: the features I shipped, the tools I scaled nationwide, and the systems work behind both.
+  </p>
+</header>
+
+<section class="meta">
+  <div class="meta-item">
+    <span class="meta-label">Role</span>
+    <span class="meta-value">Senior UX/Product Designer</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Team</span>
+    <span class="meta-value">Design, Product, Engineering</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Surface</span>
+    <span class="meta-value">Web · Mobile Web</span>
+  </div>
+  <div class="meta-item">
+    <span class="meta-label">Years</span>
+    <span class="meta-value">2024 — Present</span>
+  </div>
+</section>
+
+<nav class="toc" aria-label="Case studies">
+  <div class="toc-label">In this case study</div>
+  <ul class="toc-list">
+    <li><a href="#code-annotated"><span class="toc-num">01</span><span class="toc-title">Code Annotated, scaled from one state to fifty</span></a></li>
+    <li><a href="#document-comparison"><span class="toc-num">02</span><span class="toc-title">Document Comparison, an industry-first capability</span></a></li>
+    <li><a href="#keywords"><span class="toc-num">03</span><span class="toc-title">Untangling a fragmented save-and-search experience</span></a></li>
+    <li><a href="#voting-scorecard"><span class="toc-num">04</span><span class="toc-title">An empty state that holds the room</span></a></li>
+    <li><a href="#news"><span class="toc-num">05</span><span class="toc-title">Bringing editorial weight to a B2B reading surface</span></a></li>
+    <li><a href="#three-sixty"><span class="toc-num">06</span><span class="toc-title">The collaboration layer inside the flagship</span></a></li>
+  </ul>
+</nav>
+
+<!-- ============ CASE 01: CODE ANNOTATED ============ -->
+<section class="case" id="code-annotated">
+  <div class="case-number">— 01 / Reference & Search</div>
+  <h2>Code Annotated, scaled from one state to fifty.</h2>
+  <p class="case-tagline">Taking a state-specific tool and rebuilding it as a platform-wide capability.</p>
+
+  <div class="case-body">
+    <aside class="case-side">
+      <div class="case-side-block">
+        <strong>Role</strong>
+        Lead designer
+      </div>
+      <div class="case-side-block">
+        <strong>Surface</strong>
+        Desktop · Mobile web · Native mobile
+      </div>
+      <div class="case-side-block">
+        <strong>Year</strong>
+        2024
+      </div>
+    </aside>
+
+    <div class="case-content">
+      <p class="lede">
+        Code Annotated started as a Tennessee-only legislative reference tool. The work was to take it nationwide — preserving what made it useful at the state level while introducing the structure needed to scale across fifty distinct legal codes.
+      </p>
+
+      <h3>The problem</h3>
+      <p>
+        Each state codifies its laws differently — different titles, different chapter numbering, different relationships between sections and the bills that reference them. A flat list wouldn't survive that variance, and a single state-specific UI couldn't either.
+      </p>
+
+      <h3>The design</h3>
+      <p>
+        I designed a branch-style interface that breaks each state's code down by title, then chapter, then section, with referenced bills surfaced at every level. Users can follow specific sections to receive alerts when new bills cite them — which is the actual reason this feature exists for power users.
+      </p>
+
+      <div class="figure">
+        <div class="figure-image">
+          <span class="figure-image-label">Code Annotated — Title view</span>
+        </div>
+        <div class="figure-caption">
+          <span class="figure-caption-num">Fig. 01</span>
+          <span>Title-level navigation showing chapters with associated bill counts.</span>
+        </div>
+      </div>
+
+      <h3>Scaling across surfaces</h3>
+      <p>
+        The same hierarchy had to work on desktop, mobile web, and native mobile. The branch metaphor held up across all three because it's structural rather than visual — each surface expresses the depth differently, but the model underneath is identical.
+      </p>
+
+      <div class="figure figure-pair">
+        <div>
+          <div class="figure-image tall">
+            <span class="figure-image-label">Mobile · Section detail</span>
+          </div>
+        </div>
+        <div>
+          <div class="figure-image tall">
+            <span class="figure-image-label">Mobile · Following alerts</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CASE 02: DOCUMENT COMPARISON ============ -->
+<section class="case" id="document-comparison">
+  <div class="case-number">— 02 / Bill Tracking</div>
+  <h2>Document Comparison, the first cross-state legislative diff tool.</h2>
+  <p class="case-tagline">A standalone capability that didn't exist anywhere in the industry.</p>
+
+  <div class="case-body">
+    <aside class="case-side">
+      <div class="case-side-block">
+        <strong>Role</strong>
+        Lead designer
+      </div>
+      <div class="case-side-block">
+        <strong>Distinction</strong>
+        Industry-first capability
+      </div>
+      <div class="case-side-block">
+        <strong>Year</strong>
+        2024
+      </div>
+    </aside>
+
+    <div class="case-content">
+      <p class="lede">
+        Comparison tools existed in legislative software, but only inside a single bill — version A versus version B of the same legislation. State Affairs became the first platform to let users compare any two documents from any two bills, anywhere in the country.
+      </p>
+
+      <h3>Why this is harder than it sounds</h3>
+      <p>
+        Cross-bill comparison breaks the assumption that gives most diff tools their structure: that the documents share a parent. Without that, the search experience is doing more work than the diff itself — users need to find document B with no implicit context from document A.
+      </p>
+
+      <h3>The design</h3>
+      <p>
+        I built a two-panel selector with independent search on each side, document-type filtering (fiscal notes, amendments, proposed versions), and clear empty states for each panel until two documents were chosen. The comparison itself runs after both are selected.
+      </p>
+
+      <div class="figure">
+        <div class="figure-image wide">
+          <span class="figure-image-label">Document Comparison — Selection state</span>
+        </div>
+        <div class="figure-caption">
+          <span class="figure-caption-num">Fig. 02</span>
+          <span>Two-panel selection with independent search and type filtering.</span>
+        </div>
+      </div>
+
+      <p>
+        The pattern set the standard other features have followed since — the same two-panel selection structure now appears across cross-cutting tools elsewhere in the platform.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CASE 03: KEYWORDS REDESIGN ============ -->
+<section class="case" id="keywords">
+  <div class="case-number">— 03 / Keyword Alerts</div>
+  <h2>Untangling a fragmented save-and-search experience.</h2>
+  <p class="case-tagline">A redesign of the platform's most actively-used power-user feature.</p>
+
+  <div class="case-body">
+    <aside class="case-side">
+      <div class="case-side-block">
+        <strong>Role</strong>
+        Lead designer
+      </div>
+      <div class="case-side-block">
+        <strong>Status</strong>
+        Stakeholder review
+      </div>
+      <div class="case-side-block">
+        <strong>Year</strong>
+        2025
+      </div>
+    </aside>
+
+    <div class="case-content">
+      <p class="lede">
+        Keyword Alerts had grown into the most actively-used feature on the platform — and also the most fragmented. Saving, editing, organizing, and searching had each evolved separately, with overlapping interactions and inconsistent results across content types.
+      </p>
+
+      <h3>What I changed</h3>
+      <ul>
+        <li>Redesigned card patterns across four content types — news, hearings, legislators, committees — so results feel coherent regardless of what's matching.</li>
+        <li>Rationalized search modes into three named options: Quick search, Phrase builder, and Boolean. Each surfaces different controls instead of competing for the same input.</li>
+        <li>Consolidated the save and edit experience into a single creation drawer. Previously these were two separate flows that diverged in subtle ways.</li>
+        <li>Rebuilt folder creation as an inline dropdown, removing a modal that was interrupting the most common save path.</li>
+      </ul>
+
+      <div class="figure">
+        <div class="figure-image wide">
+          <span class="figure-image-label">Keywords — Search results across content types</span>
+        </div>
+        <div class="figure-caption">
+          <span class="figure-caption-num">Fig. 03</span>
+          <span>Universal results page with content-type tabs and consistent card grammar.</span>
+        </div>
+      </div>
+
+      <div class="figure figure-pair">
+        <div>
+          <div class="figure-image">
+            <span class="figure-image-label">Search modes</span>
+          </div>
+        </div>
+        <div>
+          <div class="figure-image">
+            <span class="figure-image-label">Save & edit drawer</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CASE 04: VOTING SCORECARD ============ -->
+<section class="case" id="voting-scorecard">
+  <div class="case-number">— 04 / Voting Scorecard</div>
+  <h2>An empty state that holds the room before the data arrives.</h2>
+  <p class="case-tagline">Designing for the long pre-vote stretch most scorecard tools ignore.</p>
+
+  <div class="case-body">
+    <aside class="case-side">
+      <div class="case-side-block">
+        <strong>Role</strong>
+        Lead designer
+      </div>
+      <div class="case-side-block">
+        <strong>Type</strong>
+        Craft / Empty states
+      </div>
+      <div class="case-side-block">
+        <strong>Year</strong>
+        2024
+      </div>
+    </aside>
+
+    <div class="case-content">
+      <p class="lede">
+        Voting Scorecards spend most of their lives empty. Bills sit on the floor for weeks before votes are recorded, and during that stretch users still need the page to feel like a tool — not a broken view of one.
+      </p>
+
+      <h3>The design</h3>
+      <p>
+        Ghost columns in a muted state hold the structure of the eventual scorecard, paired with a footer banner that explains the state plainly. When every bill is pre-vote, a distinct all-empty body state takes over rather than repeating the per-column treatment dozens of times across the table.
+      </p>
+
+      <div class="figure">
+        <div class="figure-image wide">
+          <span class="figure-image-label">Scorecard — Pre-vote ghost state</span>
+        </div>
+        <div class="figure-caption">
+          <span class="figure-caption-num">Fig. 04</span>
+          <span>Ghost columns with footer banner explaining the state.</span>
+        </div>
+      </div>
+
+      <p>
+        Small surface, but a real call: power users wanted hand-holding at this stage, and stripping the table to a single message would have hidden the structure they were trying to read into.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CASE 05: NEWS ============ -->
+<section class="case" id="news">
+  <div class="case-number">— 05 / News</div>
+  <h2>Bringing editorial weight to a B2B reading surface.</h2>
+  <p class="case-tagline">A typographic refresh of the platform's news experience.</p>
+
+  <div class="case-body">
+    <aside class="case-side">
+      <div class="case-side-block">
+        <strong>Role</strong>
+        Lead designer
+      </div>
+      <div class="case-side-block">
+        <strong>Type</strong>
+        Visual refresh
+      </div>
+      <div class="case-side-block">
+        <strong>Year</strong>
+        2025
+      </div>
+    </aside>
+
+    <div class="case-content">
+      <p class="lede">
+        State Affairs publishes original statehouse reporting alongside its tracking tools. The news surface had been styled as a B2B feed — the visual language closer to a dashboard than to the journalism it housed.
+      </p>
+
+      <p>
+        I reset the type system around editorial fundamentals: a serif headline face for hierarchy, a serif body face tuned for long-form reading, and a tighter color palette that lets the writing carry the page. The structure stayed consistent with the rest of the platform; the surface around it changed.
+      </p>
+
+      <div class="figure">
+        <div class="figure-image wide">
+          <span class="figure-image-label">News — Article detail</span>
+        </div>
+        <div class="figure-caption">
+          <span class="figure-caption-num">Fig. 05</span>
+          <span>Article surface with editorial typography and reduced chrome.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CASE 06: 360 COMMENTS ============ -->
+<section class="case" id="three-sixty">
+  <div class="case-number">— 06 / 360 Views</div>
+  <h2>The collaboration layer inside the flagship.</h2>
+  <p class="case-tagline">Comments and detail panels across State Affairs' bill workspace.</p>
+
+  <div class="case-body">
+    <aside class="case-side">
+      <div class="case-side-block">
+        <strong>Role</strong>
+        Designer · Comments &amp; detail panels
+      </div>
+      <div class="case-side-block">
+        <strong>Surface</strong>
+        360 Views
+      </div>
+      <div class="case-side-block">
+        <strong>Year</strong>
+        2025
+      </div>
+    </aside>
+
+    <div class="case-content">
+      <p class="lede">
+        360 Views is State Affairs' bill workspace — the surface where teams analyze, annotate, and act on legislation together. I owned the comments and detail panel layer that lives across it.
+      </p>
+
+      <h3>The data model decision</h3>
+      <p>
+        The first design question was scope: should comments live on the bill, or per-view inside it? After prototyping both, the team landed on bill-level comments with view filtering — one source of truth, with the comments filtered to whichever view a user is reading them in. The data model reads cleanly across the whole feature; the UI can vary per surface without forking.
+      </p>
+
+      <h3>Two prototypes, one decision</h3>
+      <p>
+        For the bill detail panel I built two variants: one where 360 view threads expand inline, and one with compact link-out rows. The toggle was a native HTML details element rather than a custom component — proving the interaction without committing the engineering team to a pattern that hadn't been validated yet.
+      </p>
+
+      <div class="figure">
+        <div class="figure-image wide">
+          <span class="figure-image-label">360 — Comments panel with view filtering</span>
+        </div>
+        <div class="figure-caption">
+          <span class="figure-caption-num">Fig. 06</span>
+          <span>Bill-level comments scoped to the active 360 view.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-end">
+    <h3>End of <em>State Affairs.</em></h3>
+    <div class="footer-actions">
+      <a href="#" class="footer-link">← Back to Work</a>
+      <a href="mailto:chaparrokate02@gmail.com" class="footer-link footer-link-accent">Get in touch →</a>
+    </div>
+  </div>
+  <div class="footer-meta">
+    Kate Chaparro<br>
+    San Francisco · 2026
+  </div>
+</footer>
+
+
+<!-- ============ PORTFOLIO SHELL: BOTTOM CHROME ============ -->
+<section class="kc-contact">
+  <div class="kc-contact-inner">
+    <h2 class="kc-contact-headline">Get in <span class="kc-accent">touch</span><span class="kc-cursor"></span></h2>
+    <div class="kc-contact-meta">
+      <div class="kc-contact-row">
+        <span class="kc-contact-row-label">email</span>
+        <a href="mailto:chaparrokate02@gmail.com">chaparrokate02@gmail.com</a>
+      </div>
+      <div class="kc-contact-row">
+        <span class="kc-contact-row-label">linkedin</span>
+        <a href="https://www.linkedin.com/in/katechaparro/" target="_blank" rel="noopener">/in/katechaparro</a>
+      </div>
+      <div class="kc-contact-row">
+        <span class="kc-contact-row-label">portfolio</span>
+        <a href="https://happy-novel-ashen.figma.site/" target="_blank" rel="noopener">happy-novel-ashen.figma.site</a>
+      </div>
+    </div>
+  </div>
+</section>
+<footer class="kc-shell-footer">
+  <div class="kc-shell-footer-inner">
+    <div class="kc-shell-footer-meta">
+      <strong>Kate Chaparro</strong> · Senior Product Designer · 2026<br>
+      Set in JetBrains Mono · Built by hand
+    </div>
+    <div class="kc-shell-footer-socials">
+      <a href="https://www.linkedin.com/in/katechaparro/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://happy-novel-ashen.figma.site/" target="_blank" rel="noopener">Portfolio</a>
+      <a href="mailto:chaparrokate02@gmail.com">Email</a>
+    </div>
+  </div>
+</footer>
+<script>
+  (function() {
+    function updateTime() {
+      const now = new Date();
+      const opts = { timeZone: 'America/Los_Angeles', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+      const t = new Intl.DateTimeFormat('en-US', opts).format(now);
+      const el = document.getElementById('kc-status-time');
+      if (el) el.textContent = t + ' PT';
+    }
+    updateTime();
+    setInterval(updateTime, 1000);
+  })();
+</script>
+<!-- ============ END PORTFOLIO SHELL BOTTOM CHROME ============ -->
+
+</body>
+</html>

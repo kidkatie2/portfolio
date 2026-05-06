@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DEAD! — three case studies · Kate Chaparro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/shell.css">
+<link rel="stylesheet" href="../assets/theme.css">
+<script src="../assets/theme.js"></script>
+<style>
+  /* DEAD! index page-specific styles */
+  .studies {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 32px var(--gutter) 64px;
+  }
+  .studies-head {
+    padding-bottom: 24px;
+    border-bottom: 1px dashed var(--rule);
+    margin-bottom: 0;
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 32px;
+  }
+  .studies-head h2 {
+    font-family: var(--mono);
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+  .studies-head h2::before { content: '// '; color: var(--accent); font-weight: 400; }
+  .studies-head .meta {
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+    text-align: right;
+    line-height: 1.5;
+  }
+  .studies-head .meta strong { color: var(--ink); font-weight: 500; }
+
+  .study {
+    display: grid;
+    grid-template-columns: 80px 1fr 200px;
+    gap: 32px;
+    align-items: start;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--rule);
+    transition: background 0.2s, padding 0.2s;
+  }
+  .study:hover {
+    background: var(--surface);
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .study:hover .study-title { color: var(--accent); }
+  .study:hover .study-arrow { color: var(--accent); transform: translateX(6px); }
+
+  .study-num {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    font-weight: 600;
+    text-transform: uppercase;
+    padding-top: 6px;
+  }
+  .study-body {}
+  .study-title {
+    font-family: var(--mono);
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin-bottom: 8px;
+    transition: color 0.2s;
+  }
+  .study-title .accent { color: var(--accent); }
+  .study-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-2);
+    max-width: 580px;
+  }
+  .study-side {
+    text-align: right;
+    padding-top: 8px;
+    font-size: 11px;
+    line-height: 1.7;
+    color: var(--ink-3);
+  }
+  .study-side strong { color: var(--ink); font-weight: 500; display: block; }
+  .study-arrow {
+    display: inline-block;
+    margin-top: 12px;
+    color: var(--ink-2);
+    font-size: 14px;
+    transition: transform 0.2s, color 0.2s;
+  }
+
+  /* About this project - context block */
+  .context {
+    border-top: 1px solid var(--rule);
+    background: var(--bg);
+  }
+  .context-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 80px var(--gutter);
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 64px;
+  }
+  .context-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    padding-top: 6px;
+  }
+  .context-label::before { content: '> '; color: var(--accent); }
+  .context-content p {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--ink);
+    margin-bottom: 16px;
+    max-width: 720px;
+  }
+  .context-content p:last-child { margin-bottom: 0; }
+  .context-content .accent { color: var(--accent); }
+
+  @media (max-width: 900px) {
+    .study { grid-template-columns: 60px 1fr; gap: 16px; }
+    .study-side { grid-column: 2; text-align: left; padding-top: 4px; }
+    .study-arrow { display: none; }
+    .context-inner { grid-template-columns: 1fr; gap: 24px; padding: 56px var(--gutter); }
+  }
+  @media (max-width: 560px) {
+    .study { grid-template-columns: 1fr; gap: 4px; padding: 24px 0; }
+    .study-side { grid-column: 1; }
+    .study:hover { padding-left: 0; padding-right: 0; }
+    .studies-head { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .studies-head .meta { text-align: left; }
+  }
+
+
+
+
+/* DARK_MODE_BLOCK_V3 */
+/* ============================================================
+   DARK MODE — inlined per-page for bulletproof cascade.
+   :root[data-theme="dark"] specificity (0,1,1) > :root (0,0,1)
+   Flips both unprefixed (page chrome + content) and kc- (shell chrome).
+   ============================================================ */
+:root[data-theme="dark"] {
+  --bg: #0e1118;
+  --surface: #181c26;
+  --surface-deep: #1f2330;
+  --ink: #e8ecf5;
+  --ink-2: #a8b0c4;
+  --ink-3: #6a7088;
+  --accent: #dd5045;
+  --accent-soft: #4a2028;
+  --status: #88b070;
+  --rule: #252a38;
+  --rule-strong: #363c4e;
+  --kc-bg: #0e1118;
+  --kc-surface: #181c26;
+  --kc-ink: #e8ecf5;
+  --kc-ink-2: #a8b0c4;
+  --kc-ink-3: #6a7088;
+  --kc-accent: #dd5045;
+  --kc-status: #88b070;
+  --kc-rule: #252a38;
+  --kc-rule-strong: #363c4e;
+}
+:root[data-theme="dark"] .contact,
+:root[data-theme="dark"] footer,
+:root[data-theme="dark"] .kc-contact,
+:root[data-theme="dark"] .kc-shell-footer,
+:root[data-theme="dark"] .kc-footer {
+  background: #080a10;
+  border-top-color: #1a1d28;
+}
+:root[data-theme="dark"] .contact-row,
+:root[data-theme="dark"] .kc-contact-row { border-bottom-color: #1a1d28; }
+:root[data-theme="dark"] .contact-row:first-child,
+:root[data-theme="dark"] .kc-contact-row:first-child { border-top-color: #1a1d28; }
+
+</style>
+</head>
+<body>
+
+<div class="statusbar">
+  <div class="statusbar-inner">
+    <div class="status-left">
+      <span class="status-dot">ONLINE</span>
+      <span class="status-time" id="status-time">--:--:-- PT</span>
+      <span>v.1.0.0</span>
+    </div>
+    <div class="status-right">
+      <span>SF/CA</span>
+      <span>2026</span>
+      <span>ISSUE 01</span>
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme">
+        <span class="icon">☾</span>
+        <span class="label">DARK</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="../index.html">KATE<span class="slash">/</span>CHAPARRO</a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Work</a></li>
+      <li><a href="../index.html#about-section">About</a></li>
+      <li><a href="../index.html#contact-section">Contact</a></li>
+      <li><a href="https://happy-novel-ashen.figma.site/" target="_blank" rel="noopener" class="ext-link">Older work ↗</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="case-page-hero">
+  <a class="case-back" href="../index.html">← back to index</a>
+  <div class="case-eyebrow">Case Study 02 / Edtech · Freelance design lead</div>
+  <h1>Redesigning <span class="accent">DEAD!</span>, a learning platform for mortuary science.</h1>
+  <p class="case-lead">A complete redesign across student and instructor experiences — covered through three case studies: systems thinking, product detail, and handoff craft. The work shipped as a 6,700-line React prototype that became the source of truth for engineering.</p>
+</section>
+
+<section class="case-meta-strip">
+  <div class="case-meta-inner">
+    <div class="case-meta-item"><span class="case-meta-label">role</span><span class="case-meta-value">Design Lead (freelance)</span></div>
+    <div class="case-meta-item"><span class="case-meta-label">scope</span><span class="case-meta-value">~40 screens</span></div>
+    <div class="case-meta-item"><span class="case-meta-label">stack</span><span class="case-meta-value">Figma · React</span></div>
+    <div class="case-meta-item"><span class="case-meta-label">deliverable</span><span class="case-meta-value">Prototype + spec</span></div>
+    <div class="case-meta-item"><span class="case-meta-label">year</span><span class="case-meta-value">2024 — 2026</span></div>
+  </div>
+</section>
+
+<section class="studies">
+  <div class="studies-head">
+    <h2>three_case_studies</h2>
+    <div class="meta">
+      <strong>03 entries</strong> · pick any to enter<br>
+      best read in order
+    </div>
+  </div>
+
+  <a class="study" href="01-two-perspectives.html">
+    <div class="study-num">— 01</div>
+    <div class="study-body">
+      <div class="study-title">Two perspectives, <span class="accent">one product.</span></div>
+      <p class="study-desc">Redesigning DEAD! across student and instructor experiences in a single React prototype that became the source of truth for engineering.</p>
+    </div>
+    <div class="study-side">
+      <strong>Systems thinking</strong>
+      Personas · Inventory<br>
+      Design system · Dev toolbar
+      <div class="study-arrow">→</div>
+    </div>
+  </a>
+
+  <a class="study" href="02-gradebook.html">
+    <div class="study-num">— 02</div>
+    <div class="study-body">
+      <div class="study-title">The gradebook &amp; the <span class="accent">edge case that mattered.</span></div>
+      <p class="study-desc">A weighted gradebook is solved territory until you ask what should display when a category has no submissions yet. Catching a silent failure before it shipped.</p>
+    </div>
+    <div class="study-side">
+      <strong>Product detail</strong>
+      Edge cases · Logic<br>
+      LMS research · Formula
+      <div class="study-arrow">→</div>
+    </div>
+  </a>
+
+  <a class="study" href="03-spec.html">
+    <div class="study-num">— 03</div>
+    <div class="study-body">
+      <div class="study-title">When the <span class="accent">spec is the design.</span></div>
+      <p class="study-desc">A 27-section developer handoff document, designed under a constraint that turned out to make the work better. Documentation as a deliverable.</p>
+    </div>
+    <div class="study-side">
+      <strong>Handoff craft</strong>
+      Documentation · Figures<br>
+      Pseudocode · Principles
+      <div class="study-arrow">→</div>
+    </div>
+  </a>
+</section>
+
+<section class="context">
+  <div class="context-inner">
+    <div class="context-label">about_dead.txt</div>
+    <div class="context-content">
+      <p><span class="accent">DEAD!</span> — short for Death Education Assessment Drills — is a learning platform for mortuary science programs. The redesign covered a complete rebuild of both the student and instructor experiences, with the goal of producing a single artifact engineering could ship against without the design team in the room.</p>
+      <p>I led design end-to-end: research, system, prototype, and a 27-section developer handoff spec. The three case studies above each look at a different layer of the work — the macro structure, a single moment of product detail, and the handoff itself.</p>
+    </div>
+  </div>
+</section>
+
+<section class="contact">
+  <div class="contact-inner">
+    <h2 class="contact-headline">Get in <span class="accent">touch</span><span class="cursor"></span></h2>
+    <div class="contact-meta">
+      <div class="contact-row">
+        <span class="contact-row-label">email</span>
+        <a href="mailto:chaparrokate02@gmail.com">chaparrokate02@gmail.com</a>
+      </div>
+      <div class="contact-row">
+        <span class="contact-row-label">linkedin</span>
+        <a href="https://www.linkedin.com/in/katechaparro/" target="_blank" rel="noopener">/in/katechaparro</a>
+      </div>
+      <div class="contact-row">
+        <span class="contact-row-label">portfolio</span>
+        <a href="https://happy-novel-ashen.figma.site/" target="_blank" rel="noopener">happy-novel-ashen.figma.site</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-meta">
+      <strong>Kate Chaparro</strong> · Senior Product Designer · 2026<br>
+      Set in JetBrains Mono · Built by hand
+    </div>
+    <div class="footer-socials">
+      <a href="https://www.linkedin.com/in/katechaparro/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://happy-novel-ashen.figma.site/" target="_blank" rel="noopener">Portfolio</a>
+      <a href="mailto:chaparrokate02@gmail.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function updateTime() {
+    const now = new Date();
+    const opts = { timeZone: 'America/Los_Angeles', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    const t = new Intl.DateTimeFormat('en-US', opts).format(now);
+    const el = document.getElementById('status-time');
+    if (el) el.textContent = t + ' PT';
+  }
+  updateTime();
+  setInterval(updateTime, 1000);
+</script>
+
+</body>
+</html>

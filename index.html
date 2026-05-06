@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kate Chaparro — Senior Product Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/theme.css">
+<script src="assets/theme.js"></script>
+<style>
+  :root {
+    --bg: #fff0e6;
+    --surface: #ffe2d4;
+    --surface-deep: #f8d2c0;
+
+    --ink: #101218;
+    --ink-2: #784a4e;
+    --ink-3: #b08890;
+
+    --accent: #dd5045;
+    --accent-soft: #f8d4d8;
+
+    --status: #5a7a3e;
+
+    --rule: #f5cec0;
+    --rule-strong: #e0a89a;
+
+    --mono: 'JetBrains Mono', 'SF Mono', 'IBM Plex Mono', monospace;
+
+    --max: 1240px;
+    --gutter: 40px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--accent); color: var(--bg); }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* Status bar */
+  .statusbar { border-bottom: 1px solid var(--rule); background: var(--bg); position: sticky; top: 0; z-index: 100; }
+  .statusbar-inner {
+    max-width: var(--max); margin: 0 auto;
+    padding: 10px var(--gutter);
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    font-size: 11px; letter-spacing: 0.04em;
+  }
+  .status-left { display: flex; gap: 24px; align-items: center; color: var(--ink-3); }
+  .status-dot { display: inline-flex; align-items: center; gap: 6px; color: var(--ink-2); }
+  .status-dot::before {
+    content: ''; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--status); box-shadow: 0 0 6px rgba(90,122,62,0.5);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
+  .status-time { color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .status-right { display: flex; gap: 4px; align-items: center; color: var(--ink-3); }
+  .status-right > span { padding: 0 6px; border-left: 1px solid var(--rule); }
+  .status-right > span:first-child { border-left: none; }
+  .status-right .theme-toggle { margin-left: 4px; }
+
+  /* Nav */
+  .nav { border-bottom: 1px solid var(--rule); background: var(--bg); }
+  .nav-inner { max-width: var(--max); margin: 0 auto; padding: 18px var(--gutter); display: flex; align-items: center; justify-content: space-between; }
+  .nav-brand { font-size: 13px; font-weight: 600; letter-spacing: 0.02em; color: var(--ink); font-family: var(--mono); }
+  .nav-brand .slash { color: var(--accent); margin: 0 2px; }
+  .nav-brand:hover { color: var(--accent); }
+  .nav-links { display: flex; gap: 4px; list-style: none; }
+  .nav-links a {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em;
+    color: var(--ink-2); border: 1px solid transparent; padding: 6px 12px;
+    transition: all 0.15s; cursor: pointer;
+  }
+  .nav-links a:hover { color: var(--ink); border-color: var(--rule); }
+  .nav-links a.is-active { color: var(--accent); border-color: var(--accent); }
+  .nav-links a.ext-link {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    font-weight: 500;
+  }
+  .nav-links a.ext-link:hover {
+    color: var(--bg);
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  /* Hero */
+  .hero { max-width: var(--max); margin: 0 auto; padding: 80px var(--gutter) 56px; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 11px; letter-spacing: 0.08em; color: var(--ink-2);
+    margin-bottom: 48px; padding: 6px 12px 6px 10px;
+    background: var(--surface); border: 1px solid var(--rule);
+  }
+  .hero-tag::before { content: '●'; color: var(--accent); font-size: 10px; }
+  .hero h1 {
+    font-family: var(--mono); font-size: 64px; font-weight: 500;
+    line-height: 1.05; letter-spacing: -0.025em;
+    margin-bottom: 40px; max-width: 1100px; color: var(--ink);
+  }
+  .hero h1 .accent { color: var(--accent); }
+  .hero h1 .cursor {
+    display: inline-block; width: 0.55em; height: 1em;
+    background: var(--ink); vertical-align: text-bottom; margin-left: 4px;
+    animation: blink 1.1s step-end infinite;
+  }
+  @keyframes blink { 0%,50% { opacity: 1; } 51%,100% { opacity: 0; } }
+  .hero-lead { font-size: 15px; line-height: 1.65; color: var(--ink-2); max-width: 580px; }
+
+  /* Manifest */
+  .manifest { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); background: var(--surface); }
+  .manifest-inner {
+    max-width: var(--max); margin: 0 auto;
+    padding: 18px var(--gutter);
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px;
+    font-size: 11px;
+  }
+  .manifest-item { display: flex; flex-direction: column; gap: 2px; }
+  .manifest-label { color: var(--ink-3); letter-spacing: 0.06em; }
+  .manifest-label::before { content: '> '; color: var(--accent); }
+  .manifest-value { color: var(--ink); font-weight: 500; }
+
+  /* Section heading */
+  .section-head {
+    max-width: var(--max); margin: 0 auto;
+    padding: 96px var(--gutter) 32px;
+    display: flex; align-items: end; justify-content: space-between; gap: 32px;
+    border-bottom: 1px dashed var(--rule);
+  }
+  .section-head h2 { font-family: var(--mono); font-size: 28px; font-weight: 600; letter-spacing: -0.015em; }
+  .section-head h2::before { content: '// '; color: var(--accent); font-weight: 400; }
+  .section-head-meta { font-size: 11px; letter-spacing: 0.06em; color: var(--ink-3); text-align: right; line-height: 1.5; }
+  .section-head-meta strong { color: var(--ink); font-weight: 500; }
+
+  /* Cards */
+  .cards {
+    max-width: var(--max); margin: 0 auto;
+    padding: 32px var(--gutter) 64px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  }
+  .card {
+    background: var(--surface); border: 1px solid var(--rule); border-top: 3px solid var(--accent);
+    padding: 0; cursor: pointer; text-align: left;
+    font-family: var(--mono); color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-top-color 0.2s;
+    position: relative; display: flex; flex-direction: column; min-height: 360px;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 var(--rule-strong);
+    border-top-color: var(--ink);
+  }
+  .card:hover .card-cta { color: var(--accent); }
+  .card:hover .card-cta .arrow { transform: translateX(4px); }
+  .card-hd {
+    padding: 14px 18px; border-bottom: 1px dashed var(--rule);
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3);
+  }
+  .card-id { color: var(--accent); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .card-status { display: inline-flex; align-items: center; gap: 5px; color: var(--status); font-weight: 600; }
+  .card-status::before { content: '●'; font-size: 9px; }
+  .card-status.draft { color: var(--ink-3); }
+  .card-bd { padding: 22px 18px 18px; flex: 1; display: flex; flex-direction: column; }
+  .card-cat {
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-2); margin-bottom: 14px; padding-bottom: 10px;
+    border-bottom: 1px dotted var(--rule);
+  }
+  .card-title {
+    font-size: 19px; font-weight: 500; line-height: 1.25; letter-spacing: -0.01em;
+    color: var(--ink); margin-bottom: 10px;
+  }
+  .card-title .accent { color: var(--accent); }
+  .card-desc { font-size: 12.5px; line-height: 1.55; color: var(--ink-2); margin-bottom: 20px; flex: 1; }
+  .card-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px;
+    padding: 14px 0;
+    border-top: 1px dotted var(--rule); border-bottom: 1px dotted var(--rule);
+    margin-bottom: 16px; font-size: 11px;
+  }
+  .card-stat { display: flex; flex-direction: column; gap: 2px; }
+  .card-stat .k { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
+  .card-stat .v { color: var(--ink); font-weight: 500; font-variant-numeric: tabular-nums; }
+  .card-cta {
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-2); display: flex; justify-content: space-between; align-items: center;
+    transition: color 0.2s; font-weight: 500;
+  }
+  .card-cta .arrow { display: inline-block; transition: transform 0.2s; font-size: 14px; }
+
+  /* About */
+  .about-wrap { border-top: 1px solid var(--rule); background: var(--bg); }
+  .about {
+    max-width: var(--max); margin: 0 auto;
+    padding: 96px var(--gutter);
+    display: grid; grid-template-columns: 280px 1fr; gap: 64px;
+  }
+  .about-side { border-right: 1px dashed var(--rule); padding-right: 32px; }
+  .about-side-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 20px; }
+  .about-side-label::before { content: '> '; color: var(--accent); }
+  .about-stats { display: flex; flex-direction: column; gap: 16px; font-size: 12px; }
+  .about-stat { display: flex; justify-content: space-between; border-bottom: 1px dotted var(--rule); padding-bottom: 8px; }
+  .about-stat-label { color: var(--ink-3); }
+  .about-stat-value { color: var(--ink); font-weight: 500; }
+  .about-content h2 {
+    font-family: var(--mono); font-size: 36px; font-weight: 600;
+    line-height: 1.15; letter-spacing: -0.015em; margin-bottom: 32px;
+    color: var(--ink); max-width: 720px;
+  }
+  .about-content h2 .accent { color: var(--accent); }
+  .about-content p { font-size: 15px; line-height: 1.65; margin-bottom: 18px; color: var(--ink); max-width: 620px; }
+  .about-content p:last-child { margin-bottom: 0; }
+
+  /* Contact */
+  /* Contact + Footer — scoped accent override (orange instead of coral on dark grounds) */
+  .contact, footer { --accent: #ff8a3d; }
+
+  .contact { background: var(--ink); color: var(--bg); border-top: 1px solid var(--rule-strong); }
+  .contact-inner {
+    max-width: var(--max); margin: 0 auto;
+    padding: 96px var(--gutter);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end;
+  }
+  .contact-headline {
+    font-family: var(--mono); font-size: 56px; font-weight: 500;
+    line-height: 1.0; letter-spacing: -0.025em; color: var(--bg);
+  }
+  .contact-headline .accent { color: var(--accent); }
+  .contact-headline .cursor {
+    display: inline-block; width: 0.5em; height: 0.85em;
+    background: var(--accent); margin-left: 6px; vertical-align: baseline;
+    animation: blink 1.1s step-end infinite;
+  }
+  .contact-meta { display: flex; flex-direction: column; gap: 0; }
+  .contact-row { display: flex; flex-direction: column; gap: 4px; padding: 18px 0; border-bottom: 1px solid #1f2230; }
+  .contact-row:first-child { border-top: 1px solid #1f2230; }
+  .contact-row-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #7a85a0; }
+  .contact-row-label::before { content: '> '; color: var(--accent); }
+  .contact-row a { font-family: var(--mono); font-size: 17px; color: var(--bg); transition: color 0.15s; }
+  .contact-row a:hover { color: var(--accent); }
+
+  /* Footer */
+  footer { background: var(--ink); color: #7a85a0; border-top: 1px solid #1f2230; }
+  .footer-inner {
+    max-width: var(--max); margin: 0 auto;
+    padding: 32px var(--gutter) 40px;
+    display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  }
+  .footer-meta { line-height: 1.7; }
+  .footer-meta strong { color: var(--bg); font-weight: 500; }
+  .footer-socials { display: flex; gap: 20px; }
+  .footer-socials a { color: #9aa5c0; transition: color 0.15s; text-transform: uppercase; letter-spacing: 0.1em; }
+  .footer-socials a:hover { color: var(--accent); }
+
+  /* Responsive */
+  @media (max-width: 1100px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 900px) {
+    :root { --gutter: 28px; }
+    .hero h1 { font-size: 48px; }
+    .manifest-inner { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .about { grid-template-columns: 1fr; gap: 40px; }
+    .about-side { border-right: none; padding-right: 0; padding-bottom: 32px; border-bottom: 1px dashed var(--rule); }
+    .about-content h2 { font-size: 28px; }
+    .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+    .contact-headline { font-size: 40px; }
+    .cards { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    :root { --gutter: 20px; }
+    .statusbar-inner { font-size: 10px; gap: 12px; padding: 8px var(--gutter); }
+    .status-left { gap: 12px; }
+    .status-right > span:not(:last-of-type) { display: none; }
+    .nav-inner { padding: 14px var(--gutter); }
+    .nav-links { gap: 0; }
+    .nav-links a { padding: 5px 8px; font-size: 11px; }
+    .hero { padding: 48px var(--gutter) 36px; }
+    .hero h1 { font-size: 30px; line-height: 1.08; }
+    .hero-tag { margin-bottom: 28px; }
+    .manifest-inner { grid-template-columns: 1fr 1fr; padding: 14px var(--gutter); }
+    .section-head { padding: 64px var(--gutter) 16px; flex-direction: column; align-items: flex-start; gap: 8px; }
+    .section-head h2 { font-size: 22px; }
+    .section-head-meta { text-align: left; }
+    .about { padding: 64px var(--gutter); }
+    .about-content h2 { font-size: 24px; }
+    .contact-inner { padding: 64px var(--gutter); }
+    .contact-headline { font-size: 28px; }
+    .footer-inner { grid-template-columns: 1fr; gap: 16px; padding: 24px var(--gutter) 32px; }
+  }
+
+
+
+
+/* DARK_MODE_BLOCK_V3 */
+/* ============================================================
+   DARK MODE — inlined per-page for bulletproof cascade.
+   :root[data-theme="dark"] specificity (0,1,1) > :root (0,0,1)
+   Flips both unprefixed (page chrome + content) and kc- (shell chrome).
+   ============================================================ */
+:root[data-theme="dark"] {
+  --bg: #0e1118;
+  --surface: #181c26;
+  --surface-deep: #1f2330;
+  --ink: #e8ecf5;
+  --ink-2: #a8b0c4;
+  --ink-3: #6a7088;
+  --accent: #dd5045;
+  --accent-soft: #4a2028;
+  --status: #88b070;
+  --rule: #252a38;
+  --rule-strong: #363c4e;
+  --kc-bg: #0e1118;
+  --kc-surface: #181c26;
+  --kc-ink: #e8ecf5;
+  --kc-ink-2: #a8b0c4;
+  --kc-ink-3: #6a7088;
+  --kc-accent: #dd5045;
+  --kc-status: #88b070;
+  --kc-rule: #252a38;
+  --kc-rule-strong: #363c4e;
+}
+:root[data-theme="dark"] .contact,
+:root[data-theme="dark"] footer,
+:root[data-theme="dark"] .kc-contact,
+:root[data-theme="dark"] .kc-shell-footer,
+:root[data-theme="dark"] .kc-footer {
+  background: #080a10;
+  border-top-color: #1a1d28;
+}
+:root[data-theme="dark"] .contact-row,
+:root[data-theme="dark"] .kc-contact-row { border-bottom-color: #1a1d28; }
+:root[data-theme="dark"] .contact-row:first-child,
+:root[data-theme="dark"] .kc-contact-row:first-child { border-top-color: #1a1d28; }
+
+</style>
+</head>
+<body>
+
+<div class="statusbar">
+  <div class="statusbar-inner">
+    <div class="status-left">
+      <span class="status-dot">ONLINE</span>
+      <span class="status-time" id="status-time">--:--:-- PT</span>
+      <span>v.1.0.0</span>
+    </div>
+    <div class="status-right">
+      <span>SF/CA</span>
+      <span>2026</span>
+      <span>ISSUE 01</span>
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme">
+        <span class="icon">☾</span>
+        <span class="label">DARK</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">KATE<span class="slash">/</span>CHAPARRO</a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="is-active">Work</a></li>
+      <li><a href="#about-section">About</a></li>
+      <li><a href="#contact-section">Contact</a></li>
+      <li><a href="https://happy-novel-ashen.figma.site/" target="_blank" rel="noopener" class="ext-link">Older work ↗</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-tag">Issue 01 — Selected Work, 2024 → Present</div>
+  <h1>Senior product designer working across <span class="accent">systems, surfaces, and stories</span><span class="cursor"></span></h1>
+  <p class="hero-lead">
+    I design enterprise tools that hold up under power-user pressure — and bring editorial craft to the surfaces around them. Currently leading product design at State Affairs.
+  </p>
+</header>
+
+<section class="manifest">
+  <div class="manifest-inner">
+    <div class="manifest-item"><span class="manifest-label">role</span><span class="manifest-value">Sr. UX/Product</span></div>
+    <div class="manifest-item"><span class="manifest-label">based</span><span class="manifest-value">SF Bay Area</span></div>
+    <div class="manifest-item"><span class="manifest-label">surface</span><span class="manifest-value">Web · Mobile · Native</span></div>
+    <div class="manifest-item"><span class="manifest-label">years</span><span class="manifest-value">8 in product</span></div>
+    <div class="manifest-item"><span class="manifest-label">status</span><span class="manifest-value">Open to roles, freelance</span></div>
+  </div>
+</section>
+
+<div class="section-head">
+  <h2>selected_work</h2>
+  <div class="section-head-meta">
+    <strong>03 entries</strong> · last updated 2026<br>
+    sorted: most recent first
+  </div>
+</div>
+
+<section class="cards">
+
+  <a class="card" href="state-affairs.html">
+    <div class="card-hd">
+      <span class="card-id">[01 / 03]</span>
+      <span class="card-status">Live</span>
+    </div>
+    <div class="card-bd">
+      <div class="card-cat">B2B SaaS · Legislative Intelligence</div>
+      <div class="card-title">Designing the platform behind <span class="accent">50-state policy intelligence</span></div>
+      <p class="card-desc">Two years of work at State Affairs — features shipped, tools scaled nationwide, and the systems work behind both.</p>
+      <div class="card-stats">
+        <div class="card-stat"><span class="k">role</span><span class="v">Lead Designer</span></div>
+        <div class="card-stat"><span class="k">years</span><span class="v">2024 → Now</span></div>
+        <div class="card-stat"><span class="k">surface</span><span class="v">Web · Mobile</span></div>
+        <div class="card-stat"><span class="k">features</span><span class="v">06 shipped</span></div>
+      </div>
+      <div class="card-cta">
+        <span>Read case study</span>
+        <span class="arrow">→</span>
+      </div>
+    </div>
+  </a>
+
+  <a class="card" href="dead/index.html">
+    <div class="card-hd">
+      <span class="card-id">[02 / 03]</span>
+      <span class="card-status">Live</span>
+    </div>
+    <div class="card-bd">
+      <div class="card-cat">Edtech · Freelance design lead</div>
+      <div class="card-title">Redesigning <span class="accent">DEAD!</span>, a learning platform for mortuary science</div>
+      <p class="card-desc">A complete redesign across student and instructor experiences — shipped as a 6,700-line React prototype that became the source of truth for engineering.</p>
+      <div class="card-stats">
+        <div class="card-stat"><span class="k">role</span><span class="v">Design Lead</span></div>
+        <div class="card-stat"><span class="k">scope</span><span class="v">~40 screens</span></div>
+        <div class="card-stat"><span class="k">stack</span><span class="v">Figma · React</span></div>
+        <div class="card-stat"><span class="k">studies</span><span class="v">03 inside</span></div>
+      </div>
+      <div class="card-cta">
+        <span>Read case studies</span>
+        <span class="arrow">→</span>
+      </div>
+    </div>
+  </a>
+
+  <a class="card" href="#" onclick="event.preventDefault(); alert('Coming soon — personal projects.');">
+    <div class="card-hd">
+      <span class="card-id">[03 / 03]</span>
+      <span class="card-status draft">Pending</span>
+    </div>
+    <div class="card-bd">
+      <div class="card-cat">Personal · Apps &amp; Prototypes</div>
+      <div class="card-title">Things I made <span class="accent">for myself</span></div>
+      <p class="card-desc">Personal app projects and prototypes — built to learn, ship, and explore the shape of a hybrid practice.</p>
+      <div class="card-stats">
+        <div class="card-stat"><span class="k">role</span><span class="v">Solo</span></div>
+        <div class="card-stat"><span class="k">years</span><span class="v">2024 → 26</span></div>
+        <div class="card-stat"><span class="k">stack</span><span class="v">HTML · React</span></div>
+        <div class="card-stat"><span class="k">projects</span><span class="v">Multiple</span></div>
+      </div>
+      <div class="card-cta">
+        <span>Coming soon</span>
+        <span class="arrow">→</span>
+      </div>
+    </div>
+  </a>
+
+</section>
+
+<div class="about-wrap" id="about-section">
+  <section class="about">
+    <aside class="about-side">
+      <div class="about-side-label">about_kate.txt</div>
+      <div class="about-stats">
+        <div class="about-stat"><span class="about-stat-label">role</span><span class="about-stat-value">Sr. Product Designer</span></div>
+        <div class="about-stat"><span class="about-stat-label">company</span><span class="about-stat-value">State Affairs</span></div>
+        <div class="about-stat"><span class="about-stat-label">based</span><span class="about-stat-value">San Mateo, CA</span></div>
+        <div class="about-stat"><span class="about-stat-label">stack</span><span class="about-stat-value">Figma · HTML · React</span></div>
+        <div class="about-stat"><span class="about-stat-label">years</span><span class="about-stat-value">8 in product</span></div>
+        <div class="about-stat"><span class="about-stat-label">availability</span><span class="about-stat-value" style="color: var(--status);">● Open</span></div>
+      </div>
+    </aside>
+    <div class="about-content">
+      <h2>I'm a senior product designer with a generalist's range and a <span class="accent">systems thinker's depth.</span></h2>
+      <p>My work moves between design systems, prototyping, and product strategy — the connective tissue between what gets shipped and how it holds together over time.</p>
+      <p>I'm currently at State Affairs, a B2B legislative tracking platform, leading design across the company's flagship surfaces — bill tracking, voting analysis, document comparison, AI-assisted research, and the editorial layer that wraps it all.</p>
+      <p>Outside of that, I'm building toward a hybrid practice: design that ships, with a working knowledge of the code and product mechanics underneath. I prototype in HTML and React, write briefs alongside specs, and like the parts of the job most designers consider someone else's problem.</p>
+    </div>
+  </section>
+</div>
+
+<section class="contact" id="contact-section">
+  <div class="contact-inner">
+    <h2 class="contact-headline">Get in <span class="accent">touch</span><span class="cursor"></span></h2>
+    <div class="contact-meta">
+      <div class="contact-row">
+        <span class="contact-row-label">email</span>
+        <a href="mailto:chaparrokate02@gmail.com">chaparrokate02@gmail.com</a>
+      </div>
+      <div class="contact-row">
+        <span class="contact-row-label">linkedin</span>
+        <a href="https://www.linkedin.com/in/katechaparro/" target="_blank" rel="noopener">/in/katechaparro</a>
+      </div>
+      <div class="contact-row">
+        <span class="contact-row-label">portfolio</span>
+        <a href="https://happy-novel-ashen.figma.site/" target="_blank" rel="noopener">happy-novel-ashen.figma.site</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-meta">
+      <strong>Kate Chaparro</strong> · Senior Product Designer · 2026<br>
+      Set in JetBrains Mono · Built by hand
+    </div>
+    <div class="footer-socials">
+      <a href="https://www.linkedin.com/in/katechaparro/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://happy-novel-ashen.figma.site/" target="_blank" rel="noopener">Portfolio</a>
+      <a href="mailto:chaparrokate02@gmail.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function updateTime() {
+    const now = new Date();
+    const opts = { timeZone: 'America/Los_Angeles', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    const t = new Intl.DateTimeFormat('en-US', opts).format(now);
+    const el = document.getElementById('status-time');
+    if (el) el.textContent = t + ' PT';
+  }
+  updateTime();
+  setInterval(updateTime, 1000);
+</script>
+
+</body>
+</html>

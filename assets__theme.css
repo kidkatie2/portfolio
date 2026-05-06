@@ -1,0 +1,96 @@
+/* ============================================================
+   THEME — light + dark variants
+   Adds [data-theme="dark"] overrides to the existing palette.
+   ============================================================ */
+
+/* Light mode (default) is defined in shell.css already. */
+
+[data-theme="dark"] {
+  --bg: #0e1118;
+  --surface: #181c26;
+  --surface-deep: #1f2330;
+
+  --ink: #e8ecf5;
+  --ink-2: #a8b0c4;
+  --ink-3: #6a7088;
+
+  --accent: #ff6680;
+  --accent-soft: #4a2028;
+
+  --status: #88b070;
+
+  --rule: #252a38;
+  --rule-strong: #363c4e;
+}
+
+/* Dark mode body uses the theme variable from above; no extra texture. */
+
+/* Contact / footer dark sections need to flip relationship in dark mode */
+[data-theme="dark"] .contact,
+[data-theme="dark"] footer,
+[data-theme="dark"] .kc-contact,
+[data-theme="dark"] .kc-footer {
+  background: #080a10;
+  border-top-color: #1a1d28;
+}
+[data-theme="dark"] .contact-row,
+[data-theme="dark"] .kc-contact-row { border-bottom-color: #1a1d28; }
+[data-theme="dark"] .contact-row:first-child,
+[data-theme="dark"] .kc-contact-row:first-child { border-top-color: #1a1d28; }
+
+/* ============================================================
+   THEME TOGGLE BUTTON
+   Lives in the status bar. Sun/moon icon swaps based on theme.
+   ============================================================ */
+.theme-toggle,
+.kc-theme-toggle {
+  background: none;
+  border: 1px solid var(--rule);
+  color: var(--ink-2);
+  font-family: var(--mono, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1;
+}
+.theme-toggle:hover,
+.kc-theme-toggle:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.theme-toggle .icon,
+.kc-theme-toggle .icon {
+  display: inline-block;
+  width: 12px;
+  text-align: center;
+  font-size: 12px;
+}
+
+/* kc-prefixed dark mode for sub-case-studies */
+[data-theme="dark"] .kc-statusbar,
+[data-theme="dark"] .kc-nav {
+  background: var(--kc-bg);
+  border-color: var(--kc-rule);
+}
+[data-theme="dark"] {
+  --kc-bg: #0e1118;
+  --kc-surface: #181c26;
+  --kc-ink: #e8ecf5;
+  --kc-ink-2: #a8b0c4;
+  --kc-ink-3: #6a7088;
+  --kc-accent: #ff6680;
+  --kc-status: #88b070;
+  --kc-rule: #252a38;
+  --kc-rule-strong: #363c4e;
+}
+[data-theme="dark"] .kc-contact,
+[data-theme="dark"] .kc-footer { background: #080a10; }
+[data-theme="dark"] .kc-case-nav-section { background: var(--kc-surface); }
+
+/* IMPORTANT: case study content (the work itself) keeps its native styling.
+   Dark mode applies only to the portfolio shell chrome. */

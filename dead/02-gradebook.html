@@ -444,13 +444,13 @@
     font-size: 12px;
     color: var(--gray-500);
     font-weight: 500;
-    background: #fff;
+    background: var(--white);
     border-radius: 6px;
     padding: 4px 12px;
     border: 1px solid var(--gray-200);
   }
 
-  .gb-mockup { background: #fff; font-family: 'Inter', sans-serif; font-size: 13px; }
+  .gb-mockup { background: var(--white); font-family: 'Inter', sans-serif; font-size: 13px; }
   .gb-mockup-toolbar {
     padding: 14px 20px;
     border-bottom: 1px solid var(--gray-200);
@@ -465,7 +465,7 @@
   .gb-mockup-toolbar .change-link { color: var(--blue); margin-left: 6px; cursor: pointer; font-weight: 500; }
   .gb-mockup-toolbar .actions { display: flex; gap: 6px; }
   .gb-mockup-toolbar .btn {
-    background: #fff; border: 1px solid var(--gray-200);
+    background: var(--white); border: 1px solid var(--gray-200);
     padding: 6px 12px; font-size: 12px; border-radius: 6px;
     color: var(--gray-600); font-weight: 500;
   }
@@ -528,7 +528,7 @@
   .gb-empty h3 { font-size: 20px; font-weight: 700; color: var(--navy); margin: 0 0 8px; }
   .gb-empty p { color: var(--gray-500); font-size: 14px; max-width: 360px; margin: 0 auto; }
 
-  .gb-weights { padding: 28px; background: #fff; }
+  .gb-weights { padding: 28px; background: var(--white); }
   .gb-weights-title {
     font-family: 'Inter', sans-serif;
     font-size: 18px; font-weight: 700;
@@ -555,7 +555,7 @@
     position: absolute; right: -8px; top: 50%;
     transform: translateY(-50%);
     width: 16px; height: 16px;
-    background: #fff;
+    background: var(--white);
     border: 2px solid var(--blue);
     border-radius: 50%;
     box-shadow: 0 2px 6px rgba(0,0,0,0.12);
@@ -594,7 +594,7 @@
   .gb-panel-faded .fake-row:nth-child(2n) { width: 80%; }
   .gb-panel-faded .fake-row:nth-child(3n) { width: 60%; }
   .gb-panel {
-    width: 380px; background: #fff;
+    width: 380px; background: var(--white);
     border-left: 1px solid var(--gray-200);
     box-shadow: -8px 0 32px rgba(27, 43, 107, 0.12);
     padding: 24px; position: relative;
@@ -650,7 +650,7 @@
     padding: 56px 32px; text-align: center;
   }
   .cell-closeup {
-    display: inline-block; background: #fff;
+    display: inline-block; background: var(--white);
     border: 1px solid var(--gray-200);
     border-radius: 8px;
     box-shadow: 0 12px 32px rgba(11, 18, 48, 0.1);
@@ -672,7 +672,7 @@
   .cell-closeup td {
     padding: 16px 22px;
     border-right: 1px solid var(--gray-200);
-    background: #fff;
+    background: var(--white);
   }
   .cell-closeup td:last-child {
     border-right: none; background: var(--blue-pale);
@@ -938,6 +938,7 @@
   --red: #f87171;
   --red-pale: #3a1a1a;
   --rule: #252a38;
+  --white: #181c26;
 
   /* Shell chrome tokens (kc- prefix) */
   --kc-bg: #0e1118;

@@ -1025,7 +1025,7 @@
 <div class="tldr">
   <div class="tldr-inner">
     <div class="tldr-label">TL;DR</div>
-    <p class="tldr-content">[TLDR draft pending — Kate to provide content]</p>
+    <p class="tldr-content">Caught a silent failure mode in a weighted gradebook nobody else flagged: what should the grade say in week three of the semester, when only one of three weighted categories has any submissions? The naive answer (zero out the empty categories) drags every student's grade down for work they were never assigned. Drove the spec decision and shipped the explicit design: empty categories render as an em-dash, weight is not redistributed mid-semester, and the math is communicated in the student detail panel as "40% → 100%".</p>
   </div>
 </div>
 

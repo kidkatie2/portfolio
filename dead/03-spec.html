@@ -47,7 +47,7 @@
     font-family: 'IBM Plex Mono', monospace;
     font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase;
     padding: 4px 10px; border: 1px solid var(--gray-300); border-radius: 999px;
-    color: var(--gray-600); background: white;
+    color: var(--gray-600); background: var(--gray-50);
   }
 
   .hero {
@@ -88,10 +88,51 @@
     max-width: 760px; font-weight: 400; margin: 0;
   }
 
+  /* ── Lede (bold scan-line under each h3) ───────────────────────────────── */
+  .lede {
+    display: block;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 8px;
+    letter-spacing: -0.005em;
+  }
+
+  /* ── TL;DR ───────────────────────────────── */
+  .tldr {
+    padding: 28px 8vw 32px;
+    border-bottom: 1px solid var(--gray-200);
+    background: var(--paper);
+  }
+  .tldr-inner {
+    border: 1px solid var(--gray-200);
+    background: var(--gray-50);
+    padding: 24px 32px;
+    max-width: 880px;
+    border-radius: 10px;
+  }
+  .tldr-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .tldr-label::before { content: '> '; color: var(--blue); }
+  .tldr-content {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--gray-700);
+    margin: 0;
+    max-width: none;
+  }
+
   .meta-grid {
     display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
     padding: 36px 8vw; border-bottom: 1px solid var(--gray-200);
-    background: white;
+    background: var(--gray-50);
   }
   .meta-label {
     font-family: 'IBM Plex Mono', monospace;
@@ -101,7 +142,7 @@
   .meta-val { font-size: 15px; color: var(--navy); font-weight: 500; line-height: 1.4; }
 
   section { padding: 80px 8vw; border-bottom: 1px solid var(--gray-200); }
-  section:nth-of-type(even) { background: white; }
+  section:nth-of-type(even) { background: var(--gray-50); }
   .section-num {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
@@ -159,7 +200,7 @@
     margin: 36px 0;
   }
   .compare-card {
-    background: white; border: 1px solid var(--gray-200);
+    background: var(--gray-50); border: 1px solid var(--gray-200);
     border-radius: 12px; padding: 28px;
   }
   .compare-card.before { border-left: 4px solid var(--gray-300); }
@@ -178,7 +219,7 @@
   .ingredients {
     display: grid; grid-template-columns: repeat(2, 1fr);
     gap: 0;
-    background: white;
+    background: var(--gray-50);
     border: 1px solid var(--gray-200);
     border-radius: 14px; overflow: hidden;
     margin: 32px 0;
@@ -202,7 +243,7 @@
 
   /* ── SAMPLE FIGURE BLOCK ───────────────────────────────── */
   .figure-block {
-    background: white; border: 1px solid var(--gray-200);
+    background: var(--gray-50); border: 1px solid var(--gray-200);
     border-radius: 14px; padding: 32px;
     margin: 32px 0;
   }
@@ -221,7 +262,7 @@
   .spec-mock {
     border: 1px solid var(--gray-200);
     border-radius: 12px; overflow: hidden;
-    background: white;
+    background: var(--gray-50);
     margin: 24px 0;
   }
   .spec-mock-toolbar {
@@ -554,11 +595,35 @@
 
 /* DARK_MODE_BLOCK_V3 */
 /* ============================================================
-   DARK MODE — shell-only.
-   The case study content keeps its native styling regardless of theme.
-   Only the kc- prefixed shell chrome (status bar, nav, contact, footer) flips.
+   DARK MODE — full flip.
+   Flips both the case-study-content tokens and the kc- shell tokens
+   so nothing is left in light palette while the rest is dark.
    ============================================================ */
 :root[data-theme="dark"] {
+  /* Case study content tokens */
+  --paper: #0e1118;
+  --ink: #e8ecf5;
+  --gray-50: #14171f;
+  --gray-100: #181c26;
+  --gray-200: #252a38;
+  --gray-300: #363c4e;
+  --gray-400: #6a7088;
+  --gray-500: #8a92a8;
+  --gray-600: #a8b0c4;
+  --gray-700: #c8d0e0;
+  --navy: #c8d4ec;
+  --navy-deep: #a8b8d8;
+  --blue: #6a8fff;
+  --blue-pale: #1a2240;
+  --green: #4ade80;
+  --green-pale: #14322a;
+  --yellow: #fbbf24;
+  --yellow-pale: #3a2f0a;
+  --red: #f87171;
+  --red-pale: #3a1a1a;
+  --rule: #252a38;
+
+  /* Shell chrome tokens (kc- prefix) */
   --kc-bg: #0e1118;
   --kc-surface: #181c26;
   --kc-ink: #e8ecf5;
@@ -569,6 +634,7 @@
   --kc-rule: #252a38;
   --kc-rule-strong: #363c4e;
 }
+:root[data-theme="dark"] body { background: var(--paper); color: var(--ink); }
 :root[data-theme="dark"] .kc-contact,
 :root[data-theme="dark"] .kc-shell-footer,
 :root[data-theme="dark"] .kc-footer {
@@ -577,6 +643,10 @@
 }
 :root[data-theme="dark"] .kc-contact-row { border-bottom-color: #1a1d28; }
 :root[data-theme="dark"] .kc-contact-row:first-child { border-top-color: #1a1d28; }
+:root[data-theme="dark"] .constraint,
+:root[data-theme="dark"] .spec-mock-toolbar,
+:root[data-theme="dark"] .case-footer { background: var(--gray-100); color: var(--ink); }
+:root[data-theme="dark"] .case-footer a { color: var(--ink); }
 
 </style>
 
@@ -633,6 +703,14 @@
   <p class="deck">Most "specs" are afterthoughts — a Figma export, a Notion doc, a Loom recording. For DEAD!, the spec was a designed artifact: 27 sections, 20+ figures, worked examples, pseudocode for edge cases, and an API contract. Built around a specific constraint that changed everything about how I wrote it.</p>
 </section>
 
+<!-- ── TL;DR ───────────────────────────────── -->
+<div class="tldr">
+  <div class="tldr-inner">
+    <div class="tldr-label">TL;DR</div>
+    <p class="tldr-content">[TLDR draft pending — Kate to provide content]</p>
+  </div>
+</div>
+
 <div class="meta-grid">
   <div>
     <div class="meta-label">Role</div>
@@ -679,12 +757,12 @@
     <div class="compare-card before">
       <div class="compare-tag">Before · ad-hoc style</div>
       <h3>"The grade switch modal has two paths."</h3>
-      <p>Going from Weighted to Points only needs a confirmation. The other direction needs a confirmation step plus a sliders step where the system suggests weights from the existing point distribution.</p>
+      <p><strong class="lede">Going from Weighted to Points only needs a confirmation.</strong> The other direction needs a confirmation step plus a sliders step where the system suggests weights from the existing point distribution.</p>
     </div>
     <div class="compare-card after">
       <div class="compare-tag">After · spec style</div>
       <h3>§13 Grading System Switch Modal</h3>
-      <p>Two flow diagrams (Weighted→Points: 1 step. Points→Weighted: 2 steps). Annotated screenshots of both modal states. A worked example showing how 25/35/40 point weights translate to 25%/35%/40% sliders. Pseudocode for the auto-balance logic. An expected-state table for both paths.</p>
+      <p><strong class="lede">Two flow diagrams (Weighted→Points: 1 step. Points→Weighted: 2 steps).</strong> Annotated screenshots of both modal states. A worked example showing how 25/35/40 point weights translate to 25%/35%/40% sliders. Pseudocode for the auto-balance logic. An expected-state table for both paths.</p>
     </div>
   </div>
 
@@ -701,32 +779,32 @@
     <div class="ingredient">
       <div class="ingredient-num">01</div>
       <h3>Context SVG</h3>
-      <p>A wide overview diagram showing where the feature lives in the broader screen. Helps engineering orient before zooming in.</p>
+      <p><strong class="lede">A wide overview diagram showing where the feature lives in the broader screen.</strong> Helps engineering orient before zooming in.</p>
     </div>
     <div class="ingredient">
       <div class="ingredient-num">02</div>
       <h3>Detail SVG</h3>
-      <p>A close-up annotated diagram of the feature itself — fields, states, copy, dimensions. Pulled from the actual prototype data, not stylized.</p>
+      <p><strong class="lede">A close-up annotated diagram of the feature itself — fields, states, copy, dimensions.</strong> Pulled from the actual prototype data, not stylized.</p>
     </div>
     <div class="ingredient">
       <div class="ingredient-num">03</div>
       <h3>Worked example</h3>
-      <p>Real mock data running through the logic. "Kate Chen has 91% on Assignments and no Test scores. Here's exactly what her gradebook row should display."</p>
+      <p><strong class="lede">Real mock data running through the logic.</strong> "Kate Chen has 91% on Assignments and no Test scores. Here's exactly what her gradebook row should display."</p>
     </div>
     <div class="ingredient">
       <div class="ingredient-num">04</div>
       <h3>State table</h3>
-      <p>Inputs → expected outputs for default, empty, error, and loading states. Engineering can use this directly as test cases.</p>
+      <p><strong class="lede">Inputs → expected outputs for default, empty, error, and loading states.</strong> Engineering can use this directly as test cases.</p>
     </div>
     <div class="ingredient">
       <div class="ingredient-num">05</div>
       <h3>Pseudocode</h3>
-      <p>Behavior described as a function signature plus a few lines of logic. Reduces ambiguity for non-trivial calculations or conditional rendering.</p>
+      <p><strong class="lede">Behavior described as a function signature plus a few lines of logic.</strong> Reduces ambiguity for non-trivial calculations or conditional rendering.</p>
     </div>
     <div class="ingredient">
       <div class="ingredient-num">06</div>
       <h3>Open questions</h3>
-      <p>Things I haven't decided yet, listed explicitly. Engineering knows what to ask before they ship — and what's intentional vs. what's an oversight.</p>
+      <p><strong class="lede">Things I haven't decided yet, listed explicitly.</strong> Engineering knows what to ask before they ship — and what's intentional vs. what's an oversight.</p>
     </div>
   </div>
 </section>
@@ -794,35 +872,35 @@
       <div class="principle-num">01</div>
       <div>
         <h3>Lead with feature specs, push reference to the back.</h3>
-        <p>Originally I had design tokens, typography, and component primitives at the start. Engineering doesn't read those first — they read the section that maps to the ticket they're working on. I reordered the doc so feature specs lead and reference material is appendix-style at the end.</p>
+        <p><strong class="lede">Originally I had design tokens, typography, and component primitives at the start.</strong> Engineering doesn't read those first — they read the section that maps to the ticket they're working on. I reordered the doc so feature specs lead and reference material is appendix-style at the end.</p>
       </div>
     </div>
     <div class="principle">
       <div class="principle-num">02</div>
       <div>
         <h3>Group sections by mental model, not chronology.</h3>
-        <p>All grading-related sections (Calculation, Switch Modal, Assignments Tab) are grouped together as §12–14 even though Assignments was originally drafted as §16. If engineering is in the gradebook code, every related spec section should be one scroll away.</p>
+        <p><strong class="lede">All grading-related sections (Calculation, Switch Modal, Assignments Tab) are grouped together as §12–14 even though Assignments was originally drafted as §16.</strong> If engineering is in the gradebook code, every related spec section should be one scroll away.</p>
       </div>
     </div>
     <div class="principle">
       <div class="principle-num">03</div>
       <div>
         <h3>Build figures from the prototype's actual data.</h3>
-        <p>Mock SVG diagrams are tempting because they're easy. They're also useless when the real prototype has different copy, different counts, different colors. Every figure in this doc uses Kate Chen's grade data, the FSA-2200 mock class, the real assignment names. When engineering compares spec to prototype, they match.</p>
+        <p><strong class="lede">Mock SVG diagrams are tempting because they're easy.</strong> They're also useless when the real prototype has different copy, different counts, different colors. Every figure in this doc uses Kate Chen's grade data, the FSA-2200 mock class, the real assignment names. When engineering compares spec to prototype, they match.</p>
       </div>
     </div>
     <div class="principle">
       <div class="principle-num">04</div>
       <div>
         <h3>Document what you're sharing, not just what's new.</h3>
-        <p>The grading system picker is built once and used in two flows: Edit Class and Class Create Step 2. The spec calls this out explicitly with a "shared component" note in both sections, pointing to a single source. Without that, engineering would have built it twice.</p>
+        <p><strong class="lede">The grading system picker is built once and used in two flows: Edit Class and Class Create Step 2.</strong> The spec calls this out explicitly with a "shared component" note in both sections, pointing to a single source. Without that, engineering would have built it twice.</p>
       </div>
     </div>
     <div class="principle">
       <div class="principle-num">05</div>
       <div>
         <h3>Leave open questions visible.</h3>
-        <p>The doc has a §27 API Contract section with placeholders for endpoints that aren't finalized. There's an open question about whether class-average row cells should use the same score color thresholds as student rows. These are flagged, not buried — so engineering can build around them or ask, but not silently make the call themselves.</p>
+        <p><strong class="lede">The doc has a §27 API Contract section with placeholders for endpoints that aren't finalized.</strong> There's an open question about whether class-average row cells should use the same score color thresholds as student rows. These are flagged, not buried — so engineering can build around them or ask, but not silently make the call themselves.</p>
       </div>
     </div>
   </div>

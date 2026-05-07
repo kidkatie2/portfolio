@@ -261,6 +261,39 @@ footer { background: var(--ink); color: #7a85a0; border-top: 1px solid #1f2230; 
   max-width: 720px;
 }
 
+/* ---------- TL;DR block (sits between hero and meta strip) ---------- */
+.tldr {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 8px var(--gutter) 32px;
+}
+.tldr-inner {
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  padding: 24px 32px;
+  max-width: 1000px;
+}
+.tldr-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.tldr-label::before { content: '> '; color: var(--accent); }
+.tldr-content {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink);
+  font-family: var(--mono);
+}
+@media (max-width: 560px) {
+  .tldr { padding: 4px var(--gutter) 20px; }
+  .tldr-inner { padding: 18px 20px; }
+  .tldr-content { font-size: 15px; }
+}
+
 .case-meta-strip {
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);

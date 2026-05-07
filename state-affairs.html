@@ -131,6 +131,46 @@
     max-width: 720px;
   }
 
+  /* ---------- Lede (bold scan-line under each h3) ---------- */
+  .lede {
+    display: block;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    letter-spacing: -0.005em;
+  }
+
+  /* ---------- TL;DR ---------- */
+  .tldr {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--gutter) 32px;
+  }
+  .tldr-inner {
+    border: 1px solid var(--rule);
+    background: var(--surface);
+    padding: 28px 32px;
+    max-width: 880px;
+  }
+  .tldr-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .tldr-label::before { content: '> '; color: var(--accent); }
+  .tldr-content {
+    font-family: var(--font-serif);
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
   /* ---------- Meta strip ---------- */
   .meta {
     max-width: var(--max-width);
@@ -726,11 +766,25 @@
 
 /* DARK_MODE_BLOCK_V3 */
 /* ============================================================
-   DARK MODE — shell-only.
-   The case study content keeps its native styling regardless of theme.
-   Only the kc- prefixed shell chrome (status bar, nav, contact, footer) flips.
+   DARK MODE — full flip.
+   Flips both the case-study-content tokens and the kc- shell tokens
+   so nothing is left in light palette while the rest is dark.
+   :root[data-theme="dark"] specificity (0,1,1) > :root (0,0,1).
    ============================================================ */
 :root[data-theme="dark"] {
+  /* Case study content tokens */
+  --bg: #0e1118;
+  --surface: #181c26;
+  --surface-deep: #1f2330;
+  --text-primary: #e8ecf5;
+  --text-secondary: #a8b0c4;
+  --text-tertiary: #6a7088;
+  --rule: #252a38;
+  --accent: #4A6B5C;
+  --accent-soft: #1f2a25;
+  --paper: #0e1118;
+
+  /* Shell chrome tokens (kc- prefix) */
   --kc-bg: #0e1118;
   --kc-surface: #181c26;
   --kc-ink: #e8ecf5;
@@ -796,6 +850,13 @@
   </p>
 </header>
 
+<section class="tldr">
+  <div class="tldr-inner">
+    <div class="tldr-label">TL;DR</div>
+    <p class="tldr-content">[TLDR draft pending — Kate to provide content]</p>
+  </div>
+</section>
+
 <section class="meta">
   <div class="meta-item">
     <span class="meta-label">Role</span>
@@ -856,12 +917,12 @@
 
       <h3>The problem</h3>
       <p>
-        Each state codifies its laws differently — different titles, different chapter numbering, different relationships between sections and the bills that reference them. A flat list wouldn't survive that variance, and a single state-specific UI couldn't either.
+        <strong class="lede">Each state codifies its laws differently — different titles, different chapter numbering, different relationships between sections and the bills that reference them.</strong> A flat list wouldn't survive that variance, and a single state-specific UI couldn't either.
       </p>
 
       <h3>The design</h3>
       <p>
-        I designed a branch-style interface that breaks each state's code down by title, then chapter, then section, with referenced bills surfaced at every level. Users can follow specific sections to receive alerts when new bills cite them — which is the actual reason this feature exists for power users.
+        <strong class="lede">I designed a branch-style interface that breaks each state's code down by title, then chapter, then section, with referenced bills surfaced at every level.</strong> Users can follow specific sections to receive alerts when new bills cite them — which is the actual reason this feature exists for power users.
       </p>
 
       <div class="figure">
@@ -876,7 +937,7 @@
 
       <h3>Scaling across surfaces</h3>
       <p>
-        The same hierarchy had to work on desktop, mobile web, and native mobile. The branch metaphor held up across all three because it's structural rather than visual — each surface expresses the depth differently, but the model underneath is identical.
+        <strong class="lede">The same hierarchy had to work on desktop, mobile web, and native mobile.</strong> The branch metaphor held up across all three because it's structural rather than visual — each surface expresses the depth differently, but the model underneath is identical.
       </p>
 
       <div class="figure figure-pair">
@@ -924,12 +985,12 @@
 
       <h3>Why this is harder than it sounds</h3>
       <p>
-        Cross-bill comparison breaks the assumption that gives most diff tools their structure: that the documents share a parent. Without that, the search experience is doing more work than the diff itself — users need to find document B with no implicit context from document A.
+        <strong class="lede">Cross-bill comparison breaks the assumption that gives most diff tools their structure: that the documents share a parent.</strong> Without that, the search experience is doing more work than the diff itself — users need to find document B with no implicit context from document A.
       </p>
 
       <h3>The design</h3>
       <p>
-        I built a two-panel selector with independent search on each side, document-type filtering (fiscal notes, amendments, proposed versions), and clear empty states for each panel until two documents were chosen. The comparison itself runs after both are selected.
+        <strong class="lede">I built a two-panel selector with independent search on each side, document-type filtering (fiscal notes, amendments, proposed versions), and clear empty states for each panel until two documents were chosen.</strong> The comparison itself runs after both are selected.
       </p>
 
       <div class="figure">
@@ -977,6 +1038,7 @@
       </p>
 
       <h3>What I changed</h3>
+      <!-- TODO(lede): no <p> follows this h3, just a <ul>. Consider adding a 1-sentence lede paragraph above the list. -->
       <ul>
         <li>Redesigned card patterns across four content types — news, hearings, legislators, committees — so results feel coherent regardless of what's matching.</li>
         <li>Rationalized search modes into three named options: Quick search, Phrase builder, and Boolean. Each surfaces different controls instead of competing for the same input.</li>
@@ -1039,7 +1101,7 @@
 
       <h3>The design</h3>
       <p>
-        Ghost columns in a muted state hold the structure of the eventual scorecard, paired with a footer banner that explains the state plainly. When every bill is pre-vote, a distinct all-empty body state takes over rather than repeating the per-column treatment dozens of times across the table.
+        <strong class="lede">Ghost columns in a muted state hold the structure of the eventual scorecard, paired with a footer banner that explains the state plainly.</strong> When every bill is pre-vote, a distinct all-empty body state takes over rather than repeating the per-column treatment dozens of times across the table.
       </p>
 
       <div class="figure">
@@ -1132,12 +1194,12 @@
 
       <h3>The data model decision</h3>
       <p>
-        The first design question was scope: should comments live on the bill, or per-view inside it? After prototyping both, the team landed on bill-level comments with view filtering — one source of truth, with the comments filtered to whichever view a user is reading them in. The data model reads cleanly across the whole feature; the UI can vary per surface without forking.
+        <strong class="lede">The first design question was scope: should comments live on the bill, or per-view inside it?</strong> After prototyping both, the team landed on bill-level comments with view filtering — one source of truth, with the comments filtered to whichever view a user is reading them in. The data model reads cleanly across the whole feature; the UI can vary per surface without forking.
       </p>
 
       <h3>Two prototypes, one decision</h3>
       <p>
-        For the bill detail panel I built two variants: one where 360 view threads expand inline, and one with compact link-out rows. The toggle was a native HTML details element rather than a custom component — proving the interaction without committing the engineering team to a pattern that hadn't been validated yet.
+        <strong class="lede">For the bill detail panel I built two variants: one where 360 view threads expand inline, and one with compact link-out rows.</strong> The toggle was a native HTML details element rather than a custom component — proving the interaction without committing the engineering team to a pattern that hadn't been validated yet.
       </p>
 
       <div class="figure">

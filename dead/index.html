@@ -43,21 +43,35 @@
   .studies-head .meta strong { color: var(--ink); font-weight: 500; }
 
   .study {
+    position: relative;
     display: grid;
     grid-template-columns: 80px 1fr 200px;
     gap: 32px;
     align-items: start;
-    padding: 32px 0;
+    padding: 32px 0 32px 16px;
     border-bottom: 1px solid var(--rule);
-    transition: background 0.2s, padding 0.2s;
+    transition: background 0.2s, padding 0.2s, box-shadow 0.2s;
+  }
+  .study::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.2s ease-out;
   }
   .study:hover {
     background: var(--surface);
-    padding-left: 16px;
+    padding-left: 24px;
     padding-right: 16px;
   }
-  .study:hover .study-title { color: var(--accent); }
-  .study:hover .study-arrow { color: var(--accent); transform: translateX(6px); }
+  .study:hover::before { transform: scaleX(1); }
+  .study:hover .study-title { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+  .study:hover .study-title-arrow { transform: translateX(8px) scale(1.15); }
 
   .study-num {
     font-size: 11px;
@@ -74,11 +88,20 @@
     font-weight: 500;
     line-height: 1.2;
     letter-spacing: -0.015em;
-    color: var(--ink);
+    color: var(--accent);
     margin-bottom: 8px;
     transition: color 0.2s;
   }
   .study-title .accent { color: var(--accent); }
+  .study-title-arrow {
+    display: inline-block;
+    margin-left: 10px;
+    color: var(--accent);
+    font-size: 22px;
+    font-weight: 500;
+    transition: transform 0.2s ease-out;
+    transform-origin: left center;
+  }
   .study-desc {
     font-size: 14px;
     line-height: 1.6;
@@ -93,13 +116,6 @@
     color: var(--ink-3);
   }
   .study-side strong { color: var(--ink); font-weight: 500; display: block; }
-  .study-arrow {
-    display: inline-block;
-    margin-top: 12px;
-    color: var(--ink-2);
-    font-size: 14px;
-    transition: transform 0.2s, color 0.2s;
-  }
 
   /* About this project - context block */
   .context {
@@ -135,7 +151,6 @@
   @media (max-width: 900px) {
     .study { grid-template-columns: 60px 1fr; gap: 16px; }
     .study-side { grid-column: 2; text-align: left; padding-top: 4px; }
-    .study-arrow { display: none; }
     .context-inner { grid-template-columns: 1fr; gap: 24px; padding: 56px var(--gutter); }
   }
   @media (max-width: 560px) {
@@ -232,6 +247,13 @@
   <p class="case-lead">A complete redesign across student and instructor experiences — covered through three case studies: systems thinking, product detail, and handoff craft. The work shipped as a 6,700-line React prototype that became the source of truth for engineering.</p>
 </section>
 
+<section class="tldr">
+  <div class="tldr-inner">
+    <div class="tldr-label">TL;DR</div>
+    <p class="tldr-content">[TLDR draft pending — Kate to provide content]</p>
+  </div>
+</section>
+
 <section class="case-meta-strip">
   <div class="case-meta-inner">
     <div class="case-meta-item"><span class="case-meta-label">role</span><span class="case-meta-value">Design Lead (freelance)</span></div>
@@ -254,42 +276,39 @@
   <a class="study" href="01-two-perspectives.html">
     <div class="study-num">— 01</div>
     <div class="study-body">
-      <div class="study-title">Two perspectives, <span class="accent">one product.</span></div>
+      <div class="study-title">Two perspectives, <span class="accent">one product.</span><span class="study-title-arrow" aria-hidden="true">→</span></div>
       <p class="study-desc">Redesigning DEAD! across student and instructor experiences in a single React prototype that became the source of truth for engineering.</p>
     </div>
     <div class="study-side">
       <strong>Systems thinking</strong>
       Personas · Inventory<br>
       Design system · Dev toolbar
-      <div class="study-arrow">→</div>
     </div>
   </a>
 
   <a class="study" href="02-gradebook.html">
     <div class="study-num">— 02</div>
     <div class="study-body">
-      <div class="study-title">The gradebook &amp; the <span class="accent">edge case that mattered.</span></div>
+      <div class="study-title">The gradebook &amp; the <span class="accent">edge case that mattered.</span><span class="study-title-arrow" aria-hidden="true">→</span></div>
       <p class="study-desc">A weighted gradebook is solved territory until you ask what should display when a category has no submissions yet. Catching a silent failure before it shipped.</p>
     </div>
     <div class="study-side">
       <strong>Product detail</strong>
       Edge cases · Logic<br>
       LMS research · Formula
-      <div class="study-arrow">→</div>
     </div>
   </a>
 
   <a class="study" href="03-spec.html">
     <div class="study-num">— 03</div>
     <div class="study-body">
-      <div class="study-title">When the <span class="accent">spec is the design.</span></div>
+      <div class="study-title">When the <span class="accent">spec is the design.</span><span class="study-title-arrow" aria-hidden="true">→</span></div>
       <p class="study-desc">A 27-section developer handoff document, designed under a constraint that turned out to make the work better. Documentation as a deliverable.</p>
     </div>
     <div class="study-side">
       <strong>Handoff craft</strong>
       Documentation · Figures<br>
       Pseudocode · Principles
-      <div class="study-arrow">→</div>
     </div>
   </a>
 </section>

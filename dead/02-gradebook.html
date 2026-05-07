@@ -19,6 +19,7 @@
     --yellow: #EAB308; --yellow-pale: #FEF3C7;
     --red: #DC2626; --red-pale: #FEE2E2;
     --paper: #FAFAF7;
+    --white: #fff;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
@@ -48,7 +49,7 @@
     font-family: 'IBM Plex Mono', monospace;
     font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase;
     padding: 4px 10px; border: 1px solid var(--gray-300); border-radius: 999px;
-    color: var(--gray-600); background: white;
+    color: var(--gray-600); background: var(--gray-50);
   }
 
   .hero {
@@ -90,10 +91,51 @@
     max-width: 760px; font-weight: 400; margin: 0;
   }
 
+  /* ── Lede (bold scan-line under each h3) ───────────────────────────────── */
+  .lede {
+    display: block;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 8px;
+    letter-spacing: -0.005em;
+  }
+
+  /* ── TL;DR ───────────────────────────────── */
+  .tldr {
+    padding: 28px 8vw 32px;
+    border-bottom: 1px solid var(--gray-200);
+    background: var(--paper);
+  }
+  .tldr-inner {
+    border: 1px solid var(--gray-200);
+    background: var(--gray-50);
+    padding: 24px 32px;
+    max-width: 880px;
+    border-radius: 10px;
+  }
+  .tldr-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .tldr-label::before { content: '> '; color: var(--blue); }
+  .tldr-content {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--gray-700);
+    margin: 0;
+    max-width: none;
+  }
+
   .meta-grid {
     display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
     padding: 36px 8vw; border-bottom: 1px solid var(--gray-200);
-    background: white;
+    background: var(--gray-50);
   }
   .meta-label {
     font-family: 'IBM Plex Mono', monospace;
@@ -103,7 +145,7 @@
   .meta-val { font-size: 15px; color: var(--navy); font-weight: 500; line-height: 1.4; }
 
   section { padding: 80px 8vw; border-bottom: 1px solid var(--gray-200); }
-  section:nth-of-type(even) { background: white; }
+  section:nth-of-type(even) { background: var(--gray-50); }
   .section-num {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
@@ -131,7 +173,7 @@
 
   /* ── THE PROBLEM SCENARIO ───────────────────────────────── */
   .scenario {
-    background: white; border: 1px solid var(--gray-200);
+    background: var(--gray-50); border: 1px solid var(--gray-200);
     border-radius: 14px; padding: 32px;
     margin: 32px 0; max-width: 880px;
     overflow-x: auto;
@@ -150,7 +192,7 @@
     margin: 36px 0;
   }
   .option-card {
-    background: white; border: 1px solid var(--gray-200);
+    background: var(--gray-50); border: 1px solid var(--gray-200);
     border-radius: 14px; padding: 28px;
     position: relative; overflow: hidden;
   }
@@ -196,7 +238,7 @@
 
   /* ── WORKED EXAMPLE TABLE ───────────────────────────────── */
   .worked {
-    background: white; border: 1px solid var(--gray-200);
+    background: var(--gray-50); border: 1px solid var(--gray-200);
     border-radius: 14px; overflow: hidden; margin: 32px 0;
   }
   .worked-head {
@@ -350,6 +392,344 @@
     .timeline-item::before { left: -31px; }
     .case-footer .next-up { font-size: 22px; }
     .case-footer { padding: 32px 5vw 48px; }
+  }
+
+  /* ============================================================
+     FIGURE MOCKUPS — designed-to-look-real gradebook UI
+     ============================================================ */
+  .figure { margin: 40px 0; }
+  .figure-frame {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(11, 18, 48, 0.06);
+  }
+  .figure-caption {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--gray-200);
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+  }
+  .figure-caption .num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: 600;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .figure-caption .text { font-size: 14px; line-height: 1.55; color: var(--gray-600); }
+  .figure-caption .text strong { color: var(--ink); font-weight: 600; }
+
+  .browser-chrome {
+    background: linear-gradient(180deg, #f7f9fc 0%, #eef2f8 100%);
+    border-bottom: 1px solid var(--gray-200);
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .browser-dot { width: 11px; height: 11px; border-radius: 50%; background: #d1d5db; }
+  .browser-dot.r { background: #fb7185; }
+  .browser-dot.y { background: #fbbf24; }
+  .browser-dot.g { background: #4ade80; }
+  .browser-tab {
+    margin-left: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--gray-500);
+    font-weight: 500;
+    background: #fff;
+    border-radius: 6px;
+    padding: 4px 12px;
+    border: 1px solid var(--gray-200);
+  }
+
+  .gb-mockup { background: #fff; font-family: 'Inter', sans-serif; font-size: 13px; }
+  .gb-mockup-toolbar {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--gray-200);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .gb-mockup-toolbar .grading { font-size: 13px; color: var(--gray-500); }
+  .gb-mockup-toolbar .grading strong { color: var(--ink); font-weight: 600; }
+  .gb-mockup-toolbar .change-link { color: var(--blue); margin-left: 6px; cursor: pointer; font-weight: 500; }
+  .gb-mockup-toolbar .actions { display: flex; gap: 6px; }
+  .gb-mockup-toolbar .btn {
+    background: #fff; border: 1px solid var(--gray-200);
+    padding: 6px 12px; font-size: 12px; border-radius: 6px;
+    color: var(--gray-600); font-weight: 500;
+  }
+  .gb-table { width: 100%; border-collapse: collapse; }
+  .gb-table th {
+    text-align: left; padding: 10px 14px;
+    background: var(--gray-100);
+    border-bottom: 1px solid var(--gray-200);
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px;
+    color: var(--gray-400); font-weight: 700; white-space: nowrap;
+  }
+  .gb-table th.center { text-align: center; }
+  .gb-table th.final {
+    color: var(--navy);
+    border-left: 2px solid var(--gray-200);
+    text-align: center;
+  }
+  .gb-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--gray-200);
+    font-size: 13px; color: var(--ink);
+    vertical-align: middle; white-space: nowrap;
+  }
+  .gb-table td.center { text-align: center; }
+  .gb-table td.name { font-weight: 500; color: var(--ink); }
+  .gb-table td.email { color: var(--gray-500); font-size: 12.5px; }
+  .gb-table td.final-cell {
+    text-align: center;
+    border-left: 2px solid var(--gray-200);
+    font-weight: 700; font-size: 15px;
+  }
+  .gb-table td.final-cell .letter {
+    display: block; font-size: 10px;
+    color: var(--gray-400); font-weight: 500;
+    margin-top: 2px; letter-spacing: 0.5px;
+  }
+  .gb-table .score-A, .gb-table .score-B { color: #166534; }
+  .gb-table .score-C { color: #92400e; }
+  .gb-table .score-D { color: #991b1b; }
+  .gb-table .score-empty { color: var(--gray-400); font-weight: 700; font-size: 18px; }
+  .gb-table tr.avg-row {
+    background: var(--blue-pale);
+    border-top: 2px solid var(--blue);
+  }
+  .gb-table tr.avg-row td {
+    font-weight: 600; color: var(--navy);
+    font-size: 12px; text-transform: uppercase;
+    letter-spacing: 0.4px; padding: 10px 14px;
+  }
+
+  .gb-empty { padding: 80px 32px; text-align: center; }
+  .gb-empty-icon {
+    width: 56px; height: 56px;
+    margin: 0 auto 18px;
+    border-radius: 12px;
+    background: var(--blue-pale); color: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; font-weight: 700;
+  }
+  .gb-empty h3 { font-size: 20px; font-weight: 700; color: var(--navy); margin: 0 0 8px; }
+  .gb-empty p { color: var(--gray-500); font-size: 14px; max-width: 360px; margin: 0 auto; }
+
+  .gb-weights { padding: 28px; background: #fff; }
+  .gb-weights-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px; font-weight: 700;
+    color: var(--navy); margin: 0 0 4px;
+  }
+  .gb-weights-sub { font-size: 13px; color: var(--gray-500); margin-bottom: 24px; }
+  .gb-slider { margin-bottom: 22px; }
+  .gb-slider-row {
+    display: flex; justify-content: space-between;
+    align-items: baseline; margin-bottom: 8px;
+  }
+  .gb-slider-name { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; color: var(--ink); }
+  .gb-slider-value { font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 700; color: var(--navy); }
+  .gb-slider-track {
+    height: 6px; background: var(--gray-200);
+    border-radius: 3px; position: relative; overflow: visible;
+  }
+  .gb-slider-fill {
+    height: 100%; background: var(--blue);
+    border-radius: 3px; position: relative;
+  }
+  .gb-slider-fill::after {
+    content: '';
+    position: absolute; right: -8px; top: 50%;
+    transform: translateY(-50%);
+    width: 16px; height: 16px;
+    background: #fff;
+    border: 2px solid var(--blue);
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  }
+  .gb-weights-total {
+    margin-top: 24px; padding-top: 18px;
+    border-top: 1px solid var(--gray-200);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .gb-weights-total-label {
+    font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;
+    color: var(--gray-500); font-weight: 600;
+  }
+  .gb-weights-total-value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 18px; font-weight: 700; color: #166534;
+  }
+  .gb-weights-note {
+    margin-top: 18px; padding: 14px 16px;
+    background: #fefce8;
+    border-left: 3px solid #d97706;
+    border-radius: 4px;
+    font-size: 12.5px; color: #713f12; line-height: 1.5;
+  }
+  .gb-weights-note strong { color: #713f12; }
+
+  .gb-panel-wrap {
+    display: flex; background: var(--gray-100);
+    min-height: 460px;
+  }
+  .gb-panel-faded { flex: 1; padding: 20px; opacity: 0.4; overflow: hidden; }
+  .gb-panel-faded .fake-row {
+    height: 14px; background: var(--gray-200);
+    border-radius: 4px; margin-bottom: 12px;
+  }
+  .gb-panel-faded .fake-row:nth-child(2n) { width: 80%; }
+  .gb-panel-faded .fake-row:nth-child(3n) { width: 60%; }
+  .gb-panel {
+    width: 380px; background: #fff;
+    border-left: 1px solid var(--gray-200);
+    box-shadow: -8px 0 32px rgba(27, 43, 107, 0.12);
+    padding: 24px; position: relative;
+  }
+  .gb-panel-close {
+    position: absolute; top: 16px; right: 16px;
+    width: 28px; height: 28px; border-radius: 6px;
+    background: var(--gray-100); color: var(--gray-500);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+  .gb-panel h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px; font-weight: 700;
+    color: var(--navy); margin: 0 0 4px;
+  }
+  .gb-panel-email { font-size: 13px; color: var(--gray-500); margin-bottom: 20px; }
+  .gb-panel-final-card {
+    background: var(--blue-pale);
+    border: 1px solid var(--blue);
+    border-radius: 10px; padding: 16px; margin-bottom: 20px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .gb-panel-final-label {
+    font-size: 11px; letter-spacing: 0.5px;
+    text-transform: uppercase; color: var(--navy);
+    font-weight: 700; margin-bottom: 4px;
+  }
+  .gb-panel-final-value { font-size: 32px; font-weight: 800; color: var(--navy); line-height: 1; }
+  .gb-panel-final-letter { font-size: 12px; color: var(--gray-500); margin-top: 4px; }
+  .gb-panel-section { margin-bottom: 20px; }
+  .gb-panel-section-title {
+    font-size: 11px; letter-spacing: 0.5px;
+    text-transform: uppercase; color: var(--gray-500);
+    font-weight: 700; margin-bottom: 10px;
+  }
+  .gb-panel-cat {
+    display: flex; justify-content: space-between;
+    padding: 8px 0; border-bottom: 1px solid var(--gray-100);
+    font-size: 13px;
+  }
+  .gb-panel-cat:last-child { border-bottom: none; }
+  .gb-panel-cat-name { color: var(--ink); font-weight: 500; }
+  .gb-panel-cat-name .weight {
+    font-size: 11px; color: var(--gray-400);
+    font-weight: 400; margin-left: 4px;
+  }
+  .gb-panel-cat-val { font-family: 'IBM Plex Mono', monospace; font-weight: 700; color: var(--ink); }
+  .gb-panel-cat-val.empty { color: var(--gray-400); font-weight: 700; }
+
+  .cell-closeup-wrap {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    padding: 56px 32px; text-align: center;
+  }
+  .cell-closeup {
+    display: inline-block; background: #fff;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    box-shadow: 0 12px 32px rgba(11, 18, 48, 0.1);
+    overflow: hidden;
+  }
+  .cell-closeup table {
+    border-collapse: collapse;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+  }
+  .cell-closeup th {
+    padding: 10px 18px; background: var(--gray-100);
+    border-bottom: 1px solid var(--gray-200);
+    border-right: 1px solid var(--gray-200);
+    font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.5px; color: var(--gray-500); font-weight: 700;
+  }
+  .cell-closeup th:last-child { border-right: none; color: var(--navy); }
+  .cell-closeup td {
+    padding: 16px 22px;
+    border-right: 1px solid var(--gray-200);
+    background: #fff;
+  }
+  .cell-closeup td:last-child {
+    border-right: none; background: var(--blue-pale);
+    font-weight: 700; color: var(--navy);
+    font-size: 18px; text-align: center;
+  }
+  .cell-closeup td.highlighted-cell {
+    position: relative; background: #fefce8;
+    text-align: center; font-size: 24px;
+    color: var(--gray-400); font-weight: 700;
+  }
+  .cell-closeup td.highlighted-cell::after {
+    content: '';
+    position: absolute; inset: 0;
+    border: 2px solid #f59e0b;
+    border-radius: 4px; pointer-events: none;
+    animation: subtle-pulse 2.6s ease-in-out infinite;
+  }
+  @keyframes subtle-pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+  .cell-closeup-annotation {
+    margin-top: 28px;
+    display: inline-flex; flex-direction: column;
+    align-items: center; gap: 6px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .cell-closeup-annotation .arrow { width: 1px; height: 20px; background: #f59e0b; }
+  .cell-closeup-annotation .label {
+    background: #f59e0b; color: #fff;
+    padding: 4px 10px; border-radius: 4px;
+    font-size: 11px; letter-spacing: 0.06em;
+    text-transform: uppercase; font-weight: 600;
+  }
+
+  .figure-twoup {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px; margin: 40px 0;
+  }
+  .figure-twoup .figure { margin: 0; }
+  .figure-twoup .figure-frame { height: 100%; }
+
+  @media (max-width: 720px) {
+    .figure-twoup { grid-template-columns: 1fr; }
+    .gb-table { font-size: 11px; }
+    .gb-table th, .gb-table td { padding: 8px 10px; }
+    .gb-table .hide-sm { display: none; }
+    .gb-panel-wrap { min-height: auto; }
+    .gb-panel-faded { display: none; }
+    .gb-panel { width: 100%; }
+    .browser-tab { display: none; }
+    .gb-mockup-toolbar { font-size: 11px; }
+    .cell-closeup table { font-size: 11px; }
+    .cell-closeup th, .cell-closeup td { padding: 10px 12px; }
+    .cell-closeup td.highlighted-cell { font-size: 18px; }
+    .cell-closeup td:last-child { font-size: 14px; }
   }
 </style>
 
@@ -531,11 +911,35 @@
 
 /* DARK_MODE_BLOCK_V3 */
 /* ============================================================
-   DARK MODE — shell-only.
-   The case study content keeps its native styling regardless of theme.
-   Only the kc- prefixed shell chrome (status bar, nav, contact, footer) flips.
+   DARK MODE — full flip.
+   Flips both the case-study-content tokens and the kc- shell tokens
+   so nothing is left in light palette while the rest is dark.
    ============================================================ */
 :root[data-theme="dark"] {
+  /* Case study content tokens */
+  --paper: #0e1118;
+  --ink: #e8ecf5;
+  --gray-50: #14171f;
+  --gray-100: #181c26;
+  --gray-200: #252a38;
+  --gray-300: #363c4e;
+  --gray-400: #6a7088;
+  --gray-500: #8a92a8;
+  --gray-600: #a8b0c4;
+  --gray-700: #c8d0e0;
+  --navy: #c8d4ec;
+  --navy-deep: #a8b8d8;
+  --blue: #6a8fff;
+  --blue-pale: #1a2240;
+  --green: #4ade80;
+  --green-pale: #14322a;
+  --yellow: #fbbf24;
+  --yellow-pale: #3a2f0a;
+  --red: #f87171;
+  --red-pale: #3a1a1a;
+  --rule: #252a38;
+
+  /* Shell chrome tokens (kc- prefix) */
   --kc-bg: #0e1118;
   --kc-surface: #181c26;
   --kc-ink: #e8ecf5;
@@ -546,6 +950,7 @@
   --kc-rule: #252a38;
   --kc-rule-strong: #363c4e;
 }
+:root[data-theme="dark"] body { background: var(--paper); color: var(--ink); }
 :root[data-theme="dark"] .kc-contact,
 :root[data-theme="dark"] .kc-shell-footer,
 :root[data-theme="dark"] .kc-footer {
@@ -554,6 +959,11 @@
 }
 :root[data-theme="dark"] .kc-contact-row { border-bottom-color: #1a1d28; }
 :root[data-theme="dark"] .kc-contact-row:first-child { border-top-color: #1a1d28; }
+:root[data-theme="dark"] table.worked-table tr.total-row td,
+:root[data-theme="dark"] .formula,
+:root[data-theme="dark"] .case-footer { background: var(--gray-100); color: var(--ink); }
+:root[data-theme="dark"] .case-footer a { color: var(--ink); }
+:root[data-theme="dark"] .option-card.chosen { background: var(--gray-50); }
 
 </style>
 
@@ -610,6 +1020,14 @@
   <p class="deck">A weighted gradebook seems like solved territory until you ask one question: what should the grade say in week three of the semester, when the only category with submissions is "Assignments"? This is a case study about catching a silent failure mode and designing the right answer for it.</p>
 </section>
 
+<!-- ── TL;DR ───────────────────────────────── -->
+<div class="tldr">
+  <div class="tldr-inner">
+    <div class="tldr-label">TL;DR</div>
+    <p class="tldr-content">[TLDR draft pending — Kate to provide content]</p>
+  </div>
+</div>
+
 <div class="meta-grid">
   <div>
     <div class="meta-label">Role</div>
@@ -626,6 +1044,107 @@
   <div>
     <div class="meta-label">Outcome</div>
     <div class="meta-val">Option B (redistribution)<br/><span style="color:var(--gray-500);font-weight:400;font-size:13.5px">spec'd + shipped</span></div>
+  </div>
+</div>
+
+<!-- ── FIGURE 01 — Hero gradebook ───────────────────────────── -->
+<div class="figure">
+  <div class="figure-frame">
+    <div class="browser-chrome">
+      <span class="browser-dot r"></span>
+      <span class="browser-dot y"></span>
+      <span class="browser-dot g"></span>
+      <span class="browser-tab">DEAD! — FSA-2200 / Grade Book</span>
+    </div>
+    <div class="gb-mockup">
+      <div class="gb-mockup-toolbar">
+        <div class="grading">Grading: <strong>Weighted</strong> · Assignments 40% · Tests 40% · Tournaments 20%<a class="change-link">Change</a></div>
+        <div class="actions">
+          <span class="btn">Export ▾</span>
+          <span class="btn">Columns ▾</span>
+        </div>
+      </div>
+      <table class="gb-table">
+        <thead>
+          <tr>
+            <th>Student</th>
+            <th class="hide-sm">Email</th>
+            <th class="center">Assign Avg</th>
+            <th class="center">Test Avg</th>
+            <th class="center hide-sm">Tourn Avg</th>
+            <th class="center hide-sm" style="color:#991b1b">Missing</th>
+            <th class="center hide-sm" style="color:#92400e">Late</th>
+            <th class="final">Final ▾</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="name">Alvarez, Maya</td>
+            <td class="email hide-sm">m.alvarez@canton.edu</td>
+            <td class="center"><span class="score-A">94%</span></td>
+            <td class="center"><span class="score-A">91%</span></td>
+            <td class="center hide-sm"><span class="score-A">88%</span></td>
+            <td class="center hide-sm">0</td>
+            <td class="center hide-sm">0</td>
+            <td class="final-cell"><span class="score-A">92%</span><span class="letter">A−</span></td>
+          </tr>
+          <tr>
+            <td class="name">Brennan, Jordan</td>
+            <td class="email hide-sm">j.brennan@canton.edu</td>
+            <td class="center"><span class="score-B">87%</span></td>
+            <td class="center"><span class="score-B">82%</span></td>
+            <td class="center hide-sm"><span class="score-empty">—</span></td>
+            <td class="center hide-sm">0</td>
+            <td class="center hide-sm">1</td>
+            <td class="final-cell"><span class="score-B">85%</span><span class="letter">B</span></td>
+          </tr>
+          <tr>
+            <td class="name">Chen, Wesley</td>
+            <td class="email hide-sm">w.chen@canton.edu</td>
+            <td class="center"><span class="score-A">96%</span></td>
+            <td class="center"><span class="score-A">94%</span></td>
+            <td class="center hide-sm"><span class="score-A">92%</span></td>
+            <td class="center hide-sm">0</td>
+            <td class="center hide-sm">0</td>
+            <td class="final-cell"><span class="score-A">94%</span><span class="letter">A</span></td>
+          </tr>
+          <tr>
+            <td class="name">Donovan, Riya</td>
+            <td class="email hide-sm">r.donovan@canton.edu</td>
+            <td class="center"><span class="score-C">73%</span></td>
+            <td class="center"><span class="score-C">68%</span></td>
+            <td class="center hide-sm"><span class="score-empty">—</span></td>
+            <td class="center hide-sm" style="color:#991b1b;font-weight:600">2</td>
+            <td class="center hide-sm" style="color:#92400e;font-weight:600">3</td>
+            <td class="final-cell"><span class="score-C">70%</span><span class="letter">C−</span></td>
+          </tr>
+          <tr>
+            <td class="name">Foster, Drew</td>
+            <td class="email hide-sm">d.foster@canton.edu</td>
+            <td class="center"><span class="score-A">91%</span></td>
+            <td class="center"><span class="score-empty">—</span></td>
+            <td class="center hide-sm"><span class="score-empty">—</span></td>
+            <td class="center hide-sm">0</td>
+            <td class="center hide-sm">0</td>
+            <td class="final-cell"><span class="score-A">91%</span><span class="letter">A−</span></td>
+          </tr>
+          <tr class="avg-row">
+            <td>Class Average</td>
+            <td class="hide-sm"></td>
+            <td class="center">88%</td>
+            <td class="center">84%</td>
+            <td class="center hide-sm">90%</td>
+            <td class="center hide-sm">0.4</td>
+            <td class="center hide-sm">0.8</td>
+            <td class="center" style="border-left:2px solid var(--blue);">86%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="figure-caption">
+    <span class="num">Fig. 01</span>
+    <span class="text">Grade Book — full state. Sticky student column, sticky final-grade column, pinned class-average row. Status badges per cell communicate per-assignment state. Look at <strong>Foster, Drew</strong>: only assignments graded so far. The final grade reads <strong>91%</strong>, not 36%. That single number — what to display when categories are partial — is the entire decision this case study is about.</span>
   </div>
 </div>
 
@@ -676,6 +1195,73 @@
     The naive answer is wrong. The intuitive answer is also wrong. Only one answer is right — and it took a deliberate decision to land there.
   </div>
 </section>
+
+<!-- ── FIGURE 02+03 — Empty state + weight sliders ───────────── -->
+<div class="figure-twoup">
+  <div class="figure">
+    <div class="figure-frame">
+      <div class="browser-chrome">
+        <span class="browser-dot r"></span>
+        <span class="browser-dot y"></span>
+        <span class="browser-dot g"></span>
+        <span class="browser-tab">Grade Book — pre-grade</span>
+      </div>
+      <div class="gb-mockup">
+        <div class="gb-mockup-toolbar">
+          <div class="grading">Grading: <strong>Weighted</strong> · 40 / 40 / 20</div>
+          <div class="actions"><span class="btn">Columns ▾</span></div>
+        </div>
+        <div class="gb-empty">
+          <div class="gb-empty-icon">📊</div>
+          <h3>No grades yet</h3>
+          <p>Once submissions start coming in, this is where the class&rsquo;s progress will live. Final grades update in real time.</p>
+        </div>
+      </div>
+    </div>
+    <div class="figure-caption">
+      <span class="num">Fig. 02</span>
+      <span class="text">Pre-grade state. Most LMS gradebooks ship without considering the first weeks of semester — when nothing is graded yet. The naïve render is a wall of zeros that lies. This empty state replaces it.</span>
+    </div>
+  </div>
+
+  <div class="figure">
+    <div class="figure-frame">
+      <div class="browser-chrome">
+        <span class="browser-dot r"></span>
+        <span class="browser-dot y"></span>
+        <span class="browser-dot g"></span>
+        <span class="browser-tab">Edit Class — Grading</span>
+      </div>
+      <div class="gb-weights">
+        <h3 class="gb-weights-title">Weighted categories</h3>
+        <p class="gb-weights-sub">Sliders auto-balance to total exactly 100%.</p>
+        <div class="gb-slider">
+          <div class="gb-slider-row"><span class="gb-slider-name">Assignments</span><span class="gb-slider-value">40%</span></div>
+          <div class="gb-slider-track"><div class="gb-slider-fill" style="width:40%"></div></div>
+        </div>
+        <div class="gb-slider">
+          <div class="gb-slider-row"><span class="gb-slider-name">Tests</span><span class="gb-slider-value">40%</span></div>
+          <div class="gb-slider-track"><div class="gb-slider-fill" style="width:40%"></div></div>
+        </div>
+        <div class="gb-slider">
+          <div class="gb-slider-row"><span class="gb-slider-name">Tournaments</span><span class="gb-slider-value">20%</span></div>
+          <div class="gb-slider-track"><div class="gb-slider-fill" style="width:20%"></div></div>
+        </div>
+        <div class="gb-weights-total">
+          <span class="gb-weights-total-label">Total</span>
+          <span class="gb-weights-total-value">100%</span>
+        </div>
+        <div class="gb-weights-note">
+          <strong>Empty categories are excluded</strong> from the final grade until they have submissions. Weight is not redistributed mid-semester unless the instructor explicitly changes it.
+        </div>
+      </div>
+    </div>
+    <div class="figure-caption">
+      <span class="num">Fig. 03</span>
+      <span class="text">Weighted categories — set during class creation, editable mid-semester. Each category averages independently from submitted scores. The yellow note is the design decision: not a footnote, not buried in docs, but surfaced where the weights live.</span>
+    </div>
+  </div>
+</div>
 
 <!-- ── OPTIONS ───────────────────────────────── -->
 <section>
@@ -779,11 +1365,49 @@
     </div>
     <div class="worked-body">
       <p style="font-family:'Inter',sans-serif;font-size:14.5px;color:var(--gray-700);max-width:none;margin:0;">
-        Showing 0% would be wrong (no submissions doesn't mean failure). Showing 100% would be wrong (no demonstrated performance). The spec calls for an em-dash and a tooltip: <span class="mono" style="background:var(--gray-50);padding:2px 8px;border-radius:4px;font-size:13px;">"No graded submissions yet."</span>
+        <strong class="lede">Showing 0% would be wrong (no submissions doesn't mean failure).</strong> Showing 100% would be wrong (no demonstrated performance). The spec calls for an em-dash and a tooltip: <span class="mono" style="background:var(--gray-50);padding:2px 8px;border-radius:4px;font-size:13px;">"No graded submissions yet."</span>
       </p>
     </div>
   </div>
 </section>
+
+<!-- ── FIGURE 05 — Cell close-up (the thesis figure) ────────── -->
+<div class="figure">
+  <div class="figure-frame" style="background:transparent;border:none;box-shadow:none;">
+    <div class="cell-closeup-wrap">
+      <div class="cell-closeup">
+        <table>
+          <thead>
+            <tr>
+              <th>Student</th>
+              <th>Assign</th>
+              <th>Tests</th>
+              <th>Tourn</th>
+              <th>Final</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight:500;color:var(--ink);">Foster, Drew</td>
+              <td style="color:#166534;font-weight:600;">91%</td>
+              <td class="highlighted-cell">—</td>
+              <td style="color:var(--gray-400);font-weight:700;font-size:24px;text-align:center;">—</td>
+              <td>91%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="cell-closeup-annotation">
+        <span class="arrow"></span>
+        <span class="label">The cell that mattered</span>
+      </div>
+    </div>
+  </div>
+  <div class="figure-caption">
+    <span class="num">Fig. 05</span>
+    <span class="text">When a category has zero submitted items, the cell renders as an em-dash. Most LMS gradebooks here would render <strong>NaN</strong>, divide by zero, or silently weight the category at 0% — silently dragging a student's grade down for work they were never assigned. We made this an explicit product decision: empty categories are excluded entirely from the final grade until they have data, and the weight is not redistributed mid-semester unless the instructor changes it.</span>
+  </div>
+</div>
 
 <!-- ── PROCESS ───────────────────────────────── -->
 <section>
@@ -794,27 +1418,27 @@
     <div class="timeline-item">
       <div class="timeline-step">Step 01 · Spotted the bug</div>
       <h3>Walking through the prototype, the demo grade looked "off"</h3>
-      <p>The mock data had assignments graded but no tests yet. The displayed final grade looked too low. Tracing the calculation revealed the prototype was applying weights literally — the original Option A behavior. It would have shipped that way.</p>
+      <p><strong class="lede">The mock data had assignments graded but no tests yet.</strong> The displayed final grade looked too low. Tracing the calculation revealed the prototype was applying weights literally — the original Option A behavior. It would have shipped that way.</p>
     </div>
     <div class="timeline-item">
       <div class="timeline-step">Step 02 · Researched precedents</div>
       <h3>Looked at how other LMS platforms handle it</h3>
-      <p>Every mainstream gradebook (Canvas, Blackboard, PowerSchool) redistributes by default. Some let instructors toggle the behavior; none ship the literal-weights default. This wasn't an opinion — it was a de facto industry standard the prototype had drifted away from.</p>
+      <p><strong class="lede">Every mainstream gradebook (Canvas, Blackboard, PowerSchool) redistributes by default.</strong> Some let instructors toggle the behavior; none ship the literal-weights default. This wasn't an opinion — it was a de facto industry standard the prototype had drifted away from.</p>
     </div>
     <div class="timeline-item">
       <div class="timeline-step">Step 03 · Wrote both calculations</div>
       <h3>Modeled both outcomes on real mock data</h3>
-      <p>Using the prototype's existing mock student "Kate Chen," I worked through Option A and Option B by hand. Option A gave a 36.4%. Option B gave a 91.0%. The contrast made the right call obvious — and gave engineering a worked example to test against.</p>
+      <p><strong class="lede">Using the prototype's existing mock student "Kate Chen," I worked through Option A and Option B by hand.</strong> Option A gave a 36.4%. Option B gave a 91.0%. The contrast made the right call obvious — and gave engineering a worked example to test against.</p>
     </div>
     <div class="timeline-item">
       <div class="timeline-step">Step 04 · Specified the edge cases</div>
       <h3>Wrote out single-category-becomes-100% and all-empty cases</h3>
-      <p>The base behavior is one decision. The corner cases are three more. Each got its own row in the spec doc with input, expected output, and a one-line reasoning note. Pseudocode included for the redistribution itself.</p>
+      <p><strong class="lede">The base behavior is one decision. The corner cases are three more.</strong> Each got its own row in the spec doc with input, expected output, and a one-line reasoning note. Pseudocode included for the redistribution itself.</p>
     </div>
     <div class="timeline-item">
       <div class="timeline-step">Step 05 · Updated the prototype</div>
       <h3>Rewrote the calculation; added a walkthrough step explaining it</h3>
-      <p>The prototype's walkthrough drawer — which engineering uses to understand intent — now includes a step describing the redistribution behavior with the worked example baked in. The behavior is documented in three places: code, spec, and the prototype's own narration.</p>
+      <p><strong class="lede">The prototype's walkthrough drawer — which engineering uses to understand intent — now includes a step describing the redistribution behavior with the worked example baked in.</strong> The behavior is documented in three places: code, spec, and the prototype's own narration.</p>
     </div>
   </div>
 </section>
@@ -847,6 +1471,74 @@
 
   <p>Twenty-eight lines in the actual spec, with worked examples, expected outputs for three edge cases, and a sentence explaining why we chose this over Option A. That's how it leaves the design floor.</p>
 </section>
+
+<!-- ── FIGURE 04 — Student detail panel ─────────────────────── -->
+<div class="figure">
+  <div class="figure-frame">
+    <div class="browser-chrome">
+      <span class="browser-dot r"></span>
+      <span class="browser-dot y"></span>
+      <span class="browser-dot g"></span>
+      <span class="browser-tab">FSA-2200 / Foster, Drew</span>
+    </div>
+    <div class="gb-panel-wrap">
+      <div class="gb-panel-faded">
+        <div class="fake-row"></div><div class="fake-row"></div><div class="fake-row"></div>
+        <div class="fake-row"></div><div class="fake-row"></div><div class="fake-row"></div>
+        <div class="fake-row"></div><div class="fake-row"></div>
+      </div>
+      <div class="gb-panel">
+        <div class="gb-panel-close">×</div>
+        <h4>Foster, Drew</h4>
+        <div class="gb-panel-email">d.foster@canton.edu</div>
+        <div class="gb-panel-final-card">
+          <div>
+            <div class="gb-panel-final-label">Final grade</div>
+            <div class="gb-panel-final-letter">Based on graded work only</div>
+          </div>
+          <div style="text-align:right">
+            <div class="gb-panel-final-value">91%</div>
+            <div class="gb-panel-final-letter">A−</div>
+          </div>
+        </div>
+        <div class="gb-panel-section">
+          <div class="gb-panel-section-title">Categories</div>
+          <div class="gb-panel-cat">
+            <span class="gb-panel-cat-name">Assignments<span class="weight">40% → 100%</span></span>
+            <span class="gb-panel-cat-val">91%</span>
+          </div>
+          <div class="gb-panel-cat">
+            <span class="gb-panel-cat-name">Tests<span class="weight">no submissions</span></span>
+            <span class="gb-panel-cat-val empty">—</span>
+          </div>
+          <div class="gb-panel-cat">
+            <span class="gb-panel-cat-name">Tournaments<span class="weight">no submissions</span></span>
+            <span class="gb-panel-cat-val empty">—</span>
+          </div>
+        </div>
+        <div class="gb-panel-section">
+          <div class="gb-panel-section-title">Activity</div>
+          <div class="gb-panel-cat">
+            <span class="gb-panel-cat-name">Submitted on time</span>
+            <span class="gb-panel-cat-val">4</span>
+          </div>
+          <div class="gb-panel-cat">
+            <span class="gb-panel-cat-name">Late</span>
+            <span class="gb-panel-cat-val">0</span>
+          </div>
+          <div class="gb-panel-cat">
+            <span class="gb-panel-cat-name">Missing</span>
+            <span class="gb-panel-cat-val">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="figure-caption">
+    <span class="num">Fig. 04</span>
+    <span class="text">Student detail panel. Slides in over the gradebook, no backdrop, dismisses on Escape. The weight column makes the redistribution visible — <strong>"40% → 100%"</strong> tells the instructor (and the student, when this is exported) that assignments are temporarily carrying the full grade. The em-dashes for empty categories aren't decorative; they're the design decision rendered.</span>
+  </div>
+</div>
 
 <!-- ── OUTCOME ───────────────────────────────── -->
 <section>

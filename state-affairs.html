@@ -454,15 +454,31 @@
   }
   .toc-list a {
     display: flex;
+    align-items: baseline;
+    justify-content: space-between;
     gap: 16px;
     padding: 10px 0;
     text-decoration: none;
     color: var(--text-primary);
     border-bottom: 1px solid var(--rule);
-    transition: color 0.15s;
+    transition: color 0.18s ease, padding-left 0.18s ease;
   }
-  .toc-list a:hover { color: var(--accent); }
+  .toc-row {
+    display: flex;
+    gap: 16px;
+    flex: 1;
+    min-width: 0;
+  }
+  .toc-list a:hover {
+    color: var(--accent);
+    padding-left: 4px;
+  }
   .toc-list a:hover .toc-num { color: var(--accent); }
+  .toc-list a:hover .toc-arrow {
+    opacity: 1;
+    color: var(--accent);
+    transform: translateX(4px);
+  }
   .toc-num {
     font-family: var(--font-mono);
     font-size: 11px;
@@ -475,6 +491,15 @@
     font-family: var(--font-serif);
     font-size: 17px;
     line-height: 1.4;
+  }
+  .toc-arrow {
+    flex-shrink: 0;
+    color: var(--text-tertiary);
+    opacity: 0.5;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    transition: opacity 0.18s ease, color 0.18s ease, transform 0.18s ease;
+    display: inline-block;
   }
 
   /* ---------- Responsive ---------- */
@@ -879,12 +904,30 @@
 <nav class="toc" aria-label="Case studies">
   <div class="toc-label">In this case study</div>
   <ul class="toc-list">
-    <li><a href="#code-annotated"><span class="toc-num">01</span><span class="toc-title">Code Annotated, scaled from one state to fifty</span></a></li>
-    <li><a href="#document-comparison"><span class="toc-num">02</span><span class="toc-title">Document Comparison, an industry-first capability</span></a></li>
-    <li><a href="#keywords"><span class="toc-num">03</span><span class="toc-title">Untangling a fragmented save-and-search experience</span></a></li>
-    <li><a href="#voting-scorecard"><span class="toc-num">04</span><span class="toc-title">An empty state that holds the room</span></a></li>
-    <li><a href="#news"><span class="toc-num">05</span><span class="toc-title">Bringing editorial weight to a B2B reading surface</span></a></li>
-    <li><a href="#three-sixty"><span class="toc-num">06</span><span class="toc-title">The collaboration layer inside the flagship</span></a></li>
+    <li><a href="#code-annotated">
+      <span class="toc-row"><span class="toc-num">01</span><span class="toc-title">Code Annotated, scaled from one state to fifty</span></span>
+      <span class="toc-arrow">→</span>
+    </a></li>
+    <li><a href="#document-comparison">
+      <span class="toc-row"><span class="toc-num">02</span><span class="toc-title">Document Comparison, an industry-first capability</span></span>
+      <span class="toc-arrow">→</span>
+    </a></li>
+    <li><a href="#keywords">
+      <span class="toc-row"><span class="toc-num">03</span><span class="toc-title">Untangling a fragmented save-and-search experience</span></span>
+      <span class="toc-arrow">→</span>
+    </a></li>
+    <li><a href="#voting-scorecard">
+      <span class="toc-row"><span class="toc-num">04</span><span class="toc-title">An empty state that holds the room</span></span>
+      <span class="toc-arrow">→</span>
+    </a></li>
+    <li><a href="#news">
+      <span class="toc-row"><span class="toc-num">05</span><span class="toc-title">Bringing editorial weight to a B2B reading surface</span></span>
+      <span class="toc-arrow">→</span>
+    </a></li>
+    <li><a href="#three-sixty">
+      <span class="toc-row"><span class="toc-num">06</span><span class="toc-title">The collaboration layer inside the flagship</span></span>
+      <span class="toc-arrow">→</span>
+    </a></li>
   </ul>
 </nav>
 

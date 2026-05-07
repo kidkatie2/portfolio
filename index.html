@@ -155,16 +155,19 @@
     background: var(--surface); border: 1px solid var(--rule); border-top: 3px solid var(--accent);
     padding: 0; cursor: pointer; text-align: left;
     font-family: var(--mono); color: inherit;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-top-color 0.2s;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s;
     position: relative; display: flex; flex-direction: column; min-height: 360px;
+    overflow: hidden;
   }
+  .card.is-pending { border-top-color: var(--rule); }
   .card:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 0 var(--rule-strong);
-    border-top-color: var(--ink);
   }
-  .card:hover .card-cta { color: var(--accent); }
-  .card:hover .card-cta .arrow { transform: translateX(4px); }
+  .card.is-live:hover { border-color: var(--accent); }
+  .card.is-live:hover .card-strip-live { padding-top: 9px; padding-bottom: 9px; }
+  .card.is-live:hover .card-strip-arrow { transform: translateX(4px); }
+  .card.is-pending:hover .card-strip-pending { background: var(--rule-strong); }
   .card-hd {
     padding: 14px 18px; border-bottom: 1px dashed var(--rule);
     display: flex; align-items: center; justify-content: space-between;
@@ -195,12 +198,26 @@
   .card-stat { display: flex; flex-direction: column; gap: 2px; }
   .card-stat .k { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
   .card-stat .v { color: var(--ink); font-weight: 500; font-variant-numeric: tabular-nums; }
-  .card-cta {
-    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--ink-2); display: flex; justify-content: space-between; align-items: center;
-    transition: color 0.2s; font-weight: 500;
+  .card-strip {
+    margin: 0 -18px -18px;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    transition: padding 0.18s ease, background 0.18s ease;
   }
-  .card-cta .arrow { display: inline-block; transition: transform 0.2s; font-size: 14px; }
+  .card-strip-live { background: var(--accent); color: #fff; }
+  .card-strip-pending { background: var(--rule); color: var(--ink-3); }
+  .card-strip-arrow {
+    display: inline-block;
+    margin-left: 6px;
+    transition: transform 0.18s ease;
+    font-size: 14px;
+  }
 
   /* About */
   .about-wrap { border-top: 1px solid var(--rule); background: var(--bg); }
@@ -345,6 +362,8 @@
 :root[data-theme="dark"] .kc-contact-row { border-bottom-color: #1a1d28; }
 :root[data-theme="dark"] .contact-row:first-child,
 :root[data-theme="dark"] .kc-contact-row:first-child { border-top-color: #1a1d28; }
+:root[data-theme="dark"] .card-strip-pending { background: #2a3040; color: #8a92a8; }
+:root[data-theme="dark"] .card.is-pending:hover .card-strip-pending { background: #363c4e; }
 
 </style>
 </head>
@@ -409,7 +428,7 @@
 
 <section class="cards">
 
-  <a class="card" href="state-affairs.html">
+  <a class="card is-live" href="state-affairs.html">
     <div class="card-hd">
       <span class="card-id">[01 / 04]</span>
       <span class="card-status">Live</span>
@@ -424,14 +443,14 @@
         <div class="card-stat"><span class="k">surface</span><span class="v">Web · Mobile</span></div>
         <div class="card-stat"><span class="k">features</span><span class="v">06 shipped</span></div>
       </div>
-      <div class="card-cta">
-        <span>Read case study</span>
-        <span class="arrow">→</span>
+      <div class="card-strip card-strip-live">
+        <span class="card-strip-text">View case study</span>
+        <span class="card-strip-arrow">→</span>
       </div>
     </div>
   </a>
 
-  <a class="card" href="dead/index.html">
+  <a class="card is-live" href="dead/index.html">
     <div class="card-hd">
       <span class="card-id">[02 / 04]</span>
       <span class="card-status">Live</span>
@@ -446,14 +465,14 @@
         <div class="card-stat"><span class="k">stack</span><span class="v">Figma · React</span></div>
         <div class="card-stat"><span class="k">studies</span><span class="v">03 inside</span></div>
       </div>
-      <div class="card-cta">
-        <span>Read case studies</span>
-        <span class="arrow">→</span>
+      <div class="card-strip card-strip-live">
+        <span class="card-strip-text">View case studies</span>
+        <span class="card-strip-arrow">→</span>
       </div>
     </div>
   </a>
 
-  <a class="card" href="#" onclick="event.preventDefault(); alert('Verso is in development — coming soon to iOS &amp; Android.');">
+  <a class="card is-pending" href="#" onclick="event.preventDefault(); alert('Verso is in development — coming soon to iOS &amp; Android.');">
     <div class="card-hd">
       <span class="card-id">[03 / 04]</span>
       <span class="card-status draft">Pending</span>
@@ -468,14 +487,13 @@
         <div class="card-stat"><span class="k">scope</span><span class="v">iOS · Android · Web</span></div>
         <div class="card-stat"><span class="k">year</span><span class="v">2026</span></div>
       </div>
-      <div class="card-cta">
-        <span>Coming soon</span>
-        <span class="arrow">→</span>
+      <div class="card-strip card-strip-pending">
+        <span class="card-strip-text">Coming soon</span>
       </div>
     </div>
   </a>
 
-  <a class="card" href="#" onclick="event.preventDefault(); alert('Gratuity is in development — shipping to the App Store in 4 weeks.');">
+  <a class="card is-pending" href="#" onclick="event.preventDefault(); alert('Gratuity is in development — shipping to the App Store in 4 weeks.');">
     <div class="card-hd">
       <span class="card-id">[04 / 04]</span>
       <span class="card-status draft">Pending</span>
@@ -490,9 +508,8 @@
         <div class="card-stat"><span class="k">scope</span><span class="v">v1 + widget</span></div>
         <div class="card-stat"><span class="k">year</span><span class="v">2026</span></div>
       </div>
-      <div class="card-cta">
-        <span>Coming to the App Store</span>
-        <span class="arrow">→</span>
+      <div class="card-strip card-strip-pending">
+        <span class="card-strip-text">Coming soon</span>
       </div>
     </div>
   </a>

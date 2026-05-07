@@ -149,7 +149,7 @@
   .cards {
     max-width: var(--max); margin: 0 auto;
     padding: 32px var(--gutter) 64px;
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
   }
   .card {
     background: var(--surface); border: 1px solid var(--rule); border-top: 3px solid var(--accent);
@@ -268,7 +268,7 @@
   .footer-socials a:hover { color: var(--accent); }
 
   /* Responsive */
-  @media (max-width: 1100px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 1100px) { .cards { gap: 12px; } }
   @media (max-width: 900px) {
     :root { --gutter: 28px; }
     .hero h1 { font-size: 48px; }
@@ -402,7 +402,7 @@
 <div class="section-head">
   <h2>selected_work</h2>
   <div class="section-head-meta">
-    <strong>03 entries</strong> · last updated 2026<br>
+    <strong>04 entries</strong> · last updated 2026<br>
     sorted: most recent first
   </div>
 </div>
@@ -411,7 +411,7 @@
 
   <a class="card" href="state-affairs.html">
     <div class="card-hd">
-      <span class="card-id">[01 / 03]</span>
+      <span class="card-id">[01 / 04]</span>
       <span class="card-status">Live</span>
     </div>
     <div class="card-bd">
@@ -433,7 +433,7 @@
 
   <a class="card" href="dead/index.html">
     <div class="card-hd">
-      <span class="card-id">[02 / 03]</span>
+      <span class="card-id">[02 / 04]</span>
       <span class="card-status">Live</span>
     </div>
     <div class="card-bd">
@@ -453,23 +453,45 @@
     </div>
   </a>
 
-  <a class="card" href="#" onclick="event.preventDefault(); alert('Coming soon — personal projects.');">
+  <a class="card" href="#" onclick="event.preventDefault(); alert('Verso is in development — coming soon to iOS &amp; Android.');">
     <div class="card-hd">
-      <span class="card-id">[03 / 03]</span>
+      <span class="card-id">[03 / 04]</span>
       <span class="card-status draft">Pending</span>
     </div>
     <div class="card-bd">
-      <div class="card-cat">Personal · Apps &amp; Prototypes</div>
-      <div class="card-title">Things I made <span class="accent">for myself</span></div>
-      <p class="card-desc">Personal app projects and prototypes — built to learn, ship, and explore the shape of a hybrid practice.</p>
+      <div class="card-cat">Personal · iOS &amp; Android app</div>
+      <div class="card-title">A reading app <span class="accent">worthy of the stories you love</span></div>
+      <p class="card-desc">Verso turns AO3 fic, pasted text, and imported files into a calm, themeable reader with TTS, autoscroll, and a private-by-default architecture. Shipping under Tesoro Industries LLC.</p>
       <div class="card-stats">
-        <div class="card-stat"><span class="k">role</span><span class="v">Solo</span></div>
-        <div class="card-stat"><span class="k">years</span><span class="v">2024 → 26</span></div>
-        <div class="card-stat"><span class="k">stack</span><span class="v">HTML · React</span></div>
-        <div class="card-stat"><span class="k">projects</span><span class="v">Multiple</span></div>
+        <div class="card-stat"><span class="k">role</span><span class="v">Solo founder &amp; design</span></div>
+        <div class="card-stat"><span class="k">stack</span><span class="v">Expo · Cloudflare</span></div>
+        <div class="card-stat"><span class="k">scope</span><span class="v">iOS · Android · Web</span></div>
+        <div class="card-stat"><span class="k">year</span><span class="v">2026</span></div>
       </div>
       <div class="card-cta">
         <span>Coming soon</span>
+        <span class="arrow">→</span>
+      </div>
+    </div>
+  </a>
+
+  <a class="card" href="#" onclick="event.preventDefault(); alert('Gratuity is in development — shipping to the App Store in 4 weeks.');">
+    <div class="card-hd">
+      <span class="card-id">[04 / 04]</span>
+      <span class="card-status draft">Pending</span>
+    </div>
+    <div class="card-bd">
+      <div class="card-cat">Personal · iOS app</div>
+      <div class="card-title">A <span class="accent">brutalist tip calculator</span> that ships in four weeks</div>
+      <p class="card-desc">Free iOS tip calculator with a $2.99 Pro unlock for themed variants on a paper-on-ink foundation. Built in React Native with Expo, monetized through RevenueCat, and shipping with a Home Screen widget.</p>
+      <div class="card-stats">
+        <div class="card-stat"><span class="k">role</span><span class="v">Solo</span></div>
+        <div class="card-stat"><span class="k">stack</span><span class="v">RN · Expo · RevenueCat</span></div>
+        <div class="card-stat"><span class="k">scope</span><span class="v">v1 + widget</span></div>
+        <div class="card-stat"><span class="k">year</span><span class="v">2026</span></div>
+      </div>
+      <div class="card-cta">
+        <span>Coming to the App Store</span>
         <span class="arrow">→</span>
       </div>
     </div>

@@ -30,6 +30,7 @@
     --red-pale: #FEE2E2;
     --paper: #FAFAF7;
     --rule: #1B2B6B;
+    --white: #fff;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
@@ -585,6 +586,598 @@
     .case-footer .next-up { font-size: 22px; }
     .case-footer { padding: 32px 5vw 48px; }
   }
+
+  /* ============================================================
+     PAGE 01 HERO FIGURES — designed mockups
+     ============================================================ */
+  .p1-figure { margin: 48px 0; }
+  .p1-figure-frame {
+    background: var(--paper);
+    border: 1px solid var(--gray-200);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 12px 32px rgba(11, 18, 48, 0.08);
+  }
+  .p1-figure-caption {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--gray-200);
+    display: flex;
+    gap: 18px;
+    align-items: baseline;
+  }
+  .p1-figure-caption .num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: 600;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .p1-figure-caption .text { font-size: 14px; line-height: 1.6; color: var(--gray-600); }
+  .p1-figure-caption .text strong { color: var(--ink); font-weight: 600; }
+
+  /* Two-up split for side-by-side dashboards */
+  .p1-twoup {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--gray-100);
+  }
+  .p1-twoup-side {
+    background: var(--white);
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .p1-twoup-side + .p1-twoup-side { border-left: 1px solid var(--gray-200); }
+  .p1-side-tag {
+    position: absolute;
+    top: 12px; right: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: rgba(11, 18, 48, 0.85);
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    z-index: 5;
+    font-weight: 600;
+  }
+  .p1-side-tag.instructor { background: rgba(46, 91, 255, 0.92); }
+
+  /* Mini app shell shared between student/instructor mockups */
+  .p1-app-nav {
+    background: var(--navy);
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .p1-app-brand {
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+  }
+  .p1-app-avatar {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+  }
+  .p1-app-body {
+    padding: 22px 20px;
+    background: var(--paper);
+    min-height: 380px;
+  }
+  .p1-app-body h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 0 0 4px;
+  }
+  .p1-app-body .sub {
+    font-size: 12.5px;
+    color: var(--gray-500);
+    margin-bottom: 18px;
+  }
+
+  /* Stat cards (used in both dashboards) */
+  .p1-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+  .p1-stat {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 12px;
+  }
+  .p1-stat.dark {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: #fff;
+  }
+  .p1-stat-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    font-weight: 600;
+  }
+  .p1-stat.dark .p1-stat-label { color: rgba(255,255,255,0.55); }
+  .p1-stat-value {
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--navy);
+    margin-top: 2px;
+    line-height: 1;
+  }
+  .p1-stat.dark .p1-stat-value { color: #fff; }
+  .p1-stat-value .unit {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gray-400);
+    margin-left: 4px;
+  }
+  .p1-stat.dark .p1-stat-value .unit { color: rgba(255,255,255,0.55); }
+
+  /* List items (Up Next / Attention) */
+  .p1-list-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .p1-list-row {
+    display: flex;
+    align-items: center;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 6px;
+    font-size: 12px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+  }
+  .p1-list-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--blue);
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+  .p1-list-dot.red { background: #DC2626; }
+  .p1-list-dot.green { background: #16A34A; }
+  .p1-list-dot.amber { background: #d97706; }
+  .p1-list-row .name { flex: 1; font-weight: 500; }
+  .p1-list-row .meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--gray-500);
+  }
+  .p1-list-row .meta.urgent { color: #DC2626; }
+
+  /* Component-reuse two-up (Fig 02) */
+  .p1-component-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    padding: 36px;
+    background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  }
+  .p1-component-shell {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    padding: 22px;
+    position: relative;
+  }
+  .p1-component-tag {
+    position: absolute;
+    top: -10px;
+    left: 16px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: var(--navy);
+    color: #fff;
+    padding: 4px 9px;
+    border-radius: 4px;
+    font-weight: 700;
+  }
+  .p1-component-tag.alt { background: var(--blue); }
+  .p1-comp-context {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .p1-assign-card {
+    background: var(--paper);
+    border: 1px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 14px;
+  }
+  .p1-assign-card .card-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 0 0 4px;
+  }
+  .p1-assign-card .card-class {
+    font-size: 12px;
+    color: var(--gray-500);
+    margin-bottom: 12px;
+  }
+  .p1-assign-card .card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .p1-assign-card .card-meta-pill {
+    background: var(--blue-pale);
+    color: var(--navy);
+    padding: 3px 9px;
+    border-radius: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+  .p1-assign-card .card-meta-pill.urgent { background: #fee2e2; color: #991b1b; }
+  .p1-assign-card .card-meta-pill.amber { background: #fef3c7; color: #92400e; }
+  .p1-assign-card .card-action {
+    width: 100%;
+    padding: 9px;
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+  }
+  .p1-assign-card .card-action.outline {
+    background: transparent;
+    color: var(--navy);
+    border: 1px solid var(--gray-200);
+  }
+  .p1-component-callout {
+    margin-top: 18px;
+    padding: 12px 14px;
+    background: #fffbeb;
+    border-left: 3px solid #d97706;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #713f12;
+    line-height: 1.55;
+  }
+  .p1-component-callout strong { color: #713f12; }
+
+  /* Dev toolbar + changelog mockup (Fig 03) */
+  .p1-tools {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 0;
+    background: #1a1d28;
+    min-height: 480px;
+    position: relative;
+  }
+  .p1-tools-app {
+    background: var(--paper);
+    padding: 24px 22px;
+    overflow: hidden;
+  }
+  .p1-tools-app-faded {
+    opacity: 0.55;
+  }
+  .p1-tools-app-header {
+    background: var(--navy);
+    margin: -24px -22px 16px;
+    padding: 12px 22px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+  }
+  .p1-tools-fakeline {
+    height: 12px;
+    background: var(--gray-200);
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  .p1-tools-fakeline.short { width: 70%; }
+  .p1-tools-fakeline.shorter { width: 45%; }
+  .p1-tools-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 14px;
+    margin-top: 14px;
+  }
+  .p1-tools-card .row {
+    display: flex; justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .p1-tools-card-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    font-weight: 600;
+  }
+
+  /* Dev toolbar floating panel */
+  .p1-devtoolbar {
+    position: absolute;
+    bottom: 18px;
+    right: 18px;
+    background: #0f1117;
+    border: 1px solid #2a2f3d;
+    border-radius: 10px;
+    padding: 14px;
+    width: 230px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    font-family: 'IBM Plex Mono', monospace;
+    z-index: 10;
+  }
+  .p1-devtoolbar-title {
+    color: #6a7088;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .p1-devtoolbar-section {
+    margin-bottom: 12px;
+  }
+  .p1-devtoolbar-sublabel {
+    color: #4a4f5d;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .p1-devtoolbar-states {
+    display: flex; gap: 4px;
+  }
+  .p1-devtoolbar-state {
+    flex: 1;
+    padding: 5px 0;
+    border: 1px solid #2a2f3d;
+    border-radius: 5px;
+    background: transparent;
+    color: #6a7088;
+    font-size: 10px;
+    text-align: center;
+    font-weight: 500;
+  }
+  .p1-devtoolbar-state.active {
+    background: var(--navy);
+    color: #fff;
+    border-color: var(--navy);
+    font-weight: 700;
+  }
+  .p1-devtoolbar-select {
+    width: 100%;
+    background: #1a1d28;
+    border: 1px solid #2a2f3d;
+    border-radius: 5px;
+    padding: 6px 8px;
+    color: #c8d4ec;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+  }
+  .p1-devtoolbar-screen {
+    color: #6a7088;
+    font-size: 9px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #2a2f3d;
+  }
+
+  /* Changelog drawer */
+  .p1-changelog {
+    background: var(--white);
+    border-left: 1px solid var(--gray-200);
+    padding: 22px 18px;
+    overflow-y: auto;
+  }
+  .p1-changelog-header {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 0 0 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .p1-changelog-count {
+    background: var(--blue-pale);
+    color: var(--navy);
+    padding: 2px 7px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+  }
+  .p1-changelog-sub {
+    font-size: 11px;
+    color: var(--gray-500);
+    margin-bottom: 16px;
+  }
+  .p1-changelog-entry {
+    border-top: 1px solid var(--gray-100);
+    padding: 12px 0;
+    font-size: 12px;
+  }
+  .p1-changelog-entry:first-of-type { border-top: none; padding-top: 4px; }
+  .p1-changelog-tag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-weight: 700;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  .p1-changelog-tag.student { background: #dcfce7; color: #166534; }
+  .p1-changelog-tag.prof { background: var(--blue-pale); color: var(--navy); }
+  .p1-changelog-entry .ttl {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 6px 0 2px;
+    font-size: 12.5px;
+  }
+  .p1-changelog-entry .desc {
+    color: var(--gray-600);
+    font-size: 11.5px;
+    line-height: 1.5;
+  }
+
+  /* IA diagram (Fig 04) */
+  .p1-ia {
+    padding: 56px 32px;
+    background: linear-gradient(180deg, #fafbfc 0%, #f1f5f9 100%);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .p1-ia-tree {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .p1-ia-root {
+    display: inline-block;
+    background: var(--navy);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    position: relative;
+  }
+  .p1-ia-root .sub {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin-top: 2px;
+    font-weight: 500;
+  }
+  .p1-ia-connector {
+    width: 2px;
+    height: 30px;
+    background: var(--gray-300, #cbd5e0);
+    margin: 0 auto;
+  }
+  .p1-ia-split {
+    width: 60%;
+    height: 2px;
+    background: var(--gray-300, #cbd5e0);
+    margin: 0 auto;
+    position: relative;
+  }
+  .p1-ia-branches {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 28px;
+  }
+  .p1-ia-branch {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 18px;
+    text-align: left;
+  }
+  .p1-ia-branch.student { border-top: 3px solid #16A34A; }
+  .p1-ia-branch.prof { border-top: 3px solid var(--blue); }
+  .p1-ia-branch-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray-500);
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .p1-ia-branch-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 14px;
+  }
+  .p1-ia-branch-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .p1-ia-branch-list li {
+    padding: 7px 0 7px 16px;
+    border-left: 2px solid var(--gray-200);
+    font-size: 12.5px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 2px;
+  }
+  .p1-ia-branch.student .p1-ia-branch-list li { border-left-color: #16A34A; }
+  .p1-ia-branch.prof .p1-ia-branch-list li { border-left-color: var(--blue); }
+  .p1-ia-shared {
+    margin-top: 28px;
+    padding: 14px 18px;
+    background: var(--white);
+    border: 1px dashed var(--gray-300, #cbd5e0);
+    border-radius: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--gray-600);
+    text-align: center;
+  }
+  .p1-ia-shared strong { color: var(--navy); }
+
+  @media (max-width: 720px) {
+    .p1-twoup { grid-template-columns: 1fr; }
+    .p1-twoup-side + .p1-twoup-side { border-left: none; border-top: 1px solid var(--gray-200); }
+    .p1-component-grid { grid-template-columns: 1fr; padding: 24px; }
+    .p1-tools { grid-template-columns: 1fr; min-height: auto; }
+    .p1-changelog { border-left: none; border-top: 1px solid var(--gray-200); }
+    .p1-devtoolbar { position: static; width: auto; margin: 14px; }
+    .p1-ia-branches { grid-template-columns: 1fr; }
+  }
 </style>
 
 <style>
@@ -792,6 +1385,7 @@
   --red: #f87171;
   --red-pale: #3a1a1a;
   --rule: #252a38;
+  --white: #181c26;
 
   /* Shell chrome tokens (kc- prefix) */
   --kc-bg: #0e1118;
@@ -901,6 +1495,94 @@
   </div>
 </div>
 
+<!-- ── FIGURE 01 — Side by side dashboards (the thesis hero) ─── -->
+<div class="p1-figure">
+  <div class="p1-figure-frame">
+    <div class="p1-twoup">
+      <!-- STUDENT SIDE -->
+      <div class="p1-twoup-side">
+        <span class="p1-side-tag">Student</span>
+        <div class="p1-app-nav">
+          <div class="p1-app-brand">DEAD!</div>
+          <div class="p1-app-avatar">M</div>
+        </div>
+        <div class="p1-app-body">
+          <h4>Hey Mollie 👋</h4>
+          <p class="sub">3 assignments due this week</p>
+          <div class="p1-stats">
+            <div class="p1-stat">
+              <div class="p1-stat-label">Current Streak</div>
+              <div class="p1-stat-value">12<span class="unit">days</span></div>
+            </div>
+            <div class="p1-stat dark">
+              <div class="p1-stat-label">Class Rank</div>
+              <div class="p1-stat-value">#3<span class="unit">of 18</span></div>
+            </div>
+          </div>
+          <div class="p1-list-label">Up Next</div>
+          <div class="p1-list-row">
+            <span class="p1-list-dot"></span>
+            <span class="name">Embalming Terminology Quiz</span>
+            <span class="meta urgent">Due tomorrow</span>
+          </div>
+          <div class="p1-list-row">
+            <span class="p1-list-dot green"></span>
+            <span class="name">Funeral Service Law — Ch 4</span>
+            <span class="meta">Due Fri</span>
+          </div>
+          <div class="p1-list-row">
+            <span class="p1-list-dot green"></span>
+            <span class="name">Anatomy Flashcards</span>
+            <span class="meta">Due Mon</span>
+          </div>
+        </div>
+      </div>
+      <!-- INSTRUCTOR SIDE -->
+      <div class="p1-twoup-side">
+        <span class="p1-side-tag instructor">Instructor</span>
+        <div class="p1-app-nav">
+          <div class="p1-app-brand">DEAD!</div>
+          <div class="p1-app-avatar">P</div>
+        </div>
+        <div class="p1-app-body">
+          <h4>Welcome back, Dr. Penepent</h4>
+          <p class="sub">2 classes · 38 students total</p>
+          <div class="p1-stats">
+            <div class="p1-stat">
+              <div class="p1-stat-label">Ungraded</div>
+              <div class="p1-stat-value">12<span class="unit">submissions</span></div>
+            </div>
+            <div class="p1-stat dark">
+              <div class="p1-stat-label">Need Attention</div>
+              <div class="p1-stat-value">3<span class="unit">students</span></div>
+            </div>
+          </div>
+          <div class="p1-list-label">Attention Needed</div>
+          <div class="p1-list-row">
+            <span class="p1-list-dot red"></span>
+            <span class="name">3 students haven't started</span>
+            <span class="meta urgent">Anatomy Test · Nov 5</span>
+          </div>
+          <div class="p1-list-row">
+            <span class="p1-list-dot amber"></span>
+            <span class="name">12 ungraded submissions</span>
+            <span class="meta">Embalming Quiz</span>
+          </div>
+          <div class="p1-list-row">
+            <span class="p1-list-dot green"></span>
+            <span class="name">Tournament ends in 2 days</span>
+            <span class="meta">Funeral Law Bowl</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="p1-figure-caption">
+    <span class="num">Fig. 01</span>
+    <span class="text">Two dashboards, same product, opposite goals. The student arrives looking for <strong>what to do next</strong>; the instructor arrives looking for <strong>what's broken</strong>. Same nav. Same color tokens. Same component library. Different information architecture, different stat cards, different urgency cues — all driven by role.</span>
+  </div>
+</div>
+
 <!-- ── PROBLEM ───────────────────────────────── -->
 <section>
   <div class="section-num">01 — Problem</div>
@@ -946,6 +1628,54 @@
   </div>
 </section>
 
+<!-- ── FIGURE 04 — IA divergence diagram ───────────────────── -->
+<div class="p1-figure">
+  <div class="p1-figure-frame">
+    <div class="p1-ia">
+      <div class="p1-ia-tree">
+        <div class="p1-ia-root">
+          DEAD!
+          <span class="sub">Shared shell</span>
+        </div>
+        <div class="p1-ia-connector"></div>
+        <div class="p1-ia-shared">
+          <strong>Shared:</strong> nav · auth · theme · type ramp · breakpoints · component library · color tokens
+        </div>
+        <div class="p1-ia-branches">
+          <div class="p1-ia-branch student">
+            <div class="p1-ia-branch-label">Side A</div>
+            <div class="p1-ia-branch-title">Student</div>
+            <ul class="p1-ia-branch-list">
+              <li>Dashboard</li>
+              <li>My Tests</li>
+              <li>Flashcards</li>
+              <li>Match Game</li>
+              <li>Showdown</li>
+              <li>Class Detail</li>
+            </ul>
+          </div>
+          <div class="p1-ia-branch prof">
+            <div class="p1-ia-branch-label">Side B</div>
+            <div class="p1-ia-branch-title">Instructor</div>
+            <ul class="p1-ia-branch-list">
+              <li>Dashboard (6 tabs)</li>
+              <li>Classes</li>
+              <li>Create Assignment</li>
+              <li>Plan Tournament</li>
+              <li>Grade Book</li>
+              <li>High Five</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="p1-figure-caption">
+    <span class="num">Fig. 04</span>
+    <span class="text">The shared root, the divergence point, and the role-specific surfaces. The shell is shared. Below the divergence, each role gets only what they need — the student doesn't see the gradebook, the instructor doesn't see Showdown gameplay. But the underlying component library, color tokens, and type ramp persist across both branches.</span>
+  </div>
+</div>
+
 <!-- ── SCREEN INVENTORY ───────────────────────────────── -->
 <section>
   <div class="section-num">03 — Surface area</div>
@@ -989,6 +1719,49 @@
     </div>
   </div>
 </section>
+
+<!-- ── FIGURE 02 — Component reuse, two contexts ──────────── -->
+<div class="p1-figure">
+  <div class="p1-figure-frame">
+    <div class="p1-component-grid">
+      <div class="p1-component-shell">
+        <span class="p1-component-tag">Student context</span>
+        <div class="p1-comp-context">// Up Next on student dashboard</div>
+        <div class="p1-assign-card">
+          <div class="card-title">Embalming Terminology Quiz</div>
+          <div class="card-class">Mortuary Science 101</div>
+          <div class="card-meta">
+            <span class="card-meta-pill urgent">Due tomorrow</span>
+            <span style="font-size:10.5px;color:var(--gray-500);font-family:'IBM Plex Mono',monospace;">15 questions · 20 min</span>
+          </div>
+          <button class="card-action">Start Quiz →</button>
+        </div>
+      </div>
+      <div class="p1-component-shell">
+        <span class="p1-component-tag alt">Instructor context</span>
+        <div class="p1-comp-context">// Attention list on instructor dashboard</div>
+        <div class="p1-assign-card">
+          <div class="card-title">Embalming Terminology Quiz</div>
+          <div class="card-class">Mortuary Science 101 · 18 students</div>
+          <div class="card-meta">
+            <span class="card-meta-pill amber">12 ungraded</span>
+            <span style="font-size:10.5px;color:var(--gray-500);font-family:'IBM Plex Mono',monospace;">3 not started</span>
+          </div>
+          <button class="card-action outline">View Submissions →</button>
+        </div>
+      </div>
+    </div>
+    <div style="padding:0 36px 28px;">
+      <div class="p1-component-callout">
+        <strong>One Assignment Card component, two contexts.</strong> Same width, padding, type ramp, internal grid. Variation lives in three places only: the meta pill (due date vs. ungraded count), the action button (filled-Start vs. outlined-View), and the secondary text (time estimate vs. cohort stats).
+      </div>
+    </div>
+  </div>
+  <div class="p1-figure-caption">
+    <span class="num">Fig. 02</span>
+    <span class="text">A single component, two roles. The student gets a filled <strong>Start</strong> button — the action is to perform. The instructor gets an outlined <strong>View Submissions</strong> button — the action is to inspect. Same card, swapped slots. The component knows which role is mounted; the design system handles the rest.</span>
+  </div>
+</div>
 
 <!-- ── EMBEDDED MOCKUPS ───────────────────────────────── -->
 <section>
@@ -1849,6 +2622,93 @@
     <p style="margin-top:18px;font-size:14px;color:var(--gray-600);max-width:none;">Sits at the bottom edge. Collapses to a thin tab when not in use. Visible only on internal builds — feature-flagged out of production.</p>
   </div>
 </section>
+
+<!-- ── FIGURE 03 — Dev toolbar + changelog (portfolio gold) ─── -->
+<div class="p1-figure">
+  <div class="p1-figure-frame">
+    <div class="p1-tools">
+      <!-- App preview with floating toolbar -->
+      <div class="p1-tools-app">
+        <div class="p1-tools-app-header">DEAD! — prof-class-detail</div>
+        <div class="p1-tools-app-faded">
+          <div class="p1-tools-fakeline"></div>
+          <div class="p1-tools-fakeline short"></div>
+          <div class="p1-tools-fakeline shorter"></div>
+          <div class="p1-tools-card">
+            <div class="row">
+              <span class="p1-tools-card-label">Roster</span>
+              <span class="p1-tools-card-label">18 students</span>
+            </div>
+            <div class="p1-tools-fakeline short"></div>
+            <div class="p1-tools-fakeline"></div>
+            <div class="p1-tools-fakeline shorter"></div>
+          </div>
+          <div class="p1-tools-card">
+            <div class="row">
+              <span class="p1-tools-card-label">Assignments</span>
+              <span class="p1-tools-card-label">5 active</span>
+            </div>
+            <div class="p1-tools-fakeline"></div>
+            <div class="p1-tools-fakeline short"></div>
+          </div>
+        </div>
+        <!-- Floating dev toolbar -->
+        <div class="p1-devtoolbar">
+          <div class="p1-devtoolbar-title">Dev Toolbar</div>
+          <div class="p1-devtoolbar-section">
+            <div class="p1-devtoolbar-sublabel">UI State</div>
+            <div class="p1-devtoolbar-states">
+              <div class="p1-devtoolbar-state active">Default</div>
+              <div class="p1-devtoolbar-state">Empty</div>
+              <div class="p1-devtoolbar-state">Error</div>
+            </div>
+          </div>
+          <div class="p1-devtoolbar-section">
+            <div class="p1-devtoolbar-sublabel">Jump to Screen</div>
+            <div class="p1-devtoolbar-select">prof-class-detail ▾</div>
+          </div>
+          <div class="p1-devtoolbar-screen">// 40+ screens · all reachable</div>
+        </div>
+      </div>
+      <!-- Changelog drawer -->
+      <div class="p1-changelog">
+        <div class="p1-changelog-header">
+          Changelog
+          <span class="p1-changelog-count">27</span>
+        </div>
+        <div class="p1-changelog-sub">Every design decision in the build, with the screen it affects and a short rationale.</div>
+        <div class="p1-changelog-entry">
+          <span class="p1-changelog-tag student">Student</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--gray-400);">flashcard-hub</span>
+          <div class="ttl">Missed Questions catch-all set</div>
+          <div class="desc">Persistent set pinned to top of FlashcardHub. Distinct visual treatment (flag icon, red accent). Editable by student.</div>
+        </div>
+        <div class="p1-changelog-entry">
+          <span class="p1-changelog-tag prof">Professor</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--gray-400);">prof-class-detail</span>
+          <div class="ttl">Roster — last active column</div>
+          <div class="desc">New column shows when student was last active in the class. Sortable. Helps instructors spot disengagement before it shows in grades.</div>
+        </div>
+        <div class="p1-changelog-entry">
+          <span class="p1-changelog-tag student">Student</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--gray-400);">test-results</span>
+          <div class="ttl">Flashcard follow-up modal</div>
+          <div class="desc">"Create Set" now opens 3-option modal: New Set named after test, Add to Missed Questions, or Both.</div>
+        </div>
+        <div class="p1-changelog-entry">
+          <span class="p1-changelog-tag prof">Professor</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--gray-400);">prof-dashboard</span>
+          <div class="ttl">Mobile hero collapse</div>
+          <div class="desc">Stats move below title on small screens. Tool cards tighter on mobile. Same pattern as student.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="p1-figure-caption">
+    <span class="num">Fig. 03</span>
+    <span class="text">Built into every screen, hidden from end users. The Dev Toolbar (right) lets engineering toggle between <strong>Default / Empty / Error</strong> states without leaving the screen, and jump to any of <strong>40+ screens</strong> via dropdown. The Changelog Drawer (left) lists every design decision with the screen it affects and a one-line rationale. This wasn't asked for. It was the difference between a prototype that gets read and a prototype that gets built.</span>
+  </div>
+</div>
 
 <!-- ── OUTCOMES ───────────────────────────────── -->
 <section>

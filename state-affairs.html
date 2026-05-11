@@ -171,6 +171,38 @@
     margin: 0;
   }
 
+  /* ---------- Per-case TL;DR ---------- */
+  .case-tldr {
+    border: 1px solid var(--rule);
+    background: var(--surface);
+    padding: 24px 28px;
+    max-width: 880px;
+    margin-bottom: 56px;
+  }
+  .case-tldr-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+  .case-tldr-label::before { content: '> '; color: var(--accent); }
+  .case-tldr-list {
+    list-style: disc;
+    margin: 0;
+    padding-left: 22px;
+  }
+  .case-tldr-list li {
+    font-family: var(--font-serif);
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+  .case-tldr-list li:last-child { margin-bottom: 0; }
+
   /* ---------- Meta strip ---------- */
   .meta {
     max-width: var(--max-width);
@@ -375,6 +407,8 @@
     display: block;
     width: 100%;
     height: auto;
+    max-height: 80vh;
+    object-fit: contain;
     border: 1px solid var(--rule);
     border-radius: 2px;
   }
@@ -960,6 +994,15 @@
   <h2>The collaboration layer inside the flagship.</h2>
   <p class="case-tagline">Comments, detail panels, and stat cards across State Affairs' bill workspace.</p>
 
+  <div class="case-tldr">
+    <div class="case-tldr-label">TL;DR</div>
+    <ul class="case-tldr-list">
+      <li>Designed the collaboration layer (comments, detail panels, stat cards) inside 360 Views — a bill workspace for legislative analysts.</li>
+      <li>Two prototypes shipped the inline-expansion comments pattern. Detail panel and stat cards followed.</li>
+      <li>One source of truth for comments at the bill level, with per-view filtering.</li>
+    </ul>
+  </div>
+
   <div class="case-body">
     <aside class="case-side">
       <!-- TODO copy: confirm role description now that case covers comments, detail panels, and stat cards -->
@@ -1076,6 +1119,15 @@
   <h2>Visualizing the model that predicts bill passage.</h2>
   <p class="case-tagline">Designing trust into a new probabilistic feature.</p>
 
+  <div class="case-tldr">
+    <div class="case-tldr-label">TL;DR</div>
+    <ul class="case-tldr-list">
+      <li>Designed how users see and trust Passage Probability — a new score that updates as bills move.</li>
+      <li>Two views: point-in-time donut showing what the score is made of, and a trajectory chart showing how it's evolved.</li>
+      <li>A numbered factor list ties both views together and lets users disagree with the model factor by factor.</li>
+    </ul>
+  </div>
+
   <div class="case-body">
     <aside class="case-side">
       <!-- TODO copy: fill in role / type / year for Momentum Score -->
@@ -1099,32 +1151,26 @@
       </p>
 
       <h3>The problem</h3>
-      <p>Likelihood of Enactment is a number between 0 and 100 that updates every time a bill moves. Behind it is a model trained on 15 years of state legislative outcomes — every state, plus DC and Congress — weighing 160-plus features per bill. None of that is what the user sees.</p>
+      <p>Legislative teams track hundreds of bills across dozens of states. Without a signal for which ones are actually moving, prioritization is guesswork — teams either spread attention evenly or rely on instinct about which bills matter.</p>
 
-      <p>What the user sees is a number. And it's new. Users had spent years tracking bills without a passage score; now a model was telling them this one is at 24% and that one is at 78%, with no track record yet to judge the model by. Skepticism was the default. A black-box score from a system users couldn't see was harder to act on than a hunch from a colleague they could call.</p>
+      <p>Passage Probability changes that. It's a score between 0 and 100 that updates every time a bill moves, trained on 15 years of outcomes across every state. It evaluates signals no analyst can track at scale — sponsor track records, political environment, bill velocity, historical base rates — so users can triage by likelihood, not just status.</p>
 
-      <p>The score is also not static. It recalculates at every committee vote, every chamber crossing, every amendment. A bill at 30% last week might be at 65% today, and the <em>trajectory</em> often matters more than the level. None of that legibility comes for free.</p>
-
-      <p>The design problem was making the score legible enough that skeptical users could pressure-test it, disagree with it, and learn when to trust it — without flattening it into either a verdict or a black box.</p>
+      <p>The score was new, and skepticism was the default. A number they couldn't interrogate was harder to act on than a hunch from a colleague they trusted. The design problem: make the score legible enough that users can pressure-test it, disagree with it, and learn when to trust it.</p>
 
       <h3>The design</h3>
       <p>Two views, working together.</p>
 
       <p>The first is point-in-time. Inside the bill detail panel, the score sits at the top with a donut breaking it into its top factors — sponsor strength, bipartisan cosponsorship, committee makeup, similar bill outcomes. The donut isn't there to be precise. It's there to communicate that the number is <em>constructed</em> — that 24% isn't pulled from the air, it's the weighted result of nine factors the user can read and disagree with. Each factor in the expanded list shows its direction (this one pushing the score up, that one pulling it down), and the "Unknown" tag on factors the model can't see yet — early-session bills with thin history — is its own honesty signal.</p>
 
-      <p>The second view is trajectory. A standalone card pairs the current score with a line chart showing how it's moved over time, against the median score for comparable bills in the same state and topic, with a shaded range showing the typical band those bills land in. Major legislative actions are marked on the timeline. Users can click any point to time-travel: the side panel updates to show what the score was at that action, what drove it, and what changed. A bill climbing from 30% to 70% over two weeks reads completely differently than a bill sitting at 55% for a month — and now the surface makes that visible.</p>
-
-      <p>The factor list is doing real work in both views. Factors are numbered rather than bulleted because users want to compare them across actions — <em>which</em> factor moved, by how much — and numbered items give that conversation anchors. Up-arrows, down-arrows, and right-arrows show direction; the green-on-green for positive factors and tan-on-cream for "Unknown" tie back to the donut's color logic.</p>
-
-      <p>The 0–100 score never goes away. It's the headline number. But around it, the design builds enough context that a skeptical user can pressure-test the model's read against their own knowledge — and a user managing thousands of bills across 50 states can triage by trajectory rather than treating every score as a verdict.</p>
-
       <div class="figure">
-        <img src="images/state-affairs/momentum-score-bill-detail.png" alt="The momentum score visualization rendered inside the bill detail panel">
+        <img src="images/state-affairs/momentum-score-bill-detail-page.png" alt="The bill detail panel shown in context within the State Affairs platform, showing the momentum score donut and factors alongside the bill listing.">
         <div class="figure-caption">
           <span class="figure-caption-num">Fig. 04</span>
-          <span>The momentum score visualization inside the bill detail panel.</span>
+          <span>The bill detail panel in context, with the momentum score visualization at the top right.</span>
         </div>
       </div>
+
+      <p>The second view is trajectory. A standalone card pairs the current score with a line chart showing how it's moved over time, against the median score for comparable bills in the same state and topic, with a shaded range showing the typical band those bills land in. Major legislative actions are marked on the timeline. Users can click any point to time-travel: the side panel updates to show what the score was at that action, what drove it, and what changed. A bill climbing from 30% to 70% over two weeks reads completely differently than a bill sitting at 55% for a month — and now the surface makes that visible.</p>
 
       <div class="figure">
         <img src="images/state-affairs/momentum-score-card.png" alt="The momentum score rendered as a standalone card">
@@ -1133,6 +1179,10 @@
           <span>The momentum score as a standalone card.</span>
         </div>
       </div>
+
+      <p>The factor list is doing real work in both views. Factors are numbered rather than bulleted because users want to compare them across actions — <em>which</em> factor moved, by how much — and numbered items give that conversation anchors. Up-arrows, down-arrows, and right-arrows show direction; the green-on-green for positive factors and tan-on-cream for "Unknown" tie back to the donut's color logic.</p>
+
+      <p>The 0–100 score never goes away. It's the headline number. But around it, the design builds enough context that a skeptical user can pressure-test the model's read against their own knowledge — and a user managing thousands of bills across 50 states can triage by trajectory rather than treating every score as a verdict.</p>
     </div>
   </div>
 </section>
@@ -1142,6 +1192,15 @@
   <div class="case-number">— 03 / Keyword Alerts</div>
   <h2>Designing trust into a keyword alerts system.</h2>
   <p class="case-tagline">Three coordinated design moves to make alerts worth listening to.</p>
+
+  <div class="case-tldr">
+    <div class="case-tldr-label">TL;DR</div>
+    <ul class="case-tldr-list">
+      <li>Designed three coordinated improvements to make keyword alerts trustworthy.</li>
+      <li>A live Strength Indicator coaches users to build well-scoped queries with projected match volume as evidence.</li>
+      <li>Match Type and per-result transparency surface why each result showed up. Priority and Position capture what each keyword means.</li>
+    </ul>
+  </div>
 
   <div class="case-body">
     <aside class="case-side">
@@ -1247,6 +1306,15 @@
   <h2>Making roll-call results legible at a glance.</h2>
   <p class="case-tagline">Designing for the long pre-vote stretch most scorecard tools ignore.</p>
 
+  <!-- TODO: add voting scorecard TL;DR bullets
+  <div class="case-tldr">
+    <div class="case-tldr-label">TL;DR</div>
+    <ul class="case-tldr-list">
+      <li>TODO — placeholder until prose is written for this section.</li>
+    </ul>
+  </div>
+  -->
+
   <div class="case-body">
     <aside class="case-side">
       <div class="case-side-block">
@@ -1316,6 +1384,13 @@
   <h2>Bringing editorial weight to a B2B reading surface.</h2>
   <p class="case-tagline">A typographic refresh of the platform's news experience.</p>
 
+  <div class="case-tldr">
+    <div class="case-tldr-label">TL;DR</div>
+    <ul class="case-tldr-list">
+      <li>Reset the article reading surface with editorial typography and reduced chrome, treating B2B legislative news as content worth reading.</li>
+    </ul>
+  </div>
+
   <div class="case-body">
     <aside class="case-side">
       <div class="case-side-block">
@@ -1360,6 +1435,14 @@
   <div class="case-number">— 06 / Reference & Search</div>
   <h2>Code Annotated, scaled from one state to fifty.</h2>
   <p class="case-tagline">Taking a state-specific tool and rebuilding it as a platform-wide capability.</p>
+
+  <div class="case-tldr">
+    <div class="case-tldr-label">TL;DR</div>
+    <ul class="case-tldr-list">
+      <li>Designed the title-level navigation that lets users move from the broad code structure down through chapters and sections to the bills referenced inside.</li>
+      <li>The interaction pattern holds across desktop and mobile.</li>
+    </ul>
+  </div>
 
   <div class="case-body">
     <aside class="case-side">

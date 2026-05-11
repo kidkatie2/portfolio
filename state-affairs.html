@@ -927,7 +927,7 @@
       <span class="toc-arrow">→</span>
     </a></li>
     <li><a href="#keywords">
-      <span class="toc-row"><span class="toc-num">03</span><span class="toc-title">Untangling a fragmented save-and-search experience</span></span>
+      <span class="toc-row"><span class="toc-num">03</span><span class="toc-title">Designing trust into a keyword alerts system</span></span>
       <span class="toc-arrow">→</span>
     </a></li>
     <li><a href="#voting-scorecard">
@@ -1116,8 +1116,9 @@
 <!-- ============ CASE 03: KEYWORDS REDESIGN ============ -->
 <section class="case" id="keywords">
   <div class="case-number">— 03 / Keyword Alerts</div>
-  <h2>Untangling a fragmented save-and-search experience.</h2>
-  <p class="case-tagline">A redesign of the platform's most actively-used power-user feature.</p>
+  <h2>Designing trust into a keyword alerts system.</h2>
+  <!-- TODO copy: write case tagline for the trust-framing version -->
+  <p class="case-tagline"></p>
 
   <div class="case-body">
     <aside class="case-side">
@@ -1136,73 +1137,57 @@
     </aside>
 
     <div class="case-content">
-      <p class="lede">
-        Keyword Alerts had grown into the most actively-used feature on the platform — and also the most fragmented. Saving, editing, organizing, and searching had each evolved separately, with overlapping interactions and inconsistent results across content types.
-      </p>
+      <!-- TODO copy: write section lede — what Keyword Alerts is, and why "trust" frames the work -->
 
-      <h3>What I changed</h3>
-      <p class="lede">Four interventions, each targeted at a specific point of fragmentation — results, search modes, save flow, and folder creation.</p>
-      <ul>
-        <li>Redesigned card patterns across four content types — news, hearings, legislators, committees — so results feel coherent regardless of what's matching.</li>
-        <li>Rationalized search modes into three named options: Quick search, Phrase builder, and Boolean. Each surfaces different controls instead of competing for the same input.</li>
-        <li>Consolidated the save and edit experience into a single creation drawer. Previously these were two separate flows that diverged in subtle ways.</li>
-        <li>Rebuilt folder creation as an inline dropdown, removing a modal that was interrupting the most common save path.</li>
-      </ul>
+      <h3>The problem</h3>
+      <!-- TODO copy: write the problem — why a keyword alerts system has to earn trust before users will rely on it -->
 
-      <!-- TODO image: images/state-affairs/keywords-cards-grid.png -->
+      <h3>Helping users write well-scoped queries</h3>
+      <!-- TODO copy: write this section — the Strength Indicator, how it surfaces evidence in-form, and how the "too broad" state offers narrower alternatives -->
+
       <div class="figure">
-        <div class="figure-image wide">
-          <span class="figure-image-label">Card grammar across four content types</span>
-        </div>
+        <img src="images/state-affairs/keywords-strength-strong.png" alt="Strength Indicator showing the Strong state with projected match volume">
         <div class="figure-caption">
           <span class="figure-caption-num">Fig. 06</span>
-          <span>Consistent card structure for news, hearings, legislators, and committees.</span>
+          <span>The Strong state, with projected match volume as in-form evidence.</span>
         </div>
       </div>
 
-      <!-- TODO image: images/state-affairs/keywords-results.png -->
       <div class="figure">
-        <div class="figure-image wide">
-          <span class="figure-image-label">Keywords — Search results across content types</span>
-        </div>
+        <img src="images/state-affairs/keywords-strength-toobroad.png" alt="Strength Indicator showing the Too broad state with suggested narrower alternatives">
         <div class="figure-caption">
           <span class="figure-caption-num">Fig. 07</span>
-          <span>Universal results page with content-type tabs and consistent card grammar.</span>
+          <span>When the query is too broad, the form offers narrower alternatives drawn from the corpus.</span>
         </div>
       </div>
 
-      <div class="figure figure-pair">
-        <!-- TODO image: images/state-affairs/keywords-search-modes.png -->
-        <div>
-          <div class="figure-image">
-            <span class="figure-image-label">Search modes</span>
-          </div>
-        </div>
-        <!-- TODO image: images/state-affairs/keywords-save-drawer.png -->
-        <div>
-          <div class="figure-image">
-            <span class="figure-image-label">Save & edit drawer</span>
-          </div>
+      <h3>Making the matching system legible</h3>
+      <!-- TODO copy: write this section — semantic vs. exact match, the tradeoff stated in expected match volume, and how each result card shows why it matched -->
+
+      <div class="figure">
+        <img src="images/state-affairs/keywords-match-type.png" alt="Match Type field showing Semantic vs. Exact options with expected monthly match volume">
+        <div class="figure-caption">
+          <span class="figure-caption-num">Fig. 08</span>
+          <span>Semantic vs. Exact, with the tradeoff stated in expected monthly match volume.</span>
         </div>
       </div>
 
       <div class="figure">
-        <div class="figure-pair">
-          <!-- TODO image: images/state-affairs/keywords-folder-before.png -->
-          <div>
-            <div class="figure-image">
-              <span class="figure-image-label">Folder creation · Before — modal</span>
-            </div>
-          </div>
-          <!-- TODO image: images/state-affairs/keywords-folder-after.png -->
-          <div>
-            <div class="figure-image">
-              <span class="figure-image-label">Folder creation · After — inline dropdown</span>
-            </div>
-          </div>
-        </div>
+        <img src="images/state-affairs/keywords-match-transparency.png" alt="Result card showing why a result matched, with the matched phrase highlighted">
         <div class="figure-caption">
-          <span>Removing the modal that interrupted the most common save path.</span>
+          <span class="figure-caption-num">Fig. 09</span>
+          <span>Each card surfaces why it matched — synonym, alternate term, or highlighted snippet.</span>
+        </div>
+      </div>
+
+      <h3>Capturing what each keyword means</h3>
+      <!-- TODO copy: write this section — Priority and Position as keyword-level metadata, and how they feed downstream ranking and surfacing -->
+
+      <div class="figure">
+        <img src="images/state-affairs/keywords-priority-position.png" alt="Priority and Position fields in the keyword edit drawer">
+        <div class="figure-caption">
+          <span class="figure-caption-num">Fig. 10</span>
+          <span>New keyword-level metadata that feeds downstream ranking and surfacing.</span>
         </div>
       </div>
     </div>
@@ -1249,7 +1234,7 @@
           <span class="figure-image-label">Scorecard — populated post-vote</span>
         </div>
         <div class="figure-caption">
-          <span class="figure-caption-num">Fig. 08</span>
+          <span class="figure-caption-num">Fig. 11</span>
           <!-- TODO caption -->
           <span></span>
         </div>
@@ -1266,7 +1251,7 @@
           <span class="figure-image-label">Scorecard — pre-vote ghost state</span>
         </div>
         <div class="figure-caption">
-          <span class="figure-caption-num">Fig. 09</span>
+          <span class="figure-caption-num">Fig. 12</span>
           <span>Ghost columns with footer banner explaining the state.</span>
         </div>
       </div>
@@ -1315,7 +1300,7 @@
           <span class="figure-image-label">News — Article detail</span>
         </div>
         <div class="figure-caption">
-          <span class="figure-caption-num">Fig. 10</span>
+          <span class="figure-caption-num">Fig. 13</span>
           <span>Article surface with editorial typography and reduced chrome.</span>
         </div>
       </div>
@@ -1366,7 +1351,7 @@
           <span class="figure-image-label">Code Annotated — Title view</span>
         </div>
         <div class="figure-caption">
-          <span class="figure-caption-num">Fig. 11</span>
+          <span class="figure-caption-num">Fig. 14</span>
           <span>Title-level navigation showing chapters with associated bill counts.</span>
         </div>
       </div>

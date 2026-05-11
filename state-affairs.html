@@ -1074,8 +1074,7 @@
 <section class="case" id="momentum-score">
   <div class="case-number">— 02 / Momentum Score</div>
   <h2>Visualizing the model that predicts bill passage.</h2>
-  <!-- TODO copy: write case tagline -->
-  <p class="case-tagline"></p>
+  <p class="case-tagline">Designing trust into a new probabilistic feature.</p>
 
   <div class="case-body">
     <aside class="case-side">
@@ -1095,13 +1094,29 @@
     </aside>
 
     <div class="case-content">
-      <!-- TODO copy: write section lede — what Momentum Score is in one or two sentences -->
+      <p class="lede">
+        A model produces the number. The design produces the trust.
+      </p>
 
       <h3>The problem</h3>
-      <!-- TODO copy: write problem framing — why visualizing the predictor mattered -->
+      <p>Likelihood of Enactment is a number between 0 and 100 that updates every time a bill moves. Behind it is a model trained on 15 years of state legislative outcomes — every state, plus DC and Congress — weighing 160-plus features per bill. None of that is what the user sees.</p>
+
+      <p>What the user sees is a number. And it's new. Users had spent years tracking bills without a passage score; now a model was telling them this one is at 24% and that one is at 78%, with no track record yet to judge the model by. Skepticism was the default. A black-box score from a system users couldn't see was harder to act on than a hunch from a colleague they could call.</p>
+
+      <p>The score is also not static. It recalculates at every committee vote, every chamber crossing, every amendment. A bill at 30% last week might be at 65% today, and the <em>trajectory</em> often matters more than the level. None of that legibility comes for free.</p>
+
+      <p>The design problem was making the score legible enough that skeptical users could pressure-test it, disagree with it, and learn when to trust it — without flattening it into either a verdict or a black box.</p>
 
       <h3>The design</h3>
-      <!-- TODO copy: write design section — what was built, key decisions -->
+      <p>Two views, working together.</p>
+
+      <p>The first is point-in-time. Inside the bill detail panel, the score sits at the top with a donut breaking it into its top factors — sponsor strength, bipartisan cosponsorship, committee makeup, similar bill outcomes. The donut isn't there to be precise. It's there to communicate that the number is <em>constructed</em> — that 24% isn't pulled from the air, it's the weighted result of nine factors the user can read and disagree with. Each factor in the expanded list shows its direction (this one pushing the score up, that one pulling it down), and the "Unknown" tag on factors the model can't see yet — early-session bills with thin history — is its own honesty signal.</p>
+
+      <p>The second view is trajectory. A standalone card pairs the current score with a line chart showing how it's moved over time, against the median score for comparable bills in the same state and topic, with a shaded range showing the typical band those bills land in. Major legislative actions are marked on the timeline. Users can click any point to time-travel: the side panel updates to show what the score was at that action, what drove it, and what changed. A bill climbing from 30% to 70% over two weeks reads completely differently than a bill sitting at 55% for a month — and now the surface makes that visible.</p>
+
+      <p>The factor list is doing real work in both views. Factors are numbered rather than bulleted because users want to compare them across actions — <em>which</em> factor moved, by how much — and numbered items give that conversation anchors. Up-arrows, down-arrows, and right-arrows show direction; the green-on-green for positive factors and tan-on-cream for "Unknown" tie back to the donut's color logic.</p>
+
+      <p>The 0–100 score never goes away. It's the headline number. But around it, the design builds enough context that a skeptical user can pressure-test the model's read against their own knowledge — and a user managing thousands of bills across 50 states can triage by trajectory rather than treating every score as a verdict.</p>
 
       <div class="figure">
         <img src="images/state-affairs/momentum-score-bill-detail.png" alt="The momentum score visualization rendered inside the bill detail panel">

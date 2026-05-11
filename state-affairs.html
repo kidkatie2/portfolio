@@ -990,6 +990,20 @@
         <strong class="lede">The first design question was scope: should comments live on the bill, or per-view inside it?</strong> After prototyping both, the team landed on bill-level comments with view filtering — one source of truth, with the comments filtered to whichever view a user is reading them in. The data model reads cleanly across the whole feature; the UI can vary per surface without forking.
       </p>
 
+      <!-- TODO image: images/state-affairs/360-comments-panel.png -->
+      <div class="figure">
+        <div class="figure-image wide">
+          <span class="figure-image-label">Comments panel with view filtering</span>
+        </div>
+        <div class="figure-caption">
+          <span class="figure-caption-num">Fig. 01</span>
+          <span>Bill-level comments scoped to the active 360 view.</span>
+        </div>
+      </div>
+
+      <h3>Detail panels</h3>
+      <!-- TODO copy: write detail panels section (problem, design decisions, what shipped) -->
+
       <p>
         <strong class="lede">For the bill detail panel I built two variants: one where 360 view threads expand inline, and one with compact link-out rows.</strong> The toggle was a native HTML details element rather than a custom component — proving the interaction without committing the engineering team to a pattern that hadn't been validated yet.
       </p>
@@ -1013,20 +1027,6 @@
           <span>Two variants tested before settling on the inline-expansion pattern.</span>
         </div>
       </div>
-
-      <!-- TODO image: images/state-affairs/360-comments-panel.png -->
-      <div class="figure">
-        <div class="figure-image wide">
-          <span class="figure-image-label">Comments panel with view filtering</span>
-        </div>
-        <div class="figure-caption">
-          <span class="figure-caption-num">Fig. 01</span>
-          <span>Bill-level comments scoped to the active 360 view.</span>
-        </div>
-      </div>
-
-      <h3>Detail panels</h3>
-      <!-- TODO copy: write detail panels section (problem, design decisions, what shipped) -->
 
       <div class="figure">
         <img src="images/state-affairs/360-bill-detail-in-progress.png" alt="Bill detail panel showing the in-progress state with a momentum score donut and labeled segments">

@@ -362,6 +362,20 @@
     grid-template-columns: 1fr 1fr;
     gap: 16px;
   }
+  .figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+  }
+  .figure-pair-label {
+    margin-top: 10px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--text-tertiary);
+  }
 
   /* ---------- Pull quote ---------- */
   .pull {
@@ -1005,15 +1019,27 @@
       <h3>Detail panels</h3>
       <!-- TODO copy: write detail panels section (problem, design decisions, what shipped) -->
 
-      <!-- TODO image: images/state-affairs/360-detail-panel.png -->
       <div class="figure">
-        <div class="figure-image wide">
-          <span class="figure-image-label">Detail panel — primary view</span>
-        </div>
+        <img src="images/state-affairs/360-bill-detail-in-progress.png" alt="Bill detail panel showing the in-progress state with a momentum score donut and labeled segments">
         <div class="figure-caption">
           <span class="figure-caption-num">Fig. 02</span>
-          <!-- TODO caption -->
-          <span></span>
+          <span>Bill detail panel — in-progress state with passage probability visualization.</span>
+        </div>
+      </div>
+
+      <div class="figure">
+        <div class="figure-pair">
+          <div>
+            <img src="images/state-affairs/360-bill-detail-passed.png" alt="Bill detail panel showing the resolved passed state — prediction replaced with outcome">
+            <div class="figure-pair-label">Bill detail · Passed state</div>
+          </div>
+          <div>
+            <img src="images/state-affairs/360-bill-detail-failed.png" alt="Bill detail panel showing the resolved failed state — prediction replaced with outcome">
+            <div class="figure-pair-label">Bill detail · Failed state</div>
+          </div>
+        </div>
+        <div class="figure-caption">
+          <span>Resolved states replace the prediction with the outcome.</span>
         </div>
       </div>
 
@@ -1068,15 +1094,19 @@
       <h3>The design</h3>
       <!-- TODO copy: write design section — what was built, key decisions -->
 
-      <!-- TODO image: images/state-affairs/momentum-score-primary.png -->
       <div class="figure">
-        <div class="figure-image wide">
-          <span class="figure-image-label">Momentum score visualization</span>
-        </div>
+        <img src="images/state-affairs/momentum-score-bill-detail.png" alt="The momentum score visualization rendered inside the bill detail panel">
         <div class="figure-caption">
           <span class="figure-caption-num">Fig. 04</span>
-          <!-- TODO caption -->
-          <span></span>
+          <span>The momentum score visualization inside the bill detail panel.</span>
+        </div>
+      </div>
+
+      <div class="figure">
+        <img src="images/state-affairs/momentum-score-card.png" alt="The momentum score rendered as a standalone card">
+        <div class="figure-caption">
+          <span class="figure-caption-num">Fig. 05</span>
+          <span>The momentum score as a standalone card.</span>
         </div>
       </div>
     </div>
@@ -1125,7 +1155,7 @@
           <span class="figure-image-label">Card grammar across four content types</span>
         </div>
         <div class="figure-caption">
-          <span class="figure-caption-num">Fig. 05</span>
+          <span class="figure-caption-num">Fig. 06</span>
           <span>Consistent card structure for news, hearings, legislators, and committees.</span>
         </div>
       </div>
@@ -1136,7 +1166,7 @@
           <span class="figure-image-label">Keywords — Search results across content types</span>
         </div>
         <div class="figure-caption">
-          <span class="figure-caption-num">Fig. 06</span>
+          <span class="figure-caption-num">Fig. 07</span>
           <span>Universal results page with content-type tabs and consistent card grammar.</span>
         </div>
       </div>
@@ -1219,7 +1249,7 @@
           <span class="figure-image-label">Scorecard — populated post-vote</span>
         </div>
         <div class="figure-caption">
-          <span class="figure-caption-num">Fig. 07</span>
+          <span class="figure-caption-num">Fig. 08</span>
           <!-- TODO caption -->
           <span></span>
         </div>
@@ -1236,7 +1266,7 @@
           <span class="figure-image-label">Scorecard — pre-vote ghost state</span>
         </div>
         <div class="figure-caption">
-          <span class="figure-caption-num">Fig. 08</span>
+          <span class="figure-caption-num">Fig. 09</span>
           <span>Ghost columns with footer banner explaining the state.</span>
         </div>
       </div>
@@ -1285,7 +1315,7 @@
           <span class="figure-image-label">News — Article detail</span>
         </div>
         <div class="figure-caption">
-          <span class="figure-caption-num">Fig. 09</span>
+          <span class="figure-caption-num">Fig. 10</span>
           <span>Article surface with editorial typography and reduced chrome.</span>
         </div>
       </div>
@@ -1336,7 +1366,7 @@
           <span class="figure-image-label">Code Annotated — Title view</span>
         </div>
         <div class="figure-caption">
-          <span class="figure-caption-num">Fig. 10</span>
+          <span class="figure-caption-num">Fig. 11</span>
           <span>Title-level navigation showing chapters with associated bill counts.</span>
         </div>
       </div>

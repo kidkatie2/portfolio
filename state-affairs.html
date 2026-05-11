@@ -305,6 +305,15 @@
   .case-content ul { counter-reset: list-item; }
   .case-content ul li { counter-increment: list-item; }
 
+  /* Inline prose utilities */
+  .mono {
+    font-family: var(--font-mono);
+    font-size: 0.92em;
+  }
+  .accent {
+    color: var(--accent);
+  }
+
   /* ---------- Image placeholders ---------- */
   .figure {
     margin: 48px 0;
@@ -1117,8 +1126,7 @@
 <section class="case" id="keywords">
   <div class="case-number">— 03 / Keyword Alerts</div>
   <h2>Designing trust into a keyword alerts system.</h2>
-  <!-- TODO copy: write case tagline for the trust-framing version -->
-  <p class="case-tagline"></p>
+  <p class="case-tagline">Three coordinated design moves to make alerts worth listening to.</p>
 
   <div class="case-body">
     <aside class="case-side">
@@ -1137,13 +1145,25 @@
     </aside>
 
     <div class="case-content">
-      <!-- TODO copy: write section lede — what Keyword Alerts is, and why "trust" frames the work -->
+      <p class="lede">
+        Helping users write well-scoped queries, making the matching system legible, and capturing what each keyword actually means to the user.
+      </p>
 
       <h3>The problem</h3>
-      <!-- TODO copy: write the problem — why a keyword alerts system has to earn trust before users will rely on it -->
+      <p>Keyword alerts only work if users trust them. Three ways that trust was breaking down at once.</p>
+
+      <p>Enterprise customers were saving overly broad keywords — just <span class="mono">insulin</span>, or <span class="mono">education</span> — and drowning their dashboards in matches that didn't matter. Once the noise started, the whole product felt broken even though the matching was working as designed.</p>
+
+      <p>Semantic matching had just been turned on platform-wide, which meant a keyword like <span class="mono">insulin</span> was now silently matching results about <span class="mono">semiglutide</span>. More useful in theory, harder to trust in practice — users didn't know why a result had shown up, or how to make it stop.</p>
+
+      <p>And the system had no way to know which of a user's keywords actually mattered to them. A keyword they cared deeply about and a keyword they'd saved on a whim competed for the same space across dashboards, 360 views, and recommended bills.</p>
 
       <h3>Helping users write well-scoped queries</h3>
-      <!-- TODO copy: write this section — the Strength Indicator, how it surfaces evidence in-form, and how the "too broad" state offers narrower alternatives -->
+      <p>A live Strength Indicator inside the search form — modeled on a password strength meter — scoring every query as users build it. Four states — Strong, Good, Fair, Too broad — each tied to a projected match volume. "Strong" reads as "~284 matches in the last 12 months · avg 24/mo, up from 15/mo the prior year. Well-scoped — alerts will be actionable." "Too broad" reads as "~47,000 matches all time · ~3,900/mo in the last 12 months. This term is too broad to generate useful alerts."</p>
+
+      <p>When the indicator drops to Fair or Too broad, the form surfaces concrete narrower alternatives as one-click chips: <span class="mono">insulin pricing reform</span>, <span class="mono">insulin copay cap</span>, <span class="mono">insulin affordability act</span>. Suggestions come from the corpus, not a static list.</p>
+
+      <p>The decision worth calling out: I chose to coach users inside the form rather than block them with a speedbump modal at save. A speedbump tells someone they've done something wrong after the fact. The Strength Indicator tells them what's working as they go. The friction is informative, not punitive.</p>
 
       <div class="figure">
         <img src="images/state-affairs/keywords-strength-strong.png" alt="Strength Indicator showing the Strong state with projected match volume">
@@ -1162,7 +1182,15 @@
       </div>
 
       <h3>Making the matching system legible</h3>
-      <!-- TODO copy: write this section — semantic vs. exact match, the tradeoff stated in expected match volume, and how each result card shows why it matched -->
+      <p>Three parts working together.</p>
+
+      <p>A Match Type field on every keyword, with the tradeoff stated in user-relevant terms: <span class="mono">Semantic · 532 / monthly avg</span>, matches by topic relevance, synonyms, and related concepts vs. <span class="mono">Exact · 29 / monthly avg</span>, only matches your precise term in bill text. Users pick their tradeoff per keyword.</p>
+
+      <p>A top-of-page banner the first time a user lands on the keywords page after the semantic rollout, explaining the change in two sentences and offering "Switch to Exact Matches only" as a one-click escape hatch. The banner can be dismissed once the user has made their call.</p>
+
+      <p>Per-result transparency on every card: "Matched by: synonym / alternate term," with the matched phrase highlighted in the result snippet. When a result is showing up because of a semantic match rather than the literal keyword, the user can see <span class="accent">why</span>.</p>
+
+      <p>These three pieces are doing the same job at three different scales — the field is the user's stance on a single keyword, the banner is the user's stance on the system, the card-level transparency is the user's read on a single result.</p>
 
       <div class="figure">
         <img src="images/state-affairs/keywords-match-type.png" alt="Match Type field showing Semantic vs. Exact options with expected monthly match volume">
@@ -1181,7 +1209,11 @@
       </div>
 
       <h3>Capturing what each keyword means</h3>
-      <!-- TODO copy: write this section — Priority and Position as keyword-level metadata, and how they feed downstream ranking and surfacing -->
+      <p>Two new first-class fields on every saved keyword: Priority and Position. Priority captures how much the user cares. Position captures their stance — Support, Oppose, Watch.</p>
+
+      <p>This metadata isn't decorative. It feeds into how 360 reports rank bills, which keywords get surfaced in recommended bills, and which alerts get foregrounded in the daily digest. The aside in the keyword drawer states this plainly: "Set priority and position to help with AI strength."</p>
+
+      <p>A smaller change than the other two, but structurally different. The Strength Indicator and the match-type controls are about the <span class="accent">query</span>. Priority and Position are about the user's <span class="accent">stance toward</span> the query. Together they give the system enough signal to filter what reaches the user.</p>
 
       <div class="figure">
         <img src="images/state-affairs/keywords-priority-position.png" alt="Priority and Position fields in the keyword edit drawer">

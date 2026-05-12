@@ -37,6 +37,10 @@
 [data-theme="dark"] .kc-contact-row { border-bottom-color: #1a1d28; }
 [data-theme="dark"] .contact-row:first-child,
 [data-theme="dark"] .kc-contact-row:first-child { border-top-color: #1a1d28; }
+/* Value text in contact rows: light-mode uses color: var(--bg) for white-on-dark,
+   but in dark mode --bg collapses to #0e1118 (nearly identical to the contact
+   section's #080a10 background) — values go invisible. Flip to --ink. */
+[data-theme="dark"] .contact-row a { color: var(--ink); }
 
 /* ============================================================
    THEME TOGGLE BUTTON

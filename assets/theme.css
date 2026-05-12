@@ -45,6 +45,11 @@
 [data-theme="dark"] .contact-headline,
 [data-theme="dark"] .contact-row a,
 [data-theme="dark"] .footer-meta strong { color: var(--ink); }
+/* Same problem on case-study pages with the kc- prefixed shell chrome. */
+[data-theme="dark"] .kc-contact,
+[data-theme="dark"] .kc-contact-headline,
+[data-theme="dark"] .kc-contact-row a,
+[data-theme="dark"] .kc-shell-footer-meta strong { color: var(--kc-ink); }
 
 /* ============================================================
    THEME TOGGLE BUTTON

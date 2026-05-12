@@ -37,10 +37,14 @@
 [data-theme="dark"] .kc-contact-row { border-bottom-color: #1a1d28; }
 [data-theme="dark"] .contact-row:first-child,
 [data-theme="dark"] .kc-contact-row:first-child { border-top-color: #1a1d28; }
-/* Value text in contact rows: light-mode uses color: var(--bg) for white-on-dark,
-   but in dark mode --bg collapses to #0e1118 (nearly identical to the contact
-   section's #080a10 background) — values go invisible. Flip to --ink. */
-[data-theme="dark"] .contact-row a { color: var(--ink); }
+/* Inverted contact/footer sections use color: var(--bg) for white-on-dark
+   text in light mode. In dark mode --bg flips to #0e1118 (nearly identical
+   to the section's #080a10 background) and the text collapses into the bg.
+   Flip every affected text color to --ink so it stays light in dark mode. */
+[data-theme="dark"] .contact,
+[data-theme="dark"] .contact-headline,
+[data-theme="dark"] .contact-row a,
+[data-theme="dark"] .footer-meta strong { color: var(--ink); }
 
 /* ============================================================
    THEME TOGGLE BUTTON

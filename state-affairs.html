@@ -996,11 +996,13 @@
       <span class="toc-row"><span class="toc-num">04</span><span class="toc-title">Voting Scorecard</span></span>
       <span class="toc-arrow">→</span>
     </a></li>
-    <li><a href="#news">
+    <!-- TEMP HIDDEN (WIP, not ready to show) — remove style below to restore -->
+    <li style="display:none;"><a href="#news">
       <span class="toc-row"><span class="toc-num">05</span><span class="toc-title">News</span></span>
       <span class="toc-arrow">→</span>
     </a></li>
-    <li><a href="#code-annotated">
+    <!-- TEMP HIDDEN (WIP, not ready to show) — remove style below to restore -->
+    <li style="display:none;"><a href="#code-annotated">
       <span class="toc-row"><span class="toc-num">06</span><span class="toc-title">Code Annotated</span></span>
       <span class="toc-arrow">→</span>
     </a></li>
@@ -1330,7 +1332,8 @@
 </section>
 
 <!-- ============ CASE 05: NEWS ============ -->
-<section class="case" id="news">
+<!-- TEMP HIDDEN (WIP, not ready to show) — remove style below to restore -->
+<section class="case" id="news" style="display:none;">
   <div class="case-number">— 05 / News</div>
   <h2>Bringing editorial weight to a B2B reading surface.</h2>
   <p class="case-tagline">A typographic refresh of the platform's news experience.</p>
@@ -1382,7 +1385,8 @@
 </section>
 
 <!-- ============ CASE 06: CODE ANNOTATED ============ -->
-<section class="case" id="code-annotated">
+<!-- TEMP HIDDEN (WIP, not ready to show) — remove style below to restore -->
+<section class="case" id="code-annotated" style="display:none;">
   <div class="case-number">— 06 / Reference & Search</div>
   <h2>Code Annotated, scaled from one state to fifty.</h2>
   <p class="case-tagline">Taking a state-specific tool and rebuilding it as a platform-wide capability.</p>
@@ -1520,8 +1524,8 @@
 </nav>
 <script>
 (function() {
-  // TEMP: 'three-sixty' and 'voting-scorecard' excluded while those sections are hidden (WIP)
-  var SECTION_IDS = ['momentum-score', 'keywords', 'news', 'code-annotated'];
+  // TEMP: 'three-sixty', 'voting-scorecard', 'news', 'code-annotated' excluded while those sections are hidden (WIP)
+  var SECTION_IDS = ['momentum-score', 'keywords'];
   var nav = document.getElementById('scroll-nav');
   if (!nav) return;
   var prevBtn = nav.querySelector('[data-scroll="prev"]');

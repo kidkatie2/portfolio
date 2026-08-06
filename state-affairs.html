@@ -978,7 +978,8 @@
 <nav class="toc" aria-label="Case studies">
   <div class="toc-label">In this case study</div>
   <ul class="toc-list">
-    <li><a href="#three-sixty">
+    <!-- TEMP HIDDEN (WIP, not ready to show) — remove style below to restore -->
+    <li style="display:none;"><a href="#three-sixty">
       <span class="toc-row"><span class="toc-num">01</span><span class="toc-title">360 Views</span></span>
       <span class="toc-arrow">→</span>
     </a></li>
@@ -990,7 +991,8 @@
       <span class="toc-row"><span class="toc-num">03</span><span class="toc-title">Keyword Alerts</span></span>
       <span class="toc-arrow">→</span>
     </a></li>
-    <li><a href="#voting-scorecard">
+    <!-- TEMP HIDDEN (WIP, not ready to show) — remove style below to restore -->
+    <li style="display:none;"><a href="#voting-scorecard">
       <span class="toc-row"><span class="toc-num">04</span><span class="toc-title">Voting Scorecard</span></span>
       <span class="toc-arrow">→</span>
     </a></li>
@@ -1006,7 +1008,8 @@
 </nav>
 
 <!-- ============ CASE 01: 360 VIEWS ============ -->
-<section class="case" id="three-sixty">
+<!-- TEMP HIDDEN (WIP, not ready to show) — remove style below to restore -->
+<section class="case" id="three-sixty" style="display:none;">
   <div class="case-number">— 01 / 360 Views</div>
   <h2>Designing how teams work a bill together.</h2>
   <p class="case-tagline">Bill-level comments across State Affairs' bill workspace.</p>
@@ -1248,7 +1251,8 @@
 </section>
 
 <!-- ============ CASE 04: VOTING SCORECARD ============ -->
-<section class="case" id="voting-scorecard">
+<!-- TEMP HIDDEN (WIP, not ready to show) — remove style below to restore -->
+<section class="case" id="voting-scorecard" style="display:none;">
   <div class="case-number">— 04 / Voting Scorecard</div>
   <h2>Making roll-call results legible at a glance.</h2>
   <p class="case-tagline">Designing for the long pre-vote stretch most scorecard tools ignore.</p>
@@ -1516,7 +1520,8 @@
 </nav>
 <script>
 (function() {
-  var SECTION_IDS = ['three-sixty', 'momentum-score', 'keywords', 'voting-scorecard', 'news', 'code-annotated'];
+  // TEMP: 'three-sixty' and 'voting-scorecard' excluded while those sections are hidden (WIP)
+  var SECTION_IDS = ['momentum-score', 'keywords', 'news', 'code-annotated'];
   var nav = document.getElementById('scroll-nav');
   if (!nav) return;
   var prevBtn = nav.querySelector('[data-scroll="prev"]');

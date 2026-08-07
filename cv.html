@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CV — Kate Chaparro</title>
+<meta name="description" content="CV of Kate Chaparro — senior product designer working across systems, surfaces, and stories. Currently leading product design at State Affairs.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kidkatie2.github.io/portfolio/cv.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kate Chaparro">
+<meta property="og:title" content="CV — Kate Chaparro">
+<meta property="og:description" content="Senior product designer working across systems, surfaces, and stories.">
+<meta property="og:url" content="https://kidkatie2.github.io/portfolio/cv.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CV — Kate Chaparro">
+<meta name="twitter:description" content="Senior product designer working across systems, surfaces, and stories.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/shell.css">
+<link rel="stylesheet" href="assets/theme.css">
+<script src="assets/theme.js"></script>
+<style>
+  /* ---------- CV page ---------- */
+  .cv-hero {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 72px var(--gutter) 48px;
+  }
+  .cv-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+  .cv-eyebrow::before { content: '// '; }
+  .cv-hero h1 {
+    font-family: var(--mono);
+    font-size: 56px;
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: 28px;
+  }
+  .cv-hero h1 .accent { color: var(--accent); }
+  .cv-hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 32px;
+    font-size: 12px;
+    color: var(--ink-2);
+    letter-spacing: 0.04em;
+  }
+  .cv-hero-meta a { color: var(--accent); }
+  .cv-hero-meta a:hover { text-decoration: underline; }
+  .cv-hero-meta .k { color: var(--ink-3); text-transform: uppercase; font-size: 10px; letter-spacing: 0.12em; margin-right: 8px; }
+  .cv-download {
+    display: inline-block;
+    margin-top: 32px;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    background: var(--accent-soft);
+    padding: 8px 16px;
+    font-weight: 500;
+    transition: all 0.15s;
+  }
+  .cv-download:hover { color: var(--bg); background: var(--accent); }
+
+  /* ---------- Section heads ---------- */
+  .cv-section-head {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 48px var(--gutter) 0;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    border-top: 1px solid var(--rule-strong);
+  }
+  .cv-section-head h2 {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .cv-section-head h2::before { content: '# '; color: var(--accent); }
+  .cv-section-head-meta {
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: 0.04em;
+    text-align: right;
+  }
+
+  /* ---------- Entries ---------- */
+  .cv-entries {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 24px var(--gutter) 40px;
+  }
+  .cv-entry {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 40px;
+    padding: 36px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .cv-entry:last-child { border-bottom: none; }
+  .cv-entry-side { font-size: 12px; line-height: 1.7; }
+  .cv-entry-role {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .cv-entry-org { color: var(--accent); font-weight: 500; margin-bottom: 8px; }
+  .cv-entry-dates {
+    color: var(--ink-3);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    font-variant-numeric: tabular-nums;
+  }
+  .cv-entry-tag {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    border: 1px solid var(--rule);
+    padding: 3px 8px;
+  }
+  .cv-entry-body ul { list-style: none; }
+  .cv-entry-body li {
+    position: relative;
+    padding-left: 22px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--ink-2);
+  }
+  .cv-entry-body li:last-child { margin-bottom: 0; }
+  .cv-entry-body li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .cv-entry-body li strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Education / certification rows ---------- */
+  .cv-simple-row {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 40px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 13px;
+  }
+  .cv-simple-row:last-child { border-bottom: none; }
+  .cv-simple-row .when { color: var(--ink-3); font-size: 11px; letter-spacing: 0.06em; font-variant-numeric: tabular-nums; align-self: center; }
+  .cv-simple-row .what { color: var(--ink-2); line-height: 1.6; }
+  .cv-simple-row .what strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 860px) {
+    .cv-hero { padding: 48px var(--gutter) 36px; }
+    .cv-hero h1 { font-size: 36px; }
+    .cv-entry, .cv-simple-row { grid-template-columns: 1fr; gap: 12px; padding: 28px 0; }
+    .cv-simple-row { padding: 14px 0; gap: 4px; }
+    .cv-section-head { flex-direction: column; gap: 8px; }
+    .cv-section-head-meta { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<div class="statusbar">
+  <div class="statusbar-inner">
+    <div class="status-left">
+      <span class="status-dot">ONLINE</span>
+      <span class="status-time" id="status-time">--:--:-- PT</span>
+      <span>v.1.0.0</span>
+    </div>
+    <div class="status-right">
+      <span>SF/CA</span>
+      <span>2026</span>
+      <span>ISSUE 01</span>
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme">
+        <span class="icon">☾</span>
+        <span class="label">DARK</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">KATE<span class="slash">/</span>CHAPARRO</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Work</a></li>
+      <li><a href="index.html#about-section">About</a></li>
+      <li><a href="index.html#contact-section">Contact</a></li>
+      <li><a href="cv.html" class="is-active">CV</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="cv-hero">
+  <div class="cv-eyebrow">Curriculum Vitae</div>
+  <h1>Nine years designing <span class="accent">systems that ship</span><span class="cursor"></span></h1>
+  <div class="cv-hero-meta">
+    <span><span class="k">email</span><a href="mailto:chaparrokate02@gmail.com">chaparrokate02@gmail.com</a></span>
+    <span><span class="k">linkedin</span><a href="https://www.linkedin.com/in/katechaparro/" target="_blank" rel="noopener">in/katechaparro</a></span>
+    <span><span class="k">based</span>SF Bay Area</span>
+  </div>
+  <a class="cv-download" href="assets/KateChaparro-Resume.pdf" download>↓ Download PDF</a>
+</header>
+
+<!-- ============ EXPERIENCE ============ -->
+<div class="cv-section-head">
+  <h2>experience</h2>
+  <div class="cv-section-head-meta">10 entries · 2017 → present<br>sorted: most recent first</div>
+</div>
+
+<section class="cv-entries">
+
+  <div class="cv-entry">
+    <div class="cv-entry-side">
+      <div class="cv-entry-role">Senior UX Designer</div>
+      <div class="cv-entry-org">State Affairs</div>
+      <div class="cv-entry-dates">Oct. 2024 — Present</div>
+    </div>
+    <div class="cv-entry-body">
+      <ul>
+        <li><strong>Design system &amp; library development:</strong> established the first comprehensive library system, creating a structured and scalable approach to design across four platforms.</li>
+        <li><strong>Early-stage growth impact:</strong> joined at Series A and contributed to design maturity that supported the company's successful Series B raise, growing valuation from $5M to $25M.</li>
+        <li><strong>System governance &amp; adoption:</strong> established scalable processes and governance models, driving higher adoption and team alignment.</li>
+        <li><strong>UI/UX cohesion &amp; standardization:</strong> led extensive clean-up and unification efforts, improving consistency, usability, and maintainability across the entire product ecosystem.</li>
+        <li><strong>Design–engineering alignment:</strong> created documentation and component usage guidelines in Figma and Storybook, streamlining handoff and reducing rework.</li>
+        <li><strong>Scalable product design:</strong> standardized components, interactions, and workflows to enhance efficiency for both users and internal teams, supporting long-term growth.</li>
+        <li><strong>Strategic UX implementation:</strong> partnered with developers and product teams to optimize user flows, balancing editorial and functional needs with a clean, cohesive experience.</li>
+        <li><strong>Cross-platform consistency:</strong> extended design standards across web, mobile, and responsive experiences, reducing design and development debt.</li>
+        <li><strong>Impact measurement:</strong> reduced feature design and build time while improving user satisfaction and internal efficiency.</li>
+        <li><strong>Acquisition integration:</strong> redesigned core product areas to absorb features from acquired platforms, balancing legacy user expectations with a cohesive product experience.</li>
+        <li><strong>Complex feature ownership:</strong> designed end-to-end commenting system originating in 360 Views, now scoping to an MVP rollout across the full product — including data model evaluation in collaboration with engineering.</li>
+        <li><strong>Prototype-driven design process:</strong> established an HTML and React prototyping workflow for high-fidelity interactive testing, replacing static specs for complex interaction problems.</li>
+        <li><strong>Executive-facing product design:</strong> redesigned the 360 Views feature for a primary executive audience, solving for "what changed and what matters" over exhaustive data display.</li>
+        <li><strong>Mobile web UX:</strong> extended core product experiences to mobile web with thorough interaction design for constrained viewports, including AI chat, real-time change tracking, and navigation hierarchy.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cv-entry">
+    <div class="cv-entry-side">
+      <div class="cv-entry-role">Senior UX Designer</div>
+      <div class="cv-entry-org">ARCHER Systems</div>
+      <div class="cv-entry-dates">Oct. 2024 — Oct. 2025</div>
+      <span class="cv-entry-tag">Freelance</span>
+    </div>
+    <div class="cv-entry-body">
+      <ul>
+        <li><strong>Design system modernization:</strong> led the refinement of an existing design system, updating components, interaction patterns, and scalability to ensure consistency across platforms.</li>
+        <li><strong>B2B product expansion:</strong> designed and integrated new client portal experiences, enabling seamless navigation and expanding functionality within an established product ecosystem.</li>
+        <li><strong>AI experience in UX design:</strong> developed an AI-powered chat experience, incorporating machine learning-driven interactions to enhance efficiency and streamline user workflows.</li>
+        <li><strong>Communication &amp; collaboration platforms:</strong> designed a centralized Communications Center, improving user engagement and information management within the legal software environment.</li>
+        <li><strong>Software design leadership:</strong> executed high-impact UX/UI enhancements across multiple legal software solutions, optimizing usability, accessibility, and overall design cohesion.</li>
+        <li><strong>Cross-functional collaboration:</strong> worked closely with product teams, developers, and stakeholders to align business goals with user needs, ensuring strategic execution of product updates.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cv-entry">
+    <div class="cv-entry-side">
+      <div class="cv-entry-role">CTO &amp; Principal Designer</div>
+      <div class="cv-entry-org">DEAD! &amp; Anubis Publications</div>
+      <div class="cv-entry-dates">Present</div>
+      <span class="cv-entry-tag">Freelance</span>
+    </div>
+    <div class="cv-entry-body">
+      <ul>
+        <li>Redesigned existing testing website with new branding, updated UI, improved UX features, and in compliance with ADA guidelines.</li>
+        <li>Designed a new experience for the website where students can study by playing a game of trivia (Jeopardy!) — designed first for desktop and then for mobile native, including the updated branding.</li>
+        <li>Redesigned the logo and branding for the company, including fresh marketing materials, guidelines, and digital assets.</li>
+        <li>Manages finances for services and other employees.</li>
+        <li>Presents new features to current and potential clients.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cv-entry">
+    <div class="cv-entry-side">
+      <div class="cv-entry-role">Lead UX/UI Designer</div>
+      <div class="cv-entry-org">Zeal IT Consultants</div>
+      <div class="cv-entry-dates">Jul. 2022 — Oct. 2024</div>
+    </div>
+    <div class="cv-entry-body">
+      <ul>
+        <li><strong>Client list:</strong> McKesson Corporation, Supplylogix, Lennar Homes, Archer Systems, Bankers Financial Group, Movement Financial.</li>
+        <li><strong>Mentorship &amp; leadership:</strong> provided expert guidance to new designers in UX principles and Figma, fostering skill development and a culture of continuous improvement.</li>
+        <li><strong>Educational initiatives in UI/UX design:</strong> established the Center of Excellence (COE), leading discussions on UX maturity and accessibility through presentations and guest speakers. Created Design Camp, a 14-week internal UX course for developers and product owners, developing curriculum and leading sessions.</li>
+        <li><strong>Design sprints &amp; workshops:</strong> led multiple design sprints, managing workshops, prototype design, and research interviews, securing funded software development projects.</li>
+        <li><strong>UX research expertise:</strong> conducted user interviews, surveys, and usability tests to gather insights that directly shaped design decisions and improved product functionality.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cv-entry">
+    <div class="cv-entry-side">
+      <div class="cv-entry-role">Senior UX/UI Designer</div>
+      <div class="cv-entry-org">Capital One Enterprises</div>
+      <div class="cv-entry-dates">Feb. 2021 — Jul. 2022</div>
+    </div>
+    <div class="cv-entry-body">
+      <ul>
+        <li><strong>UI/UX design and innovation:</strong> enhanced the design and functionality of a SaaS product in the auto-financing sector, transitioning it from a single-task system to a comprehensive multi-lender SaaS product and CRM. Focused on creating interfaces for MVP and scalable future states.</li>
+        <li><strong>User research leadership:</strong> led multiple user research initiatives, from drafting discussion guides to conducting in-depth empathy interviews and synthesizing data — providing critical insights that informed strategic decisions and were communicated effectively to cross-functional teams.</li>
+        <li><strong>Strategic development:</strong> directed the strategic overhaul of B2B software to expand its capabilities, including spearheading the transition to a multi-lender platform and initiating the software's evolution into a SaaS model.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cv-entry">
+    <div class="cv-entry-side">
+      <div class="cv-entry-role">CEO &amp; Principal Designer</div>
+      <div class="cv-entry-org">Chit Chat Cards</div>
+      <div class="cv-entry-dates">Aug. 2020 — 2022</div>
+      <span class="cv-entry-tag">Personal Startup</span>
+    </div>
+    <div class="cv-entry-body">
+      <ul>
+        <li>Designed UI and UX for a card-style app, including MVP and planning features for the next major updates.</li>
+        <li>Worked with development team to implement to the App Store and Google Play store within 6 weeks of final designs.</li>
+        <li>Created branding and identity guidelines.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cv-entry">
+    <div class="cv-entry-side">
+      <div class="cv-entry-role">Web UX/UI Designer</div>
+      <div class="cv-entry-org">Nimbly Technologies</div>
+      <div class="cv-entry-dates">Jul. 2020 — Aug. 2020</div>
+      <span class="cv-entry-tag">Freelance</span>
+    </div>
+    <div class="cv-entry-body">
+      <ul>
+        <li>Designed a web-facing onboarding experience for new clients of Nimbly to be guided through the web-based Operational Audit Software (SaaS).</li>
+        <li>Helped Nimbly move closer to their long-term goal of being fully self-serviced by creating the beginning portion of their "End to End" self-service experience.</li>
+        <li>Relieved the customer service team from onboarding responsibilities and assistance calls by up to 46%.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cv-entry">
+    <div class="cv-entry-side">
+      <div class="cv-entry-role">UX/UI Designer</div>
+      <div class="cv-entry-org">USAA</div>
+      <div class="cv-entry-dates">Apr. 2019 — Feb. 2021</div>
+    </div>
+    <div class="cv-entry-body">
+      <ul>
+        <li>Led the UI/UX design and testing for native mobile apps on Android and iOS, and created responsive web pages for desktop and mobile, enhancing user engagement and experience. Successfully directed a significant product launch from concept to soft launch within four months.</li>
+        <li>Actively participated in agile environments, collaborating closely with development teams to enhance productivity and ensure alignment with project goals.</li>
+        <li>Conducted extensive user research and testing to derive insights that significantly influenced UX decisions for various applications. Contributed to a major study analyzing the impact of COVID-19 on small business owners and presented the findings to senior leaders.</li>
+        <li>Supported the design language system by developing mobile components for both Android and iOS that integrated with web components within brand standards, including providing comprehensive implementation guidance.</li>
+        <li>Facilitated design sprints aimed at improving insurance processes, focusing on customization and efficient management of quotes.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cv-entry">
+    <div class="cv-entry-side">
+      <div class="cv-entry-role">Web UX Designer</div>
+      <div class="cv-entry-org">Rug Doctor</div>
+      <div class="cv-entry-dates">Jun. 2018 — Apr. 2019</div>
+    </div>
+    <div class="cv-entry-body">
+      <ul>
+        <li><strong>Design and branding:</strong> spearheaded the creation of web and mobile design mockups, transitioning from wireframes to PSD files for secondary sites, and extended company branding with new logos for products. Developed diverse marketing materials, including posters, brochures, and social media ads for platforms like Facebook and Instagram.</li>
+        <li><strong>Print and media production:</strong> gained extensive experience in InDesign, handling print preparation for instructional manuals, forms, and guides. Saved the company over $150,000 by internalizing product photography and video production tasks.</li>
+        <li><strong>Project management and collaboration:</strong> managed up to seven projects simultaneously under tight deadlines, collaborating effectively with marketing, IT, legal, and operations departments to ensure project alignment and success.</li>
+        <li><strong>Skill enhancement:</strong> broadened expertise across packaging, print, web design, branding identity, and video editing, consistently applying these skills to enhance company branding and operational efficiency.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cv-entry">
+    <div class="cv-entry-side">
+      <div class="cv-entry-role">Graphic Designer</div>
+      <div class="cv-entry-org">3Di Sign + Design</div>
+      <div class="cv-entry-dates">Jul. 2017 — Dec. 2017</div>
+    </div>
+    <div class="cv-entry-body">
+      <ul>
+        <li>Developed numerous marketing programs (logos, brochures, newsletters, infographics, presentations, and advertisements) and guaranteed that they exceeded the expectations of our clients.</li>
+        <li>Managed up to 8 projects or tasks at a given time while under pressure to meet weekly deadlines.</li>
+        <li>Recommended and consulted with clients on the most appropriate graphic design options based on their overall marketing goals.</li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============ EDUCATION & CERTIFICATIONS ============ -->
+<div class="cv-section-head">
+  <h2>education_&amp;_certifications</h2>
+  <div class="cv-section-head-meta">BFA + 4 certifications</div>
+</div>
+
+<section class="cv-entries">
+  <div class="cv-simple-row">
+    <span class="when">UT Arlington, 2017</span>
+    <span class="what"><strong>Bachelor of Fine Arts</strong> in Visual Communication Design</span>
+  </div>
+  <div class="cv-simple-row">
+    <span class="when">Aug. 2024</span>
+    <span class="what"><strong>Salesforce AI Associate</strong> — Certified</span>
+  </div>
+  <div class="cv-simple-row">
+    <span class="when">Aug. 2024</span>
+    <span class="what"><strong>Salesforce</strong> — Certified</span>
+  </div>
+  <div class="cv-simple-row">
+    <span class="when">May 2024</span>
+    <span class="what"><strong>AI Product Design Course</strong> with Robert Redmond (IBM)</span>
+  </div>
+  <div class="cv-simple-row">
+    <span class="when">Apr. 2024</span>
+    <span class="what"><strong>AI for Designers</strong> — Interaction Design Foundation, with Ioana Teleanu</span>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-meta">
+      <strong>Kate Chaparro</strong> · Senior Product Designer · 2026<br>
+      Set in JetBrains Mono · Built by hand
+    </div>
+    <div class="footer-socials">
+      <a href="https://www.linkedin.com/in/katechaparro/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:chaparrokate02@gmail.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function updateTime() {
+    const now = new Date();
+    const opts = { timeZone: 'America/Los_Angeles', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    const t = new Intl.DateTimeFormat('en-US', opts).format(now);
+    const el = document.getElementById('status-time');
+    if (el) el.textContent = t + ' PT';
+  }
+  updateTime();
+  setInterval(updateTime, 1000);
+</script>
+
+</body>
+</html>

@@ -74,6 +74,10 @@
   /* ---------- Decision blocks ---------- */
   .decision { margin-top: 40px; display: grid; grid-template-columns: 1fr 250px; gap: 40px; align-items: start; }
   .decision:first-of-type { margin-top: 0; }
+  /* Grid children default to min-width:auto, which makes this column grow to
+     fit the widest child (the theme x mode table) instead of letting
+     .v-table-scroll scroll. min-width:0 restores the scroll behaviour. */
+  .decision-text { min-width: 0; }
   .decision-text h3 { font-size: 15px; font-weight: 600; margin-bottom: 12px; }
   .decision-text h3::before { content: '> '; color: var(--accent); }
   .decision-text p { color: var(--ink-2); font-size: 14px; line-height: 1.7; margin-bottom: 14px; }

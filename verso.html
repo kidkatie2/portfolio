@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verso — Kate Chaparro</title>
+<meta name="description" content="Verso, a reader for AO3 works and EPUBs with word-synced narration — started in Expo, rebuilt in SwiftUI when the narration outgrew the cross-platform layer.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kidkatie2.github.io/portfolio/verso.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Kate Chaparro">
+<meta property="og:title" content="Verso — When the feature decides the architecture">
+<meta property="og:description" content="A reader for AO3 works and EPUBs with word-synced narration. Started in Expo, rebuilt in SwiftUI, shipped iPhone-only rather than degraded.">
+<meta property="og:url" content="https://kidkatie2.github.io/portfolio/verso.html">
+<meta property="og:image" content="https://kidkatie2.github.io/portfolio/images/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Kate Chaparro — Senior Product Designer">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Verso — When the feature decides the architecture">
+<meta name="twitter:description" content="A reader for AO3 works and EPUBs with word-synced narration. Started in Expo, rebuilt in SwiftUI, shipped iPhone-only rather than degraded.">
+<meta name="twitter:image" content="https://kidkatie2.github.io/portfolio/images/og-card.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/shell.css">
+<link rel="stylesheet" href="assets/theme.css">
+<script src="assets/theme.js"></script>
+<style>
+  /* ================================================================
+     Verso case study — page-specific styles.
+     Scoped accent override: the app's own blue.
+     ================================================================ */
+  :root {
+    --accent: #3f6fd8;
+    --accent-soft: #dbe4f8;
+  }
+  :root[data-theme="dark"] {
+    --accent: #7aa2ff;
+    --accent-soft: #1b2742;
+  }
+
+  .v-wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+
+  /* ---------- Section scaffolding ---------- */
+  .v-section { border-top: 1px solid var(--rule); padding: 64px 0; }
+  .v-section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 32px; }
+  .v-section-num { font-size: 12px; font-weight: 600; color: var(--accent); letter-spacing: 0.08em; flex-shrink: 0; }
+  .v-section-head h2 { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.25; }
+  .v-section-head h2 .accent { color: var(--accent); }
+  .v-body { max-width: 720px; }
+  .v-body p { color: var(--ink-2); margin-bottom: 18px; font-size: 14px; line-height: 1.7; }
+  .v-body p:last-child { margin-bottom: 0; }
+  .v-body strong { color: var(--ink); font-weight: 600; }
+  .v-body em { color: var(--ink-2); }
+  .v-body code {
+    background: var(--surface); border: 1px solid var(--rule);
+    padding: 1px 6px; border-radius: 3px; font-size: 13px; color: var(--ink);
+  }
+
+  /* ---------- Screenshots ---------- */
+  .shots { display: flex; gap: 28px; flex-wrap: wrap; }
+  .shot { flex: 1 1 200px; max-width: 250px; }
+  .shot img {
+    width: 100%; height: auto; display: block;
+    border: 1px solid var(--rule-strong); border-radius: 14px; background: #10141c;
+  }
+  .shot figcaption { margin-top: 10px; font-size: 11px; line-height: 1.5; color: var(--ink-3); letter-spacing: 0.04em; }
+  .shot figcaption strong {
+    display: block; color: var(--ink-2); font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px;
+  }
+
+  /* ---------- Decision blocks ---------- */
+  .decision { margin-top: 40px; display: grid; grid-template-columns: 1fr 250px; gap: 40px; align-items: start; }
+  .decision:first-of-type { margin-top: 0; }
+  .decision-text h3 { font-size: 15px; font-weight: 600; margin-bottom: 12px; }
+  .decision-text h3::before { content: '> '; color: var(--accent); }
+  .decision-text p { color: var(--ink-2); font-size: 14px; line-height: 1.7; margin-bottom: 14px; }
+  .decision-text p:last-child { margin-bottom: 0; }
+  .decision-text strong { color: var(--ink); font-weight: 600; }
+  .decision-text em { color: var(--ink-2); }
+
+  /* ---------- The rewrite timeline ---------- */
+  .arc { list-style: none; margin: 28px 0 0; max-width: 760px; }
+  .arc li {
+    display: grid; grid-template-columns: 92px 1fr; gap: 24px;
+    padding: 18px 0; border-top: 1px solid var(--rule); align-items: start;
+  }
+  .arc li:last-child { border-bottom: 1px solid var(--rule); }
+  .arc-stage {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); padding-top: 2px;
+  }
+  .arc-body strong { display: block; color: var(--ink); font-weight: 600; font-size: 14px; margin-bottom: 5px; }
+  .arc-body p { color: var(--ink-2); font-size: 13px; line-height: 1.65; }
+  .arc-body code { background: var(--surface); border: 1px solid var(--rule); padding: 1px 5px; border-radius: 3px; font-size: 12px; color: var(--ink); }
+
+  /* ---------- Matrix table ---------- */
+  .v-table-scroll { overflow-x: auto; margin: 22px 0; }
+  .v-table { border-collapse: collapse; font-size: 12px; min-width: 460px; }
+  .v-table caption {
+    text-align: left; font-size: 11px; letter-spacing: 0.06em; color: var(--ink-3);
+    text-transform: uppercase; padding-bottom: 10px;
+  }
+  .v-table th, .v-table td { padding: 9px 14px; border: 1px solid var(--rule); text-align: center; }
+  .v-table thead th { color: var(--ink-3); font-weight: 500; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .v-table tbody th { text-align: left; color: var(--ink); font-weight: 600; }
+  .v-table td { color: var(--ink-3); }
+  .v-table .dot { color: var(--accent); font-weight: 700; }
+
+  /* ---------- Spec list ---------- */
+  .v-specs { list-style: none; border-top: 1px solid var(--rule); margin-top: 8px; }
+  .v-specs li { display: flex; gap: 20px; padding: 12px 0; border-bottom: 1px solid var(--rule); font-size: 13px; align-items: baseline; }
+  .v-specs .k { flex: 0 0 150px; color: var(--ink-3); letter-spacing: 0.05em; text-transform: uppercase; font-size: 11px; }
+  .v-specs .v { color: var(--ink-2); }
+  .v-specs .v strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Pull quote ---------- */
+  .v-quote {
+    border-left: 2px solid var(--accent); padding: 4px 0 4px 22px; margin: 26px 0;
+    max-width: 700px;
+  }
+  .v-quote p { font-size: 15px; line-height: 1.6; color: var(--ink); margin-bottom: 8px; }
+  .v-quote cite { font-size: 11px; color: var(--ink-3); font-style: normal; letter-spacing: 0.05em; }
+
+  /* ---------- Draft placeholder ---------- */
+  .v-draft { border: 1px dashed var(--accent); background: var(--accent-soft); padding: 20px 24px; border-radius: 6px; margin: 28px 0; }
+  .v-draft-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .v-draft p { font-size: 13px; color: var(--ink-2); line-height: 1.65; margin-bottom: 10px; }
+  .v-draft p:last-child { margin-bottom: 0; }
+
+  /* ---------- CTA ---------- */
+  .v-cta { border-top: 1px solid var(--rule); padding: 64px 0 72px; }
+  .v-cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+  .v-cta-text h2 { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
+  .v-cta-text p { font-size: 13px; color: var(--ink-3); }
+  .v-cta-links { display: flex; gap: 12px; flex-wrap: wrap; }
+  .v-btn {
+    display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px;
+    font-size: 13px; font-weight: 600; letter-spacing: 0.04em;
+    border: 1px solid var(--ink); border-radius: 4px;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .v-btn-primary { background: var(--ink); color: var(--bg); }
+  .v-btn-primary:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .v-btn-ghost { color: var(--ink-2); border-color: var(--rule-strong); }
+  .v-btn-ghost:hover { color: var(--ink); border-color: var(--ink); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .decision { grid-template-columns: 1fr; gap: 24px; }
+    .decision .shot { max-width: 210px; }
+  }
+  @media (max-width: 620px) {
+    .v-section { padding: 44px 0; }
+    .v-section-head { flex-direction: column; gap: 6px; }
+    .shots { gap: 18px; }
+    .shot { flex-basis: 140px; }
+    .arc li { grid-template-columns: 1fr; gap: 6px; }
+    .v-specs li { flex-direction: column; gap: 3px; }
+    .v-specs .k { flex-basis: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="statusbar">
+  <div class="statusbar-inner">
+    <div class="status-left">
+      <span class="status-dot">ONLINE</span>
+      <span class="status-time" id="status-time">--:--:-- PT</span>
+      <span>v.1.0.0</span>
+    </div>
+    <div class="status-right">
+      <span>SF/CA</span>
+      <span>2026</span>
+      <span>ISSUE 01</span>
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme">
+        <span class="icon">☾</span>
+        <span class="label">DARK</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">KATE<span class="slash">/</span>CHAPARRO</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Work</a></li>
+      <li><a href="index.html#about-section">About</a></li>
+      <li><a href="index.html#contact-section">Contact</a></li>
+      <li><a href="https://happy-novel-ashen.figma.site/" target="_blank" rel="noopener" class="ext-link">Older work ↗</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="case-page-hero">
+  <a class="case-back" href="index.html">← back to index</a>
+  <div class="case-eyebrow">Case Study 03 / Personal · iOS app</div>
+  <h1>A reading app <span class="accent">worthy of the stories you love.</span></h1>
+  <p class="case-lead">Verso brings AO3 works, EPUBs, and pasted text into one library and reads them aloud, word by word, with the screen locked. It started as a React Native prototype and shipped as a native SwiftUI app — because the feature it was built around could not survive the abstraction.</p>
+</section>
+
+<section class="tldr">
+  <div class="tldr-inner">
+    <div class="tldr-label">TL;DR</div>
+    <p class="tldr-content">A solo project: a reader for people whose library is scattered across AO3 tabs, EPUB files, and pasted drafts. Three ways in, three typographic themes crossed with four luminance modes, and text-to-speech with word-level highlighting that keeps playing on the lock screen. The interesting part is the architecture: narration was prototyped on <code>expo-speech</code>, outgrew it, was replaced by a hand-written native module, and eventually took the whole app native. Android was deferred rather than shipped degraded.</p>
+  </div>
+</section>
+
+<section class="case-meta-strip">
+  <div class="case-meta-inner">
+    <div class="case-meta-item"><span class="case-meta-label">role</span><span class="case-meta-value">Solo — design &amp; build</span></div>
+    <div class="case-meta-item"><span class="case-meta-label">shipped stack</span><span class="case-meta-value">Swift · SwiftUI</span></div>
+    <div class="case-meta-item"><span class="case-meta-label">prototype</span><span class="case-meta-value">React Native · Expo</span></div>
+    <div class="case-meta-item"><span class="case-meta-label">platform</span><span class="case-meta-value">iPhone</span></div>
+    <div class="case-meta-item"><span class="case-meta-label">imports</span><span class="case-meta-value">AO3 · EPUB · Text</span></div>
+    <div class="case-meta-item"><span class="case-meta-label">shipped</span><span class="case-meta-value">August 2026</span></div>
+  </div>
+</section>
+
+<div class="v-wrap">
+
+  <!-- ============================================================
+       01 — The library
+       ============================================================ -->
+  <section class="v-section" style="border-top:none;">
+    <div class="v-section-head">
+      <span class="v-section-num">01</span>
+      <h2>Three ways in, <span class="accent">one shelf</span></h2>
+    </div>
+    <div class="v-body">
+      <p>People who read a lot of fiction do not keep it in one place. Some of it is on AO3 behind a dozen browser tabs, some is an EPUB in Files or Drive, some is text pasted out of a document. Verso's premise is that all of it belongs on the same shelf.</p>
+      <p>So the Add Story sheet opens on three tabs — <strong>AO3 Link</strong>, <strong>Paste Text</strong>, <strong>File</strong> — rather than making one path primary and burying the others. Paste an AO3 URL and title, author, tags, and every chapter come across from the work page; there is no clipping, no per-chapter fetching, no browser round-trip.</p>
+      <p>Each story on the shelf carries the metadata a reader actually triages by: word count, chapter count, content rating, and when it was last updated.</p>
+    </div>
+
+    <div class="shots" style="margin-top:36px;">
+      <figure class="shot">
+        <img src="images/verso/library.webp" alt="The Verso library showing two story cards with title, author, summary, word count, chapter count, rating, and last-updated date." loading="lazy" width="900" height="1955">
+        <figcaption><strong>Library</strong>Word count, chapters, rating, last updated.</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="images/verso/add-story.webp" alt="The Add Story sheet with three tabs — AO3 Link, Paste Text, and File — and a work URL field." loading="lazy" width="900" height="1955">
+        <figcaption><strong>Add story</strong>Three entry points, none of them buried.</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="images/verso/reader.webp" alt="The Verso reader showing chapter one of a story in serif type on a dark ground, with a floating back button and settings button." loading="lazy" width="900" height="1955">
+        <figcaption><strong>Reader</strong>Controls retreat until you tap.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       02 — Typography
+       ============================================================ -->
+  <section class="v-section">
+    <div class="v-section-head">
+      <span class="v-section-num">02</span>
+      <h2>Themes and modes are <span class="accent">two different questions</span></h2>
+    </div>
+    <div class="decision" style="margin-top:0;">
+      <div class="decision-text">
+        <p>Most readers collapse "how it looks" into a single list: light, dark, sepia, maybe a black-on-white accessibility option. Verso splits it in two, because they are not the same decision.</p>
+        <p><strong>Theme</strong> is typographic character — <em>Folio</em>, the classic; <em>Hush</em>, warm and quiet; <em>Codex</em>, high-contrast and crisp. <strong>Mode</strong> is luminance — Light, Sepia, Dark, and HC, plus System to follow the phone. Choosing a serif you like should not force you into a brightness you don't.</p>
+        <p>That gives twelve explicit combinations rather than four presets, and it puts high contrast on the luminance axis where it belongs — an accessibility mode available in any theme, not a separate theme that overrides your typographic choice.</p>
+        <div class="v-table-scroll">
+          <table class="v-table">
+            <caption>Theme × mode, plus System</caption>
+            <thead>
+              <tr><th></th><th>Light</th><th>Sepia</th><th>Dark</th><th>HC</th></tr>
+            </thead>
+            <tbody>
+              <tr><th>Folio</th><td class="dot">●</td><td class="dot">●</td><td class="dot">●</td><td class="dot">●</td></tr>
+              <tr><th>Hush</th><td class="dot">●</td><td class="dot">●</td><td class="dot">●</td><td class="dot">●</td></tr>
+              <tr><th>Codex</th><td class="dot">●</td><td class="dot">●</td><td class="dot">●</td><td class="dot">●</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Font size, line height, and margins are steppers rather than sliders — a reader setting these once wants a value they can return to, not one they have to re-find by dragging.</p>
+      </div>
+      <figure class="shot">
+        <img src="images/verso/typography-panel.webp" alt="The Verso typography panel: font size 20pt, line height 1.8, margins 24px, scroll or pages reading mode, Folio/Hush/Codex themes, and Light/Sepia/Dark/HC/System modes." loading="lazy" width="900" height="1955">
+        <figcaption><strong>Control panel</strong>Typography, reading mode, theme, mode, and narration in one sheet.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       03 — The rewrite
+       ============================================================ -->
+  <section class="v-section">
+    <div class="v-section-head">
+      <span class="v-section-num">03</span>
+      <h2>When the feature <span class="accent">decides the architecture</span></h2>
+    </div>
+    <div class="v-body">
+      <p>Verso's narration is not a bolt-on. The whole point is that you can put the phone in your pocket mid-sentence and keep going — so the text-to-speech has to survive backgrounding, respond to the lock screen, and highlight the word currently being spoken so your eyes can rejoin the page exactly where your ears are.</p>
+      <p>That last requirement is the one that broke the stack. Word-level highlighting needs <strong>word boundary callbacks</strong> from the speech synthesiser, and the cross-platform speech API did not expose them — along with reliable pause/resume and mid-utterance rate changes.</p>
+    </div>
+
+    <ol class="arc">
+      <li>
+        <span class="arc-stage">Phase 1</span>
+        <div class="arc-body">
+          <strong>Prototype on <code>expo-speech</code></strong>
+          <p>Fast to stand up, enough to prove the reading experience. Audio session configured to play in silent mode and stay active in the background.</p>
+        </div>
+      </li>
+      <li>
+        <span class="arc-stage">Phase 2</span>
+        <div class="arc-body">
+          <strong>Hit the ceiling, write a native module</strong>
+          <p>Pause/resume, mid-rate-change, and word boundary callbacks were all out of reach. Replaced with a hand-written Expo module wrapping <code>AVSpeechSynthesizer</code> directly, with an interruption observer so calls and Siri pause narration and it resumes when permitted.</p>
+        </div>
+      </li>
+      <li>
+        <span class="arc-stage">Cost</span>
+        <div class="arc-body">
+          <strong>The cross-platform benefit stops paying</strong>
+          <p>A custom native module cannot run in Expo Go, so testing moved to custom dev builds. The abstraction was now something to work around on the one feature that mattered most.</p>
+        </div>
+      </li>
+      <li>
+        <span class="arc-stage">Android</span>
+        <div class="arc-body">
+          <strong>Defer parity rather than ship degraded</strong>
+          <p>The obvious shortcut was to let Android fall back to the generic speech API — shipping two platforms, one of them worse. Rejected: Android was deferred until it could have a real native module of its own, and the JS facade was designed so the reader would need no changes when it landed.</p>
+        </div>
+      </li>
+      <li>
+        <span class="arc-stage">Shipped</span>
+        <div class="arc-body">
+          <strong>Rebuilt in SwiftUI, iPhone-only</strong>
+          <p>The React Native prototype was archived and Verso was rewritten natively — SwiftUI, AVFoundation, MediaPlayer, no third-party dependencies at all. Narration continues with the device locked, with Now Playing controls and ±15s skip on the lock screen.</p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="v-quote">
+      <p>This React Native/Expo prototype is no longer the Verso app. Verso was rebuilt natively in SwiftUI. Nothing here ships. Kept for history only.</p>
+      <cite>— the archived prototype's README, 18 August 2026</cite>
+    </div>
+
+    <div class="decision">
+      <div class="decision-text">
+        <h3>What the rewrite bought</h3>
+        <p>Word-synced highlighting that holds up at every speed, background playback that behaves like a podcast app, and a dependency list of exactly zero third-party packages.</p>
+        <p>What it cost was Android, and a second build of an app that already worked. Both were the price of the feature the app exists for.</p>
+      </div>
+      <figure class="shot">
+        <img src="images/verso/narration-playing.webp" alt="Verso narrating a chapter, with the word 'week' highlighted in the text and a playback bar showing skip back 15, pause, skip forward 15, and 1x speed." loading="lazy" width="900" height="1955">
+        <figcaption><strong>Narration</strong>The spoken word is lit as it is read.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       04 — The voice picker
+       ============================================================ -->
+  <section class="v-section">
+    <div class="v-section-head">
+      <span class="v-section-num">04</span>
+      <h2>Teaching around <span class="accent">a platform limit</span></h2>
+    </div>
+    <div class="decision" style="margin-top:0;">
+      <div class="decision-text">
+        <p>iOS ships with a thin set of default voices. The good ones — Premium and Enhanced — are free, but they live four levels deep in Settings and most people never learn they exist.</p>
+        <p>An app can respond to this three ways: pretend the default voices are fine, bundle its own voices at significant size and licensing cost, or tell the truth. Verso tells the truth. The voice picker names the limitation, explains that better voices sound <em>dramatically</em> more natural, and gives the exact path — <strong>Settings → Accessibility → Spoken Content → Voices</strong> — noting that anything downloaded appears here automatically.</p>
+        <p>Every voice also has a preview button, so the difference is audible before it is committed to a chapter.</p>
+        <p>It is a small piece of copy doing work that no amount of interface polish could: the honest version is more useful than the seamless one.</p>
+      </div>
+      <figure class="shot">
+        <img src="images/verso/narration-voice.webp" alt="The Verso narration voice picker showing System Default and Karen with preview buttons, and a note explaining how to download better voices from iOS Settings." loading="lazy" width="900" height="1955">
+        <figcaption><strong>Voice picker</strong>Names the limit, then routes around it.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       05 — Privacy
+       ============================================================ -->
+  <section class="v-section">
+    <div class="v-section-head">
+      <span class="v-section-num">05</span>
+      <h2>No account, <span class="accent">no algorithm</span></h2>
+    </div>
+    <div class="v-body">
+      <p>Verso has no sign-in, no analytics, and no recommendation engine. Your library is on your device; reading progress and settings never leave it. The only time the app touches the network is when you hand it an AO3 URL and ask it to fetch a work.</p>
+      <p>Narration runs entirely on-device through the system speech synthesiser, so listening to a story is not a request to anybody's server. After import, the app works fully offline.</p>
+      <ul class="v-specs">
+        <li><span class="k">Account</span><span class="v">None. Nothing to sign in to.</span></li>
+        <li><span class="k">Analytics</span><span class="v">None. No SDK, no events, no identifiers.</span></li>
+        <li><span class="k">Third-party deps</span><span class="v"><strong>Zero.</strong> SwiftUI, AVFoundation, MediaPlayer only</span></li>
+        <li><span class="k">Network</span><span class="v">Only to fetch an AO3 work the reader asks for</span></li>
+        <li><span class="k">Narration</span><span class="v">On-device speech synthesis, no network</span></li>
+        <li><span class="k">Storage</span><span class="v">Local only — library, progress, and settings</span></li>
+        <li><span class="k">Ads</span><span class="v">None</span></li>
+      </ul>
+      <p style="margin-top:18px;">Verso is an unofficial reader for AO3, not affiliated with or endorsed by Archive of Our Own, and imported works remain the property of their authors. Because AO3 import lets a reader bring in adult material, the app is rated 17+ — a rating chosen for what users can import, not for anything Verso ships.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       06 — Shipping
+       ============================================================ -->
+  <section class="v-section">
+    <div class="v-section-head">
+      <span class="v-section-num">06</span>
+      <h2>Rejected once, <span class="accent">for the right reason</span></h2>
+    </div>
+    <div class="v-body">
+      <p>Build 1.0 (4) was rejected under Guideline 2.5.4: the app declared the background audio capability, but review could not get any audible content to play in the background.</p>
+      <p>The audio pipeline was fine. The bug was in the reviewer's path through the app — sample content had been compiled in under <code>#if DEBUG</code>, so a Release build launched to an <strong>empty shelf</strong>. With nothing on the shelf there was nothing to narrate, and the capability looked unjustified.</p>
+      <p>The fix was to ship the sample story in every build, so the first launch always has something to read, plus review notes with a numbered path to background playback and a screen recording from a physical device. Build 1.0 (5) went through.</p>
+      <p>It is a good reminder that a feature is not shipped until a stranger can find it. The empty first-run state was invisible in development, where the sample content had always been there.</p>
+    </div>
+
+    <div class="v-draft">
+      <div class="v-draft-label">Draft — needs Kate's voice before publishing</div>
+      <p>This page is reconstructed from the shipped app, the archived prototype, and your own decision logs and review notes. The sequence is documented; the reasoning in your head is not.</p>
+      <p>Worth adding in your own words: what made you start in Expo, how long you sat with the rewrite before committing, whether Android is still coming, and what you would tell someone weighing the same call. Also check whether you want the rejection story public at all — it reads well, but it is yours to publish. Delete this block once decided.</p>
+    </div>
+  </section>
+
+</div>
+
+<div class="v-wrap">
+  <section class="v-cta">
+    <div class="v-cta-inner">
+      <div class="v-cta-text">
+        <h2>Verso is on the App Store</h2>
+        <p>Free. iPhone. No ads, no accounts, no tracking.</p>
+      </div>
+      <div class="v-cta-links">
+        <a class="v-btn v-btn-primary" href="https://apps.apple.com/app/verso-read-anything/id6799339483" target="_blank" rel="noopener">View on the App Store →</a>
+        <a class="v-btn v-btn-ghost" href="gratuity.html">Gratuity case study</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-meta">
+      <strong>Kate Chaparro</strong> · Senior Product Designer · 2026<br>
+      Set in JetBrains Mono · Built by hand
+    </div>
+    <div class="footer-socials">
+      <a href="https://www.linkedin.com/in/katechaparro/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://happy-novel-ashen.figma.site/" target="_blank" rel="noopener">Portfolio</a>
+      <a href="mailto:chaparrokate02@gmail.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function updateTime() {
+    const now = new Date();
+    const opts = { timeZone: 'America/Los_Angeles', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    const t = new Intl.DateTimeFormat('en-US', opts).format(now);
+    const el = document.getElementById('status-time');
+    if (el) el.textContent = t + ' PT';
+  }
+  updateTime();
+  setInterval(updateTime, 1000);
+</script>
+
+</body>
+</html>

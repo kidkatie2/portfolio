@@ -120,20 +120,6 @@
   .v-specs .v { color: var(--ink-2); }
   .v-specs .v strong { color: var(--ink); font-weight: 600; }
 
-  /* ---------- Pull quote ---------- */
-  .v-quote {
-    border-left: 2px solid var(--accent); padding: 4px 0 4px 22px; margin: 26px 0;
-    max-width: 700px;
-  }
-  .v-quote p { font-size: 15px; line-height: 1.6; color: var(--ink); margin-bottom: 8px; }
-  .v-quote cite { font-size: 11px; color: var(--ink-3); font-style: normal; letter-spacing: 0.05em; }
-
-  /* ---------- Draft placeholder ---------- */
-  .v-draft { border: 1px dashed var(--accent); background: var(--accent-soft); padding: 20px 24px; border-radius: 6px; margin: 28px 0; }
-  .v-draft-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
-  .v-draft p { font-size: 13px; color: var(--ink-2); line-height: 1.65; margin-bottom: 10px; }
-  .v-draft p:last-child { margin-bottom: 0; }
-
   /* ---------- CTA ---------- */
   .v-cta { border-top: 1px solid var(--rule); padding: 64px 0 72px; }
   .v-cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
@@ -204,13 +190,13 @@
   <a class="case-back" href="index.html">← back to index</a>
   <div class="case-eyebrow">Case Study 03 / Personal · iOS app</div>
   <h1>A reading app <span class="accent">worthy of the stories you love.</span></h1>
-  <p class="case-lead">Verso brings AO3 works, EPUBs, and pasted text into one library and reads them aloud, word by word, with the screen locked. It started as a React Native prototype and shipped as a native SwiftUI app — because the feature it was built around could not survive the abstraction.</p>
+  <p class="case-lead">AO3 works, EPUBs, and pasted text in one library, with word-synced narration that keeps playing on the lock screen. Prototyped in React Native; shipped as native SwiftUI.</p>
 </section>
 
 <section class="tldr">
   <div class="tldr-inner">
     <div class="tldr-label">TL;DR</div>
-    <p class="tldr-content">A solo project: a reader for people whose library is scattered across AO3 tabs, EPUB files, and pasted drafts. Three ways in, three typographic themes crossed with four luminance modes, and text-to-speech with word-level highlighting that keeps playing on the lock screen. The interesting part is the architecture: narration was prototyped on <code>expo-speech</code>, outgrew it, was replaced by a hand-written native module, and eventually took the whole app native. Android was deferred rather than shipped degraded.</p>
+    <p class="tldr-content">AO3, EPUB, or pasted text in; one library. Three themes × four modes. On-device TTS with word-level highlight and lock-screen playback. Rebuilt from Expo to SwiftUI when narration outgrew the abstraction; Android deferred.</p>
   </div>
 </section>
 
@@ -236,23 +222,21 @@
       <h2>Three ways in, <span class="accent">one shelf</span></h2>
     </div>
     <div class="v-body">
-      <p>People who read a lot of fiction do not keep it in one place. Some of it is on AO3 behind a dozen browser tabs, some is an EPUB in Files or Drive, some is text pasted out of a document. Verso's premise is that all of it belongs on the same shelf.</p>
-      <p>So the Add Story sheet opens on three tabs — <strong>AO3 Link</strong>, <strong>Paste Text</strong>, <strong>File</strong> — rather than making one path primary and burying the others. Paste an AO3 URL and title, author, tags, and every chapter come across from the work page; there is no clipping, no per-chapter fetching, no browser round-trip.</p>
-      <p>Each story on the shelf carries the metadata a reader actually triages by: word count, chapter count, content rating, and when it was last updated.</p>
+      <p>Three equal import tabs: <strong>AO3 Link</strong>, <strong>Paste Text</strong>, <strong>File</strong>. An AO3 URL brings title, author, tags, and every chapter. Cards show words, chapters, rating, last updated.</p>
     </div>
 
     <div class="shots" style="margin-top:36px;">
       <figure class="shot">
         <img src="images/verso/library.webp" alt="The Verso library showing two story cards with title, author, summary, word count, chapter count, rating, and last-updated date." loading="lazy" width="900" height="1955">
-        <figcaption><strong>Library</strong>Word count, chapters, rating, last updated.</figcaption>
+        <figcaption><strong>Library</strong>Triage metadata up front.</figcaption>
       </figure>
       <figure class="shot">
         <img src="images/verso/add-story.webp" alt="The Add Story sheet with three tabs — AO3 Link, Paste Text, and File — and a work URL field." loading="lazy" width="900" height="1955">
-        <figcaption><strong>Add story</strong>Three entry points, none of them buried.</figcaption>
+        <figcaption><strong>Add story</strong>Three entry points.</figcaption>
       </figure>
       <figure class="shot">
         <img src="images/verso/reader.webp" alt="The Verso reader showing chapter one of a story in serif type on a dark ground, with a floating back button and settings button." loading="lazy" width="900" height="1955">
-        <figcaption><strong>Reader</strong>Controls retreat until you tap.</figcaption>
+        <figcaption><strong>Reader</strong>Controls hide until tapped.</figcaption>
       </figure>
     </div>
   </section>
@@ -267,9 +251,7 @@
     </div>
     <div class="decision" style="margin-top:0;">
       <div class="decision-text">
-        <p>Most readers collapse "how it looks" into a single list: light, dark, sepia, maybe a black-on-white accessibility option. Verso splits it in two, because they are not the same decision.</p>
-        <p><strong>Theme</strong> is typographic character — <em>Folio</em>, the classic; <em>Hush</em>, warm and quiet; <em>Codex</em>, high-contrast and crisp. <strong>Mode</strong> is luminance — Light, Sepia, Dark, and HC, plus System to follow the phone. Choosing a serif you like should not force you into a brightness you don't.</p>
-        <p>That gives twelve explicit combinations rather than four presets, and it puts high contrast on the luminance axis where it belongs — an accessibility mode available in any theme, not a separate theme that overrides your typographic choice.</p>
+        <p><strong>Theme</strong> = typography: Folio, Hush, Codex. <strong>Mode</strong> = luminance: Light, Sepia, Dark, HC, System. Separate axes — twelve combinations, and high contrast works in any theme.</p>
         <div class="v-table-scroll">
           <table class="v-table">
             <caption>Theme × mode, plus System</caption>
@@ -283,11 +265,11 @@
             </tbody>
           </table>
         </div>
-        <p>Font size, line height, and margins are steppers rather than sliders — a reader setting these once wants a value they can return to, not one they have to re-find by dragging.</p>
+        <p>Size, line height, margins: steppers, not sliders.</p>
       </div>
       <figure class="shot">
         <img src="images/verso/typography-panel.webp" alt="The Verso typography panel: font size 20pt, line height 1.8, margins 24px, scroll or pages reading mode, Folio/Hush/Codex themes, and Light/Sepia/Dark/HC/System modes." loading="lazy" width="900" height="1955">
-        <figcaption><strong>Control panel</strong>Typography, reading mode, theme, mode, and narration in one sheet.</figcaption>
+        <figcaption><strong>Control panel</strong>Everything in one sheet.</figcaption>
       </figure>
     </div>
   </section>
@@ -301,8 +283,7 @@
       <h2>When the feature <span class="accent">decides the architecture</span></h2>
     </div>
     <div class="v-body">
-      <p>Verso's narration is not a bolt-on. The whole point is that you can put the phone in your pocket mid-sentence and keep going — so the text-to-speech has to survive backgrounding, respond to the lock screen, and highlight the word currently being spoken so your eyes can rejoin the page exactly where your ears are.</p>
-      <p>That last requirement is the one that broke the stack. Word-level highlighting needs <strong>word boundary callbacks</strong> from the speech synthesiser, and the cross-platform speech API did not expose them — along with reliable pause/resume and mid-utterance rate changes.</p>
+      <p>Narration must survive backgrounding, take lock-screen controls, and highlight the spoken word — which needs <strong>word-boundary callbacks</strong> the cross-platform speech API does not expose.</p>
     </div>
 
     <ol class="arc">
@@ -310,53 +291,47 @@
         <span class="arc-stage">Phase 1</span>
         <div class="arc-body">
           <strong>Prototype on <code>expo-speech</code></strong>
-          <p>Fast to stand up, enough to prove the reading experience. Audio session configured to play in silent mode and stay active in the background.</p>
+          <p>Proved the reading experience.</p>
         </div>
       </li>
       <li>
         <span class="arc-stage">Phase 2</span>
         <div class="arc-body">
           <strong>Hit the ceiling, write a native module</strong>
-          <p>Pause/resume, mid-rate-change, and word boundary callbacks were all out of reach. Replaced with a hand-written Expo module wrapping <code>AVSpeechSynthesizer</code> directly, with an interruption observer so calls and Siri pause narration and it resumes when permitted.</p>
+          <p>No pause/resume, rate changes, or word-boundary callbacks. Replaced with a custom module wrapping <code>AVSpeechSynthesizer</code>.</p>
         </div>
       </li>
       <li>
         <span class="arc-stage">Cost</span>
         <div class="arc-body">
           <strong>The cross-platform benefit stops paying</strong>
-          <p>A custom native module cannot run in Expo Go, so testing moved to custom dev builds. The abstraction was now something to work around on the one feature that mattered most.</p>
+          <p>Custom modules cannot run in Expo Go; testing moved to dev builds.</p>
         </div>
       </li>
       <li>
         <span class="arc-stage">Android</span>
         <div class="arc-body">
           <strong>Defer parity rather than ship degraded</strong>
-          <p>The obvious shortcut was to let Android fall back to the generic speech API — shipping two platforms, one of them worse. Rejected: Android was deferred until it could have a real native module of its own, and the JS facade was designed so the reader would need no changes when it landed.</p>
+          <p>Deferred until it gets its own native module — no degraded fallback.</p>
         </div>
       </li>
       <li>
         <span class="arc-stage">Shipped</span>
         <div class="arc-body">
           <strong>Rebuilt in SwiftUI, iPhone-only</strong>
-          <p>The React Native prototype was archived and Verso was rewritten natively — SwiftUI, AVFoundation, MediaPlayer, no third-party dependencies at all. Narration continues with the device locked, with Now Playing controls and ±15s skip on the lock screen.</p>
+          <p>SwiftUI, AVFoundation, MediaPlayer — zero third-party dependencies. Narration runs with the device locked, with Now Playing controls and ±15s skip.</p>
         </div>
       </li>
     </ol>
 
-    <div class="v-quote">
-      <p>This React Native/Expo prototype is no longer the Verso app. Verso was rebuilt natively in SwiftUI. Nothing here ships. Kept for history only.</p>
-      <cite>— the archived prototype's README, 18 August 2026</cite>
-    </div>
-
     <div class="decision">
       <div class="decision-text">
         <h3>What the rewrite bought</h3>
-        <p>Word-synced highlighting that holds up at every speed, background playback that behaves like a podcast app, and a dependency list of exactly zero third-party packages.</p>
-        <p>What it cost was Android, and a second build of an app that already worked. Both were the price of the feature the app exists for.</p>
+        <p>Bought: word-synced highlight, podcast-grade background playback, zero dependencies. Cost: Android, and a second build.</p>
       </div>
       <figure class="shot">
         <img src="images/verso/narration-playing.webp" alt="Verso narrating a chapter, with the word 'week' highlighted in the text and a playback bar showing skip back 15, pause, skip forward 15, and 1x speed." loading="lazy" width="900" height="1955">
-        <figcaption><strong>Narration</strong>The spoken word is lit as it is read.</figcaption>
+        <figcaption><strong>Narration</strong>The spoken word is lit.</figcaption>
       </figure>
     </div>
   </section>
@@ -371,14 +346,11 @@
     </div>
     <div class="decision" style="margin-top:0;">
       <div class="decision-text">
-        <p>iOS ships with a thin set of default voices. The good ones — Premium and Enhanced — are free, but they live four levels deep in Settings and most people never learn they exist.</p>
-        <p>An app can respond to this three ways: pretend the default voices are fine, bundle its own voices at significant size and licensing cost, or tell the truth. Verso tells the truth. The voice picker names the limitation, explains that better voices sound <em>dramatically</em> more natural, and gives the exact path — <strong>Settings → Accessibility → Spoken Content → Voices</strong> — noting that anything downloaded appears here automatically.</p>
-        <p>Every voice also has a preview button, so the difference is audible before it is committed to a chapter.</p>
-        <p>It is a small piece of copy doing work that no amount of interface polish could: the honest version is more useful than the seamless one.</p>
+        <p>iOS ships thin default voices; the better ones are free but buried. The picker names the limit and gives the path — <strong>Settings → Accessibility → Spoken Content → Voices</strong> — and previews every voice.</p>
       </div>
       <figure class="shot">
         <img src="images/verso/narration-voice.webp" alt="The Verso narration voice picker showing System Default and Karen with preview buttons, and a note explaining how to download better voices from iOS Settings." loading="lazy" width="900" height="1955">
-        <figcaption><strong>Voice picker</strong>Names the limit, then routes around it.</figcaption>
+        <figcaption><strong>Voice picker</strong>Names the limit, gives the path.</figcaption>
       </figure>
     </div>
   </section>
@@ -392,8 +364,7 @@
       <h2>No account, <span class="accent">no algorithm</span></h2>
     </div>
     <div class="v-body">
-      <p>Verso has no sign-in, no analytics, and no recommendation engine. Your library is on your device; reading progress and settings never leave it. The only time the app touches the network is when you hand it an AO3 URL and ask it to fetch a work.</p>
-      <p>Narration runs entirely on-device through the system speech synthesiser, so listening to a story is not a request to anybody's server. After import, the app works fully offline.</p>
+      <p>No sign-in, no analytics, no recommendations. Network only fetches AO3 works you request; narration is on-device; fully offline after import.</p>
       <ul class="v-specs">
         <li><span class="k">Account</span><span class="v">None. Nothing to sign in to.</span></li>
         <li><span class="k">Analytics</span><span class="v">None. No SDK, no events, no identifiers.</span></li>
@@ -403,7 +374,7 @@
         <li><span class="k">Storage</span><span class="v">Local only — library, progress, and settings</span></li>
         <li><span class="k">Ads</span><span class="v">None</span></li>
       </ul>
-      <p style="margin-top:18px;">Verso is an unofficial reader for AO3, not affiliated with or endorsed by Archive of Our Own, and imported works remain the property of their authors. Because AO3 import lets a reader bring in adult material, the app is rated 17+ — a rating chosen for what users can import, not for anything Verso ships.</p>
+      <p style="margin-top:18px;">Unofficial AO3 reader. Rated 17+ because import allows adult content.</p>
     </div>
   </section>
 
@@ -416,16 +387,7 @@
       <h2>Rejected once, <span class="accent">for the right reason</span></h2>
     </div>
     <div class="v-body">
-      <p>Build 1.0 (4) was rejected under Guideline 2.5.4: the app declared the background audio capability, but review could not get any audible content to play in the background.</p>
-      <p>The audio pipeline was fine. The bug was in the reviewer's path through the app — sample content had been compiled in under <code>#if DEBUG</code>, so a Release build launched to an <strong>empty shelf</strong>. With nothing on the shelf there was nothing to narrate, and the capability looked unjustified.</p>
-      <p>The fix was to ship the sample story in every build, so the first launch always has something to read, plus review notes with a numbered path to background playback and a screen recording from a physical device. Build 1.0 (5) went through.</p>
-      <p>It is a good reminder that a feature is not shipped until a stranger can find it. The empty first-run state was invisible in development, where the sample content had always been there.</p>
-    </div>
-
-    <div class="v-draft">
-      <div class="v-draft-label">Draft — needs Kate's voice before publishing</div>
-      <p>This page is reconstructed from the shipped app, the archived prototype, and your own decision logs and review notes. The sequence is documented; the reasoning in your head is not.</p>
-      <p>Worth adding in your own words: what made you start in Expo, how long you sat with the rewrite before committing, whether Android is still coming, and what you would tell someone weighing the same call. Also check whether you want the rejection story public at all — it reads well, but it is yours to publish. Delete this block once decided.</p>
+      <p>1.0 (4) rejected under Guideline 2.5.4: background audio declared, nothing played in review. Sample content was <code>#if DEBUG</code>, so Release builds launched to an empty shelf. Fix: sample story in every build, review notes, a screen recording. 1.0 (5) passed.</p>
     </div>
   </section>
 

@@ -177,13 +177,6 @@
   p { max-width: 720px; margin: 0 0 18px; color: var(--gray-700); }
   p strong { color: var(--navy); font-weight: 600; }
 
-  .pullquote {
-    font-weight: 500; font-size: clamp(24px, 3.2vw, 36px);
-    line-height: 1.25; letter-spacing: -0.018em; color: var(--navy);
-    border-left: 3px solid var(--blue);
-    padding: 8px 0 8px 32px; margin: 40px 0; max-width: 880px;
-  }
-
   /* ── CONSTRAINT CALLOUT ───────────────────────────────── */
   .constraint {
     background: var(--navy); color: white;
@@ -421,7 +414,6 @@
     .deck { font-size: 17px; }
     h2 { font-size: 26px; }
     h3 { font-size: 18px; }
-    .pullquote { font-size: 20px; padding-left: 20px; margin: 28px 0; }
     .constraint { padding: 24px; }
     .constraint .text { font-size: 17px; }
     .compare-card, .ingredient, .figure-block { padding: 20px; }
@@ -716,14 +708,14 @@
 <section class="hero">
   <div class="eyebrow"><span class="dash"></span>DEAD! · Developer Handoff Spec</div>
   <h1 class="title">When the spec<br/><em>is</em> the design.</h1>
-  <p class="deck">Most "specs" are afterthoughts — a Figma export, a Notion doc, a Loom recording. For DEAD!, the spec was a designed artifact: 27 sections, 20+ figures, worked examples, pseudocode for edge cases, and an API contract. Built around a specific constraint that changed everything about how I wrote it.</p>
+  <p class="deck">A 27-section developer spec for DEAD!: 20+ figures, worked examples, edge-case pseudocode, and an API contract.</p>
 </section>
 
 <!-- ── TL;DR ───────────────────────────────── -->
 <div class="tldr">
   <div class="tldr-inner">
     <div class="tldr-label">TL;DR</div>
-    <p class="tldr-content">Wrote a 27-section product spec — with 20+ figures, worked examples, pseudocode for edge cases, and an API contract — designed around one constraint: the engineer building it speaks English as a second language. That constraint became the design brief. Every section follows a deliberate recipe of six ingredients meant to remove ambiguity, not add formality. The spec became as much of a deliverable as the prototype itself.</p>
+    <p class="tldr-content">The engineer building DEAD! speaks English as a second language, so each of 27 sections uses six fixed components — diagrams, worked examples, state tables, pseudocode — instead of prose.</p>
   </div>
 </div>
 
@@ -749,25 +741,19 @@
 <!-- ── CONSTRAINT ───────────────────────────────── -->
 <section>
   <div class="section-num">01 — The constraint</div>
-  <h2>The single fact that shaped every decision in this doc.</h2>
-  <p>The developer building DEAD! is excellent at her work and remote. She speaks English as a second language. That doesn't mean dumbing anything down — it means recognizing that <strong>ambiguity in writing costs her more than it costs me</strong>. Every place a native speaker would tolerate vague phrasing, she has to stop, parse, and guess.</p>
+  <h2>The constraint.</h2>
+  <p>The developer is remote and speaks English as a second language.</p>
 
   <div class="constraint">
     <div class="label">The constraint</div>
-    <p class="text">Where a sentence could be a diagram, make it a diagram. Where a diagram could be a worked example with real data, make it that. Where a paragraph describes a behavior, write the pseudocode underneath it.</p>
-  </div>
-
-  <p>This isn't accommodation — it's good practice that I'd been getting away with skipping on previous projects because everyone in the room shared context. Strip that context away and the gaps in the spec become obvious. The result is a doc that any engineer, anywhere, on any team, can pick up and build from.</p>
-
-  <div class="pullquote">
-    A handoff doc isn't a transcript of what I was thinking. It's the answer to every question engineering will have at 2am when I'm asleep.
+    <p class="text">Where a sentence could be a diagram, make it a diagram. Where a diagram could be a worked example with real data, make it that. Where a paragraph describes behavior, add pseudocode.</p>
   </div>
 </section>
 
 <!-- ── BEFORE / AFTER ───────────────────────────────── -->
 <section>
   <div class="section-num">02 — Two ways to write the same spec</div>
-  <h2>What "over-communication" actually looks like in practice.</h2>
+  <h2>The same section, two ways.</h2>
 
   <div class="compare">
     <div class="compare-card before">
@@ -778,49 +764,47 @@
     <div class="compare-card after">
       <div class="compare-tag">After · spec style</div>
       <h3>§13 Grading System Switch Modal</h3>
-      <p><strong class="lede">Two flow diagrams (Weighted→Points: 1 step. Points→Weighted: 2 steps).</strong> Annotated screenshots of both modal states. A worked example showing how 25/35/40 point weights translate to 25%/35%/40% sliders. Pseudocode for the auto-balance logic. An expected-state table for both paths.</p>
+      <p><strong class="lede">Two flow diagrams (Weighted→Points: 1 step. Points→Weighted: 2 steps).</strong> Annotated screenshots of both modal states. Worked example: 25/35/40 points → 25%/35%/40% sliders. Pseudocode for the auto-balance logic. Expected-state table for both paths.</p>
     </div>
   </div>
 
-  <p>The "before" version isn't wrong. It's just incomplete in ways that look complete to the writer. The "after" version is built so engineering doesn't need to ask follow-ups — and so I don't have to be available when they're building it.</p>
 </section>
 
 <!-- ── INGREDIENTS ───────────────────────────────── -->
 <section>
   <div class="section-num">03 — What's in the doc</div>
-  <h2>Six ingredients that show up in every section.</h2>
-  <p>The spec follows a deliberate recipe. Every feature section uses these six in some combination — not because they're required, but because they collectively cover the questions engineering tends to ask.</p>
+  <h2>Six ingredients in every section.</h2>
 
   <div class="ingredients">
     <div class="ingredient">
       <div class="ingredient-num">01</div>
       <h3>Context SVG</h3>
-      <p><strong class="lede">A wide overview diagram showing where the feature lives in the broader screen.</strong> Helps engineering orient before zooming in.</p>
+      <p><strong class="lede">A wide overview diagram showing where the feature lives in the screen.</strong></p>
     </div>
     <div class="ingredient">
       <div class="ingredient-num">02</div>
       <h3>Detail SVG</h3>
-      <p><strong class="lede">A close-up annotated diagram of the feature itself — fields, states, copy, dimensions.</strong> Pulled from the actual prototype data, not stylized.</p>
+      <p><strong class="lede">A close-up annotated diagram — fields, states, copy, dimensions.</strong></p>
     </div>
     <div class="ingredient">
       <div class="ingredient-num">03</div>
       <h3>Worked example</h3>
-      <p><strong class="lede">Real mock data running through the logic.</strong> "Kate Chen has 91% on Assignments and no Test scores. Here's exactly what her gradebook row should display."</p>
+      <p><strong class="lede">Real mock data through the logic:</strong> "Kate Chen has 91% on Assignments and no Test scores. Here's exactly what her gradebook row should display."</p>
     </div>
     <div class="ingredient">
       <div class="ingredient-num">04</div>
       <h3>State table</h3>
-      <p><strong class="lede">Inputs → expected outputs for default, empty, error, and loading states.</strong> Engineering can use this directly as test cases.</p>
+      <p><strong class="lede">Inputs → expected outputs for default, empty, error, and loading states.</strong> Doubles as test cases.</p>
     </div>
     <div class="ingredient">
       <div class="ingredient-num">05</div>
       <h3>Pseudocode</h3>
-      <p><strong class="lede">Behavior described as a function signature plus a few lines of logic.</strong> Reduces ambiguity for non-trivial calculations or conditional rendering.</p>
+      <p><strong class="lede">A function signature plus a few lines of logic.</strong></p>
     </div>
     <div class="ingredient">
       <div class="ingredient-num">06</div>
       <h3>Open questions</h3>
-      <p><strong class="lede">Things I haven't decided yet, listed explicitly.</strong> Engineering knows what to ask before they ship — and what's intentional vs. what's an oversight.</p>
+      <p><strong class="lede">Undecided items, listed explicitly.</strong></p>
     </div>
   </div>
 </section>
@@ -828,8 +812,8 @@
 <!-- ── DOC PREVIEW ───────────────────────────────── -->
 <section>
   <div class="section-num">04 — The artifact itself</div>
-  <h2>How a section actually reads.</h2>
-  <p>Below is a re-rendering of one section as it appears in the live spec doc. Sticky table of contents on the left. Anchored sections in the body. Mobile responsive (hamburger drawer for the TOC, horizontally scrolling tables on small screens, stacked flow diagrams).</p>
+  <h2>How a section reads.</h2>
+  <p>Sticky TOC, anchored sections. On mobile: TOC drawer, scrolling tables, stacked diagrams.</p>
 
   <div class="figure-block">
     <div class="figure-label">Figure 01 — Spec section §13 (Grading System Switch Modal) as rendered</div>
@@ -874,49 +858,49 @@
         </div>
       </div>
     </div>
-    <p class="figure-cap">The actual spec doc is 27 sections. Each follows the same six-ingredient recipe. Total length: ~120 printed pages, ~140 KB single HTML file.</p>
+    <p class="figure-cap">27 sections · ~120 printed pages · ~140 KB single HTML file.</p>
   </div>
 </section>
 
 <!-- ── PRINCIPLES ───────────────────────────────── -->
 <section>
-  <div class="section-num">05 — Principles I worked from</div>
-  <h2>Five rules I followed throughout.</h2>
+  <div class="section-num">05 — Principles</div>
+  <h2>Five rules.</h2>
 
   <div class="principles">
     <div class="principle">
       <div class="principle-num">01</div>
       <div>
-        <h3>Lead with feature specs, push reference to the back.</h3>
-        <p><strong class="lede">Originally I had design tokens, typography, and component primitives at the start.</strong> Engineering doesn't read those first — they read the section that maps to the ticket they're working on. I reordered the doc so feature specs lead and reference material is appendix-style at the end.</p>
+        <h3>Feature specs first, reference last.</h3>
+        <p><strong class="lede">The first draft opened with design tokens, typography, and component primitives.</strong> Reordered: feature specs lead, reference is an appendix.</p>
       </div>
     </div>
     <div class="principle">
       <div class="principle-num">02</div>
       <div>
-        <h3>Group sections by mental model, not chronology.</h3>
-        <p><strong class="lede">All grading-related sections (Calculation, Switch Modal, Assignments Tab) are grouped together as §12–14 even though Assignments was originally drafted as §16.</strong> If engineering is in the gradebook code, every related spec section should be one scroll away.</p>
+        <h3>Group by mental model, not chronology.</h3>
+        <p><strong class="lede">All grading sections (Calculation, Switch Modal, Assignments Tab) are grouped as §12–14; Assignments was drafted as §16.</strong></p>
       </div>
     </div>
     <div class="principle">
       <div class="principle-num">03</div>
       <div>
         <h3>Build figures from the prototype's actual data.</h3>
-        <p><strong class="lede">Mock SVG diagrams are tempting because they're easy.</strong> They're also useless when the real prototype has different copy, different counts, different colors. Every figure in this doc uses Kate Chen's grade data, the FSA-2200 mock class, the real assignment names. When engineering compares spec to prototype, they match.</p>
+        <p><strong class="lede">Every figure uses Kate Chen's grade data, the FSA-2200 mock class, and the real assignment names.</strong></p>
       </div>
     </div>
     <div class="principle">
       <div class="principle-num">04</div>
       <div>
-        <h3>Document what you're sharing, not just what's new.</h3>
-        <p><strong class="lede">The grading system picker is built once and used in two flows: Edit Class and Class Create Step 2.</strong> The spec calls this out explicitly with a "shared component" note in both sections, pointing to a single source. Without that, engineering would have built it twice.</p>
+        <h3>Mark shared components.</h3>
+        <p><strong class="lede">The grading system picker is built once and used in two flows: Edit Class and Class Create Step 2.</strong> Both sections carry a "shared component" note pointing to one source.</p>
       </div>
     </div>
     <div class="principle">
       <div class="principle-num">05</div>
       <div>
         <h3>Leave open questions visible.</h3>
-        <p><strong class="lede">The doc has a §27 API Contract section with placeholders for endpoints that aren't finalized.</strong> There's an open question about whether class-average row cells should use the same score color thresholds as student rows. These are flagged, not buried — so engineering can build around them or ask, but not silently make the call themselves.</p>
+        <p><strong class="lede">§27 API Contract holds placeholders for unfinalized endpoints.</strong> Flagged open question: do class-average cells use the same color thresholds as student rows?</p>
       </div>
     </div>
   </div>
@@ -925,8 +909,7 @@
 <!-- ── OUTCOMES ───────────────────────────────── -->
 <section>
   <div class="section-num">06 — Outcome</div>
-  <h2>Engineering can ship without me in the room.</h2>
-  <p>The clearest signal that a spec is working: the questions stop. Not because engineering has given up — because the answers are already there. The DEAD! gradebook spec replaced the "let me ping the designer" loop with "let me check §13.2." That's the bar.</p>
+  <h2>Engineering ships without the designer in the room.</h2>
 
   <div class="outcomes">
     <div class="outcome">
@@ -950,9 +933,9 @@
 
 <div class="case-footer">
   <div class="closer-meta">End of case studies</div>
-  <div class="closer">Three cases. One product. A complete picture of what shipping a thoughtful product actually requires.</div>
+  <div class="closer">Three cases. One product.</div>
   <div class="nav-row">
-    <a href="02-dead-gradebook.html">← Previous case</a>
+    <a href="02-gradebook.html">← Previous case</a>
     <a href="index.html">Index ↑</a>
   </div>
 </div>

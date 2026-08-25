@@ -952,7 +952,7 @@
 <section class="tldr">
   <div class="tldr-inner">
     <div class="tldr-label">TL;DR</div>
-    <p class="tldr-content">Senior product designer at State Affairs, the legislative intelligence platform used by lobbyists, advocacy teams, and government affairs professionals to track policy across all 50 state legislatures. Drove the redesign of six core surfaces — including 360-degree bill views, the directories system, search/keywords, and the live voting scorecard — as the platform scaled from a regional tool to a national one. Worked across product, engineering, and customer success to ship features that turned messy public-record data into something teams could actually act on.</p>
+    <p class="tldr-content">Senior product designer at State Affairs, a legislative intelligence platform tracking policy across all 50 state legislatures. Redesigned six core surfaces — 360 bill views, directories, search/keywords, and the live voting scorecard — as the platform scaled from regional to national.</p>
   </div>
 </section>
 
@@ -1043,12 +1043,12 @@
 
     <div class="case-content">
       <p class="lede">
-        360 Views is State Affairs' bill workspace — the surface where teams analyze, annotate, and act on legislation together. I owned the comments layer that lives across it.
+        360 Views is State Affairs' bill workspace. I owned its comments layer.
       </p>
 
       <h3>Comments</h3>
       <p>
-        <strong class="lede">The first design question was scope: should comments live on the bill, or per-view inside it?</strong> After prototyping both, the team landed on bill-level comments with view filtering — one source of truth, with the comments filtered to whichever view a user is reading them in. The data model reads cleanly across the whole feature; the UI can vary per surface without forking.
+        <strong class="lede">Scope decision: bill-level comments, filtered per view.</strong> Prototyped both bill-level and per-view storage; shipped bill-level — one data model, UI varies per surface.
       </p>
 
       <!-- TODO image: images/state-affairs/360-comments-panel.png -->
@@ -1058,7 +1058,7 @@
         </div>
         <div class="figure-caption">
           <span class="figure-caption-num">Fig. 01</span>
-          <span>Bill-level comments scoped to the active 360 view.</span>
+          <span>Comments scoped to the active view.</span>
         </div>
       </div>
     </div>
@@ -1069,14 +1069,14 @@
 <section class="case" id="momentum-score">
   <div class="case-number">— 02 / Momentum Score</div>
   <h2>Visualizing the model that predicts bill passage.</h2>
-  <p class="case-tagline">Designing trust into a new probabilistic feature.</p>
+  <p class="case-tagline">Two views for a probabilistic score.</p>
 
   <div class="case-tldr">
     <div class="case-tldr-label">TL;DR</div>
     <ul class="case-tldr-list">
-      <li>Designed how users see and trust Passage Probability — a new score that updates as bills move.</li>
-      <li>Two views: point-in-time donut showing what the score is made of, and a trajectory chart showing how it's evolved.</li>
-      <li>A numbered factor list ties both views together and lets users disagree with the model factor by factor.</li>
+      <li>Designed the UI for Passage Probability — a 0–100 score that updates as bills move.</li>
+      <li>Two views: a point-in-time donut breaking the score into factors, and a trajectory chart of the score over time.</li>
+      <li>A numbered factor list ties both views together.</li>
     </ul>
   </div>
 
@@ -1099,42 +1099,34 @@
 
     <div class="case-content">
       <p class="lede">
-        A model produces the number. The design produces the trust.
+        Passage Probability: a 0–100 score that updates on every bill action, trained on 15 years of outcomes across all 50 states. I designed the two views that display it.
       </p>
 
       <h3>The problem</h3>
-      <p>Legislative teams track hundreds of bills across dozens of states. Without a signal for which ones are actually moving, prioritization is guesswork — teams either spread attention evenly or rely on instinct about which bills matter.</p>
-
-      <p>Passage Probability changes that. It's a score between 0 and 100 that updates every time a bill moves, trained on 15 years of outcomes across every state. It evaluates signals no analyst can track at scale — sponsor track records, political environment, bill velocity, historical base rates — so users can triage by likelihood, not just status.</p>
-
-      <p>The score was new, and skepticism was the default. A number they couldn't interrogate was harder to act on than a hunch from a colleague they trusted. The design problem: make the score legible enough that users can pressure-test it, disagree with it, and learn when to trust it.</p>
+      <p>Teams track hundreds of bills across dozens of states. The model scores likelihood of passage from sponsor track records, political environment, bill velocity, and historical base rates.</p>
 
       <h3>The design</h3>
-      <p>Two views, working together.</p>
-
-      <p>The first is point-in-time. Inside the bill detail panel, the score sits at the top with a donut breaking it into its top factors — sponsor strength, bipartisan cosponsorship, committee makeup, similar bill outcomes. The donut isn't there to be precise. It's there to communicate that the number is <em>constructed</em> — that 74% isn't pulled from the air, it's the weighted result of factors like sponsorship, legislative body, history of bills with similar language, and more. Each factor in the expanded list shows its direction (this one pushing the score up, that one pulling it down), and the "Unknown" tag on factors the model can't see yet — early-session bills with thin history — is its own honesty signal.</p>
+      <p>Point-in-time: a donut at the top of the bill detail panel breaks the score into factors — sponsor strength, bipartisan cosponsorship, committee makeup, similar-bill outcomes. Each factor shows its direction; factors the model can't evaluate yet are tagged "Unknown."</p>
 
       <div class="figure">
         <img src="images/state-affairs/momentum-score-bill-detail-page.png" alt="The bill detail panel shown in context within the State Affairs platform, showing the momentum score donut and factors alongside the bill listing.">
         <div class="figure-caption">
           <span class="figure-caption-num">Fig. 02</span>
-          <span>The bill detail panel in context, with the momentum score visualization at the top right.</span>
+          <span>Bill detail panel; score at top right.</span>
         </div>
       </div>
 
-      <p>The second view is trajectory. A standalone card pairs the current score with a line chart showing how it's moved over time. Major legislative actions are marked on the timeline. Users can click any point to time-travel: the side panel updates to show what the score was at that action, what drove it, and what changed. A bill climbing from 30% to 70% over two weeks reads completely differently than a bill sitting at 55% for a month — and now the surface makes that visible.</p>
+      <p>Trajectory: a standalone card pairs the current score with a line chart over time, legislative actions marked. Clicking a point shows the score at that action and what changed. 30% to 70% in two weeks reads differently than flat at 55% for a month.</p>
 
       <div class="figure">
         <img src="images/state-affairs/momentum-score-card.png" alt="The momentum score rendered as a standalone card">
         <div class="figure-caption">
           <span class="figure-caption-num">Fig. 03</span>
-          <span>The momentum score as a standalone card.</span>
+          <span>Standalone card.</span>
         </div>
       </div>
 
-      <p>The factor list is doing real work in both views. Factors are numbered rather than bulleted because users want to compare them across actions — <em>which</em> factor moved, by how much — and numbered items give that conversation anchors. Up-arrows, down-arrows, and right-arrows show direction; the green-on-green for positive factors and tan-on-cream for "Unknown" tie back to the donut's color logic.</p>
-
-      <p>The 0–100 score never goes away. It's the headline number. But around it, the design builds enough context that a skeptical user can pressure-test the model's read against their own knowledge — and a user managing thousands of bills across 50 states can triage by trajectory rather than treating every score as a verdict.</p>
+      <p>Factors are numbered so users can reference them across actions; colors match the donut.</p>
     </div>
   </div>
 </section>
@@ -1142,15 +1134,15 @@
 <!-- ============ CASE 03: KEYWORDS REDESIGN ============ -->
 <section class="case" id="keywords">
   <div class="case-number">— 03 / Keyword Alerts</div>
-  <h2>Designing trust into a keyword alerts system.</h2>
-  <p class="case-tagline">Three coordinated design moves to make alerts worth listening to.</p>
+  <h2>Redesigning the keyword alerts system.</h2>
+  <p class="case-tagline">Three changes: query scoping, match transparency, keyword metadata.</p>
 
   <div class="case-tldr">
     <div class="case-tldr-label">TL;DR</div>
     <ul class="case-tldr-list">
-      <li>Designed three coordinated improvements to make keyword alerts trustworthy.</li>
-      <li>A live Strength Indicator coaches users to build well-scoped queries with projected match volume as evidence.</li>
-      <li>Match Type and per-result transparency surface why each result showed up. Priority and Position capture what each keyword means.</li>
+      <li>A live Strength Indicator scores queries as users type, with projected match volume.</li>
+      <li>Match Type and per-result transparency show why each result matched.</li>
+      <li>Priority and Position fields capture what each keyword means to the user.</li>
     </ul>
   </div>
 
@@ -1171,31 +1163,25 @@
     </aside>
 
     <div class="case-content">
-      <p class="lede">
-        Helping users write well-scoped queries, making the matching system legible, and capturing what each keyword actually means to the user.
-      </p>
-
       <h3>The problem</h3>
-      <p>Keyword alerts only work if users trust them. Three ways that trust was breaking down at once.</p>
+      <p>Customers saved overly broad keywords — <span class="mono">insulin</span>, <span class="mono">education</span> — and flooded their dashboards with irrelevant matches.</p>
 
-      <p>Enterprise customers were saving overly broad keywords — just <span class="mono">insulin</span>, or <span class="mono">education</span> — and drowning their dashboards in matches that didn't matter. Once the noise started, the whole product felt broken even though the matching was working as designed.</p>
+      <p>Semantic matching had just launched platform-wide: <span class="mono">insulin</span> now matched <span class="mono">semiglutide</span> results, with no indication why.</p>
 
-      <p>Semantic matching had just been turned on platform-wide, which meant a keyword like <span class="mono">insulin</span> was now silently matching results about <span class="mono">semiglutide</span>. More useful in theory, harder to trust in practice — users didn't know why a result had shown up, or how to make it stop.</p>
+      <p>The system had no signal for which keywords mattered to a user.</p>
 
-      <p>And the system had no way to know which of a user's keywords actually mattered to them. A keyword they cared deeply about and a keyword they'd saved on a whim competed for the same space across dashboards, 360 views, and recommended bills.</p>
+      <h3>Query scoping</h3>
+      <p>A live Strength Indicator in the search form — modeled on a password strength meter — scores every query as it's typed. Four states, each tied to projected match volume. Strong: "~284 matches in the last 12 months · avg 24/mo, up from 15/mo the prior year." Too broad: "~47,000 matches all time · ~3,900/mo in the last 12 months."</p>
 
-      <h3>Helping users write well-scoped queries</h3>
-      <p>A live Strength Indicator inside the search form — modeled on a password strength meter — scoring every query as users build it. Four states — Strong, Good, Fair, Too broad — each tied to a projected match volume. "Strong" reads as "~284 matches in the last 12 months · avg 24/mo, up from 15/mo the prior year. Well-scoped — alerts will be actionable." "Too broad" reads as "~47,000 matches all time · ~3,900/mo in the last 12 months. This term is too broad to generate useful alerts."</p>
+      <p>At Fair or Too broad, the form offers narrower one-click chips — <span class="mono">insulin pricing reform</span>, <span class="mono">insulin copay cap</span>, <span class="mono">insulin affordability act</span> — drawn from the corpus, not a static list.</p>
 
-      <p>When the indicator drops to Fair or Too broad, the form surfaces concrete narrower alternatives as one-click chips: <span class="mono">insulin pricing reform</span>, <span class="mono">insulin copay cap</span>, <span class="mono">insulin affordability act</span>. Suggestions come from the corpus, not a static list.</p>
-
-      <p>The decision worth calling out: I chose to coach users inside the form rather than block them with a speedbump modal at save. A speedbump tells someone they've done something wrong after the fact. The Strength Indicator tells them what's working as they go. The friction is informative, not punitive.</p>
+      <p>Decision: coach inside the form rather than block with a modal at save.</p>
 
       <div class="figure">
         <img src="images/state-affairs/keywords-strength-strong.png" alt="Strength Indicator showing the Strong state with projected match volume">
         <div class="figure-caption">
           <span class="figure-caption-num">Fig. 04</span>
-          <span>The Strong state, with projected match volume as in-form evidence.</span>
+          <span>Strong state.</span>
         </div>
       </div>
 
@@ -1203,26 +1189,22 @@
         <img src="images/state-affairs/keywords-strength-toobroad.png" alt="Strength Indicator showing the Too broad state with suggested narrower alternatives">
         <div class="figure-caption">
           <span class="figure-caption-num">Fig. 05</span>
-          <span>When the query is too broad, the form offers narrower alternatives drawn from the corpus.</span>
+          <span>Too broad state, with narrower alternatives.</span>
         </div>
       </div>
 
-      <h3>Making the matching system legible</h3>
-      <p>Three parts working together.</p>
+      <h3>Match transparency</h3>
+      <p>A Match Type field on every keyword: <span class="mono">Semantic · 532 / monthly avg</span> (topic relevance, synonyms, related concepts) vs. <span class="mono">Exact · 29 / monthly avg</span> (precise term in bill text). Users pick per keyword.</p>
 
-      <p>A Match Type field on every keyword, with the tradeoff stated in user-relevant terms: <span class="mono">Semantic · 532 / monthly avg</span>, matches by topic relevance, synonyms, and related concepts vs. <span class="mono">Exact · 29 / monthly avg</span>, only matches your precise term in bill text. Users pick their tradeoff per keyword.</p>
+      <p>A dismissible banner on first visit after the semantic rollout explains the change and offers "Switch to Exact Matches only" as a one-click opt-out.</p>
 
-      <p>A top-of-page banner the first time a user lands on the keywords page after the semantic rollout, explaining the change in two sentences and offering "Switch to Exact Matches only" as a one-click escape hatch. The banner can be dismissed once the user has made their call.</p>
-
-      <p>Per-result transparency on every card: "Matched by: synonym / alternate term," with the matched phrase highlighted in the result snippet. When a result is showing up because of a semantic match rather than the literal keyword, the user can see <span class="accent">why</span>.</p>
-
-      <p>These three pieces are doing the same job at three different scales — the field is the user's stance on a single keyword, the banner is the user's stance on the system, the card-level transparency is the user's read on a single result.</p>
+      <p>Every result card states why it matched — "Matched by: synonym / alternate term" — with the matched phrase highlighted in the snippet.</p>
 
       <div class="figure">
         <img src="images/state-affairs/keywords-match-type.png" alt="Match Type field showing Semantic vs. Exact options with expected monthly match volume">
         <div class="figure-caption">
           <span class="figure-caption-num">Fig. 06</span>
-          <span>Semantic vs. Exact, with the tradeoff stated in expected monthly match volume.</span>
+          <span>Semantic vs. Exact, with monthly match volume.</span>
         </div>
       </div>
 
@@ -1230,22 +1212,20 @@
         <img src="images/state-affairs/keywords-match-transparency.png" alt="Result card showing why a result matched, with the matched phrase highlighted">
         <div class="figure-caption">
           <span class="figure-caption-num">Fig. 07</span>
-          <span>Each card surfaces why it matched — synonym, alternate term, or highlighted snippet.</span>
+          <span>Match reason per card.</span>
         </div>
       </div>
 
-      <h3>Capturing what each keyword means</h3>
-      <p>Two new first-class fields on every saved keyword: Priority and Position. Priority captures how much the user cares. Position captures their stance — Support, Oppose, Watch.</p>
+      <h3>Keyword metadata</h3>
+      <p>Two new fields on every saved keyword: Priority (how much the user cares) and Position (Support, Oppose, Watch).</p>
 
-      <p>This metadata isn't decorative. It feeds into how 360 reports rank bills, which keywords get surfaced in recommended bills, and which alerts get foregrounded in the daily digest. The aside in the keyword drawer states this plainly: "Set priority and position to help with AI strength."</p>
-
-      <p>A smaller change than the other two, but structurally different. The Strength Indicator and the match-type controls are about the <span class="accent">query</span>. Priority and Position are about the user's <span class="accent">stance toward</span> the query. Together they give the system enough signal to filter what reaches the user.</p>
+      <p>Both feed 360 report ranking, recommended-bill surfacing, and daily digest ordering.</p>
 
       <div class="figure">
         <img src="images/state-affairs/keywords-priority-position.png" alt="Priority and Position fields in the keyword edit drawer">
         <div class="figure-caption">
           <span class="figure-caption-num">Fig. 08</span>
-          <span>New keyword-level metadata that feeds downstream ranking and surfacing.</span>
+          <span>Priority and Position fields.</span>
         </div>
       </div>
     </div>
@@ -1257,7 +1237,7 @@
 <section class="case" id="voting-scorecard" style="display:none;">
   <div class="case-number">— 04 / Voting Scorecard</div>
   <h2>Making roll-call results legible at a glance.</h2>
-  <p class="case-tagline">Designing for the long pre-vote stretch most scorecard tools ignore.</p>
+  <p class="case-tagline">Roll-call results, plus the pre-vote empty state.</p>
 
   <!-- TODO: add voting scorecard TL;DR bullets
   <div class="case-tldr">
@@ -1287,7 +1267,7 @@
 
     <div class="case-content">
       <p class="lede">
-        Voting Scorecards spend most of their lives empty. Bills sit on the floor for weeks before votes are recorded, and during that stretch users still need the page to feel like a tool — not a broken view of one.
+        Bills sit on the floor for weeks before votes are recorded, so scorecards are empty most of their life.
       </p>
 
       <h3>The problem</h3>
@@ -1310,7 +1290,7 @@
 
       <h3>Before the roll call</h3>
       <p>
-        <strong class="lede">Ghost columns in a muted state hold the structure of the eventual scorecard, paired with a footer banner that explains the state plainly.</strong> When every bill is pre-vote, a distinct all-empty body state takes over rather than repeating the per-column treatment dozens of times across the table.
+        <strong class="lede">Ghost columns in a muted state hold the eventual scorecard's structure, with a footer banner explaining the state.</strong> When every bill is pre-vote, a single all-empty body state replaces the per-column treatment.
       </p>
 
       <!-- TODO image: images/state-affairs/scorecard-ghost-state.png -->
@@ -1320,12 +1300,12 @@
         </div>
         <div class="figure-caption">
           <span class="figure-caption-num">Fig. 10</span>
-          <span>Ghost columns with footer banner explaining the state.</span>
+          <span>Ghost columns and footer banner.</span>
         </div>
       </div>
 
       <p>
-        Small surface, but a real call: power users wanted hand-holding at this stage, and stripping the table to a single message would have hidden the structure they were trying to read into.
+        Decision: keep the table structure visible pre-vote — power users read it before votes exist.
       </p>
     </div>
   </div>
@@ -1341,7 +1321,7 @@
   <div class="case-tldr">
     <div class="case-tldr-label">TL;DR</div>
     <ul class="case-tldr-list">
-      <li>Reset the article reading surface with editorial typography and reduced chrome, treating B2B legislative news as content worth reading.</li>
+      <li>Reset the article reading surface: editorial typography, reduced chrome.</li>
     </ul>
   </div>
 
@@ -1363,11 +1343,11 @@
 
     <div class="case-content">
       <p class="lede">
-        State Affairs publishes original statehouse reporting alongside its tracking tools. The news surface had been styled as a B2B feed — the visual language closer to a dashboard than to the journalism it housed.
+        State Affairs publishes original statehouse reporting. The news surface was styled like a dashboard feed.
       </p>
 
       <p>
-        I reset the type system around editorial fundamentals: a serif headline face for hierarchy, a serif body face tuned for long-form reading, and a tighter color palette that lets the writing carry the page. The structure stayed consistent with the rest of the platform; the surface around it changed.
+        I reset the type system: a serif headline face, a serif body face tuned for long-form reading, a tighter color palette. Page structure unchanged.
       </p>
 
       <!-- TODO image: images/state-affairs/news-article-detail.png -->
@@ -1377,7 +1357,7 @@
         </div>
         <div class="figure-caption">
           <span class="figure-caption-num">Fig. 11</span>
-          <span>Article surface with editorial typography and reduced chrome.</span>
+          <span>Article detail.</span>
         </div>
       </div>
     </div>
@@ -1389,12 +1369,12 @@
 <section class="case" id="code-annotated" style="display:none;">
   <div class="case-number">— 06 / Reference & Search</div>
   <h2>Code Annotated, scaled from one state to fifty.</h2>
-  <p class="case-tagline">Taking a state-specific tool and rebuilding it as a platform-wide capability.</p>
+  <p class="case-tagline">A Tennessee-only reference tool rebuilt for all 50 states.</p>
 
   <div class="case-tldr">
     <div class="case-tldr-label">TL;DR</div>
     <ul class="case-tldr-list">
-      <li>Designed the title-level navigation that lets users move from the broad code structure down through chapters and sections to the bills referenced inside.</li>
+      <li>Designed title → chapter → section navigation, with referenced bills at every level.</li>
       <li>The interaction pattern holds across desktop and mobile.</li>
     </ul>
   </div>
@@ -1417,17 +1397,17 @@
 
     <div class="case-content">
       <p class="lede">
-        Code Annotated started as a Tennessee-only legislative reference tool. The work was to take it nationwide — preserving what made it useful at the state level while introducing the structure needed to scale across fifty distinct legal codes.
+        Code Annotated started as a Tennessee-only legislative reference tool. I rebuilt it to scale across fifty distinct legal codes.
       </p>
 
       <h3>The problem</h3>
       <p>
-        <strong class="lede">Each state codifies its laws differently — different titles, different chapter numbering, different relationships between sections and the bills that reference them.</strong> A flat list wouldn't survive that variance, and a single state-specific UI couldn't either.
+        <strong class="lede">Each state codifies its laws differently — different titles, chapter numbering, and section-to-bill relationships.</strong>
       </p>
 
       <h3>The design</h3>
       <p>
-        <strong class="lede">I designed a branch-style interface that breaks each state's code down by title, then chapter, then section, with referenced bills surfaced at every level.</strong> Users can follow specific sections to receive alerts when new bills cite them — which is the actual reason this feature exists for power users.
+        <strong class="lede">A branch-style interface breaks each state's code down by title, then chapter, then section, with referenced bills at every level.</strong> Users can follow a section to get alerts when new bills cite it.
       </p>
 
       <!-- TODO image: images/state-affairs/code-annotated-title-desktop.png -->
@@ -1437,13 +1417,13 @@
         </div>
         <div class="figure-caption">
           <span class="figure-caption-num">Fig. 12</span>
-          <span>Title-level navigation showing chapters with associated bill counts.</span>
+          <span>Title view with chapter bill counts.</span>
         </div>
       </div>
 
       <h3>Scaling across surfaces</h3>
       <p>
-        <strong class="lede">The same hierarchy had to work on desktop, mobile web, and native mobile.</strong> The branch metaphor held up across all three because it's structural rather than visual — each surface expresses the depth differently, but the model underneath is identical.
+        <strong class="lede">The same title/chapter/section hierarchy ships on desktop, mobile web, and native mobile.</strong> Each surface renders the depth differently over the same model.
       </p>
 
       <div class="figure figure-pair">

@@ -180,13 +180,6 @@
   p { max-width: 720px; margin: 0 0 18px; color: var(--gray-700); }
   p strong { color: var(--navy); font-weight: 600; }
 
-  .pullquote {
-    font-weight: 500; font-size: clamp(24px, 3.2vw, 36px);
-    line-height: 1.25; letter-spacing: -0.018em; color: var(--navy);
-    border-left: 3px solid var(--blue);
-    padding: 8px 0 8px 32px; margin: 40px 0; max-width: 880px;
-  }
-
   /* ── THE PROBLEM SCENARIO ───────────────────────────────── */
   .scenario {
     background: var(--gray-50); border: 1px solid var(--gray-200);
@@ -394,7 +387,6 @@
     .deck { font-size: 17px; }
     h2 { font-size: 26px; }
     h3 { font-size: 18px; }
-    .pullquote { font-size: 20px; padding-left: 20px; margin: 28px 0; }
     .scenario { padding: 20px; }
     .option-card { padding: 20px; }
     .option-letter { font-size: 48px; }
@@ -1034,14 +1026,14 @@
 <section class="hero">
   <div class="eyebrow"><span class="dash"></span>DEAD! · Gradebook</div>
   <h1 class="title">What happens<br/>when a category<br/><em>doesn't exist yet?</em></h1>
-  <p class="deck">A weighted gradebook seems like solved territory until you ask one question: what should the grade say in week three of the semester, when the only category with submissions is "Assignments"? This is a case study about catching a silent failure mode and designing the right answer for it.</p>
+  <p class="deck">Week three of a semester: one of three weighted categories has submissions. This case study is the display decision for that state.</p>
 </section>
 
 <!-- ── TL;DR ───────────────────────────────── -->
 <div class="tldr">
   <div class="tldr-inner">
     <div class="tldr-label">TL;DR</div>
-    <p class="tldr-content">Caught a silent failure mode in a weighted gradebook nobody else flagged: what should the grade say in week three of the semester, when only one of three weighted categories has any submissions? The naive answer (zero out the empty categories) drags every student's grade down for work they were never assigned. Drove the spec decision and shipped the explicit design: empty categories render as an em-dash, weight is not redistributed mid-semester, and the math is communicated in the student detail panel as "40% → 100%".</p>
+    <p class="tldr-content">In week three, only one of three weighted categories has submissions. Zeroing the empty categories turns a 91% student into a 36.4%. Spec'd and shipped: empty categories are excluded, remaining weights scale proportionally, empty cells render an em-dash, and the student detail panel shows the math as "40% → 100%".</p>
   </div>
 </div>
 
@@ -1161,16 +1153,15 @@
   </div>
   <div class="figure-caption">
     <span class="num">Fig. 01</span>
-    <span class="text">Grade Book — full state. Sticky student column, sticky final-grade column, pinned class-average row. Status badges per cell communicate per-assignment state. Look at <strong>Foster, Drew</strong>: only assignments graded so far. The final grade reads <strong>91%</strong>, not 36%. That single number — what to display when categories are partial — is the entire decision this case study is about.</span>
+    <span class="text">Full gradebook. <strong>Foster, Drew</strong>: assignments only; final reads <strong>91%</strong>, not 36%.</span>
   </div>
 </div>
 
 <!-- ── PROBLEM ───────────────────────────────── -->
 <section>
   <div class="section-num">01 — The setup</div>
-  <h2>A gradebook is a promise. The number it shows is the number that matters.</h2>
-  <p>Every weighted gradebook starts with the same simple model: an instructor sets weights — say <strong>40% Assignments, 40% Tests, 20% Tournaments</strong> — and the final grade is the weighted average of category averages. Clean math. Easy to ship. Easy to misunderstand.</p>
-  <p>Three weeks into a semester, here's the actual state of a real class:</p>
+  <h2>The weighted model</h2>
+  <p>The instructor sets weights — <strong>40% Assignments, 40% Tests, 20% Tournaments</strong> — and the final grade is the weighted average of category averages. Class state at week three:</p>
 
   <div class="scenario">
     <div class="scenario-label">Scenario · Week 3 of FSA-2200</div>
@@ -1206,11 +1197,7 @@
     </table>
   </div>
 
-  <p>The student has done 4 assignments and aced them. Their actual performance, based on what's been graded so far, is <strong>91%</strong>. So what should the gradebook display?</p>
-
-  <div class="pullquote">
-    The naive answer is wrong. The intuitive answer is also wrong. Only one answer is right — and it took a deliberate decision to land there.
-  </div>
+  <p>Graded performance so far: <strong>91%</strong> across 4 assignments. The decision is what the final-grade column shows.</p>
 </section>
 
 <!-- ── FIGURE 02+03 — Empty state + weight sliders ───────────── -->
@@ -1237,7 +1224,7 @@
     </div>
     <div class="figure-caption">
       <span class="num">Fig. 02</span>
-      <span class="text">Pre-grade state. Most LMS gradebooks ship without considering the first weeks of semester — when nothing is graded yet. The naïve render is a wall of zeros that lies. This empty state replaces it.</span>
+      <span class="text">Empty state, shown before any grading.</span>
     </div>
   </div>
 
@@ -1275,7 +1262,7 @@
     </div>
     <div class="figure-caption">
       <span class="num">Fig. 03</span>
-      <span class="text">Weighted categories — set during class creation, editable mid-semester. Each category averages independently from submitted scores. The yellow note is the design decision: not a footnote, not buried in docs, but surfaced where the weights live.</span>
+      <span class="text">Weight editor. The note states the exclusion rule.</span>
     </div>
   </div>
 </div>
@@ -1283,8 +1270,7 @@
 <!-- ── OPTIONS ───────────────────────────────── -->
 <section>
   <div class="section-num">02 — Two interpretations</div>
-  <h2>The choice was binary, but the reasoning wasn't.</h2>
-  <p>Two implementations were on the table. They produce dramatically different numbers from the same data.</p>
+  <h2>Two implementations, same data</h2>
 
   <div class="options">
     <div class="option-card rejected">
@@ -1299,7 +1285,7 @@
         <br/>
         <span class="lbl">Final grade</span>
         <span class="red-res">36.4%</span>
-        <span style="display:block;margin-top:10px;color:var(--red);font-size:11.5px;font-family:'Inter',sans-serif;line-height:1.5;">A 91% performer is told they have an F. The instructor stops trusting the gradebook.</span>
+        <span style="display:block;margin-top:10px;color:var(--red);font-size:11.5px;font-family:'Inter',sans-serif;line-height:1.5;">A 91% performer shows an F.</span>
       </div>
     </div>
 
@@ -1318,19 +1304,19 @@
         <br/>
         <span class="lbl">Final grade</span>
         <span class="res">91.0%</span>
-        <span style="display:block;margin-top:10px;color:var(--green);font-size:11.5px;font-family:'Inter',sans-serif;line-height:1.5;">The grade reflects what the student has actually demonstrated. Trust intact.</span>
+        <span style="display:block;margin-top:10px;color:var(--green);font-size:11.5px;font-family:'Inter',sans-serif;line-height:1.5;">Matches graded performance.</span>
       </div>
     </div>
   </div>
 
-  <p>Option A is what a junior engineer ships if no one tells them otherwise. The math is "correct" in the sense that it follows the configured weights literally — but the result is meaningless. A teacher looking at a 36.4% in week three has no way to know whether that's the configuration or a real signal.</p>
+  <p>Under Option A, a 36.4% in week three is indistinguishable from real failure.</p>
 </section>
 
 <!-- ── EDGE CASE ───────────────────────────────── -->
 <section>
-  <div class="section-num">03 — The harder edge case</div>
-  <h2>Single-category-becomes-100% — and other moments engineering would have asked about.</h2>
-  <p>Specifying "redistribute proportionally" gets you most of the way. But there are sub-cases that need explicit calls. The spec ended up enumerating them so engineering wasn't guessing:</p>
+  <div class="section-num">03 — The harder edge cases</div>
+  <h2>Three sub-cases, specified</h2>
+  <p>The spec enumerates each sub-case with input, expected output, and reasoning:</p>
 
   <div class="worked">
     <div class="worked-head">
@@ -1422,40 +1408,40 @@
   </div>
   <div class="figure-caption">
     <span class="num">Fig. 05</span>
-    <span class="text">When a category has zero submitted items, the cell renders as an em-dash. Most LMS gradebooks here would render <strong>NaN</strong>, divide by zero, or silently weight the category at 0% — silently dragging a student's grade down for work they were never assigned. We made this an explicit product decision: empty categories are excluded entirely from the final grade until they have data, and the weight is not redistributed mid-semester unless the instructor changes it.</span>
+    <span class="text">A category with zero submissions renders an em-dash and is excluded from the final grade until it has data.</span>
   </div>
 </div>
 
 <!-- ── PROCESS ───────────────────────────────── -->
 <section>
   <div class="section-num">04 — How we got there</div>
-  <h2>The decision wasn't made in a vacuum.</h2>
+  <h2>Process</h2>
 
   <div class="timeline">
     <div class="timeline-item">
       <div class="timeline-step">Step 01 · Spotted the bug</div>
-      <h3>Walking through the prototype, the demo grade looked "off"</h3>
-      <p><strong class="lede">The mock data had assignments graded but no tests yet.</strong> The displayed final grade looked too low. Tracing the calculation revealed the prototype was applying weights literally — the original Option A behavior. It would have shipped that way.</p>
+      <h3>Prototype grade looked too low</h3>
+      <p><strong class="lede">Mock data had assignments graded, no tests.</strong> The prototype was applying configured weights literally — Option A behavior.</p>
     </div>
     <div class="timeline-item">
       <div class="timeline-step">Step 02 · Researched precedents</div>
-      <h3>Looked at how other LMS platforms handle it</h3>
-      <p><strong class="lede">Every mainstream gradebook (Canvas, Blackboard, PowerSchool) redistributes by default.</strong> Some let instructors toggle the behavior; none ship the literal-weights default. This wasn't an opinion — it was a de facto industry standard the prototype had drifted away from.</p>
+      <h3>Checked other LMS platforms</h3>
+      <p><strong class="lede">Canvas, Blackboard, and PowerSchool all redistribute by default.</strong> Some offer a toggle; none ship literal weights.</p>
     </div>
     <div class="timeline-item">
       <div class="timeline-step">Step 03 · Wrote both calculations</div>
-      <h3>Modeled both outcomes on real mock data</h3>
-      <p><strong class="lede">Using the prototype's existing mock student "Kate Chen," I worked through Option A and Option B by hand.</strong> Option A gave a 36.4%. Option B gave a 91.0%. The contrast made the right call obvious — and gave engineering a worked example to test against.</p>
+      <h3>Worked both options by hand on mock data</h3>
+      <p><strong class="lede">Option A: 36.4%. Option B: 91.0%.</strong> The worked example went to engineering as a test case.</p>
     </div>
     <div class="timeline-item">
       <div class="timeline-step">Step 04 · Specified the edge cases</div>
-      <h3>Wrote out single-category-becomes-100% and all-empty cases</h3>
-      <p><strong class="lede">The base behavior is one decision. The corner cases are three more.</strong> Each got its own row in the spec doc with input, expected output, and a one-line reasoning note. Pseudocode included for the redistribution itself.</p>
+      <h3>Wrote out the single-category and all-empty cases</h3>
+      <p><strong class="lede">Each edge case got a spec row:</strong> input, expected output, one-line reasoning. Pseudocode included for the redistribution.</p>
     </div>
     <div class="timeline-item">
       <div class="timeline-step">Step 05 · Updated the prototype</div>
-      <h3>Rewrote the calculation; added a walkthrough step explaining it</h3>
-      <p><strong class="lede">The prototype's walkthrough drawer — which engineering uses to understand intent — now includes a step describing the redistribution behavior with the worked example baked in.</strong> The behavior is documented in three places: code, spec, and the prototype's own narration.</p>
+      <h3>Rewrote the calculation; added a walkthrough step</h3>
+      <p><strong class="lede">The behavior is documented in three places:</strong> code, spec, and the prototype's walkthrough drawer.</p>
     </div>
   </div>
 </section>
@@ -1463,8 +1449,8 @@
 <!-- ── FORMULA ───────────────────────────────── -->
 <section>
   <div class="section-num">05 — Shipped logic</div>
-  <h2>The calculation, as it lives in the spec.</h2>
-  <p>Pseudocode from the developer handoff document. Engineering implements directly against this:</p>
+  <h2>The shipped calculation</h2>
+  <p>Pseudocode from the developer handoff document:</p>
 
   <div class="formula">
     <div class="formula-label">// Weighted grade with empty-category redistribution</div>
@@ -1486,7 +1472,7 @@
     </div>
   </div>
 
-  <p>Twenty-eight lines in the actual spec, with worked examples, expected outputs for three edge cases, and a sentence explaining why we chose this over Option A. That's how it leaves the design floor.</p>
+  <p>The spec section is 28 lines: pseudocode, worked examples, and expected outputs for three edge cases.</p>
 </section>
 
 <!-- ── FIGURE 04 — Student detail panel ─────────────────────── -->
@@ -1553,15 +1539,14 @@
   </div>
   <div class="figure-caption">
     <span class="num">Fig. 04</span>
-    <span class="text">Student detail panel. Slides in over the gradebook, no backdrop, dismisses on Escape. The weight column makes the redistribution visible — <strong>"40% → 100%"</strong> tells the instructor (and the student, when this is exported) that assignments are temporarily carrying the full grade. The em-dashes for empty categories aren't decorative; they're the design decision rendered.</span>
+    <span class="text">Student detail panel. <strong>"40% → 100%"</strong> shows the redistribution; empty categories read "—".</span>
   </div>
 </div>
 
 <!-- ── OUTCOME ───────────────────────────────── -->
 <section>
   <div class="section-num">06 — Outcome</div>
-  <h2>A subtle bug caught before it reached a real classroom.</h2>
-  <p>Had Option A shipped, instructors would have logged in three weeks into a semester, seen failing grades for top students, and either lost trust in the platform or — worse — assumed the grades were correct and acted on them. The redistribution behavior is invisible when it works, which is exactly the bar a gradebook needs to clear.</p>
+  <h2>Caught before release</h2>
 
   <div class="outcomes">
     <div class="outcome">
@@ -1583,8 +1568,8 @@
   <div class="next-meta">Up next · Case 03</div>
   <div class="next-up">Designing for handoff — a spec as a deliverable →</div>
   <div class="nav-row">
-    <a href="01-dead-two-perspectives.html">← Previous case</a>
-    <a href="03-dead-spec.html">Next case →</a>
+    <a href="01-two-perspectives.html">← Previous case</a>
+    <a href="03-spec.html">Next case →</a>
   </div>
 </div>
 

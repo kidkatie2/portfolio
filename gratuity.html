@@ -146,19 +146,6 @@
   .theme-tag.is-free { background: var(--accent); }
   .theme-card-desc { font-size: 12px; color: var(--ink-3); line-height: 1.55; margin-top: 5px; }
 
-  /* ---------- Draft placeholder (remove before publishing) ---------- */
-  .g-draft {
-    border: 1px dashed var(--accent); background: var(--accent-soft);
-    padding: 20px 24px; border-radius: 6px; margin: 28px 0;
-  }
-  .g-draft-label {
-    font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
-  }
-  .g-draft p { font-size: 13px; color: var(--ink-2); line-height: 1.65; margin-bottom: 10px; }
-  .g-draft p:last-child { margin-bottom: 0; }
-  .g-draft em { color: var(--ink-2); }
-
   /* ---------- Closing CTA ---------- */
   .g-cta { border-top: 1px solid var(--rule); padding: 64px 0 72px; }
   .g-cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
@@ -228,13 +215,13 @@
   <a class="case-back" href="index.html">← back to index</a>
   <div class="case-eyebrow">Case Study 04 / Personal · iOS app</div>
   <h1>A <span class="accent">brutalist tip calculator</span>, built and shipped in four weeks.</h1>
-  <p class="case-lead">Gratuity is a free iOS tip calculator with a $2.99 Pro unlock. Designed and built solo, shipped to the App Store under Tesoro Industries LLC. It makes no network requests, collects no data, and has no account to create.</p>
+  <p class="case-lead">Free iOS tip calculator with a $2.99 one-time Pro unlock. Designed and built solo; shipped under Tesoro Industries LLC.</p>
 </section>
 
 <section class="tldr">
   <div class="tldr-inner">
     <div class="tldr-label">TL;DR</div>
-    <p class="tldr-content">A solo project taken from blank file to App Store listing in four weeks — design, build, and release. Gratuity does one thing: bill in, tip and split out, in type large enough to read across a dark table. The free tier ships the calculator and one theme; a single $2.99 purchase unlocks three more themes, bill history, and a Home Screen widget. The interesting work is in the arithmetic — a round-up that rounds the total rather than the tip, and a per-person figure that rounds up so the table never comes up short.</p>
+    <p class="tldr-content">Bill in, tip and split out, one screen. $2.99 once unlocks three more themes, bill history, and a Home Screen widget. React Native + Expo + RevenueCat; four weeks from blank file to App Store.</p>
   </div>
 </section>
 
@@ -260,26 +247,25 @@
       <h2>One screen, <span class="accent">no chrome</span></h2>
     </div>
     <div class="g-body">
-      <p>The whole app is a single screen. Bill at the top in the largest type the frame allows, tip and total beneath it, per-person below that, and a keypad filling the bottom half. Three tip presets, a nudge control for anything between them, a split stepper, and a round-up toggle. Everything else — themes, history, settings — lives behind three words in the header.</p>
-      <p>There is no onboarding, no account, no empty state to design around. Open it and the keypad is already waiting.</p>
+      <p>Bill, tip, total, per-person, keypad. Three presets, a tip nudge, a split stepper, round-up. No onboarding, no account.</p>
     </div>
 
     <div class="shots shots-hero" style="margin-top:36px;">
       <figure class="shot">
         <img src="images/gratuity/calculator-concrete.png" alt="Gratuity calculator in the Concrete theme showing a $24.50 bill with an 18% tip and a $28.91 total." loading="lazy" width="1320" height="2868">
-        <figcaption><strong>Concrete</strong>The default. A single bill, no split.</figcaption>
+        <figcaption><strong>Concrete</strong>The default.</figcaption>
       </figure>
       <figure class="shot">
         <img src="images/gratuity/calculator-concrete-roundup.png" alt="Gratuity calculator with round-up engaged: a $187.20 bill, a $37.80 tip, and a $225.00 total split four ways at $56.25 each." loading="lazy" width="1320" height="2868">
-        <figcaption><strong>Round up</strong>A $225.00 total, split four ways, even to the cent.</figcaption>
+        <figcaption><strong>Round up</strong>$225.00 even, split four ways.</figcaption>
       </figure>
       <figure class="shot">
         <img src="images/gratuity/history.png" alt="Gratuity bill history listing three past bills with their tip percentages and per-person splits." loading="lazy" width="1320" height="2868">
-        <figcaption><strong>History</strong>Past bills, stored only on the device.</figcaption>
+        <figcaption><strong>History</strong>On-device only.</figcaption>
       </figure>
       <figure class="shot">
         <img src="images/gratuity/settings.png" alt="Gratuity settings screen with four controls: default tip, default split, round up by default, and remember last used." loading="lazy" width="1320" height="2868">
-        <figcaption><strong>Settings</strong>Four controls. That is the whole surface.</figcaption>
+        <figcaption><strong>Settings</strong>The whole surface.</figcaption>
       </figure>
     </div>
   </section>
@@ -292,27 +278,22 @@
       <span class="g-section-num">02</span>
       <h2>The arithmetic is <span class="accent">the design</span></h2>
     </div>
-    <div class="g-body" style="margin-bottom:8px;">
-      <p>A tip calculator is four lines of math. What separates a good one from a bad one is what it does at the edges — where the rounding falls, and who absorbs the remainder.</p>
-    </div>
 
     <div class="decision">
       <div class="decision-text">
         <h3>Round up rounds the total, not the tip</h3>
-        <p>The obvious implementation of a round-up button rounds the tip to a whole dollar. Gratuity rounds the <strong>total</strong> instead, then back-solves the tip to absorb the difference — which is what you actually want, because the total is the number you write on the slip.</p>
-        <p>On a $187.20 bill at 20%, a straight tip is $37.44 and the total lands at $224.64. With round-up engaged, the total becomes a clean <strong>$225.00</strong> and the tip absorbs the gap at <strong>$37.80</strong> — an effective rate of 20.19%. The label still reads 20%, because 20% is what you asked for.</p>
+        <p>$187.20 at 20% = $224.64. Round-up: total <strong>$225.00</strong>, tip <strong>$37.80</strong> (20.19% effective). It rounds the total — the number you write on the slip — not the tip.</p>
       </div>
       <figure class="shot">
         <img src="images/gratuity/calculator-concrete-roundup.png" alt="Round-up engaged, showing a $37.80 tip on a $187.20 bill for a $225.00 total." loading="lazy" width="1320" height="2868">
-        <figcaption><strong>Round up engaged</strong>$224.64 becomes $225.00; the tip takes the difference.</figcaption>
+        <figcaption><strong>Round up engaged</strong>The tip absorbs the difference.</figcaption>
       </figure>
     </div>
 
     <div class="decision">
       <div class="decision-text">
         <h3>The split rounds up, so the table never comes up short</h3>
-        <p>Dividing a total by three rarely lands on a clean cent. Round the per-person figure down and the table collects less than the bill; the person holding the card eats the difference. Gratuity rounds <strong>up</strong> instead — the group overshoots by a cent or two and the card holder is never out of pocket.</p>
-        <p>It shows up consistently across the app, including in stored history:</p>
+        <p>Per-person rounds up, so the group never collects less than the bill:</p>
         <div class="g-table-scroll">
           <table class="g-table">
             <caption>Per-person rounding, observed across the shipped v1</caption>
@@ -328,23 +309,21 @@
             </tbody>
           </table>
         </div>
-        <p>Never negative. The remainder always falls in the bill's favour, never the payer's.</p>
       </div>
       <figure class="shot">
         <img src="images/gratuity/calculator-banker.png" alt="Gratuity in the Banker theme, splitting a $220.90 total three ways at $73.64 each." loading="lazy" width="1320" height="2868">
-        <figcaption><strong>Banker</strong>$220.90 across three people, rounded up to $73.64.</figcaption>
+        <figcaption><strong>Banker</strong>$220.90 ÷ 3 = $73.64 each.</figcaption>
       </figure>
     </div>
 
     <div class="decision">
       <div class="decision-text">
         <h3>Four settings, and no more</h3>
-        <p>Default tip, default split, round up by default, and remember last used. That is the entire settings surface — no currency picker, no tax handling, no service-quality slider, no receipt scanner.</p>
-        <p>Each omission is a decision to make the common case fast rather than the rare case possible. <strong>Remember last used</strong> does most of the work a preferences screen usually does: the app converges on your habits without asking you to describe them.</p>
+        <p>Default tip, default split, round up by default, remember last used. No currency picker, no tax handling, no receipt scanner.</p>
       </div>
       <figure class="shot">
         <img src="images/gratuity/settings.png" alt="The Gratuity settings screen showing its four controls." loading="lazy" width="1320" height="2868">
-        <figcaption><strong>Settings</strong>Default tip, default split, round up, remember.</figcaption>
+        <figcaption><strong>Settings</strong>Four controls.</figcaption>
       </figure>
     </div>
   </section>
@@ -358,14 +337,13 @@
       <h2>Four themes on <span class="accent">one skeleton</span></h2>
     </div>
     <div class="g-body">
-      <p>Every theme is the same layout — identical spacing, identical hit targets, identical hierarchy. What changes is the typeface, the ground, and the ink. It is the cheapest possible expression of variety, and it is the thing people pay for.</p>
-      <p>The picker previews each theme on a live total rather than a colour swatch, so the choice is made on the thing you will actually stare at.</p>
+      <p>Same layout in all four themes; only typeface, ground, and ink change. Concrete is free.</p>
     </div>
 
     <div class="decision" style="margin-top:36px;">
       <div class="decision-text">
         <h3>The picker is a preview, not a palette</h3>
-        <p>Each row renders the same <code>$50.15</code> total in that theme's own ground, ink, and typeface. Locked themes carry a <strong>PRO</strong> tag but still show their preview in full — the thing being sold is visible before the purchase, not after it.</p>
+        <p>Each theme previews on the same live total, locked or not.</p>
       </div>
       <figure class="shot">
         <img src="images/gratuity/themes.png" alt="The Gratuity theme picker showing Concrete, Neon Arcade, Diner Receipt, and Banker, each previewing the same $50.15 total in its own colours and typeface." loading="lazy" width="1320" height="2868">
@@ -378,28 +356,28 @@
         <img src="images/gratuity/calculator-concrete.png" alt="Concrete theme: black pixel type on cream paper." loading="lazy" width="1320" height="2868">
         <div class="theme-card-meta">
           <div class="theme-card-name">Concrete <span class="theme-tag is-free">Free</span></div>
-          <p class="theme-card-desc">Black pixel type on cream. The default, and the foundation the other three are cut from.</p>
+          <p class="theme-card-desc">Black pixel type on cream. The free default.</p>
         </div>
       </div>
       <div class="theme-card">
         <img src="images/gratuity/calculator-neon-arcade.png" alt="Neon Arcade theme: bright green type on near-black." loading="lazy" width="1320" height="2868">
         <div class="theme-card-meta">
           <div class="theme-card-name">Neon Arcade <span class="theme-tag">Pro</span></div>
-          <p class="theme-card-desc">Green phosphor on black. The only theme that reads as a screen rather than a page.</p>
+          <p class="theme-card-desc">Green phosphor on black.</p>
         </div>
       </div>
       <div class="theme-card">
         <img src="images/gratuity/calculator-diner-receipt.png" alt="Diner Receipt theme: brown type on pale green with a dotted rule." loading="lazy" width="1320" height="2868">
         <div class="theme-card-meta">
           <div class="theme-card-name">Diner Receipt <span class="theme-tag">Pro</span></div>
-          <p class="theme-card-desc">Brown on pale green, with the solid divider swapped for a perforated one.</p>
+          <p class="theme-card-desc">Brown on pale green; perforated divider.</p>
         </div>
       </div>
       <div class="theme-card">
         <img src="images/gratuity/calculator-banker.png" alt="Banker theme: dark green serif type on cream." loading="lazy" width="1320" height="2868">
         <div class="theme-card-meta">
           <div class="theme-card-name">Banker <span class="theme-tag">Pro</span></div>
-          <p class="theme-card-desc">The one break from the grid — a serif face in dark green, closer to a ledger than a terminal.</p>
+          <p class="theme-card-desc">Serif in dark green.</p>
         </div>
       </div>
     </div>
@@ -415,13 +393,11 @@
     </div>
     <div class="decision" style="margin-top:0;">
       <div class="decision-text">
-        <p>Gratuity Pro is $2.99, once. The paywall says so in type as large as the bill total, with <em>one time, no subscription</em> directly underneath — the objection answered before it is raised.</p>
-        <p>What the purchase unlocks is deliberately mixed: three themes (decoration), bill history (utility), and the Home Screen widget (convenience). A paywall made only of cosmetics reads as a skin store; one made only of features makes the free tier feel broken. This is neither.</p>
-        <p>The free tier is a complete tip calculator. Nothing in it is time-limited, ad-supported, or nagged at.</p>
+        <p>$2.99, once — no subscription. Unlocks three themes, bill history, and the widget. The free tier is a complete calculator with no ads.</p>
       </div>
       <figure class="shot">
         <img src="images/gratuity/pro-paywall.png" alt="The Gratuity Pro paywall: $2.99, one time no subscription, unlocking three Pro themes, bill history, and a Home Screen widget." loading="lazy" width="1320" height="2868">
-        <figcaption><strong>Gratuity Pro</strong>$2.99, once, and the price is the headline.</figcaption>
+        <figcaption><strong>Gratuity Pro</strong>$2.99, once.</figcaption>
       </figure>
     </div>
   </section>
@@ -435,9 +411,7 @@
       <h2>An app that <span class="accent">never phones home</span></h2>
     </div>
     <div class="g-body">
-      <p>Gratuity makes no network requests of its own. Not for analytics, not for crash reporting, not for a remote config it might want later. Its only outbound traffic is Apple's StoreKit, and only when someone buys or restores Pro.</p>
-      <p>Everything the app remembers — theme, default tip, default split, bill history — lives in local storage on the device. History reaches the Home Screen widget through an <strong>App Group</strong>, Apple's shared-container mechanism, which keeps the hand-off on-device as well. Delete the app and all of it goes with it.</p>
-      <p>For a tip calculator this is not a hard engineering constraint; it is a decision about what the app is allowed to become. There is no telemetry to consult, so there is no product roadmap driven by it, and nothing to leak.</p>
+      <p>No network except StoreKit. Data lives on-device; history reaches the widget through an App Group. Delete the app and everything goes with it.</p>
       <ul class="g-specs">
         <li><span class="k">Network requests</span><span class="v"><strong>None</strong>, except Apple StoreKit for purchase and restore</span></li>
         <li><span class="k">Account</span><span class="v">None. There is nothing to sign in to.</span></li>
@@ -458,14 +432,7 @@
       <h2>Four weeks, <span class="accent">start to listing</span></h2>
     </div>
     <div class="g-body">
-      <p>Built in React Native with Expo, with RevenueCat handling the single in-app purchase, and released under Tesoro Industries LLC. The scope was fixed at v1 plus the widget.</p>
-      <p>Much of what is described on this page is an absence: no tax field, no receipt scanning, no service-quality rating, no currency picker, no cloud sync. Competing tip calculators ship most of them. Gratuity shipped without.</p>
-    </div>
-
-    <div class="g-draft">
-      <div class="g-draft-label">Draft — needs Kate's voice before publishing</div>
-      <p>This page is written from the shipped artifacts: the screenshots, the App Store listing, and the published privacy policy. It can describe <em>what</em> the app does and <em>how</em> it is put together, but not why you built it or what the four weeks actually felt like.</p>
-      <p>Worth adding in your own words: what prompted the project, what you cut and regretted, what the widget cost you, and what v2 looks like. Delete this block once that's in.</p>
+      <p>Scope fixed at v1 + widget. No tax field, receipt scanning, currency picker, or cloud sync.</p>
     </div>
   </section>
 

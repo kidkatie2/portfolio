@@ -252,20 +252,6 @@
   p { max-width: 720px; margin: 0 0 18px; color: var(--gray-700); }
   p strong { color: var(--navy); font-weight: 600; }
 
-  /* ── PULL QUOTE ───────────────────────────────── */
-  .pullquote {
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    font-size: clamp(24px, 3.2vw, 36px);
-    line-height: 1.25;
-    letter-spacing: -0.018em;
-    color: var(--navy);
-    border-left: 3px solid var(--blue);
-    padding: 8px 0 8px 32px;
-    margin: 40px 0;
-    max-width: 880px;
-  }
-
   /* ── COMPARISON / SPLIT ───────────────────────────────── */
   .split {
     display: grid;
@@ -588,7 +574,6 @@
     .deck { font-size: 17px; }
     h2 { font-size: 26px; }
     h3 { font-size: 18px; }
-    .pullquote { font-size: 20px; padding-left: 20px; margin: 28px 0; }
     .screens-divider { gap: 12px; flex-wrap: wrap; margin: 40px 0 16px; }
     .screens-divider .heading { font-size: 18px; }
     .screens-divider .rule { display: none; }
@@ -1480,14 +1465,14 @@
 <section class="hero">
   <div class="eyebrow"><span class="dash"></span>DEAD! · Death Education Assessment Drills</div>
   <h1 class="title">Two perspectives,<br/>one product.<br/><em>One prototype.</em></h1>
-  <p class="deck">A complete redesign of DEAD! — a learning platform for mortuary science programs — built as a 6,700-line single-file React prototype covering ~40 screens across both student and instructor experiences. The prototype is the source of truth that engineering builds against.</p>
+  <p class="deck">Redesign of DEAD!, a learning platform for mortuary science programs. One 6,700-line single-file React prototype, ~40 screens, student and instructor experiences. Engineering builds against the prototype.</p>
 </section>
 
 <!-- ── TL;DR ───────────────────────────────── -->
 <div class="tldr">
   <div class="tldr-inner">
     <div class="tldr-label">TL;DR</div>
-    <p class="tldr-content">Designed both the student and instructor experiences of DEAD! as a single 6,700-line React prototype with shared component primitives, role-divergent navigation, and a built-in dev toolbar plus changelog drawer for engineering. The prototype shipped as the source of truth — engineering builds against it directly. The thesis: two perspectives don't require two design systems; they require one system that knows which role is mounted.</p>
+    <p class="tldr-content">One 6,700-line React prototype covers both student and instructor experiences: shared primitives, role-divergent navigation, built-in dev toolbar and changelog drawer. It shipped as the spec engineering builds against.</p>
   </div>
 </div>
 
@@ -1595,26 +1580,22 @@
   </div>
   <div class="p1-figure-caption">
     <span class="num">Fig. 01</span>
-    <span class="text">Two dashboards, same product, opposite goals. The student arrives looking for <strong>what to do next</strong>; the instructor arrives looking for <strong>what's broken</strong>. Same nav. Same color tokens. Same component library. Different information architecture, different stat cards, different urgency cues — all driven by role.</span>
+    <span class="text">Both dashboards. Same nav, tokens, components; IA differs by role.</span>
   </div>
 </div>
 
 <!-- ── PROBLEM ───────────────────────────────── -->
 <section>
   <div class="section-num">01 — Problem</div>
-  <h2>Designing for two people who use the same product for opposite reasons.</h2>
-  <p>DEAD! is used by mortuary science instructors to assess students preparing for the National Board Exam, and by those students to drill, review, and compete. The two audiences share a question bank but almost nothing else — different goals, different mental models, different pacing.</p>
-  <p>Earlier iterations of DEAD! treated these as one product with toggled views. They weren't. An instructor planning a tournament thinks in <strong>cohorts, weighting, and analytics</strong>. A student grinding through embalming terminology thinks in <strong>streaks, score, and what's due next</strong>. The redesign needed to commit to two distinct experiences while reusing the underlying primitives that make a product feel like one thing.</p>
-
-  <div class="pullquote">
-    The job wasn't to design a product with two views. It was to design two products that share a body.
-  </div>
+  <h2>Two audiences, opposite goals.</h2>
+  <p>Instructors assess students preparing for the National Board Exam; students drill, review, and compete. Shared: the question bank. Instructors think in <strong>cohorts, weighting, analytics</strong>; students in <strong>streaks, scores, due dates</strong>.</p>
+  <p>Earlier versions toggled one view. The redesign: two experiences on shared primitives.</p>
 </section>
 
 <!-- ── PERSONAS ───────────────────────────────── -->
 <section>
   <div class="section-num">02 — Two mental models</div>
-  <h2>What each side actually needs from the same screen.</h2>
+  <h2>What each side needs.</h2>
 
   <div class="split">
     <div class="persona-card student">
@@ -1688,15 +1669,15 @@
   </div>
   <div class="p1-figure-caption">
     <span class="num">Fig. 04</span>
-    <span class="text">The shared root, the divergence point, and the role-specific surfaces. The shell is shared. Below the divergence, each role gets only what they need — the student doesn't see the gradebook, the instructor doesn't see Showdown gameplay. But the underlying component library, color tokens, and type ramp persist across both branches.</span>
+    <span class="text">IA: shared shell, role-specific surfaces below the divergence point.</span>
   </div>
 </div>
 
 <!-- ── SCREEN INVENTORY ───────────────────────────────── -->
 <section>
   <div class="section-num">03 — Surface area</div>
-  <h2>Two complete experiences. One shared component system.</h2>
-  <p>Below is the full screen inventory the prototype covers. Both sides share the same primitives (<span class="mono" style="color:var(--navy)">Btn</span>, <span class="mono" style="color:var(--navy)">Sel</span>, <span class="mono" style="color:var(--navy)">Inp</span>, <span class="mono" style="color:var(--navy)">Badge</span>) and design tokens, but their information architecture diverges where it should.</p>
+  <h2>Screen inventory.</h2>
+  <p>Both sides share the same primitives (<span class="mono" style="color:var(--navy)">Btn</span>, <span class="mono" style="color:var(--navy)">Sel</span>, <span class="mono" style="color:var(--navy)">Inp</span>, <span class="mono" style="color:var(--navy)">Badge</span>) and design tokens.</p>
 
   <div class="inventory">
     <div class="inv-col">
@@ -1769,21 +1750,21 @@
     </div>
     <div style="padding:0 36px 28px;">
       <div class="p1-component-callout">
-        <strong>One Assignment Card component, two contexts.</strong> Same width, padding, type ramp, internal grid. Variation lives in three places only: the meta pill (due date vs. ungraded count), the action button (filled-Start vs. outlined-View), and the secondary text (time estimate vs. cohort stats).
+        <strong>One Assignment Card, two contexts.</strong> Three variable slots: meta pill (due date vs. ungraded count), action button (filled Start vs. outlined View), secondary text (time estimate vs. cohort stats).
       </div>
     </div>
   </div>
   <div class="p1-figure-caption">
     <span class="num">Fig. 02</span>
-    <span class="text">A single component, two roles. The student gets a filled <strong>Start</strong> button — the action is to perform. The instructor gets an outlined <strong>View Submissions</strong> button — the action is to inspect. Same card, swapped slots. The component knows which role is mounted; the design system handles the rest.</span>
+    <span class="text">Same card, slots swapped by role.</span>
   </div>
 </div>
 
 <!-- ── EMBEDDED MOCKUPS ───────────────────────────────── -->
 <section>
-  <div class="section-num">04 — A tour through both sides</div>
-  <h2>How the same design language renders for two very different users.</h2>
-  <p>The student-side screens lean energetic — score heroes, leaderboards, gamified card grids. Instructor screens lean dense — tables, sortable columns, action toolbars, dashboards. Both sit on the same navy/blue palette, the same Inter + IBM Plex Mono pairing, the same grid system. Below: a representative tour of each side.</p>
+  <div class="section-num">04 — Screen tour</div>
+  <h2>Representative screens from both sides.</h2>
+  <p>Student screens: score heroes, leaderboards, card grids. Instructor screens: tables, sortable columns, toolbars. Same palette, type pairing, grid system.</p>
 
   <!-- ════════════════════════════════════════════════════════ -->
   <!--   STUDENT EXPERIENCE                                      -->
@@ -2529,8 +2510,8 @@
 <!-- ── DESIGN SYSTEM ───────────────────────────────── -->
 <section>
   <div class="section-num">05 — System</div>
-  <h2>Tokens, primitives, and a dev toolbar — the connective tissue.</h2>
-  <p>Both experiences run on a single design token object (<span class="mono" style="color:var(--navy)">C</span>) and a small set of shared primitives. No raw <span class="mono" style="color:var(--navy)">&lt;button&gt;</span> elements. No hardcoded colors. No inline sample data inside components. This was non-negotiable so the Angular port could mirror the prototype exactly.</p>
+  <h2>Tokens and primitives.</h2>
+  <p>One token object (<span class="mono" style="color:var(--navy)">C</span>), shared primitives. No raw <span class="mono" style="color:var(--navy)">&lt;button&gt;</span> elements, no hardcoded colors, no inline sample data — the Angular port mirrors the prototype.</p>
 
   <div class="annotated">
     <div class="annot-fig-label">Figure 01 — Color tokens</div>
@@ -2563,33 +2544,33 @@
 
 <!-- ── KEY DECISIONS ───────────────────────────────── -->
 <section>
-  <div class="section-num">06 — Decisions worth pointing at</div>
-  <h2>Three calls that shaped the redesign.</h2>
+  <div class="section-num">06 — Decisions</div>
+  <h2>Three decisions.</h2>
 
   <div class="decisions">
     <div class="decision">
       <div class="decision-num">01</div>
       <h3>Two homepages, not one toggle.</h3>
-      <p><strong class="lede">Splitting the routes — <span class="mono">/student</span> and <span class="mono">/professor</span> — let each landing page lead with the answer to that user's "what do I do now?"</strong> An earlier pattern showed a single dashboard with a role toggle, but it buried the most important content for both users.</p>
+      <p><strong class="lede">Split routes: <span class="mono">/student</span> and <span class="mono">/professor</span>.</strong> An earlier single dashboard with a role toggle buried the primary content for both users.</p>
     </div>
     <div class="decision">
       <div class="decision-num">02</div>
       <h3>Class Detail as five tabs, not five pages.</h3>
-      <p><strong class="lede">Roster, Grade Book, Assignments, Analytics, Questions all share class context.</strong> Routing them as separate pages forced re-loading the class header on every nav. Tabs preserved orientation, kept analytics one click away from the gradebook, and let me design header components once.</p>
+      <p><strong class="lede">Roster, Grade Book, Assignments, Analytics, Questions share class context.</strong> Tabs keep one class header; analytics is one click from the gradebook.</p>
     </div>
     <div class="decision">
       <div class="decision-num">03</div>
       <h3>A dev toolbar in the prototype itself.</h3>
-      <p><strong class="lede">Engineers receiving the handoff needed to verify Empty and Error states without me.</strong> A bottom-edge drawer with screen jump, UI-state toggle (default / empty / error), feature flag, and mobile-view sim turned the prototype into a self-service QA tool. This single decision sped up handoff QA dramatically.</p>
+      <p><strong class="lede">A bottom-edge drawer with screen jump, UI-state toggle (default / empty / error), feature flags, and mobile-view sim.</strong> Engineering verifies states without designer involvement.</p>
     </div>
   </div>
 </section>
 
 <!-- ── DEV TOOLBAR DETAIL ───────────────────────────────── -->
 <section>
-  <div class="section-num">07 — Detail spotlight</div>
-  <h2>The dev toolbar: a designer's gift to engineering.</h2>
-  <p>Most prototypes show "one true state." Real products have empty states, error states, future feature-flagged states, and the same screen on a 375px phone. The dev toolbar makes all of those one click away — which means engineering can verify them, QA can find regressions, and the developer with a language barrier doesn't have to ask me what an empty Grade Book should look like. They just open it.</p>
+  <div class="section-num">07 — Detail</div>
+  <h2>The dev toolbar.</h2>
+  <p>Every screen has empty, error, feature-flagged future, and 375px mobile states. The toolbar switches each with one click.</p>
 
   <div class="annotated">
     <div class="annot-fig-label">Figure 03 — Dev toolbar (bottom-edge drawer, expanded)</div>
@@ -2634,7 +2615,7 @@
       <text x="730" y="291" text-anchor="middle" font-family="Inter" font-weight="700" font-size="11" fill="#fff">Desktop</text>
       <text x="816" y="291" text-anchor="middle" font-family="Inter" font-weight="500" font-size="11" fill="#94A3B8">Mobile</text>
     </svg>
-    <p style="margin-top:18px;font-size:14px;color:var(--gray-600);max-width:none;">Sits at the bottom edge. Collapses to a thin tab when not in use. Visible only on internal builds — feature-flagged out of production.</p>
+    <p style="margin-top:18px;font-size:14px;color:var(--gray-600);max-width:none;">Bottom-edge drawer, collapses to a thin tab. Feature-flagged out of production.</p>
   </div>
 </section>
 
@@ -2721,15 +2702,15 @@
   </div>
   <div class="p1-figure-caption">
     <span class="num">Fig. 03</span>
-    <span class="text">Built into every screen, hidden from end users. The Dev Toolbar (right) lets engineering toggle between <strong>Default / Empty / Error</strong> states without leaving the screen, and jump to any of <strong>40+ screens</strong> via dropdown. The Changelog Drawer (left) lists every design decision with the screen it affects and a one-line rationale. This wasn't asked for. It was the difference between a prototype that gets read and a prototype that gets built.</span>
+    <span class="text">Dev Toolbar: <strong>Default / Empty / Error</strong> toggle, jump to any of <strong>40+ screens</strong>. Changelog Drawer: every design decision, its screen, one-line rationale.</span>
   </div>
 </div>
 
 <!-- ── OUTCOMES ───────────────────────────────── -->
 <section>
   <div class="section-num">08 — Outcome</div>
-  <h2>The prototype became the spec.</h2>
-  <p>Engineering doesn't build from a deck of static frames. They open the prototype, click through, toggle states, and the answer to "how should this behave?" is right there. The Angular port mirrors the prototype's screen organization, and a shared <span class="mono" style="color:var(--navy)">data.ts</span> file holds sample data and tokens that match exactly.</p>
+  <h2>The prototype is the spec.</h2>
+  <p>The Angular port mirrors the prototype's screen organization; a shared <span class="mono" style="color:var(--navy)">data.ts</span> holds matching sample data and tokens.</p>
 
   <div class="outcomes">
     <div class="outcome">

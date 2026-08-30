@@ -275,73 +275,11 @@
   </section>
 
   <!-- ============================================================
-       03 — The rewrite
+       03 — The voice picker
        ============================================================ -->
   <section class="v-section">
     <div class="v-section-head">
       <span class="v-section-num">03</span>
-      <h2>The rewrite to <span class="accent">native</span></h2>
-    </div>
-    <div class="v-body">
-      <p>Narration must survive backgrounding, take lock-screen controls, and highlight the spoken word — which needs <strong>word-boundary callbacks</strong> the cross-platform speech API does not expose.</p>
-    </div>
-
-    <ol class="arc">
-      <li>
-        <span class="arc-stage">Phase 1</span>
-        <div class="arc-body">
-          <strong>Prototype on <code>expo-speech</code></strong>
-          <p>Proved the reading experience.</p>
-        </div>
-      </li>
-      <li>
-        <span class="arc-stage">Phase 2</span>
-        <div class="arc-body">
-          <strong>Hit the ceiling, write a native module</strong>
-          <p>No pause/resume, rate changes, or word-boundary callbacks. Replaced with a custom module wrapping <code>AVSpeechSynthesizer</code>.</p>
-        </div>
-      </li>
-      <li>
-        <span class="arc-stage">Cost</span>
-        <div class="arc-body">
-          <strong>The cross-platform benefit stops paying</strong>
-          <p>Custom modules cannot run in Expo Go; testing moved to dev builds.</p>
-        </div>
-      </li>
-      <li>
-        <span class="arc-stage">Android</span>
-        <div class="arc-body">
-          <strong>Defer parity rather than ship degraded</strong>
-          <p>Deferred until it gets its own native module — no degraded fallback.</p>
-        </div>
-      </li>
-      <li>
-        <span class="arc-stage">Shipped</span>
-        <div class="arc-body">
-          <strong>Rebuilt in SwiftUI, iPhone-only</strong>
-          <p>SwiftUI, AVFoundation, MediaPlayer — zero third-party dependencies. Narration runs with the device locked, with Now Playing controls and ±15s skip.</p>
-        </div>
-      </li>
-    </ol>
-
-    <div class="decision">
-      <div class="decision-text">
-        <h3>The trade-off</h3>
-        <p>Gained: word-synced highlight, background playback, zero dependencies. Cost: Android, and a second build.</p>
-      </div>
-      <figure class="shot">
-        <img src="images/verso/narration-playing.webp" alt="Verso narrating a chapter, with the word 'week' highlighted in the text and a playback bar showing skip back 15, pause, skip forward 15, and 1x speed." loading="lazy" width="900" height="1955">
-        <figcaption><strong>Narration</strong>The spoken word is highlighted.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       04 — The voice picker
-       ============================================================ -->
-  <section class="v-section">
-    <div class="v-section-head">
-      <span class="v-section-num">04</span>
       <h2>The <span class="accent">voice picker</span></h2>
     </div>
     <div class="decision" style="margin-top:0;">
@@ -356,11 +294,11 @@
   </section>
 
   <!-- ============================================================
-       05 — Privacy
+       04 — Privacy
        ============================================================ -->
   <section class="v-section">
     <div class="v-section-head">
-      <span class="v-section-num">05</span>
+      <span class="v-section-num">04</span>
       <h2><span class="accent">Privacy</span></h2>
     </div>
     <div class="v-body">

@@ -4,13 +4,13 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>The Gradebook · Kate · Case Study</title>
-<meta name="description" content="A DEAD! case study: designing a gradebook that holds up against the messy edge cases real instructors hit every term." />
+<meta name="description" content="A DEAD! case study: a weighted gradebook feature added for professors — weights, calculation, and the empty-category display." />
 <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
 <link rel="canonical" href="https://kidkatie2.github.io/portfolio/dead/02-gradebook.html" />
 <meta property="og:type" content="article" />
 <meta property="og:site_name" content="Kate Chaparro" />
 <meta property="og:title" content="The Gradebook — a DEAD! case study" />
-<meta property="og:description" content="Designing a gradebook that holds up against the messy edge cases real instructors hit every term." />
+<meta property="og:description" content="A weighted gradebook feature added for professors — weights, calculation, and the empty-category display." />
 <meta property="og:url" content="https://kidkatie2.github.io/portfolio/dead/02-gradebook.html" />
 <meta property="og:image" content="https://kidkatie2.github.io/portfolio/images/og-card.png" />
 <meta property="og:image:width" content="1200" />
@@ -18,7 +18,7 @@
 <meta property="og:image:alt" content="Kate Chaparro — Senior Product Designer" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="The Gradebook — a DEAD! case study" />
-<meta name="twitter:description" content="Designing a gradebook that holds up against the messy edge cases real instructors hit every term." />
+<meta name="twitter:description" content="A weighted gradebook feature added for professors — weights, calculation, and the empty-category display." />
 <meta name="twitter:image" content="https://kidkatie2.github.io/portfolio/images/og-card.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1014,7 +1014,7 @@
 
 
 <div class="case-meta">
-  <div class="case-num"><strong>Case 02</strong> &nbsp;/&nbsp; of 03</div>
+  <div class="case-num"><strong>Case 02</strong> &nbsp;/&nbsp; of 02</div>
   <div></div>
   <div class="case-pills">
     <span class="pill">Product Design</span>
@@ -1026,14 +1026,14 @@
 <section class="hero">
   <div class="eyebrow"><span class="dash"></span>DEAD! · Gradebook</div>
   <h1 class="title">The <em>Gradebook.</em></h1>
-  <p class="deck">Week three of a semester: one of three weighted categories has submissions. This case study is the display decision for that state.</p>
+  <p class="deck">A weighted gradebook feature added for professors: weights, the calculation, and the empty-category display.</p>
 </section>
 
 <!-- ── TL;DR ───────────────────────────────── -->
 <div class="tldr">
   <div class="tldr-inner">
     <div class="tldr-label">TL;DR</div>
-    <p class="tldr-content">In week three, only one of three weighted categories has submissions. Zeroing the empty categories turns a 91% student into a 36.4%. Spec'd and shipped: empty categories are excluded, remaining weights scale proportionally, empty cells render an em-dash, and the student detail panel shows the math as "40% → 100%".</p>
+    <p class="tldr-content">A weighted gradebook added for professors. Empty categories are excluded from the final grade, remaining weights scale proportionally, empty cells render an em-dash, and the student detail panel shows the math as "40% → 100%".</p>
   </div>
 </div>
 
@@ -1267,109 +1267,26 @@
   </div>
 </div>
 
-<!-- ── OPTIONS ───────────────────────────────── -->
+<!-- ── PROCESS ───────────────────────────────── -->
 <section>
-  <div class="section-num">02 — Two interpretations</div>
-  <h2>Two implementations, same data</h2>
+  <div class="section-num">02 — How we got there</div>
+  <h2>Process</h2>
 
-  <div class="options">
-    <div class="option-card rejected">
-      <div class="option-letter">A</div>
-      <div class="option-name">Treat empty categories as zero.</div>
-      <div class="option-desc">Apply the configured weights as-is. If a category has no submissions, its weighted contribution is zero. This is what naive math gives you.</div>
-      <div class="option-math">
-        <span class="lbl">Calculation</span>
-        (91% × 0.40)<br/>
-        + (0% × 0.40) &nbsp;<span style="color:var(--gray-400)">// no tests yet</span><br/>
-        + (0% × 0.20) &nbsp;<span style="color:var(--gray-400)">// no tournaments</span><br/>
-        <br/>
-        <span class="lbl">Final grade</span>
-        <span class="red-res">36.4%</span>
-        <span style="display:block;margin-top:10px;color:var(--red);font-size:11.5px;font-family:'Inter',sans-serif;line-height:1.5;">A 91% performer shows an F.</span>
-      </div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-step">Step 01 · Spotted the bug</div>
+      <h3>Prototype grade looked too low</h3>
+      <p><strong class="lede">Mock data had assignments graded, no tests.</strong> The prototype was applying configured weights literally, zeroing the empty categories — a 91% student showed 36.4%.</p>
     </div>
-
-    <div class="option-card chosen">
-      <div class="option-letter">B</div>
-      <div class="option-name">Redistribute empty weights proportionally.</div>
-      <div class="option-desc">If a category has no submissions, its weight is removed from the calculation and the remaining categories' weights are scaled up proportionally to sum to 100%.</div>
-      <div class="option-math">
-        <span class="lbl">Re-weighting</span>
-        Active: Assignments (40)<br/>
-        Inactive: Tests (40), Tournaments (20)<br/>
-        Effective weight: 40 ÷ 40 = 100%<br/>
-        <br/>
-        <span class="lbl">Calculation</span>
-        91% × 1.00<br/>
-        <br/>
-        <span class="lbl">Final grade</span>
-        <span class="res">91.0%</span>
-        <span style="display:block;margin-top:10px;color:var(--green);font-size:11.5px;font-family:'Inter',sans-serif;line-height:1.5;">Matches graded performance.</span>
-      </div>
+    <div class="timeline-item">
+      <div class="timeline-step">Step 02 · Researched precedents</div>
+      <h3>Checked other LMS platforms</h3>
+      <p><strong class="lede">Canvas, Blackboard, and PowerSchool all redistribute by default.</strong> Some offer a toggle; none ship literal weights.</p>
     </div>
-  </div>
-
-  <p>Under Option A, a 36.4% in week three is indistinguishable from real failure.</p>
-</section>
-
-<!-- ── EDGE CASE ───────────────────────────────── -->
-<section>
-  <div class="section-num">03 — The harder edge cases</div>
-  <h2>Three sub-cases, specified</h2>
-  <p>The spec enumerates each sub-case with input, expected output, and reasoning:</p>
-
-  <div class="worked">
-    <div class="worked-head">
-      <div class="label">Case 01 · Two of three categories empty</div>
-      <h3>The remaining category becomes 100% of the grade.</h3>
-    </div>
-    <div class="worked-body">
-      <table class="worked-table">
-        <thead>
-          <tr><th>Category</th><th>Configured</th><th>Has data?</th><th>Effective</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Assignments</td><td>40%</td><td>Yes</td><td class="highlight">100%</td></tr>
-          <tr class="strike"><td>Tests</td><td>40%</td><td>No</td><td>—</td></tr>
-          <tr class="strike"><td>Tournaments</td><td>20%</td><td>No</td><td>—</td></tr>
-          <tr class="total-row"><td>Effective total</td><td>100%</td><td></td><td>100%</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="worked">
-    <div class="worked-head">
-      <div class="label">Case 02 · One of three empty</div>
-      <h3>Remaining two scale up by their original ratio.</h3>
-    </div>
-    <div class="worked-body">
-      <table class="worked-table">
-        <thead>
-          <tr><th>Category</th><th>Configured</th><th>Has data?</th><th>Effective</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Assignments</td><td>50%</td><td>Yes</td><td class="highlight">62.5%</td></tr>
-          <tr><td>Tests</td><td>30%</td><td>Yes</td><td class="highlight">37.5%</td></tr>
-          <tr class="strike"><td>Tournaments</td><td>20%</td><td>No</td><td>—</td></tr>
-          <tr class="total-row"><td>Effective total</td><td>100%</td><td></td><td>100%</td></tr>
-        </tbody>
-      </table>
-      <p style="font-family:'Inter',sans-serif;font-size:13.5px;color:var(--gray-600);margin-top:14px;max-width:none;">
-        Reasoning: with Tournaments inactive, the active pool sums to <span class="mono" style="color:var(--navy)">50 + 30 = 80</span>. Each active category's effective weight is its configured weight divided by 80: <span class="mono" style="color:var(--navy)">50/80 = 62.5%</span> and <span class="mono" style="color:var(--navy)">30/80 = 37.5%</span>. The original 5:3 ratio between Assignments and Tests is preserved.
-      </p>
-    </div>
-  </div>
-
-  <div class="worked">
-    <div class="worked-head">
-      <div class="label">Case 03 · All categories empty</div>
-      <h3>Display "—" instead of a percentage.</h3>
-    </div>
-    <div class="worked-body">
-      <p style="font-family:'Inter',sans-serif;font-size:14.5px;color:var(--gray-700);max-width:none;margin:0;">
-        <strong class="lede">Showing 0% would be wrong (no submissions doesn't mean failure).</strong> Showing 100% would be wrong (no demonstrated performance). The spec calls for an em-dash and a tooltip: <span class="mono" style="background:var(--gray-50);padding:2px 8px;border-radius:4px;font-size:13px;">"No graded submissions yet."</span>
-      </p>
+    <div class="timeline-item">
+      <div class="timeline-step">Step 03 · Specified the edge cases</div>
+      <h3>Wrote out the single-category and all-empty cases</h3>
+      <p><strong class="lede">Each edge case got a spec row:</strong> input, expected output, one-line reasoning. Pseudocode included for the redistribution.</p>
     </div>
   </div>
 </section>
@@ -1412,43 +1329,9 @@
   </div>
 </div>
 
-<!-- ── PROCESS ───────────────────────────────── -->
-<section>
-  <div class="section-num">04 — How we got there</div>
-  <h2>Process</h2>
-
-  <div class="timeline">
-    <div class="timeline-item">
-      <div class="timeline-step">Step 01 · Spotted the bug</div>
-      <h3>Prototype grade looked too low</h3>
-      <p><strong class="lede">Mock data had assignments graded, no tests.</strong> The prototype was applying configured weights literally — Option A behavior.</p>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-step">Step 02 · Researched precedents</div>
-      <h3>Checked other LMS platforms</h3>
-      <p><strong class="lede">Canvas, Blackboard, and PowerSchool all redistribute by default.</strong> Some offer a toggle; none ship literal weights.</p>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-step">Step 03 · Wrote both calculations</div>
-      <h3>Worked both options by hand on mock data</h3>
-      <p><strong class="lede">Option A: 36.4%. Option B: 91.0%.</strong> The worked example went to engineering as a test case.</p>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-step">Step 04 · Specified the edge cases</div>
-      <h3>Wrote out the single-category and all-empty cases</h3>
-      <p><strong class="lede">Each edge case got a spec row:</strong> input, expected output, one-line reasoning. Pseudocode included for the redistribution.</p>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-step">Step 05 · Updated the prototype</div>
-      <h3>Rewrote the calculation; added a walkthrough step</h3>
-      <p><strong class="lede">The behavior is documented in three places:</strong> code, spec, and the prototype's walkthrough drawer.</p>
-    </div>
-  </div>
-</section>
-
 <!-- ── FORMULA ───────────────────────────────── -->
 <section>
-  <div class="section-num">05 — Shipped logic</div>
+  <div class="section-num">03 — Shipped logic</div>
   <h2>The shipped calculation</h2>
   <p>Pseudocode from the developer handoff document:</p>
 
@@ -1545,7 +1428,7 @@
 
 <!-- ── OUTCOME ───────────────────────────────── -->
 <section>
-  <div class="section-num">06 — Outcome</div>
+  <div class="section-num">04 — Outcome</div>
   <h2>Caught before release</h2>
 
   <div class="outcomes">
@@ -1565,11 +1448,9 @@
 </section>
 
 <div class="case-footer">
-  <div class="next-meta">Up next · Case 03</div>
-  <div class="next-up">Designing for handoff — a spec as a deliverable →</div>
   <div class="nav-row">
     <a href="01-two-perspectives.html">← Previous case</a>
-    <a href="03-spec.html">Next case →</a>
+    <a href="index.html">All DEAD! studies →</a>
   </div>
 </div>
 
@@ -1577,8 +1458,8 @@
 <!-- ============ PORTFOLIO SHELL: BOTTOM CHROME ============ -->
 <section class="kc-case-nav-section">
   <div class="kc-case-nav-inner">
-    <div class="kc-case-nav-meta">— Case 02 of 03 · DEAD!</div>
-    <div class="kc-case-nav-links"><a href="index.html">← All DEAD! studies</a> &nbsp;·&nbsp; <a href="01-two-perspectives.html">← Previous</a> &nbsp;·&nbsp; <a href="03-spec.html">When the spec is the design →</a></div>
+    <div class="kc-case-nav-meta">— Case 02 of 02 · DEAD!</div>
+    <div class="kc-case-nav-links"><a href="index.html">← All DEAD! studies</a> &nbsp;·&nbsp; <a href="01-two-perspectives.html">← Previous</a></div>
   </div>
 </section>
 

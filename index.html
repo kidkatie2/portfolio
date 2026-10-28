@@ -165,7 +165,7 @@
   .cards {
     max-width: var(--max); margin: 0 auto;
     padding: 32px var(--gutter) 64px;
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+    display: grid; grid-template-columns: 1fr; gap: 12px;
   }
   .card {
     background: var(--surface); border: 1px solid var(--rule); border-top: 3px solid var(--accent);
@@ -181,13 +181,18 @@
   .card-cat {
     grid-column: 1 / -1;
     font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--ink-3); margin-bottom: 10px;
+    color: var(--ink-2); margin-bottom: 10px;
   }
   .card-title {
     font-size: 19px; font-weight: 500; line-height: 1.3; letter-spacing: -0.01em;
     color: var(--ink);
   }
   .card-title .accent { color: var(--accent); }
+  .cards-subhead {
+    margin-top: 28px; padding-bottom: 4px;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2);
+  }
+  .cards-subhead strong { color: var(--accent); font-weight: 600; }
   .card-arrow { color: var(--accent); font-size: 18px; transition: transform 0.18s ease; }
   .card:hover .card-arrow { transform: translateX(4px); }
 
@@ -413,6 +418,8 @@
       <span class="card-arrow" aria-hidden="true">→</span>
     </div>
   </a>
+
+  <div class="cards-subhead"><strong>// Vibecoded</strong> · four iOS apps, designed and built solo</div>
 
   <a class="card is-live" href="caltrain.html">
     <div class="card-bd">

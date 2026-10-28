@@ -26,7 +26,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --navy: #1B2B6B; --navy-deep: #0F1A4A;
+    --navy: #1B2B6B; --navy-deep: #0F1A4A; --navy-fill: #1B2B6B;
     --blue: #2E5BFF; --blue-pale: #E8EEFF;
     --ink: #0B1230;
     --gray-50: #F8FAFC; --gray-100: #F1F5F9; --gray-200: #E2E8F0;
@@ -180,7 +180,7 @@
 
   /* ── CONSTRAINT CALLOUT ───────────────────────────────── */
   .constraint {
-    background: var(--navy); color: white;
+    background: var(--navy-fill); color: white;
     border-radius: 14px; padding: 36px 40px;
     margin: 36px 0; max-width: 880px;
     position: relative; overflow: hidden;
@@ -276,7 +276,7 @@
     margin: 24px 0;
   }
   .spec-mock-toolbar {
-    background: var(--navy); color: white;
+    background: var(--navy-fill); color: white;
     padding: 12px 20px;
     display: flex; gap: 16px; align-items: center;
     font-family: 'IBM Plex Mono', monospace;
@@ -367,7 +367,7 @@
   .outcome-num .unit { font-size: 22px; color: var(--gray-400); font-weight: 500; }
   .outcome-label { font-size: 13.5px; color: var(--gray-600); line-height: 1.4; }
 
-  .case-footer { padding: 56px 8vw 80px; background: var(--navy); color: white; }
+  .case-footer { padding: 56px 8vw 80px; background: var(--navy-fill); color: white; }
   .case-footer .nav-row {
     display: flex; justify-content: space-between; align-items: center;
     border-top: 1px solid rgba(255,255,255,0.15); padding-top: 24px;
@@ -621,6 +621,7 @@
   --gray-600: #a8b0c4;
   --gray-700: #c8d0e0;
   --navy: #c8d4ec;
+  --navy-fill: #2B3D8F;
   --navy-deep: #a8b8d8;
   --blue: #6a8fff;
   --blue-pale: #1a2240;

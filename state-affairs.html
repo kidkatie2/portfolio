@@ -35,7 +35,7 @@
     /* Text */
     --text-primary: #1a1815;
     --text-secondary: #6b665c;
-    --text-tertiary: #908a7d;
+    --text-tertiary: #6f6a60;
 
     /* Accent — sage green (State Affairs brand) */
     --accent: #4A6B5C;
@@ -679,7 +679,7 @@
   --kc-surface: #ffe2d4;
   --kc-ink: #101218;
   --kc-ink-2: #784a4e;
-  --kc-ink-3: #b08890;
+  --kc-ink-3: #8a6670;
   --kc-accent: #dd5045;
   --kc-status: #5a7a3e;
   --kc-rule: #f5cec0;
@@ -1018,6 +1018,14 @@
   :root:not([data-theme="dark"]) .footer-socials a,
   :root:not([data-theme="dark"]) .kc-shell-footer-socials a,
   :root:not([data-theme="dark"]) .kc-footer-socials a { color: rgba(16,18,24,0.7); }
+  :root:not([data-theme="dark"]) .contact,
+  :root:not([data-theme="dark"]) footer { --accent: #c2410c; }
+  :root:not([data-theme="dark"]) .kc-contact,
+  :root:not([data-theme="dark"]) .kc-shell-footer,
+  :root:not([data-theme="dark"]) .kc-footer { --kc-accent: #c2410c; }
+  :root[data-theme="dark"] .footer-meta strong,
+  :root[data-theme="dark"] .kc-footer-meta strong,
+  :root[data-theme="dark"] .kc-shell-footer-meta strong { color: #e8ecf5; }
   .nav-toggle-li { display: flex; align-items: center; margin-left: 10px; }
   .nav-toggle-li button { margin: 0; }
   @media (max-width: 560px) {

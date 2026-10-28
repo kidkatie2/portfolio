@@ -40,7 +40,7 @@
     --gray-100: #F1F5F9;
     --gray-200: #E2E8F0;
     --gray-300: #CBD5E1;
-    --gray-400: #94A3B8;
+    --gray-400: #64748B;
     --gray-500: #64748B;
     --gray-600: #475569;
     --gray-700: #334155;
@@ -1198,7 +1198,7 @@
   --kc-surface: #ffe2d4;
   --kc-ink: #101218;
   --kc-ink-2: #784a4e;
-  --kc-ink-3: #b08890;
+  --kc-ink-3: #8a6670;
   --kc-accent: #dd5045;
   --kc-status: #5a7a3e;
   --kc-rule: #f5cec0;
@@ -1437,6 +1437,27 @@
   :root:not([data-theme="dark"]) .footer-socials a,
   :root:not([data-theme="dark"]) .kc-shell-footer-socials a,
   :root:not([data-theme="dark"]) .kc-footer-socials a { color: rgba(16,18,24,0.7); }
+  :root:not([data-theme="dark"]) .contact,
+  :root:not([data-theme="dark"]) .kc-contact { background: transparent; color: rgba(16,18,24,0.9); border-top: 1px solid rgba(16,18,24,0.12); }
+  :root:not([data-theme="dark"]) .contact-headline,
+  :root:not([data-theme="dark"]) .kc-contact-headline,
+  :root:not([data-theme="dark"]) .contact-row a,
+  :root:not([data-theme="dark"]) .kc-contact-row a { color: rgba(16,18,24,0.9); }
+  :root:not([data-theme="dark"]) .contact-row a:hover { color: var(--accent); }
+  :root:not([data-theme="dark"]) .kc-contact-row a:hover { color: var(--kc-accent); }
+  :root:not([data-theme="dark"]) .contact-row-label,
+  :root:not([data-theme="dark"]) .kc-contact-row-label { color: rgba(16,18,24,0.55); }
+  :root:not([data-theme="dark"]) .contact-row,
+  :root:not([data-theme="dark"]) .kc-contact-row { border-color: rgba(16,18,24,0.12); }
+  :root:not([data-theme="dark"]) .contact,
+  :root:not([data-theme="dark"]) footer { --accent: #c2410c; }
+  :root:not([data-theme="dark"]) .kc-contact,
+  :root:not([data-theme="dark"]) .kc-shell-footer,
+  :root:not([data-theme="dark"]) .kc-footer { --kc-accent: #c2410c; }
+  :root[data-theme="dark"] .footer-meta strong,
+  :root[data-theme="dark"] .kc-footer-meta strong,
+  :root[data-theme="dark"] .kc-shell-footer-meta strong { color: #e8ecf5; }
+  :root:not([data-theme="dark"]) .kc-case-nav-section { background: transparent; border-top: 1px solid rgba(16,18,24,0.12); }
   .nav-toggle-li { display: flex; align-items: center; margin-left: 10px; }
   .nav-toggle-li button { margin: 0; }
   @media (max-width: 560px) {

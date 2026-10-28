@@ -25,6 +25,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
+  :root { --edge: max(40px, calc((100% - 1240px) / 2 + 40px)); }
+  @media (max-width: 900px) { :root { --edge: 28px; } }
+  @media (max-width: 560px) { :root { --edge: 20px; } }
+  section.kc-case-nav-section, section.kc-contact { padding-left: 0; padding-right: 0; }
+
   :root {
     --navy: #1B2B6B; --navy-deep: #0F1A4A; --navy-fill: #1B2B6B;
     --blue: #2E5BFF; --blue-pale: #E8EEFF;
@@ -49,7 +54,7 @@
 
   .case-meta {
     border-bottom: 1px solid var(--gray-200);
-    padding: 28px 8vw 24px;
+    padding: 28px var(--edge) 24px;
     display: grid; grid-template-columns: auto 1fr auto;
     gap: 32px; align-items: baseline; background: var(--paper);
   }
@@ -68,7 +73,7 @@
   }
 
   .hero {
-    padding: 80px 8vw 60px;
+    padding: 80px var(--edge) 60px;
     border-bottom: 1px solid var(--gray-200);
     position: relative; overflow: hidden;
   }
@@ -117,7 +122,7 @@
 
   /* ── TL;DR ───────────────────────────────── */
   .tldr {
-    padding: 28px 8vw 32px;
+    padding: 28px var(--edge) 32px;
     border-bottom: 1px solid var(--gray-200);
     background: var(--paper);
   }
@@ -148,7 +153,7 @@
 
   .meta-grid {
     display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
-    padding: 36px 8vw; border-bottom: 1px solid var(--gray-200);
+    padding: 36px var(--edge); border-bottom: 1px solid var(--gray-200);
     background: var(--gray-50);
   }
   .meta-label {
@@ -158,7 +163,7 @@
   }
   .meta-val { font-size: 15px; color: var(--navy); font-weight: 500; line-height: 1.4; }
 
-  section { padding: 80px 8vw; border-bottom: 1px solid var(--gray-200); }
+  section { padding: 80px var(--edge); border-bottom: 1px solid var(--gray-200); }
   section:nth-of-type(even) { background: var(--gray-50); }
   .section-num {
     font-family: 'IBM Plex Mono', monospace;
@@ -367,7 +372,7 @@
   .outcome-num .unit { font-size: 22px; color: var(--gray-400); font-weight: 500; }
   .outcome-label { font-size: 13.5px; color: var(--gray-600); line-height: 1.4; }
 
-  .case-footer { padding: 56px 8vw 80px; background: var(--navy-fill); color: white; }
+  .case-footer { padding: 56px var(--edge) 80px; background: var(--navy-fill); color: white; }
   .case-footer .nav-row {
     display: flex; justify-content: space-between; align-items: center;
     border-top: 1px solid rgba(255,255,255,0.15); padding-top: 24px;
@@ -391,10 +396,10 @@
   }
 
   @media (max-width: 880px) {
-    .case-meta { grid-template-columns: 1fr; gap: 16px; padding: 20px 6vw; }
-    .meta-grid { grid-template-columns: 1fr 1fr; gap: 24px; padding: 28px 6vw; }
-    section { padding: 56px 6vw; }
-    .hero { padding: 56px 6vw 44px; }
+    .case-meta { grid-template-columns: 1fr; gap: 16px; padding: 20px var(--edge); }
+    .meta-grid { grid-template-columns: 1fr 1fr; gap: 24px; padding: 28px var(--edge); }
+    section { padding: 56px var(--edge); }
+    .hero { padding: 56px var(--edge) 44px; }
     .compare { grid-template-columns: 1fr; }
     .ingredients { grid-template-columns: 1fr; }
     .ingredient { border-right: none; }
@@ -404,13 +409,13 @@
     .principle { grid-template-columns: 1fr; gap: 8px; }
     .principle-num { font-size: 28px; }
     .outcomes { grid-template-columns: 1fr 1fr; }
-    .case-footer { padding: 40px 6vw 60px; }
+    .case-footer { padding: 40px var(--edge) 60px; }
   }
   @media (max-width: 480px) {
-    .case-meta { padding: 18px 5vw; }
-    .meta-grid { grid-template-columns: 1fr; gap: 18px; padding: 24px 5vw; }
-    section { padding: 44px 5vw; }
-    .hero { padding: 44px 5vw 36px; }
+    .case-meta { padding: 18px var(--edge); }
+    .meta-grid { grid-template-columns: 1fr; gap: 18px; padding: 24px var(--edge); }
+    section { padding: 44px var(--edge); }
+    .hero { padding: 44px var(--edge) 36px; }
     h1.title { font-size: 38px; line-height: 1.0; }
     .deck { font-size: 17px; }
     h2 { font-size: 26px; }
@@ -422,7 +427,7 @@
     .spec-mock-body { padding: 18px; gap: 16px; }
     .outcomes { grid-template-columns: 1fr; gap: 20px; }
     .case-footer .closer { font-size: 22px; }
-    .case-footer { padding: 32px 5vw 48px; }
+    .case-footer { padding: 32px var(--edge) 48px; }
   }
 </style>
 
@@ -673,21 +678,17 @@
   :root:not([data-theme="dark"]) .footer-socials a,
   :root:not([data-theme="dark"]) .kc-shell-footer-socials a,
   :root:not([data-theme="dark"]) .kc-footer-socials a { color: rgba(16,18,24,0.7); }
+  .nav-toggle-li { display: flex; align-items: center; margin-left: 10px; }
+  .nav-toggle-li button { margin: 0; }
+  @media (max-width: 560px) {
+    .nav-toggle-li { margin-left: 2px; }
+    .theme-toggle .label, .kc-theme-toggle .label { display: none; }
+    .theme-toggle, .kc-theme-toggle { padding-left: 8px; padding-right: 8px; }
+  }
 </style>
 </head>
 <body>
 <!-- ============ PORTFOLIO SHELL: TOP CHROME ============ -->
-<div class="kc-statusbar">
-  <div class="kc-statusbar-inner">
-    <div class="kc-status-left"></div>
-    <div class="kc-status-right">
-      <button class="kc-theme-toggle" data-theme-toggle aria-label="Toggle theme">
-        <span class="icon">☾</span>
-        <span class="label">DARK</span>
-      </button>
-    </div>
-  </div>
-</div>
 <nav class="kc-nav">
   <div class="kc-nav-inner">
     <a class="kc-nav-brand" href="../index.html">KATE<span class="kc-slash">/</span>CHAPARRO</a>
@@ -696,6 +697,10 @@
       <li><a href="../index.html#about-section">About</a></li>
       <li><a href="../index.html#contact-section">Contact</a></li>
       <li><a href="../cv.html">CV</a></li>
+      <li class="nav-toggle-li"><button class="kc-theme-toggle" data-theme-toggle aria-label="Toggle theme">
+              <span class="icon">☾</span>
+              <span class="label">DARK</span>
+            </button></li>
     </ul>
   </div>
 </nav>

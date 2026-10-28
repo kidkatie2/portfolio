@@ -50,8 +50,8 @@
     --font-mono: 'IBM Plex Mono', 'SF Mono', monospace;
 
     /* Layout */
-    --max-width: 1100px;
-    --gutter: 48px;
+    --max-width: 1240px;
+    --gutter: 40px;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -580,7 +580,6 @@
 
   /* Tablet — between desktop and phone */
   @media (max-width: 1000px) {
-    :root { --gutter: 32px; }
     .hero { padding: 96px var(--gutter) 64px; }
     .hero h1 { font-size: 64px; }
     section.case { padding: 96px var(--gutter); }
@@ -590,7 +589,6 @@
 
   /* Phone */
   @media (max-width: 720px) {
-    :root { --gutter: 20px; }
 
     /* Nav */
     .nav-inner { padding: 16px var(--gutter); }
@@ -925,7 +923,7 @@
   scroll-snap-align: center;
   scroll-snap-stop: always;
   margin: 0;
-  padding: 0 var(--gutter);
+  padding: 0 max(var(--gutter), calc((100% - var(--max-width)) / 2 + var(--gutter)));
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -1001,7 +999,7 @@
   font-variant-numeric: tabular-nums;
 }
 @media (max-width: 700px) {
-  .carousel-slide { padding: 0 20px; }
+  .carousel-slide { padding: 0 var(--gutter); }
   .carousel-media { height: 52vh; }
   .carousel-cap { flex-direction: column; gap: 4px; }
 }
@@ -1020,22 +1018,20 @@
   :root:not([data-theme="dark"]) .footer-socials a,
   :root:not([data-theme="dark"]) .kc-shell-footer-socials a,
   :root:not([data-theme="dark"]) .kc-footer-socials a { color: rgba(16,18,24,0.7); }
+  .nav-toggle-li { display: flex; align-items: center; margin-left: 10px; }
+  .nav-toggle-li button { margin: 0; }
+  @media (max-width: 560px) {
+    .nav-toggle-li { margin-left: 2px; }
+    .theme-toggle .label, .kc-theme-toggle .label { display: none; }
+    .theme-toggle, .kc-theme-toggle { padding-left: 8px; padding-right: 8px; }
+  }
+  @media (max-width: 900px) { :root { --gutter: 28px; } }
+  @media (max-width: 560px) { :root { --gutter: 20px; } }
 </style>
 </head>
 <body>
 
 <!-- ============ PORTFOLIO SHELL: TOP CHROME ============ -->
-<div class="kc-statusbar">
-  <div class="kc-statusbar-inner">
-    <div class="kc-status-left"></div>
-    <div class="kc-status-right">
-      <button class="kc-theme-toggle" data-theme-toggle aria-label="Toggle theme">
-        <span class="icon">☾</span>
-        <span class="label">DARK</span>
-      </button>
-    </div>
-  </div>
-</div>
 <nav class="kc-shell-nav">
   <div class="kc-shell-nav-inner">
     <a class="kc-nav-brand" href="index.html">KATE<span class="kc-slash">/</span>CHAPARRO</a>
@@ -1044,6 +1040,10 @@
       <li><a href="index.html#about-section">About</a></li>
       <li><a href="index.html#contact-section">Contact</a></li>
       <li><a href="cv.html">CV</a></li>
+      <li class="nav-toggle-li"><button class="kc-theme-toggle" data-theme-toggle aria-label="Toggle theme">
+              <span class="icon">☾</span>
+              <span class="label">DARK</span>
+            </button></li>
     </ul>
   </div>
 </nav>

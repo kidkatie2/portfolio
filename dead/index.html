@@ -233,21 +233,17 @@
   :root:not([data-theme="dark"]) .footer-socials a,
   :root:not([data-theme="dark"]) .kc-shell-footer-socials a,
   :root:not([data-theme="dark"]) .kc-footer-socials a { color: rgba(16,18,24,0.7); }
+  .nav-toggle-li { display: flex; align-items: center; margin-left: 10px; }
+  .nav-toggle-li button { margin: 0; }
+  @media (max-width: 560px) {
+    .nav-toggle-li { margin-left: 2px; }
+    .theme-toggle .label, .kc-theme-toggle .label { display: none; }
+    .theme-toggle, .kc-theme-toggle { padding-left: 8px; padding-right: 8px; }
+  }
 </style>
 </head>
 <body>
 
-<div class="statusbar">
-  <div class="statusbar-inner">
-    <div class="status-left"></div>
-    <div class="status-right">
-      <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme">
-        <span class="icon">☾</span>
-        <span class="label">DARK</span>
-      </button>
-    </div>
-  </div>
-</div>
 
 <nav class="nav">
   <div class="nav-inner">
@@ -257,6 +253,10 @@
       <li><a href="../index.html#about-section">About</a></li>
       <li><a href="../index.html#contact-section">Contact</a></li>
       <li><a href="../cv.html">CV</a></li>
+      <li class="nav-toggle-li"><button class="theme-toggle" data-theme-toggle aria-label="Toggle theme">
+              <span class="icon">☾</span>
+              <span class="label">DARK</span>
+            </button></li>
     </ul>
   </div>
 </nav>

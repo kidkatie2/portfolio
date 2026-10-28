@@ -46,8 +46,8 @@
     if (!footer) return;
     var CARS = 5;
     var w = CAR[0].length * CARS + LOCO[0].length;
-    var px = w * 1.5;
-    var svg = '<svg viewBox="0 0 ' + w + ' 10" width="' + px + '" height="15" shape-rendering="crispEdges" aria-hidden="true">';
+    var px = w * 2;
+    var svg = '<svg viewBox="0 0 ' + w + ' 10" width="' + px + '" height="20" shape-rendering="crispEdges" aria-hidden="true">';
     for (var i = 0; i < CARS; i++) svg += rects(CAR, CAR[0].length * i);
     svg += rects(LOCO, CAR[0].length * CARS) + '</svg>';
     var lane = document.createElement('div');
@@ -58,7 +58,7 @@
 
     var css = document.createElement('style');
     css.textContent =
-      '.footer-train{position:relative;height:20px;overflow:hidden;border-bottom:1px dashed rgba(127,127,127,.25)}' +
+      '.footer-train{position:relative;height:25px;overflow:hidden;border-bottom:1px dashed rgba(127,127,127,.25)}' +
       '.footer-train-car{position:absolute;left:0;bottom:2px;will-change:transform;' +
         'line-height:0;animation:footer-train 26s linear infinite}' +
       '.footer-train svg{display:block}' +

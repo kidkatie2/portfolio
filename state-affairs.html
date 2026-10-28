@@ -453,7 +453,7 @@
   }
 
   /* ---------- Footer ---------- */
-  footer {
+  footer.sa-end {
     max-width: var(--max-width);
     margin: 0 auto;
     padding: 80px var(--gutter) 120px;
@@ -648,7 +648,7 @@
     .pull p { font-size: 18px; line-height: 1.5; }
 
     /* Footer */
-    footer {
+    footer.sa-end {
       grid-template-columns: 1fr;
       padding: 56px var(--gutter) 80px;
       gap: 24px;
@@ -879,7 +879,7 @@
   --text-secondary: #a8b0c4;
   --text-tertiary: #6a7088;
   --rule: #252a38;
-  --accent: #4A6B5C;
+  --accent: #8FC0A9;
   --accent-soft: #1f2a25;
   --paper: #0e1118;
 
@@ -1009,6 +1009,18 @@
 </style>
 <link rel="stylesheet" href="assets/theme.css">
 <script src="assets/theme.js"></script>
+<style>
+  /* Footer follows the light theme */
+  :root:not([data-theme="dark"]) footer:not(.sa-end),
+  :root:not([data-theme="dark"]) .kc-shell-footer,
+  :root:not([data-theme="dark"]) .kc-footer { background: transparent; color: rgba(16,18,24,0.55); border-top: 1px solid rgba(16,18,24,0.12); }
+  :root:not([data-theme="dark"]) .footer-meta strong,
+  :root:not([data-theme="dark"]) .kc-shell-footer-meta strong,
+  :root:not([data-theme="dark"]) .kc-footer-meta strong { color: rgba(16,18,24,0.9); }
+  :root:not([data-theme="dark"]) .footer-socials a,
+  :root:not([data-theme="dark"]) .kc-shell-footer-socials a,
+  :root:not([data-theme="dark"]) .kc-footer-socials a { color: rgba(16,18,24,0.7); }
+</style>
 </head>
 <body>
 
@@ -1674,19 +1686,6 @@
 </div>
 <!-- ============ END ARCHIVED PROSE ============ -->
 
-<footer>
-  <div class="footer-end">
-    <h3>End of <em>State Affairs.</em></h3>
-    <div class="footer-actions">
-      <a href="index.html" class="footer-link">← Back to Work</a>
-      <a href="mailto:chaparrokate02@gmail.com" class="footer-link footer-link-accent">Get in touch →</a>
-    </div>
-  </div>
-  <div class="footer-meta">
-    Kate Chaparro<br>
-    San Francisco · 2026
-  </div>
-</footer>
 
 
 <!-- ============ PORTFOLIO SHELL: BOTTOM CHROME ============ -->

@@ -742,6 +742,8 @@
     .cell-closeup td.highlighted-cell { font-size: 18px; }
     .cell-closeup td:last-child { font-size: 14px; }
   }
+  :root[data-theme="dark"] .cell-closeup-wrap { background: var(--gray-50); }
+  :root[data-theme="dark"] .cell-closeup td.highlighted-cell { background: #3a2f0a; }
 </style>
 
 <style>
@@ -982,6 +984,18 @@
 
 <link rel="stylesheet" href="../assets/theme.css">
 <script src="../assets/theme.js"></script>
+<style>
+  /* Footer follows the light theme */
+  :root:not([data-theme="dark"]) footer:not(.sa-end),
+  :root:not([data-theme="dark"]) .kc-shell-footer,
+  :root:not([data-theme="dark"]) .kc-footer { background: transparent; color: rgba(16,18,24,0.55); border-top: 1px solid rgba(16,18,24,0.12); }
+  :root:not([data-theme="dark"]) .footer-meta strong,
+  :root:not([data-theme="dark"]) .kc-shell-footer-meta strong,
+  :root:not([data-theme="dark"]) .kc-footer-meta strong { color: rgba(16,18,24,0.9); }
+  :root:not([data-theme="dark"]) .footer-socials a,
+  :root:not([data-theme="dark"]) .kc-shell-footer-socials a,
+  :root:not([data-theme="dark"]) .kc-footer-socials a { color: rgba(16,18,24,0.7); }
+</style>
 </head>
 <body>
 <!-- ============ PORTFOLIO SHELL: TOP CHROME ============ -->
@@ -1281,7 +1295,7 @@
   </div>
 </section>
 
-<!-- ── FIGURE 05 — Cell close-up (the thesis figure) ────────── -->
+<!-- ── FIGURE 05 — Cell close-up ────────── -->
 <div class="figure">
   <div class="figure-frame" style="background:transparent;border:none;box-shadow:none;">
     <div class="cell-closeup-wrap">
@@ -1306,10 +1320,6 @@
             </tr>
           </tbody>
         </table>
-      </div>
-      <div class="cell-closeup-annotation">
-        <span class="arrow"></span>
-        <span class="label">The cell that mattered</span>
       </div>
     </div>
   </div>
@@ -1344,8 +1354,6 @@
       }, 0)
     </div>
   </div>
-
-  <p>The spec section is 28 lines: pseudocode, worked examples, and expected outputs for three edge cases.</p>
 </section>
 
 <!-- ── FIGURE 04 — Student detail panel ─────────────────────── -->

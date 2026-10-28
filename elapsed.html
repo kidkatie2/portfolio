@@ -173,6 +173,18 @@
     .g-specs .k { flex-basis: auto; }
   }
 </style>
+<style>
+  /* Footer follows the light theme */
+  :root:not([data-theme="dark"]) footer:not(.sa-end),
+  :root:not([data-theme="dark"]) .kc-shell-footer,
+  :root:not([data-theme="dark"]) .kc-footer { background: transparent; color: rgba(16,18,24,0.55); border-top: 1px solid rgba(16,18,24,0.12); }
+  :root:not([data-theme="dark"]) .footer-meta strong,
+  :root:not([data-theme="dark"]) .kc-shell-footer-meta strong,
+  :root:not([data-theme="dark"]) .kc-footer-meta strong { color: rgba(16,18,24,0.9); }
+  :root:not([data-theme="dark"]) .footer-socials a,
+  :root:not([data-theme="dark"]) .kc-shell-footer-socials a,
+  :root:not([data-theme="dark"]) .kc-footer-socials a { color: rgba(16,18,24,0.7); }
+</style>
 </head>
 <body>
 

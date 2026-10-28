@@ -44,21 +44,25 @@
   function buildTrain() {
     var footer = document.querySelector('footer');
     if (!footer) return;
-    var w = CAR[0].length * 2 + LOCO[0].length;
-    var svg = '<svg viewBox="0 0 ' + w + ' 10" width="' + w * 3 + '" height="30" shape-rendering="crispEdges" aria-hidden="true">' +
-      rects(CAR, 0) + rects(CAR, CAR[0].length) + rects(LOCO, CAR[0].length * 2) + '</svg>';
+    var CARS = 5;
+    var w = CAR[0].length * CARS + LOCO[0].length;
+    var px = w * 1.5;
+    var svg = '<svg viewBox="0 0 ' + w + ' 10" width="' + px + '" height="15" shape-rendering="crispEdges" aria-hidden="true">';
+    for (var i = 0; i < CARS; i++) svg += rects(CAR, CAR[0].length * i);
+    svg += rects(LOCO, CAR[0].length * CARS) + '</svg>';
     var lane = document.createElement('div');
     lane.className = 'footer-train';
     lane.innerHTML = '<div class="footer-train-car">' + svg + '</div>';
     footer.insertBefore(lane, footer.firstChild);
+    footer.style.borderTop = 'none';
 
     var css = document.createElement('style');
     css.textContent =
-      '.footer-train{position:relative;height:34px;overflow:hidden;border-bottom:1px dashed rgba(127,127,127,.25)}' +
+      '.footer-train{position:relative;height:20px;overflow:hidden;border-bottom:1px dashed rgba(127,127,127,.25)}' +
       '.footer-train-car{position:absolute;left:0;bottom:2px;will-change:transform;' +
         'line-height:0;animation:footer-train 26s linear infinite}' +
       '.footer-train svg{display:block}' +
-      '@keyframes footer-train{0%{transform:translateX(-260px)}70%{transform:translateX(calc(100vw + 20px))}100%{transform:translateX(calc(100vw + 20px))}}' +
+      '@keyframes footer-train{0%{transform:translateX(-' + (px + 10) + 'px)}70%{transform:translateX(calc(100vw + 20px))}100%{transform:translateX(calc(100vw + 20px))}}' +
       '.footer-train .t-b{fill:#c7ccd6}.footer-train .t-d{fill:#3a3d45}.footer-train .t-r{fill:#D10A3C}' +
       ':root[data-theme="dark"] .footer-train .t-d{fill:#5a5f6c}' +
       ':root[data-theme="dark"] .footer-train .t-r{fill:#FF8FA2}' +

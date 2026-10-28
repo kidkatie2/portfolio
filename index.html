@@ -180,7 +180,7 @@
     display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto 1fr; column-gap: 16px; align-items: end;
   }
   .card-cat {
-    grid-column: 1 / -1;
+    grid-column: 1;
     font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
     color: var(--ink-2); margin-bottom: 10px;
   }
@@ -194,7 +194,7 @@
     font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2);
   }
   .cards-subhead strong { color: var(--ink); font-weight: 600; }
-  .card-arrow { color: var(--ink-3); font-size: 18px; transition: transform 0.18s ease, color 0.18s; }
+  .card-arrow { grid-column: 2; grid-row: 1 / -1; align-self: center; color: var(--ink-3); font-size: 18px; transition: transform 0.18s ease, color 0.18s; }
   .card:hover .card-arrow { color: var(--accent); }
   .card:hover .card-arrow { transform: translateX(4px); }
 
@@ -371,7 +371,6 @@
 </nav>
 
 <header class="hero">
-  <div class="hero-tag">Issue 01 — Selected Work, 2024 → Present</div>
   <h1>Senior product designer: <span class="accent">enterprise tools and shipped apps</span><span class="cursor"></span></h1>
   <p class="hero-lead">
     Senior UX designer at State Affairs, designing its AI Chat features.<br>
@@ -486,8 +485,7 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-meta">
-      <strong>Kate Chaparro</strong> · Senior Product Designer · 2026<br>
-      Set in JetBrains Mono · Built by Fable 5
+      <strong>Kate Chaparro</strong> · Senior Product Designer · 2026
     </div>
   </div>
 </footer>

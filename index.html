@@ -169,71 +169,27 @@
   }
   .card {
     background: var(--surface); border: 1px solid var(--rule); border-top: 3px solid var(--accent);
-    padding: 0; cursor: pointer; text-align: left;
-    font-family: var(--mono); color: inherit;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s;
-    position: relative; display: flex; flex-direction: column;
-    overflow: hidden;
+    font-family: var(--mono); color: inherit; text-align: left;
+    transition: transform 0.2s ease, border-color 0.2s;
+    display: flex;
   }
-  .card.is-pending { border-top-color: var(--rule); }
-  .card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 0 var(--rule-strong);
+  .card:hover { transform: translateY(-2px); border-color: var(--accent); }
+  .card-bd {
+    flex: 1; padding: 22px 20px;
+    display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto 1fr; column-gap: 16px; align-items: end;
   }
-  .card.is-live:hover { border-color: var(--accent); }
-  .card.is-live:hover .card-strip-live { padding-top: 9px; padding-bottom: 9px; }
-  .card.is-live:hover .card-strip-arrow { transform: translateX(4px); }
-  .card.is-pending:hover .card-strip-pending { background: var(--rule-strong); }
-  .card-hd {
-    padding: 14px 18px; border-bottom: 1px dashed var(--rule);
-    display: flex; align-items: center; justify-content: space-between;
-    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3);
-  }
-  .card-id { color: var(--accent); font-weight: 600; font-variant-numeric: tabular-nums; }
-  .card-status { display: inline-flex; align-items: center; gap: 5px; color: var(--status); font-weight: 600; }
-  .card-status::before { content: '●'; font-size: 9px; }
-  .card-status.draft { color: var(--ink-3); }
-  .card-bd { padding: 22px 18px 18px; flex: 1; display: flex; flex-direction: column; }
   .card-cat {
+    grid-column: 1 / -1;
     font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--ink-2); margin-bottom: 14px; padding-bottom: 10px;
-    border-bottom: 1px dotted var(--rule);
+    color: var(--ink-3); margin-bottom: 10px;
   }
   .card-title {
-    font-size: 19px; font-weight: 500; line-height: 1.25; letter-spacing: -0.01em;
-    color: var(--ink); margin-bottom: 10px;
+    font-size: 19px; font-weight: 500; line-height: 1.3; letter-spacing: -0.01em;
+    color: var(--ink);
   }
   .card-title .accent { color: var(--accent); }
-  .card-desc { font-size: 12.5px; line-height: 1.55; color: var(--ink-2); margin-bottom: 20px; flex: 1; }
-  .card-stats {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px;
-    padding: 14px 0;
-    border-top: 1px dotted var(--rule); border-bottom: 1px dotted var(--rule);
-    margin-top: auto; margin-bottom: 16px; font-size: 11px;
-  }
-  .card-stat { display: flex; flex-direction: column; gap: 2px; }
-  .card-stat .k { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
-  .card-stat .v { color: var(--ink); font-weight: 500; font-variant-numeric: tabular-nums; }
-  .card-strip {
-    margin: 0 -18px -18px;
-    padding: 8px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-family: var(--mono);
-    font-size: 12.5px;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    transition: padding 0.18s ease, background 0.18s ease;
-  }
-  .card-strip-live { background: var(--accent); color: #fff; }
-  .card-strip-pending { background: var(--rule); color: var(--ink-3); }
-  .card-strip-arrow {
-    display: inline-block;
-    margin-left: 6px;
-    transition: transform 0.18s ease;
-    font-size: 14px;
-  }
+  .card-arrow { color: var(--accent); font-size: 18px; transition: transform 0.18s ease; }
+  .card:hover .card-arrow { transform: translateX(4px); }
 
   /* About */
   .about-wrap { border-top: 1px solid var(--rule); background: var(--bg); }
@@ -378,8 +334,6 @@
 :root[data-theme="dark"] .kc-contact-row { border-bottom-color: #1a1d28; }
 :root[data-theme="dark"] .contact-row:first-child,
 :root[data-theme="dark"] .kc-contact-row:first-child { border-top-color: #1a1d28; }
-:root[data-theme="dark"] .card-strip-pending { background: #2a3040; color: #8a92a8; }
-:root[data-theme="dark"] .card.is-pending:hover .card-strip-pending { background: #363c4e; }
 
 </style>
 </head>
@@ -445,130 +399,50 @@
 <section class="cards">
 
   <a class="card is-live" href="state-affairs.html">
-    <div class="card-hd">
-      <span class="card-id">[01 / 06]</span>
-      <span class="card-status">Live</span>
-    </div>
     <div class="card-bd">
       <div class="card-cat">B2B SaaS · Legislative Intelligence</div>
       <div class="card-title"><span class="accent">State Affairs</span> — 50-state legislative tracking</div>
-      <p class="card-desc">Two years at State Affairs: six features shipped across a 50-state legislative tracking platform.</p>
-      <div class="card-stats">
-        <div class="card-stat"><span class="k">role</span><span class="v">Lead Designer</span></div>
-        <div class="card-stat"><span class="k">years</span><span class="v">2024 → Now</span></div>
-        <div class="card-stat"><span class="k">surface</span><span class="v">Web · Mobile</span></div>
-        <div class="card-stat"><span class="k">features</span><span class="v">06 shipped</span></div>
-      </div>
-      <div class="card-strip card-strip-live">
-        <span class="card-strip-text">View case study</span>
-        <span class="card-strip-arrow">→</span>
-      </div>
+      <span class="card-arrow" aria-hidden="true">→</span>
     </div>
   </a>
 
   <a class="card is-live" href="dead/index.html">
-    <div class="card-hd">
-      <span class="card-id">[02 / 06]</span>
-      <span class="card-status">Live</span>
-    </div>
     <div class="card-bd">
       <div class="card-cat">Edtech · Freelance design lead</div>
-      <div class="card-title">Redesigning <span class="accent">DEAD!</span>, a learning platform for mortuary science</div>
-      <p class="card-desc">Full redesign of student and instructor experiences. Shipped as a 6,700-line React prototype engineering used as source of truth.</p>
-      <div class="card-stats">
-        <div class="card-stat"><span class="k">role</span><span class="v">Design Lead</span></div>
-        <div class="card-stat"><span class="k">scope</span><span class="v">~40 screens</span></div>
-        <div class="card-stat"><span class="k">stack</span><span class="v">Figma · React</span></div>
-        <div class="card-stat"><span class="k">studies</span><span class="v">02 inside</span></div>
-      </div>
-      <div class="card-strip card-strip-live">
-        <span class="card-strip-text">View case studies</span>
-        <span class="card-strip-arrow">→</span>
-      </div>
+      <div class="card-title"><span class="accent">DEAD!</span> — mortuary science learning platform</div>
+      <span class="card-arrow" aria-hidden="true">→</span>
     </div>
   </a>
 
   <a class="card is-live" href="caltrain.html">
-    <div class="card-hd">
-      <span class="card-id">[03 / 06]</span>
-      <span class="card-status">Live</span>
-    </div>
     <div class="card-bd">
       <div class="card-cat">Personal · iOS app</div>
       <div class="card-title"><span class="accent">My Caltrain</span> — live Caltrain commute app</div>
-      <div class="card-stats">
-        <div class="card-stat"><span class="k">role</span><span class="v">Solo founder &amp; design</span></div>
-        <div class="card-stat"><span class="k">stack</span><span class="v">Swift · SwiftUI</span></div>
-        <div class="card-stat"><span class="k">scope</span><span class="v">iPhone + widget</span></div>
-        <div class="card-stat"><span class="k">year</span><span class="v">2026</span></div>
-      </div>
-      <div class="card-strip card-strip-live">
-        <span class="card-strip-text">View case study</span>
-        <span class="card-strip-arrow">→</span>
-      </div>
+      <span class="card-arrow" aria-hidden="true">→</span>
     </div>
   </a>
 
   <a class="card is-live" href="elapsed.html">
-    <div class="card-hd">
-      <span class="card-id">[04 / 06]</span>
-      <span class="card-status">Live</span>
-    </div>
     <div class="card-bd">
       <div class="card-cat">Personal · iOS app</div>
       <div class="card-title"><span class="accent">Elapsed</span> — progress widgets</div>
-      <div class="card-stats">
-        <div class="card-stat"><span class="k">role</span><span class="v">Solo founder &amp; design</span></div>
-        <div class="card-stat"><span class="k">stack</span><span class="v">Swift · WidgetKit</span></div>
-        <div class="card-stat"><span class="k">scope</span><span class="v">Home + Lock Screen</span></div>
-        <div class="card-stat"><span class="k">year</span><span class="v">2026</span></div>
-      </div>
-      <div class="card-strip card-strip-live">
-        <span class="card-strip-text">View case study</span>
-        <span class="card-strip-arrow">→</span>
-      </div>
+      <span class="card-arrow" aria-hidden="true">→</span>
     </div>
   </a>
 
   <a class="card is-live" href="verso.html">
-    <div class="card-hd">
-      <span class="card-id">[05 / 06]</span>
-      <span class="card-status">Live</span>
-    </div>
     <div class="card-bd">
       <div class="card-cat">Personal · iOS app</div>
       <div class="card-title"><span class="accent">Verso</span> — iOS reading app</div>
-      <div class="card-stats">
-        <div class="card-stat"><span class="k">role</span><span class="v">Solo founder &amp; design</span></div>
-        <div class="card-stat"><span class="k">stack</span><span class="v">Swift · SwiftUI</span></div>
-        <div class="card-stat"><span class="k">scope</span><span class="v">iPhone · v1 + TTS</span></div>
-        <div class="card-stat"><span class="k">year</span><span class="v">2026</span></div>
-      </div>
-      <div class="card-strip card-strip-live">
-        <span class="card-strip-text">View case study</span>
-        <span class="card-strip-arrow">→</span>
-      </div>
+      <span class="card-arrow" aria-hidden="true">→</span>
     </div>
   </a>
 
   <a class="card is-live" href="gratuity.html">
-    <div class="card-hd">
-      <span class="card-id">[06 / 06]</span>
-      <span class="card-status">Live</span>
-    </div>
     <div class="card-bd">
       <div class="card-cat">Personal · iOS app</div>
       <div class="card-title"><span class="accent">Gratuity</span> — brutalist tip calculator</div>
-      <div class="card-stats">
-        <div class="card-stat"><span class="k">role</span><span class="v">Solo</span></div>
-        <div class="card-stat"><span class="k">stack</span><span class="v">RN · Expo · RevenueCat</span></div>
-        <div class="card-stat"><span class="k">scope</span><span class="v">v1 + widget</span></div>
-        <div class="card-stat"><span class="k">status</span><span class="v">On the App Store</span></div>
-      </div>
-      <div class="card-strip card-strip-live">
-        <span class="card-strip-text">View case study</span>
-        <span class="card-strip-arrow">→</span>
-      </div>
+      <span class="card-arrow" aria-hidden="true">→</span>
     </div>
   </a>
 

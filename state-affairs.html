@@ -965,6 +965,16 @@
   font-size: 17px;
   color: var(--text-secondary);
 }
+.carousel-tabs {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+  padding: 0 20px 20px;
+}
+.carousel-tab {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-secondary); background: none; border: 1px solid var(--rule);
+  padding: 6px 12px; cursor: pointer; transition: color 0.15s, border-color 0.15s;
+}
+.carousel-tab:hover, .carousel-tab.is-active { color: var(--accent); border-color: var(--accent); }
 .carousel-ui {
   display: flex;
   align-items: center;
@@ -1005,15 +1015,8 @@
 <!-- ============ PORTFOLIO SHELL: TOP CHROME ============ -->
 <div class="kc-statusbar">
   <div class="kc-statusbar-inner">
-    <div class="kc-status-left">
-      <span class="kc-status-dot">ONLINE</span>
-      <span class="kc-status-time" id="kc-status-time">--:--:-- PT</span>
-      <span>v.1.0.0</span>
-    </div>
+    <div class="kc-status-left"></div>
     <div class="kc-status-right">
-      <span>SF/CA</span>
-      <span>2026</span>
-      <span>ISSUE 01</span>
       <button class="kc-theme-toggle" data-theme-toggle aria-label="Toggle theme">
         <span class="icon">☾</span>
         <span class="label">DARK</span>
@@ -1025,10 +1028,10 @@
   <div class="kc-shell-nav-inner">
     <a class="kc-nav-brand" href="index.html">KATE<span class="kc-slash">/</span>CHAPARRO</a>
     <ul class="kc-nav-links">
-      <li><a href="index.html">Work</a></li>
-      <li><a href="state-affairs.html" class="kc-is-active">State Affairs</a></li>
+      <li><a href="index.html" class="kc-is-active">Work</a></li>
+      <li><a href="index.html#about-section">About</a></li>
       <li><a href="index.html#contact-section">Contact</a></li>
-      <li><a href="cv.html" class="ext-link">CV</a></li>
+      <li><a href="cv.html">CV</a></li>
     </ul>
   </div>
 </nav>
@@ -1045,6 +1048,11 @@
 <!-- ============ IMAGE CAROUSEL (picture-portfolio mode) ============ -->
 <!-- New projects go at the TOP of this track as new .carousel-slide figures. -->
 <section class="carousel" aria-label="Selected work — image gallery">
+  <div class="carousel-tabs" role="group" aria-label="Jump to project">
+    <button class="carousel-tab" type="button" data-start="0" data-end="3">AI Chat</button>
+    <button class="carousel-tab" type="button" data-start="4" data-end="5">Momentum Score</button>
+    <button class="carousel-tab" type="button" data-start="6" data-end="10">Keyword Alerts</button>
+  </div>
   <div class="carousel-track" id="carousel-track" tabindex="0">
 
     <figure class="carousel-slide">
@@ -1742,7 +1750,17 @@
   }
   function updateCount() {
     if (count) count.textContent = pad(currentIdx() + 1) + ' / ' + pad(total);
+    var i = currentIdx();
+    tabs.forEach(function(t) {
+      t.classList.toggle('is-active', i >= +t.dataset.start && i <= +t.dataset.end);
+    });
   }
+  var tabs = document.querySelectorAll('.carousel-tab');
+  tabs.forEach(function(t) {
+    t.addEventListener('click', function() {
+      track.scrollTo({ left: +t.dataset.start * slideW(), behavior: 'smooth' });
+    });
+  });
   function go(dir) {
     var idx = Math.min(total - 1, Math.max(0, currentIdx() + dir));
     track.scrollTo({ left: idx * slideW(), behavior: 'smooth' });

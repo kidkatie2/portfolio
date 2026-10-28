@@ -134,6 +134,7 @@
     animation: blink 1.1s step-end infinite;
   }
   @keyframes blink { 0%,50% { opacity: 1; } 51%,100% { opacity: 0; } }
+  .hero-lead, .about-content p { font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Helvetica, Arial, sans-serif; }
   .hero-lead { font-size: 15px; line-height: 1.65; color: var(--ink-2); max-width: 580px; }
 
   /* Manifest */
@@ -346,15 +347,8 @@
 
 <div class="statusbar">
   <div class="statusbar-inner">
-    <div class="status-left">
-      <span class="status-dot">ONLINE</span>
-      <span class="status-time" id="status-time">--:--:-- PT</span>
-      <span>v.1.0.0</span>
-    </div>
+    <div class="status-left"></div>
     <div class="status-right">
-      <span>SF/CA</span>
-      <span>2026</span>
-      <span>ISSUE 01</span>
       <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme">
         <span class="icon">☾</span>
         <span class="label">DARK</span>
@@ -370,7 +364,7 @@
       <li><a href="index.html" class="is-active">Work</a></li>
       <li><a href="#about-section">About</a></li>
       <li><a href="#contact-section">Contact</a></li>
-      <li><a href="cv.html" class="ext-link">CV</a></li>
+      <li><a href="cv.html">CV</a></li>
     </ul>
   </div>
 </nav>
@@ -379,26 +373,13 @@
   <div class="hero-tag">Issue 01 — Selected Work, 2024 → Present</div>
   <h1>Senior product designer: <span class="accent">enterprise tools and shipped apps</span><span class="cursor"></span></h1>
   <p class="hero-lead">
-    Leading product design at State Affairs. Two iOS apps shipped solo in 2026.
+    Leading product design at State Affairs. Four iOS apps built solo in 2026.
   </p>
 </header>
 
-<section class="manifest">
-  <div class="manifest-inner">
-    <div class="manifest-item"><span class="manifest-label">role</span><span class="manifest-value">Sr. UX/Product</span></div>
-    <div class="manifest-item"><span class="manifest-label">based</span><span class="manifest-value">SF Bay Area</span></div>
-    <div class="manifest-item"><span class="manifest-label">surface</span><span class="manifest-value">Web · Mobile · Native</span></div>
-    <div class="manifest-item"><span class="manifest-label">years</span><span class="manifest-value">9 in design</span></div>
-    <div class="manifest-item"><span class="manifest-label">status</span><span class="manifest-value">Open to roles, freelance</span></div>
-  </div>
-</section>
 
 <div class="section-head">
   <h2>selected_work</h2>
-  <div class="section-head-meta">
-    <strong>06 entries</strong> · last updated 2026<br>
-    sorted: most recent first
-  </div>
 </div>
 
 <section class="cards">
@@ -471,7 +452,7 @@
     <div class="about-content">
       <h2>Design systems, prototyping, <span class="accent">product strategy.</span></h2>
       <p>At State Affairs (B2B legislative tracking) I lead design across bill tracking, voting analysis, document comparison, AI-assisted research, and the editorial layer.</p>
-      <p>I prototype in HTML and React, write briefs and specs, and shipped two iOS apps solo in 2026.</p>
+      <p>I prototype in HTML and React, write briefs and specs, and built four iOS apps solo in 2026.</p>
     </div>
   </section>
 </div>
@@ -505,11 +486,6 @@
     <div class="footer-meta">
       <strong>Kate Chaparro</strong> · Senior Product Designer · 2026<br>
       Set in JetBrains Mono · Built by Fable 5
-    </div>
-    <div class="footer-socials">
-      <a href="cv.html">CV</a>
-      <a href="https://www.linkedin.com/in/katechaparro/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="mailto:chaparrokate02@gmail.com">Email</a>
     </div>
   </div>
 </footer>

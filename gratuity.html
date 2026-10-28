@@ -182,15 +182,8 @@
 
 <div class="statusbar">
   <div class="statusbar-inner">
-    <div class="status-left">
-      <span class="status-dot">ONLINE</span>
-      <span class="status-time" id="status-time">--:--:-- PT</span>
-      <span>v.1.0.0</span>
-    </div>
+    <div class="status-left"></div>
     <div class="status-right">
-      <span>SF/CA</span>
-      <span>2026</span>
-      <span>ISSUE 01</span>
       <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme">
         <span class="icon">☾</span>
         <span class="label">DARK</span>
@@ -203,10 +196,10 @@
   <div class="nav-inner">
     <a class="nav-brand" href="index.html">KATE<span class="slash">/</span>CHAPARRO</a>
     <ul class="nav-links">
-      <li><a href="index.html">Work</a></li>
+      <li><a href="index.html" class="is-active">Work</a></li>
       <li><a href="index.html#about-section">About</a></li>
       <li><a href="index.html#contact-section">Contact</a></li>
-      <li><a href="https://happy-novel-ashen.figma.site/" target="_blank" rel="noopener" class="ext-link">Older work ↗</a></li>
+      <li><a href="cv.html">CV</a></li>
     </ul>
   </div>
 </nav>
@@ -222,10 +215,7 @@
   <div class="case-meta-inner">
     <div class="case-meta-item"><span class="case-meta-label">role</span><span class="case-meta-value">Solo — design &amp; build</span></div>
     <div class="case-meta-item"><span class="case-meta-label">stack</span><span class="case-meta-value">React Native · Expo</span></div>
-    <div class="case-meta-item"><span class="case-meta-label">payments</span><span class="case-meta-value">RevenueCat</span></div>
-    <div class="case-meta-item"><span class="case-meta-label">scope</span><span class="case-meta-value">v1 + widget</span></div>
     <div class="case-meta-item"><span class="case-meta-label">price</span><span class="case-meta-value">Free / $2.99 Pro</span></div>
-    <div class="case-meta-item"><span class="case-meta-label">shipped</span><span class="case-meta-value">August 2026</span></div>
   </div>
 </section>
 
@@ -255,10 +245,6 @@
       <figure class="shot">
         <img src="images/gratuity/history.png" alt="Gratuity bill history listing three past bills with their tip percentages and per-person splits." loading="lazy" width="1320" height="2868">
         <figcaption><strong>History</strong>On-device only.</figcaption>
-      </figure>
-      <figure class="shot">
-        <img src="images/gratuity/settings.png" alt="Gratuity settings screen with four controls: default tip, default split, round up by default, and remember last used." loading="lazy" width="1320" height="2868">
-        <figcaption><strong>Settings</strong>All four controls.</figcaption>
       </figure>
     </div>
   </section>
@@ -404,28 +390,7 @@
       <h2><span class="accent">Privacy</span></h2>
     </div>
     <div class="g-body">
-      <p>No network except StoreKit. Data lives on-device; history reaches the widget through an App Group. Delete the app and everything goes with it.</p>
-      <ul class="g-specs">
-        <li><span class="k">Network requests</span><span class="v"><strong>None</strong>, except Apple StoreKit for purchase and restore</span></li>
-        <li><span class="k">Account</span><span class="v">None. There is nothing to sign in to.</span></li>
-        <li><span class="k">Analytics</span><span class="v">None. No SDK, no events, no identifiers.</span></li>
-        <li><span class="k">Storage</span><span class="v">Local app storage, on-device only</span></li>
-        <li><span class="k">Widget transport</span><span class="v">App Group shared container — never leaves the device</span></li>
-        <li><span class="k">Ads</span><span class="v">None, on either tier</span></li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       06 — Shipping
-       ============================================================ -->
-  <section class="g-section">
-    <div class="g-section-head">
-      <span class="g-section-num">06</span>
-      <h2><span class="accent">Scope</span></h2>
-    </div>
-    <div class="g-body">
-      <p>Scope fixed at v1 + widget. No tax field, receipt scanning, currency picker, or cloud sync.</p>
+      <p>No account, analytics, or ads. The only network call is Apple StoreKit, for the purchase.</p>
     </div>
   </section>
 

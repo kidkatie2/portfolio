@@ -26,6 +26,7 @@
 <style>
   :root {
     --navy: #1B2B6B;
+    --navy-fill: #1B2B6B;
     --navy-deep: #0F1A4A;
     --blue: #2E5BFF;
     --blue-pale: #E8EEFF;
@@ -515,7 +516,7 @@
   /* ── FOOTER ───────────────────────────────── */
   .case-footer {
     padding: 56px 8vw 80px;
-    background: var(--navy);
+    background: var(--navy-fill);
     color: white;
   }
   .case-footer .nav-row {
@@ -654,7 +655,7 @@
 
   /* Mini app shell shared between student/instructor mockups */
   .p1-app-nav {
-    background: var(--navy);
+    background: var(--navy-fill);
     padding: 12px 18px;
     display: flex;
     align-items: center;
@@ -706,8 +707,8 @@
     padding: 12px;
   }
   .p1-stat.dark {
-    background: var(--navy);
-    border-color: var(--navy);
+    background: var(--navy-fill);
+    border-color: var(--navy-fill);
     color: #fff;
   }
   .p1-stat-label {
@@ -749,6 +750,7 @@
   .p1-list-row {
     display: flex;
     align-items: center;
+    gap: 12px;
     background: var(--white);
     border: 1px solid var(--gray-200);
     border-radius: 8px;
@@ -799,7 +801,7 @@
     font-size: 9px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    background: var(--navy);
+    background: var(--navy-fill);
     color: #fff;
     padding: 4px 9px;
     border-radius: 4px;
@@ -854,7 +856,7 @@
   .p1-assign-card .card-action {
     width: 100%;
     padding: 9px;
-    background: var(--navy);
+    background: var(--navy-fill);
     color: #fff;
     border: none;
     border-radius: 7px;
@@ -899,7 +901,7 @@
     opacity: 0.55;
   }
   .p1-tools-app-header {
-    background: var(--navy);
+    background: var(--navy-fill);
     margin: -24px -22px 16px;
     padding: 12px 22px;
     color: #fff;
@@ -981,7 +983,7 @@
     font-weight: 500;
   }
   .p1-devtoolbar-state.active {
-    background: var(--navy);
+    background: var(--navy-fill);
     color: #fff;
     border-color: var(--navy);
     font-weight: 700;
@@ -1081,7 +1083,7 @@
   }
   .p1-ia-root {
     display: inline-block;
-    background: var(--navy);
+    background: var(--navy-fill);
     color: #fff;
     padding: 12px 24px;
     border-radius: 10px;
@@ -1379,6 +1381,7 @@
   --gray-600: #a8b0c4;
   --gray-700: #c8d0e0;
   --navy: #c8d4ec;
+  --navy-fill: #2B3D8F;
   --navy-deep: #a8b8d8;
   --blue: #6a8fff;
   --blue-pale: #1a2240;
@@ -1423,15 +1426,8 @@
 <!-- ============ PORTFOLIO SHELL: TOP CHROME ============ -->
 <div class="kc-statusbar">
   <div class="kc-statusbar-inner">
-    <div class="kc-status-left">
-      <span class="kc-status-dot">ONLINE</span>
-      <span class="kc-status-time" id="kc-status-time">--:--:-- PT</span>
-      <span>v.1.0.0</span>
-    </div>
+    <div class="kc-status-left"></div>
     <div class="kc-status-right">
-      <span>SF/CA</span>
-      <span>2026</span>
-      <span>ISSUE 01</span>
       <button class="kc-theme-toggle" data-theme-toggle aria-label="Toggle theme">
         <span class="icon">☾</span>
         <span class="label">DARK</span>
@@ -1443,10 +1439,10 @@
   <div class="kc-nav-inner">
     <a class="kc-nav-brand" href="../index.html">KATE<span class="kc-slash">/</span>CHAPARRO</a>
     <ul class="kc-nav-links">
-      <li><a href="../index.html">Work</a></li>
-      <li><a href="index.html" class="kc-is-active">DEAD!</a></li>
+      <li><a href="../index.html" class="kc-is-active">Work</a></li>
+      <li><a href="../index.html#about-section">About</a></li>
       <li><a href="../index.html#contact-section">Contact</a></li>
-      <li><a href="https://happy-novel-ashen.figma.site/" target="_blank" rel="noopener" class="ext-link">Older work ↗</a></li>
+      <li><a href="../cv.html">CV</a></li>
     </ul>
   </div>
 </nav>
@@ -1471,13 +1467,6 @@
   <p class="deck">The entire DEAD! system redesigned for students and professors. One 6,700-line React prototype, ~40 screens. Engineering builds against the prototype.</p>
 </section>
 
-<!-- ── TL;DR ───────────────────────────────── -->
-<div class="tldr">
-  <div class="tldr-inner">
-    <div class="tldr-label">TL;DR</div>
-    <p class="tldr-content">One 6,700-line React prototype covers both student and instructor experiences: shared primitives, role-divergent navigation, built-in dev toolbar and changelog drawer. It shipped as the spec engineering builds against.</p>
-  </div>
-</div>
 
 <!-- ── META GRID ───────────────────────────────── -->
 <div class="meta-grid">
@@ -1590,183 +1579,15 @@
 <!-- ── PROBLEM ───────────────────────────────── -->
 <section>
   <div class="section-num">01 — Problem</div>
-  <h2>Two audiences, opposite goals.</h2>
+  <h2>Students and instructors.</h2>
   <p>Instructors assess students preparing for the National Board Exam; students drill, review, and compete. Shared: the question bank. Instructors think in <strong>cohorts, weighting, analytics</strong>; students in <strong>streaks, scores, due dates</strong>.</p>
   <p>Earlier versions toggled one view. The redesign: two experiences on shared primitives.</p>
 </section>
 
-<!-- ── PERSONAS ───────────────────────────────── -->
-<section>
-  <div class="section-num">02 — Two mental models</div>
-  <h2>What each side needs.</h2>
-
-  <div class="split">
-    <div class="persona-card student">
-      <div class="persona-tag">Persona A · Student</div>
-      <div class="persona-name">Mollie Anderson</div>
-      <div style="font-size:14px;color:var(--gray-600);margin-bottom:18px;">SUNY Canton · FSA-2200 Mortuary Science 101</div>
-      <ul class="persona-list">
-        <li>Wants the next thing to do, not a menu of options</li>
-        <li>Studies in 15-minute bursts between shifts at the funeral home</li>
-        <li>Cares about streaks, leaderboard rank, and missed-question recall</li>
-        <li>Anxiety triggers: "am I behind the class?"</li>
-        <li>Uses mobile far more than instructors do</li>
-      </ul>
-    </div>
-    <div class="persona-card prof">
-      <div class="persona-tag">Persona B · Instructor</div>
-      <div class="persona-name">Dr. David Penepent</div>
-      <div style="font-size:14px;color:var(--gray-600);margin-bottom:18px;">Professor · 20+ years teaching · CFSP</div>
-      <ul class="persona-list">
-        <li>Wants to assign work fast and grade with confidence</li>
-        <li>Toggles between cohort view (everyone) and individual view</li>
-        <li>Cares about miss-rate by topic, weighted grades, and tournament logistics</li>
-        <li>Anxiety triggers: "is the gradebook accurate?"</li>
-        <li>Almost always on desktop, often with a class roster open in another tab</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ── FIGURE 04 — IA divergence diagram ───────────────────── -->
-<div class="p1-figure">
-  <div class="p1-figure-frame">
-    <div class="p1-ia">
-      <div class="p1-ia-tree">
-        <div class="p1-ia-root">
-          DEAD!
-          <span class="sub">Shared shell</span>
-        </div>
-        <div class="p1-ia-connector"></div>
-        <div class="p1-ia-shared">
-          <strong>Shared:</strong> nav · auth · theme · type ramp · breakpoints · component library · color tokens
-        </div>
-        <div class="p1-ia-branches">
-          <div class="p1-ia-branch student">
-            <div class="p1-ia-branch-label">Side A</div>
-            <div class="p1-ia-branch-title">Student</div>
-            <ul class="p1-ia-branch-list">
-              <li>Dashboard</li>
-              <li>My Tests</li>
-              <li>Flashcards</li>
-              <li>Match Game</li>
-              <li>Showdown</li>
-              <li>Class Detail</li>
-            </ul>
-          </div>
-          <div class="p1-ia-branch prof">
-            <div class="p1-ia-branch-label">Side B</div>
-            <div class="p1-ia-branch-title">Instructor</div>
-            <ul class="p1-ia-branch-list">
-              <li>Dashboard (6 tabs)</li>
-              <li>Classes</li>
-              <li>Create Assignment</li>
-              <li>Plan Tournament</li>
-              <li>Grade Book</li>
-              <li>High Five</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="p1-figure-caption">
-    <span class="num">Fig. 04</span>
-    <span class="text">IA: shared shell, role-specific surfaces below the divergence point.</span>
-  </div>
-</div>
-
-<!-- ── SCREEN INVENTORY ───────────────────────────────── -->
-<section>
-  <div class="section-num">03 — Surface area</div>
-  <h2>Screen inventory.</h2>
-  <p>Both sides share the same primitives (<span class="mono" style="color:var(--navy)">Btn</span>, <span class="mono" style="color:var(--navy)">Sel</span>, <span class="mono" style="color:var(--navy)">Inp</span>, <span class="mono" style="color:var(--navy)">Badge</span>) and design tokens.</p>
-
-  <div class="inventory">
-    <div class="inv-col">
-      <div class="inv-head">Student experience</div>
-      <div class="inv-count">11<span class="small"> screens</span></div>
-      <ul class="inv-list">
-        <li>Dashboard</li>
-        <li>Test Hub</li>
-        <li>Test creation flow</li>
-        <li>Test taking</li>
-        <li>Test results</li>
-        <li>Test review</li>
-        <li>Assignment Hub</li>
-        <li>Flashcard study</li>
-        <li>Matching game</li>
-        <li>Showdown game</li>
-        <li>Showdown score</li>
-      </ul>
-    </div>
-    <div class="inv-col">
-      <div class="inv-head">Instructor experience</div>
-      <div class="inv-count">29<span class="small"> screens</span></div>
-      <ul class="inv-list">
-        <li>Dashboard — Overview / Classes / Licenses</li>
-        <li>Class Detail — 5 tabs</li>
-        <li>Roster · Grade Book · Assignments</li>
-        <li>Analytics · Questions</li>
-        <li>Class Create — 3 steps</li>
-        <li>Class Edit — full-page</li>
-        <li>Assignment creation flow</li>
-        <li>Tournament creation flow</li>
-        <li>High Five · Grading switch modal</li>
-        <li>CSV upload (2 contexts)</li>
-        <li>+ confirmation, success, profile</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ── FIGURE 02 — Component reuse, two contexts ──────────── -->
-<div class="p1-figure">
-  <div class="p1-figure-frame">
-    <div class="p1-component-grid">
-      <div class="p1-component-shell">
-        <span class="p1-component-tag">Student context</span>
-        <div class="p1-comp-context">// Up Next on student dashboard</div>
-        <div class="p1-assign-card">
-          <div class="card-title">Embalming Terminology Quiz</div>
-          <div class="card-class">Mortuary Science 101</div>
-          <div class="card-meta">
-            <span class="card-meta-pill urgent">Due tomorrow</span>
-            <span style="font-size:10.5px;color:var(--gray-500);font-family:'IBM Plex Mono',monospace;">15 questions · 20 min</span>
-          </div>
-          <button class="card-action">Start Quiz →</button>
-        </div>
-      </div>
-      <div class="p1-component-shell">
-        <span class="p1-component-tag alt">Instructor context</span>
-        <div class="p1-comp-context">// Attention list on instructor dashboard</div>
-        <div class="p1-assign-card">
-          <div class="card-title">Embalming Terminology Quiz</div>
-          <div class="card-class">Mortuary Science 101 · 18 students</div>
-          <div class="card-meta">
-            <span class="card-meta-pill amber">12 ungraded</span>
-            <span style="font-size:10.5px;color:var(--gray-500);font-family:'IBM Plex Mono',monospace;">3 not started</span>
-          </div>
-          <button class="card-action outline">View Submissions →</button>
-        </div>
-      </div>
-    </div>
-    <div style="padding:0 36px 28px;">
-      <div class="p1-component-callout">
-        <strong>One Assignment Card, two contexts.</strong> Three variable slots: meta pill (due date vs. ungraded count), action button (filled Start vs. outlined View), secondary text (time estimate vs. cohort stats).
-      </div>
-    </div>
-  </div>
-  <div class="p1-figure-caption">
-    <span class="num">Fig. 02</span>
-    <span class="text">Same card, slots swapped by role.</span>
-  </div>
-</div>
-
 <!-- ── EMBEDDED MOCKUPS ───────────────────────────────── -->
 <section>
-  <div class="section-num">04 — Screen tour</div>
-  <h2>Representative screens from both sides.</h2>
+  <div class="section-num">02 — Screen tour</div>
+  <h2>Screens from both sides.</h2>
   <p>Student screens: score heroes, leaderboards, card grids. Instructor screens: tables, sortable columns, toolbars. Same palette, type pairing, grid system.</p>
 
   <!-- ════════════════════════════════════════════════════════ -->
@@ -2510,231 +2331,6 @@
 
 </section>
 
-<!-- ── DESIGN SYSTEM ───────────────────────────────── -->
-<section>
-  <div class="section-num">05 — System</div>
-  <h2>Tokens and primitives.</h2>
-  <p>One token object (<span class="mono" style="color:var(--navy)">C</span>), shared primitives. No raw <span class="mono" style="color:var(--navy)">&lt;button&gt;</span> elements, no hardcoded colors, no inline sample data — the Angular port mirrors the prototype.</p>
-
-  <div class="annotated">
-    <div class="annot-fig-label">Figure 01 — Color tokens</div>
-    <div class="tokens-row">
-      <div class="token" style="background:#1B2B6B"><div class="token-label" style="background:rgba(27,43,107,0.8);color:#fff">navy</div></div>
-      <div class="token" style="background:#0F1A4A"><div class="token-label" style="background:rgba(15,26,74,0.85);color:#fff">navy.deep</div></div>
-      <div class="token" style="background:#2E5BFF"><div class="token-label" style="background:rgba(46,91,255,0.85);color:#fff">blue</div></div>
-      <div class="token" style="background:#E8EEFF"><div class="token-label">blue.pale</div></div>
-      <div class="token" style="background:#16A34A"><div class="token-label" style="background:rgba(22,163,74,0.85);color:#fff">green</div></div>
-      <div class="token" style="background:#EAB308"><div class="token-label">yellow</div></div>
-      <div class="token" style="background:#DC2626"><div class="token-label" style="background:rgba(220,38,38,0.85);color:#fff">red</div></div>
-      <div class="token" style="background:#F1F5F9"><div class="token-label">gray.100</div></div>
-    </div>
-
-    <div style="margin-top:36px;">
-      <div class="annot-fig-label">Figure 02 — Shared primitives across both experiences</div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--gray-700);">
-        <div><strong style="color:var(--navy)">Btn</strong> &nbsp; primary · secondary · ghost · destructive</div>
-        <div><strong style="color:var(--navy)">Sel</strong> &nbsp; native select w/ active state</div>
-        <div><strong style="color:var(--navy)">Inp</strong> &nbsp; text input + error state</div>
-        <div><strong style="color:var(--navy)">Badge</strong> &nbsp; blue · green · yellow · red · gray</div>
-        <div><strong style="color:var(--navy)">Card</strong> &nbsp; padded surface w/ border + radius</div>
-        <div><strong style="color:var(--navy)">Toast</strong> &nbsp; transient feedback</div>
-        <div><strong style="color:var(--navy)">Modal</strong> &nbsp; overlay + dismissible</div>
-        <div><strong style="color:var(--navy)">LI / Ic</strong> &nbsp; Lucide icon wrapper</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── KEY DECISIONS ───────────────────────────────── -->
-<section>
-  <div class="section-num">06 — Decisions</div>
-  <h2>Three decisions.</h2>
-
-  <div class="decisions">
-    <div class="decision">
-      <div class="decision-num">01</div>
-      <h3>Two homepages, not one toggle.</h3>
-      <p><strong class="lede">Split routes: <span class="mono">/student</span> and <span class="mono">/professor</span>.</strong> An earlier single dashboard with a role toggle buried the primary content for both users.</p>
-    </div>
-    <div class="decision">
-      <div class="decision-num">02</div>
-      <h3>Class Detail as five tabs, not five pages.</h3>
-      <p><strong class="lede">Roster, Grade Book, Assignments, Analytics, Questions share class context.</strong> Tabs keep one class header; analytics is one click from the gradebook.</p>
-    </div>
-    <div class="decision">
-      <div class="decision-num">03</div>
-      <h3>A dev toolbar in the prototype itself.</h3>
-      <p><strong class="lede">A bottom-edge drawer with screen jump, UI-state toggle (default / empty / error), feature flags, and mobile-view sim.</strong> Engineering verifies states without designer involvement.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ── DEV TOOLBAR DETAIL ───────────────────────────────── -->
-<section>
-  <div class="section-num">07 — Detail</div>
-  <h2>The dev toolbar.</h2>
-  <p>Every screen has empty, error, feature-flagged future, and 375px mobile states. The toolbar switches each with one click.</p>
-
-  <div class="annotated">
-    <div class="annot-fig-label">Figure 03 — Dev toolbar (bottom-edge drawer, expanded)</div>
-    <svg viewBox="0 0 880 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;border-radius:8px;background:#FAFAF7;border:1px solid #E2E8F0">
-      <!-- "App" behind -->
-      <rect x="0" y="0" width="880" height="240" fill="#FAFAF7"/>
-      <rect x="0" y="0" width="880" height="36" fill="#1B2B6B"/>
-      <text x="20" y="24" font-family="Inter" font-weight="800" font-size="13" fill="#fff">DEAD!</text>
-      <text x="240" y="120" text-anchor="middle" font-family="Inter" font-weight="500" font-size="12" fill="#94A3B8">— app content above the toolbar —</text>
-      <!-- Toolbar (drawer) -->
-      <rect x="0" y="240" width="880" height="80" fill="#0F1A4A"/>
-      <line x1="0" y1="240" x2="880" y2="240" stroke="#2E5BFF" stroke-width="2"/>
-      <!-- Toolbar groups -->
-      <g font-family="IBM Plex Mono" font-size="9" letter-spacing="1.5" fill="#94A3B8">
-        <text x="24" y="260">SCREEN</text>
-        <text x="232" y="260">UI STATE</text>
-        <text x="476" y="260">FEATURE FLAGS</text>
-        <text x="688" y="260">VIEWPORT</text>
-      </g>
-      <!-- Screen dropdown -->
-      <rect x="24" y="270" width="180" height="32" rx="6" fill="#1B2B6B" stroke="#2E5BFF"/>
-      <text x="38" y="290" font-family="Inter" font-weight="500" font-size="12" fill="#fff">prof-class-detail-gradebook</text>
-      <text x="194" y="290" text-anchor="end" font-family="Inter" font-size="11" fill="#94A3B8">▾</text>
-      <!-- UI state segmented -->
-      <rect x="232" y="270" width="220" height="32" rx="6" fill="#1B2B6B" stroke="#1B2B6B"/>
-      <rect x="234" y="272" width="70" height="28" rx="4" fill="#2E5BFF"/>
-      <text x="269" y="291" text-anchor="middle" font-family="Inter" font-weight="700" font-size="11" fill="#fff">Default</text>
-      <text x="340" y="291" text-anchor="middle" font-family="Inter" font-weight="500" font-size="11" fill="#94A3B8">Empty</text>
-      <text x="412" y="291" text-anchor="middle" font-family="Inter" font-weight="500" font-size="11" fill="#94A3B8">Error</text>
-      <!-- Feature flags toggles -->
-      <g>
-        <rect x="476" y="276" width="32" height="20" rx="10" fill="#2E5BFF"/>
-        <circle cx="500" cy="286" r="7" fill="#fff"/>
-        <text x="518" y="291" font-family="Inter" font-size="11" fill="#fff">Future State</text>
-        <rect x="600" y="276" width="32" height="20" rx="10" fill="#475569"/>
-        <circle cx="608" cy="286" r="7" fill="#fff"/>
-        <text x="640" y="291" font-family="Inter" font-size="11" fill="#94A3B8">Notifs</text>
-      </g>
-      <!-- Viewport toggle -->
-      <rect x="688" y="270" width="170" height="32" rx="6" fill="#1B2B6B" stroke="#1B2B6B"/>
-      <rect x="690" y="272" width="80" height="28" rx="4" fill="#2E5BFF"/>
-      <text x="730" y="291" text-anchor="middle" font-family="Inter" font-weight="700" font-size="11" fill="#fff">Desktop</text>
-      <text x="816" y="291" text-anchor="middle" font-family="Inter" font-weight="500" font-size="11" fill="#94A3B8">Mobile</text>
-    </svg>
-    <p style="margin-top:18px;font-size:14px;color:var(--gray-600);max-width:none;">Bottom-edge drawer, collapses to a thin tab. Feature-flagged out of production.</p>
-  </div>
-</section>
-
-<!-- ── FIGURE 03 — Dev toolbar + changelog (portfolio gold) ─── -->
-<div class="p1-figure">
-  <div class="p1-figure-frame">
-    <div class="p1-tools">
-      <!-- App preview with floating toolbar -->
-      <div class="p1-tools-app">
-        <div class="p1-tools-app-header">DEAD! — prof-class-detail</div>
-        <div class="p1-tools-app-faded">
-          <div class="p1-tools-fakeline"></div>
-          <div class="p1-tools-fakeline short"></div>
-          <div class="p1-tools-fakeline shorter"></div>
-          <div class="p1-tools-card">
-            <div class="row">
-              <span class="p1-tools-card-label">Roster</span>
-              <span class="p1-tools-card-label">18 students</span>
-            </div>
-            <div class="p1-tools-fakeline short"></div>
-            <div class="p1-tools-fakeline"></div>
-            <div class="p1-tools-fakeline shorter"></div>
-          </div>
-          <div class="p1-tools-card">
-            <div class="row">
-              <span class="p1-tools-card-label">Assignments</span>
-              <span class="p1-tools-card-label">5 active</span>
-            </div>
-            <div class="p1-tools-fakeline"></div>
-            <div class="p1-tools-fakeline short"></div>
-          </div>
-        </div>
-        <!-- Floating dev toolbar -->
-        <div class="p1-devtoolbar">
-          <div class="p1-devtoolbar-title">Dev Toolbar</div>
-          <div class="p1-devtoolbar-section">
-            <div class="p1-devtoolbar-sublabel">UI State</div>
-            <div class="p1-devtoolbar-states">
-              <div class="p1-devtoolbar-state active">Default</div>
-              <div class="p1-devtoolbar-state">Empty</div>
-              <div class="p1-devtoolbar-state">Error</div>
-            </div>
-          </div>
-          <div class="p1-devtoolbar-section">
-            <div class="p1-devtoolbar-sublabel">Jump to Screen</div>
-            <div class="p1-devtoolbar-select">prof-class-detail ▾</div>
-          </div>
-          <div class="p1-devtoolbar-screen">// 40+ screens · all reachable</div>
-        </div>
-      </div>
-      <!-- Changelog drawer -->
-      <div class="p1-changelog">
-        <div class="p1-changelog-header">
-          Changelog
-          <span class="p1-changelog-count">27</span>
-        </div>
-        <div class="p1-changelog-sub">Every design decision in the build, with the screen it affects and a short rationale.</div>
-        <div class="p1-changelog-entry">
-          <span class="p1-changelog-tag student">Student</span>
-          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--gray-400);">flashcard-hub</span>
-          <div class="ttl">Missed Questions catch-all set</div>
-          <div class="desc">Persistent set pinned to top of FlashcardHub. Distinct visual treatment (flag icon, red accent). Editable by student.</div>
-        </div>
-        <div class="p1-changelog-entry">
-          <span class="p1-changelog-tag prof">Professor</span>
-          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--gray-400);">prof-class-detail</span>
-          <div class="ttl">Roster — last active column</div>
-          <div class="desc">New column shows when student was last active in the class. Sortable. Helps instructors spot disengagement before it shows in grades.</div>
-        </div>
-        <div class="p1-changelog-entry">
-          <span class="p1-changelog-tag student">Student</span>
-          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--gray-400);">test-results</span>
-          <div class="ttl">Flashcard follow-up modal</div>
-          <div class="desc">"Create Set" now opens 3-option modal: New Set named after test, Add to Missed Questions, or Both.</div>
-        </div>
-        <div class="p1-changelog-entry">
-          <span class="p1-changelog-tag prof">Professor</span>
-          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--gray-400);">prof-dashboard</span>
-          <div class="ttl">Mobile hero collapse</div>
-          <div class="desc">Stats move below title on small screens. Tool cards tighter on mobile. Same pattern as student.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="p1-figure-caption">
-    <span class="num">Fig. 03</span>
-    <span class="text">Dev Toolbar: <strong>Default / Empty / Error</strong> toggle, jump to any of <strong>40+ screens</strong>. Changelog Drawer: every design decision, its screen, one-line rationale.</span>
-  </div>
-</div>
-
-<!-- ── OUTCOMES ───────────────────────────────── -->
-<section>
-  <div class="section-num">08 — Outcome</div>
-  <h2>The prototype is the spec.</h2>
-  <p>The Angular port mirrors the prototype's screen organization; a shared <span class="mono" style="color:var(--navy)">data.ts</span> holds matching sample data and tokens.</p>
-
-  <div class="outcomes">
-    <div class="outcome">
-      <div class="outcome-num">~40</div>
-      <div class="outcome-label">Screens designed across both experiences</div>
-    </div>
-    <div class="outcome">
-      <div class="outcome-num">6,700<span class="unit"> lines</span></div>
-      <div class="outcome-label">Single-file React prototype as source of truth</div>
-    </div>
-    <div class="outcome">
-      <div class="outcome-num">3<span class="unit"> states</span></div>
-      <div class="outcome-label">Default · Empty · Error — switchable per screen</div>
-    </div>
-    <div class="outcome">
-      <div class="outcome-num">1<span class="unit"> dev</span></div>
-      <div class="outcome-label">Mollie, the Angular dev — handoff target</div>
-    </div>
-  </div>
-</section>
-
 
 <!-- ============ PORTFOLIO SHELL: BOTTOM CHROME ============ -->
 <section class="kc-case-nav-section">
@@ -2773,12 +2369,6 @@
     <div class="kc-footer-meta">
       <strong>Kate Chaparro</strong> · Senior Product Designer · 2026<br>
       Set in JetBrains Mono · Built by Fable 5
-    </div>
-    <div class="kc-footer-socials">
-      <a href="../cv.html">CV</a>
-      <a href="https://www.linkedin.com/in/katechaparro/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://happy-novel-ashen.figma.site/" target="_blank" rel="noopener">Portfolio</a>
-      <a href="mailto:chaparrokate02@gmail.com">Email</a>
     </div>
   </div>
 </footer>

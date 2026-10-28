@@ -25,7 +25,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --navy: #1B2B6B; --navy-deep: #0F1A4A;
+    --navy: #1B2B6B; --navy-deep: #0F1A4A; --navy-fill: #1B2B6B;
     --blue: #2E5BFF; --blue-pale: #E8EEFF;
     --ink: #0B1230;
     --gray-50: #F8FAFC; --gray-100: #F1F5F9; --gray-200: #E2E8F0;
@@ -282,7 +282,7 @@
   table.worked-table .strike { color: var(--gray-300); text-decoration: line-through; }
   table.worked-table .highlight { background: var(--blue-pale); color: var(--navy); font-weight: 600; }
   table.worked-table tr.total-row td {
-    background: var(--navy); color: white; font-weight: 700;
+    background: var(--navy-fill); color: white; font-weight: 700;
     border-bottom: none;
   }
   table.worked-table tr.total-row td:first-child { border-top-left-radius: 6px; border-bottom-left-radius: 6px; }
@@ -313,7 +313,7 @@
 
   /* ── SHIPPED FORMULA ───────────────────────────────── */
   .formula {
-    background: var(--navy); color: white;
+    background: var(--navy-fill); color: white;
     border-radius: 14px; padding: 36px;
     margin: 32px 0; font-family: 'IBM Plex Mono', monospace;
   }
@@ -345,7 +345,7 @@
   .outcome-label { font-size: 13.5px; color: var(--gray-600); line-height: 1.4; }
 
   /* ── FOOTER ───────────────────────────────── */
-  .case-footer { padding: 56px 8vw 80px; background: var(--navy); color: white; }
+  .case-footer { padding: 56px 8vw 80px; background: var(--navy-fill); color: white; }
   .case-footer .nav-row {
     display: flex; justify-content: space-between; align-items: center;
     border-top: 1px solid rgba(255,255,255,0.15); padding-top: 24px;
@@ -939,6 +939,7 @@
   --gray-600: #a8b0c4;
   --gray-700: #c8d0e0;
   --navy: #c8d4ec;
+  --navy-fill: #2B3D8F;
   --navy-deep: #a8b8d8;
   --blue: #6a8fff;
   --blue-pale: #1a2240;
@@ -986,15 +987,8 @@
 <!-- ============ PORTFOLIO SHELL: TOP CHROME ============ -->
 <div class="kc-statusbar">
   <div class="kc-statusbar-inner">
-    <div class="kc-status-left">
-      <span class="kc-status-dot">ONLINE</span>
-      <span class="kc-status-time" id="kc-status-time">--:--:-- PT</span>
-      <span>v.1.0.0</span>
-    </div>
+    <div class="kc-status-left"></div>
     <div class="kc-status-right">
-      <span>SF/CA</span>
-      <span>2026</span>
-      <span>ISSUE 01</span>
       <button class="kc-theme-toggle" data-theme-toggle aria-label="Toggle theme">
         <span class="icon">☾</span>
         <span class="label">DARK</span>
@@ -1006,10 +1000,10 @@
   <div class="kc-nav-inner">
     <a class="kc-nav-brand" href="../index.html">KATE<span class="kc-slash">/</span>CHAPARRO</a>
     <ul class="kc-nav-links">
-      <li><a href="../index.html">Work</a></li>
-      <li><a href="index.html" class="kc-is-active">DEAD!</a></li>
+      <li><a href="../index.html" class="kc-is-active">Work</a></li>
+      <li><a href="../index.html#about-section">About</a></li>
       <li><a href="../index.html#contact-section">Contact</a></li>
-      <li><a href="https://happy-novel-ashen.figma.site/" target="_blank" rel="noopener" class="ext-link">Older work ↗</a></li>
+      <li><a href="../cv.html">CV</a></li>
     </ul>
   </div>
 </nav>
@@ -1032,13 +1026,6 @@
   <p class="deck">A weighted gradebook feature added for professors: weights, the calculation, and the empty-category display.</p>
 </section>
 
-<!-- ── TL;DR ───────────────────────────────── -->
-<div class="tldr">
-  <div class="tldr-inner">
-    <div class="tldr-label">TL;DR</div>
-    <p class="tldr-content">A weighted gradebook added for professors. Empty categories are excluded from the final grade, remaining weights scale proportionally, empty cells render an em-dash, and the student detail panel shows the math as "40% → 100%".</p>
-  </div>
-</div>
 
 <div class="meta-grid">
   <div>
@@ -1156,7 +1143,7 @@
   </div>
   <div class="figure-caption">
     <span class="num">Fig. 01</span>
-    <span class="text">Full gradebook. <strong>Foster, Drew</strong>: assignments only; final reads <strong>91%</strong>, not 36%.</span>
+    <span class="text">Full gradebook. <strong>Foster, Drew</strong>: assignments only; final grade <strong>91%</strong>.</span>
   </div>
 </div>
 
@@ -1429,26 +1416,6 @@
   </div>
 </div>
 
-<!-- ── OUTCOME ───────────────────────────────── -->
-<section>
-  <div class="section-num">04 — Outcome</div>
-  <h2>Caught before release</h2>
-
-  <div class="outcomes">
-    <div class="outcome">
-      <div class="outcome-num">3<span class="unit"> edge cases</span></div>
-      <div class="outcome-label">Explicitly specified, not left to engineering interpretation</div>
-    </div>
-    <div class="outcome">
-      <div class="outcome-num">1<span class="unit"> formula</span></div>
-      <div class="outcome-label">Documented as pseudocode in the developer handoff spec</div>
-    </div>
-    <div class="outcome">
-      <div class="outcome-num">3<span class="unit"> places</span></div>
-      <div class="outcome-label">Behavior lives in: code, spec, prototype walkthrough</div>
-    </div>
-  </div>
-</section>
 
 <div class="case-footer">
   <div class="nav-row">
@@ -1495,12 +1462,6 @@
     <div class="kc-footer-meta">
       <strong>Kate Chaparro</strong> · Senior Product Designer · 2026<br>
       Set in JetBrains Mono · Built by Fable 5
-    </div>
-    <div class="kc-footer-socials">
-      <a href="../cv.html">CV</a>
-      <a href="https://www.linkedin.com/in/katechaparro/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://happy-novel-ashen.figma.site/" target="_blank" rel="noopener">Portfolio</a>
-      <a href="mailto:chaparrokate02@gmail.com">Email</a>
     </div>
   </div>
 </footer>

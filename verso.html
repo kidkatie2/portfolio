@@ -10,7 +10,7 @@
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Kate Chaparro">
 <meta property="og:title" content="Verso — an iOS reading app">
-<meta property="og:description" content="A reader for AO3 works and EPUBs with word-synced narration. Started in Expo, rebuilt in SwiftUI, shipped iPhone-only rather than degraded.">
+<meta property="og:description" content="A reader for AO3 works and EPUBs with word-synced narration. Built in SwiftUI for iPhone.">
 <meta property="og:url" content="https://kidkatie2.github.io/portfolio/verso.html">
 <meta property="og:image" content="https://kidkatie2.github.io/portfolio/images/og-card.png">
 <meta property="og:image:width" content="1200">
@@ -18,7 +18,7 @@
 <meta property="og:image:alt" content="Kate Chaparro — Senior Product Designer">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Verso — an iOS reading app">
-<meta name="twitter:description" content="A reader for AO3 works and EPUBs with word-synced narration. Started in Expo, rebuilt in SwiftUI, shipped iPhone-only rather than degraded.">
+<meta name="twitter:description" content="A reader for AO3 works and EPUBs with word-synced narration. Built in SwiftUI for iPhone.">
 <meta name="twitter:image" content="https://kidkatie2.github.io/portfolio/images/og-card.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -157,15 +157,8 @@
 
 <div class="statusbar">
   <div class="statusbar-inner">
-    <div class="status-left">
-      <span class="status-dot">ONLINE</span>
-      <span class="status-time" id="status-time">--:--:-- PT</span>
-      <span>v.1.0.0</span>
-    </div>
+    <div class="status-left"></div>
     <div class="status-right">
-      <span>SF/CA</span>
-      <span>2026</span>
-      <span>ISSUE 01</span>
       <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme">
         <span class="icon">☾</span>
         <span class="label">DARK</span>
@@ -178,10 +171,10 @@
   <div class="nav-inner">
     <a class="nav-brand" href="index.html">KATE<span class="slash">/</span>CHAPARRO</a>
     <ul class="nav-links">
-      <li><a href="index.html">Work</a></li>
+      <li><a href="index.html" class="is-active">Work</a></li>
       <li><a href="index.html#about-section">About</a></li>
       <li><a href="index.html#contact-section">Contact</a></li>
-      <li><a href="https://happy-novel-ashen.figma.site/" target="_blank" rel="noopener" class="ext-link">Older work ↗</a></li>
+      <li><a href="cv.html">CV</a></li>
     </ul>
   </div>
 </nav>
@@ -196,10 +189,7 @@
 <section class="case-meta-strip">
   <div class="case-meta-inner">
     <div class="case-meta-item"><span class="case-meta-label">role</span><span class="case-meta-value">Solo — design &amp; build</span></div>
-    <div class="case-meta-item"><span class="case-meta-label">shipped stack</span><span class="case-meta-value">Swift · SwiftUI</span></div>
-    <div class="case-meta-item"><span class="case-meta-label">prototype</span><span class="case-meta-value">React Native · Expo</span></div>
-    <div class="case-meta-item"><span class="case-meta-label">platform</span><span class="case-meta-value">iPhone</span></div>
-    <div class="case-meta-item"><span class="case-meta-label">imports</span><span class="case-meta-value">AO3 · EPUB · Text</span></div>
+    <div class="case-meta-item"><span class="case-meta-label">stack</span><span class="case-meta-value">Swift · SwiftUI</span></div>
     <div class="case-meta-item"><span class="case-meta-label">shipped</span><span class="case-meta-value">August 2026</span></div>
   </div>
 </section>
@@ -215,21 +205,21 @@
       <h2>The <span class="accent">library</span></h2>
     </div>
     <div class="v-body">
-      <p>Three equal import tabs: <strong>AO3 Link</strong>, <strong>Paste Text</strong>, <strong>File</strong>. An AO3 URL brings title, author, tags, and every chapter. Cards show words, chapters, rating, last updated.</p>
+      <p>Three ways in: a fan fiction link, pasted text, or a file. A link brings title, author, tags, and every chapter. The shelf flags new chapters.</p>
     </div>
 
     <div class="shots" style="margin-top:36px;">
       <figure class="shot">
-        <img src="images/verso/library.webp" alt="The Verso library showing two story cards with title, author, summary, word count, chapter count, rating, and last-updated date." loading="lazy" width="900" height="1955">
-        <figcaption><strong>Library</strong>Metadata up front.</figcaption>
+        <img src="images/verso/library.png" alt="The Verso library: four story cards with title, author, summary, word count, and chapter count." loading="lazy" width="899" height="1946">
+        <figcaption><strong>Library</strong>New-chapter badges.</figcaption>
       </figure>
       <figure class="shot">
-        <img src="images/verso/add-story.webp" alt="The Add Story sheet with three tabs — AO3 Link, Paste Text, and File — and a work URL field." loading="lazy" width="900" height="1955">
-        <figcaption><strong>Add story</strong>Three entry points.</figcaption>
+        <img src="images/verso/add-story.png" alt="The Add Story sheet with Fan Fiction, Paste Text, and File tabs and a work URL field." loading="lazy" width="899" height="1946">
+        <figcaption><strong>Add story</strong>Paste a link, get every chapter.</figcaption>
       </figure>
       <figure class="shot">
-        <img src="images/verso/reader.webp" alt="The Verso reader showing chapter one of a story in serif type on a dark ground, with a floating back button and settings button." loading="lazy" width="900" height="1955">
-        <figcaption><strong>Reader</strong>Controls hide until tapped.</figcaption>
+        <img src="images/verso/reader.png" alt="The Verso reader in dark mode, chapter one in serif type, with the spoken word highlighted." loading="lazy" width="899" height="1946">
+        <figcaption><strong>Reader</strong>Serif type, word highlight.</figcaption>
       </figure>
     </div>
   </section>
@@ -242,46 +232,37 @@
       <span class="v-section-num">02</span>
       <h2>Themes and <span class="accent">modes</span></h2>
     </div>
-    <div class="decision" style="margin-top:0;">
-      <div class="decision-text">
-        <p><strong>Theme</strong> = typography: Folio, Hush, Codex. <strong>Mode</strong> = luminance: Light, Sepia, Dark, HC, System. Separate axes — twelve combinations, and high contrast works in any theme.</p>
-        <div class="v-table-scroll">
-          <table class="v-table">
-            <caption>Theme × mode, plus System</caption>
-            <thead>
-              <tr><th></th><th>Light</th><th>Sepia</th><th>Dark</th><th>HC</th></tr>
-            </thead>
-            <tbody>
-              <tr><th>Folio</th><td class="dot">●</td><td class="dot">●</td><td class="dot">●</td><td class="dot">●</td></tr>
-              <tr><th>Hush</th><td class="dot">●</td><td class="dot">●</td><td class="dot">●</td><td class="dot">●</td></tr>
-              <tr><th>Codex</th><td class="dot">●</td><td class="dot">●</td><td class="dot">●</td><td class="dot">●</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p>Size, line height, margins: steppers, not sliders.</p>
-      </div>
+    <div class="v-body">
+      <p><strong>Theme</strong> sets the type: Folio, Hush, Codex. <strong>Mode</strong> sets the light: Light, Sepia, Dark. Any theme works in any mode.</p>
+    </div>
+    <div class="shots" style="margin-top:36px;">
       <figure class="shot">
-        <img src="images/verso/typography-panel.webp" alt="The Verso typography panel: font size 20pt, line height 1.8, margins 24px, scroll or pages reading mode, Folio/Hush/Codex themes, and Light/Sepia/Dark/HC/System modes." loading="lazy" width="900" height="1955">
-        <figcaption><strong>Control panel</strong>Everything in one sheet.</figcaption>
+        <img src="images/verso/themes.png" alt="The reading panel in dark mode with the Hush theme selected: font size, line height, margins, reading mode, theme, and mode." loading="lazy" width="899" height="1946">
+        <figcaption><strong>Hush · Dark</strong>Everything in one sheet.</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="images/verso/themes-codex.png" alt="The reader in the Codex theme, light mode, with green accents and monospaced text." loading="lazy" width="899" height="1946">
+        <figcaption><strong>Codex · Light</strong>Same panel, another theme.</figcaption>
       </figure>
     </div>
   </section>
 
   <!-- ============================================================
-       03 — The voice picker
+       03 — Narration
        ============================================================ -->
   <section class="v-section">
     <div class="v-section-head">
       <span class="v-section-num">03</span>
-      <h2>The <span class="accent">voice picker</span></h2>
+      <h2><span class="accent">Narration</span></h2>
     </div>
     <div class="decision" style="margin-top:0;">
       <div class="decision-text">
-        <p>iOS ships thin default voices; the better ones are free but buried. The picker names the limit and gives the path — <strong>Settings → Accessibility → Spoken Content → Voices</strong> — and previews every voice.</p>
+        <p>Word, sentence, or no highlight. Speed, voice, and a sleep timer. Keeps playing on the lock screen.</p>
+        <p>iOS ships thin default voices; the better ones are free but buried. The voice picker gives the path: <strong>Settings → Accessibility → Spoken Content → Voices</strong>.</p>
       </div>
       <figure class="shot">
-        <img src="images/verso/narration-voice.webp" alt="The Verso narration voice picker showing System Default and Karen with preview buttons, and a note explaining how to download better voices from iOS Settings." loading="lazy" width="900" height="1955">
-        <figcaption><strong>Voice picker</strong>Previews every installed voice.</figcaption>
+        <img src="images/verso/narration-panel.png" alt="The narration panel: play control, speed, highlight mode, voice, and sleep timer options." loading="lazy" width="899" height="1946">
+        <figcaption><strong>Narration</strong>Highlight, voice, sleep timer.</figcaption>
       </figure>
     </div>
   </section>
@@ -295,17 +276,7 @@
       <h2><span class="accent">Privacy</span></h2>
     </div>
     <div class="v-body">
-      <p>No sign-in, no analytics, no recommendations. Network only fetches AO3 works you request; narration is on-device; fully offline after import.</p>
-      <ul class="v-specs">
-        <li><span class="k">Account</span><span class="v">None. Nothing to sign in to.</span></li>
-        <li><span class="k">Analytics</span><span class="v">None. No SDK, no events, no identifiers.</span></li>
-        <li><span class="k">Third-party deps</span><span class="v"><strong>Zero.</strong> SwiftUI, AVFoundation, MediaPlayer only</span></li>
-        <li><span class="k">Network</span><span class="v">Only to fetch an AO3 work the reader asks for</span></li>
-        <li><span class="k">Narration</span><span class="v">On-device speech synthesis, no network</span></li>
-        <li><span class="k">Storage</span><span class="v">Local only — library, progress, and settings</span></li>
-        <li><span class="k">Ads</span><span class="v">None</span></li>
-      </ul>
-      <p style="margin-top:18px;">Unofficial AO3 reader. Rated 17+ because import allows adult content.</p>
+      <p>No account, analytics, or ads. Narration runs on-device; the only network call fetches the AO3 work you ask for. Unofficial AO3 reader.</p>
     </div>
   </section>
 

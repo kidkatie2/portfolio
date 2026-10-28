@@ -45,11 +45,13 @@
     var footer = document.querySelector('footer');
     if (!footer) return;
     var CARS = 5;
-    var w = CAR[0].length * CARS + LOCO[0].length;
+    var REAR = LOCO.map(function (row) { return row.split('').reverse().join(''); });
+    var w = LOCO[0].length * 2 + CAR[0].length * CARS;
     var px = w * 2;
     var svg = '<svg viewBox="0 0 ' + w + ' 10" width="' + px + '" height="20" shape-rendering="crispEdges" aria-hidden="true">';
-    for (var i = 0; i < CARS; i++) svg += rects(CAR, CAR[0].length * i);
-    svg += rects(LOCO, CAR[0].length * CARS) + '</svg>';
+    svg += rects(REAR, 0);
+    for (var i = 0; i < CARS; i++) svg += rects(CAR, LOCO[0].length + CAR[0].length * i);
+    svg += rects(LOCO, LOCO[0].length + CAR[0].length * CARS) + '</svg>';
     var lane = document.createElement('div');
     lane.className = 'footer-train';
     lane.innerHTML = '<div class="footer-train-car">' + svg + '</div>';
@@ -58,10 +60,11 @@
 
     var css = document.createElement('style');
     css.textContent =
-      '.footer-train{position:relative;height:25px;overflow:hidden;border-bottom:1px dashed rgba(127,127,127,.25)}' +
+      '.footer-train{position:relative;height:48px;overflow:hidden;border-bottom:1px dashed rgba(127,127,127,.25)}' +
       '.footer-train-car{position:absolute;left:0;bottom:2px;will-change:transform;' +
         'line-height:0;animation:footer-train 26s linear infinite}' +
       '.footer-train svg{display:block}' +
+      '.footer-train-car:hover{animation-play-state:paused}' +
       '@keyframes footer-train{0%{transform:translateX(-' + (px + 10) + 'px)}70%{transform:translateX(calc(100vw + 20px))}100%{transform:translateX(calc(100vw + 20px))}}' +
       '.footer-train .t-b{fill:#c7ccd6}.footer-train .t-d{fill:#3a3d45}.footer-train .t-r{fill:#D10A3C}' +
       ':root[data-theme="dark"] .footer-train .t-d{fill:#5a5f6c}' +

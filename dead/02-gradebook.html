@@ -742,6 +742,8 @@
     .cell-closeup td.highlighted-cell { font-size: 18px; }
     .cell-closeup td:last-child { font-size: 14px; }
   }
+  :root[data-theme="dark"] .cell-closeup-wrap { background: var(--gray-50); }
+  :root[data-theme="dark"] .cell-closeup td.highlighted-cell { background: #3a2f0a; }
 </style>
 
 <style>
@@ -1293,7 +1295,7 @@
   </div>
 </section>
 
-<!-- ── FIGURE 05 — Cell close-up (the thesis figure) ────────── -->
+<!-- ── FIGURE 05 — Cell close-up ────────── -->
 <div class="figure">
   <div class="figure-frame" style="background:transparent;border:none;box-shadow:none;">
     <div class="cell-closeup-wrap">
@@ -1318,10 +1320,6 @@
             </tr>
           </tbody>
         </table>
-      </div>
-      <div class="cell-closeup-annotation">
-        <span class="arrow"></span>
-        <span class="label">The cell that mattered</span>
       </div>
     </div>
   </div>
@@ -1356,8 +1354,6 @@
       }, 0)
     </div>
   </div>
-
-  <p>The spec section is 28 lines: pseudocode, worked examples, and expected outputs for three edge cases.</p>
 </section>
 
 <!-- ── FIGURE 04 — Student detail panel ─────────────────────── -->

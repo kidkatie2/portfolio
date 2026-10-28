@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elapsed — Kate Chaparro</title>
+<meta name="description" content="Elapsed, iOS progress widgets for the day, week, year, life, or a countdown. Designed and built solo.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kidkatie2.github.io/portfolio/elapsed.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Kate Chaparro">
+<meta property="og:title" content="Elapsed — progress widgets">
+<meta property="og:description" content="Elapsed, iOS progress widgets for the day, week, year, life, or a countdown. Designed and built solo.">
+<meta property="og:url" content="https://kidkatie2.github.io/portfolio/elapsed.html">
+<meta property="og:image" content="https://kidkatie2.github.io/portfolio/images/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Kate Chaparro — Senior Product Designer">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Elapsed — progress widgets">
+<meta name="twitter:description" content="Elapsed, iOS progress widgets for the day, week, year, life, or a countdown. Designed and built solo.">
+<meta name="twitter:image" content="https://kidkatie2.github.io/portfolio/images/og-card.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/shell.css">
+<link rel="stylesheet" href="assets/theme.css">
+<script src="assets/theme.js"></script>
+<style>
+  :root {
+    --accent: #5b3fd0;
+    --accent-soft: #e4ddfb;
+    --g-paper: #f0ece2;
+    --g-ink: #0a0a0a;
+  }
+  :root[data-theme="dark"] {
+    --accent: #b9a6ff;
+    --accent-soft: #2a2347;
+  }
+
+  .g-wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+
+  /* ---------- Section scaffolding ---------- */
+  .g-section { border-top: 1px solid var(--rule); padding: 64px 0; }
+  .g-section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 32px; }
+  .g-section-num {
+    font-size: 12px; font-weight: 600; color: var(--accent);
+    letter-spacing: 0.08em; flex-shrink: 0;
+  }
+  .g-section-head h2 {
+    font-size: 22px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.25;
+  }
+  .g-section-head h2 .accent { color: var(--accent); }
+  .g-body { max-width: 720px; }
+  .g-body p { color: var(--ink-2); margin-bottom: 18px; font-size: 14px; line-height: 1.7; }
+  .g-body p:last-child { margin-bottom: 0; }
+  .g-body strong { color: var(--ink); font-weight: 600; }
+  .g-body code {
+    background: var(--surface); border: 1px solid var(--rule);
+    padding: 1px 6px; border-radius: 3px; font-size: 13px; color: var(--ink);
+  }
+
+  /* ---------- Screenshot presentation ---------- */
+  .shots { display: flex; gap: 28px; flex-wrap: wrap; }
+  .shot { flex: 1 1 200px; max-width: 260px; }
+  .shot img {
+    width: 100%; height: auto; display: block;
+    border: 1px solid var(--rule-strong); border-radius: 14px;
+    background: var(--g-paper);
+  }
+  .shot figcaption {
+    margin-top: 10px; font-size: 11px; line-height: 1.5;
+    color: var(--ink-3); letter-spacing: 0.04em;
+  }
+  .shot figcaption strong {
+    display: block; color: var(--ink-2); font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px;
+  }
+
+  .shots-hero { align-items: flex-start; }
+  .shots-hero .shot { max-width: 236px; }
+
+  /* ---------- Decision blocks ---------- */
+  .decision { margin-top: 40px; display: grid; grid-template-columns: 1fr 236px; gap: 40px; align-items: start; }
+  .decision:first-of-type { margin-top: 0; }
+  .decision-text h3 {
+    font-size: 15px; font-weight: 600; margin-bottom: 12px; letter-spacing: -0.005em;
+  }
+  .decision-text h3::before { content: '> '; color: var(--accent); }
+  .decision-text p { color: var(--ink-2); font-size: 14px; line-height: 1.7; margin-bottom: 14px; }
+  .decision-text p:last-child { margin-bottom: 0; }
+  .decision-text strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Math / data table ---------- */
+  .g-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 13px; }
+  .g-table caption {
+    text-align: left; font-size: 11px; letter-spacing: 0.06em; color: var(--ink-3);
+    text-transform: uppercase; padding-bottom: 10px;
+  }
+  .g-table th, .g-table td {
+    text-align: right; padding: 8px 12px; border-bottom: 1px solid var(--rule);
+    font-variant-numeric: tabular-nums;
+  }
+  .g-table th {
+    color: var(--ink-3); font-weight: 500; font-size: 11px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .g-table th:first-child, .g-table td:first-child { text-align: left; }
+  .g-table tbody tr:last-child td { border-bottom: none; }
+  .g-table .is-key { color: var(--accent); font-weight: 600; }
+  .g-table-scroll { overflow-x: auto; }
+
+  /* ---------- Spec list ---------- */
+  .g-specs { list-style: none; border-top: 1px solid var(--rule); margin-top: 8px; }
+  .g-specs li {
+    display: flex; gap: 20px; padding: 12px 0; border-bottom: 1px solid var(--rule);
+    font-size: 13px; align-items: baseline;
+  }
+  .g-specs .k {
+    flex: 0 0 150px; color: var(--ink-3); letter-spacing: 0.05em;
+    text-transform: uppercase; font-size: 11px;
+  }
+  .g-specs .v { color: var(--ink-2); }
+  .g-specs .v strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Theme swatch grid ---------- */
+  .themes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; }
+  .theme-card { }
+  .theme-card img {
+    width: 100%; height: auto; display: block;
+    border: 1px solid var(--rule-strong); border-radius: 12px;
+  }
+  .theme-card-meta { margin-top: 12px; }
+  .theme-card-name {
+    font-size: 13px; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; display: flex; align-items: center; gap: 8px;
+  }
+  .theme-tag {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.08em;
+    background: var(--ink); color: var(--bg); padding: 2px 5px; border-radius: 2px;
+  }
+  .theme-tag.is-free { background: var(--accent); }
+  .theme-card-desc { font-size: 12px; color: var(--ink-3); line-height: 1.55; margin-top: 5px; }
+
+  /* ---------- Closing CTA ---------- */
+  .g-cta { border-top: 1px solid var(--rule); padding: 64px 0 72px; }
+  .g-cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+  .g-cta-text h2 { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
+  .g-cta-text p { font-size: 13px; color: var(--ink-3); }
+  .g-cta-links { display: flex; gap: 12px; flex-wrap: wrap; }
+  .g-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 22px; font-size: 13px; font-weight: 600;
+    letter-spacing: 0.04em; border: 1px solid var(--ink); border-radius: 4px;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .g-btn-primary { background: var(--ink); color: var(--bg); }
+  .g-btn-primary:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .g-btn-ghost { color: var(--ink-2); border-color: var(--rule-strong); }
+  .g-btn-ghost:hover { color: var(--ink); border-color: var(--ink); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .decision { grid-template-columns: 1fr; gap: 24px; }
+    .decision .shot { max-width: 200px; }
+  }
+  @media (max-width: 620px) {
+    .g-section { padding: 44px 0; }
+    .g-section-head { flex-direction: column; gap: 6px; }
+    .shots { gap: 18px; }
+    .shot { flex-basis: 140px; }
+    .g-specs li { flex-direction: column; gap: 3px; }
+    .g-specs .k { flex-basis: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="statusbar">
+  <div class="statusbar-inner">
+    <div class="status-left">
+      <span class="status-dot">ONLINE</span>
+      <span class="status-time" id="status-time">--:--:-- PT</span>
+      <span>v.1.0.0</span>
+    </div>
+    <div class="status-right">
+      <span>SF/CA</span>
+      <span>2026</span>
+      <span>ISSUE 01</span>
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme">
+        <span class="icon">☾</span>
+        <span class="label">DARK</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">KATE<span class="slash">/</span>CHAPARRO</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Work</a></li>
+      <li><a href="index.html#about-section">About</a></li>
+      <li><a href="index.html#contact-section">Contact</a></li>
+      <li><a href="https://happy-novel-ashen.figma.site/" target="_blank" rel="noopener" class="ext-link">Older work ↗</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="case-page-hero">
+  <a class="case-back" href="index.html">← back to index</a>
+  <div class="case-eyebrow">Case Study 06 / Personal · iOS app</div>
+  <h1><span class="accent">Elapsed</span> — progress widgets.</h1>
+  <p class="case-lead">Home Screen and Lock Screen widgets that show how much of the day, week, year, or life has passed — or the days left to a deadline. Designed and built solo under Tesoro Industries LLC.</p>
+</section>
+
+<section class="tldr">
+  <div class="tldr-inner">
+    <div class="tldr-label">TL;DR</div>
+    <p class="tldr-content">Trackers as bars, rings, or dot grids. Free: two trackers, bar style. Pro: $3.99 once. Light and dark both free. No account, no backend, no analytics.</p>
+  </div>
+</section>
+
+<section class="case-meta-strip">
+  <div class="case-meta-inner">
+    <div class="case-meta-item"><span class="case-meta-label">role</span><span class="case-meta-value">Solo — design &amp; build</span></div>
+    <div class="case-meta-item"><span class="case-meta-label">stack</span><span class="case-meta-value">Swift · SwiftUI · WidgetKit</span></div>
+    <div class="case-meta-item"><span class="case-meta-label">payments</span><span class="case-meta-value">StoreKit 2</span></div>
+    <div class="case-meta-item"><span class="case-meta-label">platform</span><span class="case-meta-value">iPhone · Home + Lock Screen</span></div>
+    <div class="case-meta-item"><span class="case-meta-label">price</span><span class="case-meta-value">Free / $3.99 Pro</span></div>
+    <div class="case-meta-item"><span class="case-meta-label">year</span><span class="case-meta-value">2026</span></div>
+  </div>
+</section>
+
+<div class="g-wrap">
+
+  <section class="g-section" style="border-top:none;">
+    <div class="g-section-head">
+      <span class="g-section-num">01</span>
+      <h2>The <span class="accent">widgets</span></h2>
+    </div>
+    <div class="g-body">
+      <p>One configurable widget, five sizes. Pick a tracker and a style from the widget's own settings.</p>
+    </div>
+    <div class="shots shots-hero" style="margin-top:36px;">
+      <figure class="shot">
+        <img src="images/elapsed/home-screen.png" alt="Home Screen with three Elapsed widgets: Life as a dot grid at 36%, This Year as a bar at 81%, and a Tokyo countdown ring at 41 days." loading="lazy" width="899" height="1956">
+        <figcaption><strong>Home Screen</strong>Life, year, countdown.</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="images/elapsed/trackers.png" alt="Elapsed app in dark mode: a grid of trackers including This Year 80%, Tokyo 42 days, Life 36%, Today 51%, Semester 36%, and This Month 63%." loading="lazy" width="899" height="1956">
+        <figcaption><strong>Trackers</strong>Dark mode.</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="images/elapsed/trackers-light.png" alt="The same tracker grid in light mode." loading="lazy" width="899" height="1956">
+        <figcaption><strong>Trackers</strong>Light mode.</figcaption>
+      </figure>
+    </div>
+  </section>
+  <section class="g-section">
+    <div class="g-section-head">
+      <span class="g-section-num">02</span>
+      <h2>Trackers and <span class="accent">styles</span></h2>
+    </div>
+    <div class="decision" style="margin-top:0;">
+      <div class="decision-text">
+        <h3>Templates</h3>
+        <p>This Year, This Month, This Week, Today, Life, Countdown, Custom. Name it, pick a template, pick a style and a color.</p>
+      </div>
+      <figure class="shot">
+        <img src="images/elapsed/new-tracker.png" alt="New Tracker sheet: Countdown template, deadline Nov 20, 2026, Ring style selected, color swatches." loading="lazy" width="899" height="1956">
+        <figcaption><strong>New tracker</strong>Countdown, ring style.</figcaption>
+      </figure>
+    </div>
+    <div class="decision">
+      <div class="decision-text">
+        <h3>Three styles</h3>
+        <p>Bar, ring, dot grid. The preview at the top updates as you edit.</p>
+      </div>
+      <figure class="shot">
+        <img src="images/elapsed/tracker-edit.png" alt="Editing the Tokyo tracker: live preview of a 42-day ring, style picker with Bar, Ring, and Dot Grid, color swatches, Archive and Delete." loading="lazy" width="899" height="1956">
+        <figcaption><strong>Edit</strong>Live preview.</figcaption>
+      </figure>
+    </div>
+  </section>
+  <section class="g-section">
+    <div class="g-section-head">
+      <span class="g-section-num">03</span>
+      <h2><span class="accent">Pricing</span></h2>
+    </div>
+    <div class="g-body">
+      <p>Free: any two trackers, bar style. <strong>Pro, $3.99 once:</strong> unlimited trackers, ring and dot-grid styles, Lock Screen widgets. No subscription.</p>
+      <p>Light and dark are always free — you pay for styles, never for a mode. Widgets show Pro styles with a PRO badge instead of breaking, since a widget can't show a paywall.</p>
+    </div>
+  </section>
+  <section class="g-section">
+    <div class="g-section-head">
+      <span class="g-section-num">04</span>
+      <h2><span class="accent">Privacy</span></h2>
+    </div>
+    <div class="g-body">
+      <ul class="g-specs">
+        <li><span class="k">Account</span><span class="v">None</span></li>
+        <li><span class="k">Analytics</span><span class="v">None</span></li>
+        <li><span class="k">Backend</span><span class="v">None</span></li>
+        <li><span class="k">Storage</span><span class="v">On-device; shared only with the app's widgets</span></li>
+        <li><span class="k">Privacy label</span><span class="v">Data Not Collected</span></li>
+      </ul>
+    </div>
+  </section>
+
+</div>
+
+<div class="g-wrap">
+  <section class="g-cta">
+    <div class="g-cta-inner">
+      <div class="g-cta-text">
+        <h2>Elapsed is coming to the App Store</h2>
+        <p>Free, with an optional $3.99 Pro unlock.</p>
+      </div>
+      <div class="g-cta-links">
+        <a class="g-btn g-btn-primary" href="caltrain.html">My Caltrain case study →</a>
+        <a class="g-btn g-btn-ghost" href="gratuity.html">Gratuity case study</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-meta">
+      <strong>Kate Chaparro</strong> · Senior Product Designer · 2026<br>
+      Set in JetBrains Mono · Built by Fable 5
+    </div>
+    <div class="footer-socials">
+      <a href="cv.html">CV</a>
+      <a href="https://www.linkedin.com/in/katechaparro/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://happy-novel-ashen.figma.site/" target="_blank" rel="noopener">Portfolio</a>
+      <a href="mailto:chaparrokate02@gmail.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function updateTime() {
+    const now = new Date();
+    const opts = { timeZone: 'America/Los_Angeles', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    const t = new Intl.DateTimeFormat('en-US', opts).format(now);
+    const el = document.getElementById('status-time');
+    if (el) el.textContent = t + ' PT';
+  }
+  updateTime();
+  setInterval(updateTime, 1000);
+</script>
+
+</body>
+</html>

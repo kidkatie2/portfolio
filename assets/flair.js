@@ -58,6 +58,16 @@
     footer.insertBefore(lane, footer.firstChild);
     footer.style.borderTop = 'none';
 
+    // Constant speed on any screen width; the 0.7 matches the 70% moving share of the keyframes.
+    var SPEED = 65; // px per second
+    var car = lane.firstChild;
+    function setDuration() {
+      var distance = window.innerWidth + px + 30;
+      car.style.animationDuration = (distance / SPEED / 0.7).toFixed(1) + 's';
+    }
+    setDuration();
+    window.addEventListener('resize', setDuration);
+
     var css = document.createElement('style');
     css.textContent =
       '.footer-train{position:relative;height:48px;overflow:hidden;border-bottom:1px dashed rgba(127,127,127,.25)}' +

@@ -54,7 +54,8 @@
     svg += rects(LOCO, LOCO[0].length + CAR[0].length * CARS) + '</svg>';
     var lane = document.createElement('div');
     lane.className = 'footer-train';
-    lane.innerHTML = '<div class="footer-train-car">' + svg + '</div>';
+    lane.innerHTML = '<div class="footer-train-car" role="img" aria-label="Me, taking the Caltrain into work">' + svg +
+      '<span class="footer-train-tip" aria-hidden="true">Me, taking the Caltrain into work 🙂</span></div>';
     footer.insertBefore(lane, footer.firstChild);
     footer.style.borderTop = 'none';
 
@@ -75,6 +76,11 @@
         'line-height:0;animation:footer-train 26s linear infinite}' +
       '.footer-train svg{display:block}' +
       '.footer-train-car:hover{animation-play-state:paused}' +
+      '.footer-train-tip{position:absolute;left:50%;bottom:calc(100% + 3px);transform:translateX(-50%);white-space:nowrap;' +
+        "font:500 11px/1 'JetBrains Mono','SF Mono',monospace;letter-spacing:.02em;padding:4px 8px;border-radius:3px;" +
+        'background:#101218;color:#fff;opacity:0;pointer-events:none;transition:opacity .15s}' +
+      '.footer-train-car:hover .footer-train-tip{opacity:1}' +
+      ':root[data-theme="dark"] .footer-train-tip{background:#e8ecf5;color:#0e1118}' +
       '@keyframes footer-train{0%{transform:translateX(-' + (px + 10) + 'px)}70%{transform:translateX(calc(100vw + 20px))}100%{transform:translateX(calc(100vw + 20px))}}' +
       '.footer-train .t-b{fill:#c7ccd6}.footer-train .t-d{fill:#3a3d45}.footer-train .t-r{fill:#D10A3C}' +
       ':root[data-theme="dark"] .footer-train .t-d{fill:#5a5f6c}' +

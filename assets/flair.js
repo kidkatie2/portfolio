@@ -62,6 +62,16 @@
     // Constant speed on any screen width; the 0.7 matches the 70% moving share of the keyframes.
     var SPEED = 65; // px per second
     var car = lane.firstChild;
+    var tip = car.querySelector('.footer-train-tip');
+    // Center the label over the on-screen part of the train, kept 8px inside the window.
+    car.addEventListener('mouseenter', function () {
+      var r = car.getBoundingClientRect();
+      var w = tip.offsetWidth;
+      var vw = document.documentElement.clientWidth;
+      var mid = (Math.max(r.left, 0) + Math.min(r.right, vw)) / 2;
+      var left = Math.min(Math.max(mid - w / 2, 8), vw - w - 8);
+      tip.style.left = (left - r.left) + 'px';
+    });
     function setDuration() {
       var distance = window.innerWidth + px + 30;
       car.style.animationDuration = (distance / SPEED / 0.7).toFixed(1) + 's';
@@ -76,7 +86,7 @@
         'line-height:0;animation:footer-train 26s linear infinite}' +
       '.footer-train svg{display:block}' +
       '.footer-train-car:hover{animation-play-state:paused}' +
-      '.footer-train-tip{position:absolute;left:50%;bottom:calc(100% + 3px);transform:translateX(-50%);white-space:nowrap;' +
+      '.footer-train-tip{position:absolute;left:0;bottom:calc(100% + 3px);white-space:nowrap;' +
         "font:500 11px/1 'JetBrains Mono','SF Mono',monospace;letter-spacing:.02em;padding:4px 8px;border-radius:3px;" +
         'background:#101218;color:#fff;opacity:0;pointer-events:none;transition:opacity .15s}' +
       '.footer-train-car:hover .footer-train-tip{opacity:1}' +

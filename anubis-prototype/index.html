@@ -1,0 +1,4221 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><meta name="robots" content="noindex"><meta name="description" content="Clickable prototype of Anubis Law, state law exam prep. Mock data."></head><body>
+<title>Anubis Law — Prototype</title>
+<style>body{background:#FBF9F4;margin:0}</style>
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script>window.react = window.React;</script>
+<script src="https://unpkg.com/lucide-react@0.383.0/dist/umd/lucide-react.min.js"></script>
+<script>try{if(!localStorage.getItem("anubis-theme")&&localStorage.getItem("kc-theme"))localStorage.setItem("anubis-theme",localStorage.getItem("kc-theme"))}catch(e){}</script>
+<style>.kc-exit{position:sticky;top:0;z-index:40;height:36px;box-sizing:border-box}#root .sticky.top-0{top:36px!important}</style>
+<div class="kc-exit" style="background:#1A1509;color:#F7F3E8;font:500 12px/1 'DM Mono','SF Mono',ui-monospace,monospace;letter-spacing:.04em;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px">
+  <a href="../anubis.html" style="color:#F7F3E8;text-decoration:none;display:inline-flex;align-items:center;gap:6px">← Back to portfolio</a>
+  <span style="color:#A79C82">Prototype · mock data</span>
+</div>
+<div id="root"></div>
+<script>
+const {
+  useState,
+  useEffect,
+  useMemo,
+  useRef
+} = React;
+const {
+  Sun,
+  Moon,
+  Play,
+  Pause,
+  Flag,
+  Shuffle,
+  ChevronLeft,
+  ChevronRight,
+  LayoutDashboard,
+  Layers,
+  ClipboardList,
+  Zap,
+  LayoutGrid,
+  Video,
+  Check,
+  ArrowRight,
+  RotateCcw,
+  AlertTriangle,
+  MapPin,
+  ChevronDown,
+  LogOut,
+  PlayCircle,
+  BarChart3,
+  Timer,
+  GraduationCap,
+  Info,
+  X
+} = LucideReact;
+
+/* ============================================================
+   DEAD! LEGAL — NC Law Exam Prep Prototype
+   Brand: white/warm-ivory base · yellow gold #C9A227 primary
+          deep teal #0E7C6B accent · ink #1A1509 text
+   Type:  DM Sans (UI) · DM Mono (IDs/metadata)
+   Scope: one state at a time, chosen in onboarding (NC live)
+   ============================================================ */
+
+const THEMES = {
+  light: {
+    mode: "light",
+    base: "#FBF9F4",
+    surface: "#FFFFFF",
+    surfaceHi: "#F2ECDD",
+    cardBorder: "#E6DFCC",
+    primary: "#C9A227",
+    onPrimary: "#1A1509",
+    accent: "#0E7C6B",
+    success: "#1F8A5B",
+    danger: "#B03A48",
+    warn: "#A85A0B",
+    text: "#1A1509",
+    dim: "#7A7059",
+    nav: "#FFFFFF"
+  },
+  dark: {
+    mode: "dark",
+    base: "#12100A",
+    surface: "#1D1A11",
+    surfaceHi: "#2A2517",
+    cardBorder: "#332C1C",
+    primary: "#E0B437",
+    onPrimary: "#16120A",
+    accent: "#4FC7B0",
+    success: "#3FBE84",
+    danger: "#F0697C",
+    warn: "#E39A3B",
+    text: "#F7F3E8",
+    dim: "#A79C82",
+    nav: "#17140D"
+  }
+};
+const STATES = [{
+  code: "NC",
+  name: "North Carolina",
+  ready: true
+}, {
+  code: "SC",
+  name: "South Carolina"
+}, {
+  code: "VA",
+  name: "Virginia"
+}, {
+  code: "GA",
+  name: "Georgia"
+}, {
+  code: "TN",
+  name: "Tennessee"
+}, {
+  code: "FL",
+  name: "Florida"
+}, {
+  code: "OH",
+  name: "Ohio"
+}, {
+  code: "TX",
+  name: "Texas"
+}];
+const ThemeCtx = React.createContext(THEMES.light);
+const StateCtx = React.createContext("NC");
+const useSt = () => React.useContext(StateCtx);
+const inState = (item, st) => !item.states || item.states.includes(st);
+const useC = () => React.useContext(ThemeCtx);
+
+/* ---------------- MOCK DATA ----------------
+   Data model: every question carries
+   - states: state applicability (NC only for now)
+   - topic: subject tag
+   - bank: 'practice' | 'test'  (dashboard stats use practice only)
+   Admin UI not built yet — fields exist so it can be. */
+
+const TOPICS = ["Licensing & Permits", "Preneed Contracts", "Disposition Authority", "Recordkeeping & Reporting", "Board Rules & Discipline"];
+const QUESTIONS = [
+// --- Licensing & Permits ---
+{
+  id: "DEAD-LAW-001",
+  states: ["NC"],
+  topic: "Licensing & Permits",
+  bank: "practice",
+  q: "In North Carolina, which body issues funeral establishment permits?",
+  choices: ["NC Department of Health and Human Services", "NC Board of Funeral Service", "County Register of Deeds", "NC Secretary of State"],
+  answer: 1,
+  exp: "The NC Board of Funeral Service licenses individuals and issues establishment permits under G.S. Chapter 90, Article 13A."
+}, {
+  id: "DEAD-LAW-002",
+  states: ["NC"],
+  topic: "Licensing & Permits",
+  bank: "practice",
+  q: "A funeral service licensee in NC must complete how many hours of continuing education per year?",
+  choices: ["3 hours", "5 hours", "8 hours", "12 hours"],
+  answer: 1,
+  exp: "NC requires 5 hours of Board-approved continuing education annually for license renewal."
+}, {
+  id: "DEAD-LAW-003",
+  states: ["NC"],
+  topic: "Licensing & Permits",
+  bank: "practice",
+  q: "A resident trainee permit in NC is generally valid for what period before renewal?",
+  choices: ["6 months", "12 months", "24 months", "36 months"],
+  answer: 1,
+  exp: "Trainee permits are issued on a 12-month basis and renewed as the traineeship continues."
+}, {
+  id: "DEAD-LAW-004",
+  states: ["NC"],
+  topic: "Licensing & Permits",
+  bank: "test",
+  q: "Operating a funeral establishment without a valid permit in NC is punishable as:",
+  choices: ["A Class 1 misdemeanor", "A civil infraction only", "A Class H felony", "License suspension only"],
+  answer: 0,
+  exp: "Unlicensed practice provisions classify this as a Class 1 misdemeanor."
+},
+// --- Preneed Contracts ---
+{
+  id: "DEAD-LAW-010",
+  states: ["NC"],
+  topic: "Preneed Contracts",
+  bank: "practice",
+  q: "NC preneed funeral contracts are governed primarily by which statutory article?",
+  choices: ["Article 13A", "Article 13D", "Article 13F", "Article 9"],
+  answer: 2,
+  exp: "Article 13F of G.S. Chapter 90 governs preneed funeral contracts and preneed licensing."
+}, {
+  id: "DEAD-LAW-011",
+  states: ["NC"],
+  topic: "Preneed Contracts",
+  bank: "practice",
+  q: "Funds from a standard preneed contract in NC must be deposited within how many days of receipt?",
+  choices: ["5 business days", "10 business days", "30 calendar days", "60 calendar days"],
+  answer: 1,
+  exp: "Preneed funds must be deposited into trust (or applied to insurance) within 10 business days."
+}, {
+  id: "DEAD-LAW-012",
+  states: ["NC"],
+  topic: "Preneed Contracts",
+  bank: "practice",
+  q: "A purchaser's right to cancel a revocable preneed contract entitles them to:",
+  choices: ["Nothing after 30 days", "Trust principal only", "Trust principal plus earned interest, less permitted fees", "Original payment minus 50%"],
+  answer: 2,
+  exp: "On revocation, the purchaser receives principal and accrued earnings less any statutorily permitted fees."
+}, {
+  id: "DEAD-LAW-013",
+  states: ["NC"],
+  topic: "Preneed Contracts",
+  bank: "test",
+  q: "Who must hold a preneed sales license to sell preneed contracts in NC?",
+  choices: ["Any establishment employee", "Only the establishment owner", "Individuals licensed as preneed sales licensees", "Attorneys only"],
+  answer: 2,
+  exp: "Preneed sales require an individual preneed sales license issued by the Board."
+},
+// --- Disposition Authority ---
+{
+  id: "DEAD-LAW-020",
+  states: ["NC"],
+  topic: "Disposition Authority",
+  bank: "practice",
+  q: "Under NC law, who holds first priority to authorize disposition when the decedent left no written directive?",
+  choices: ["Adult children", "Surviving spouse", "Parents", "Executor of the estate"],
+  answer: 1,
+  exp: "Absent a directive or appointed agent, the surviving spouse holds first priority under G.S. 130A-420."
+}, {
+  id: "DEAD-LAW-021",
+  states: ["NC"],
+  topic: "Disposition Authority",
+  bank: "practice",
+  q: "A cremation authorization in NC generally requires a waiting period of:",
+  choices: ["No waiting period", "24 hours after death", "48 hours after death", "72 hours after death"],
+  answer: 1,
+  exp: "Cremation may not occur until 24 hours after death unless a waiver applies."
+}, {
+  id: "DEAD-LAW-022",
+  states: ["NC"],
+  topic: "Disposition Authority",
+  bank: "practice",
+  q: "If equal-priority next of kin disagree about disposition, the funeral establishment may:",
+  choices: ["Choose the first request received", "Rely on a majority of the class or seek court direction", "Defer to the eldest member", "Proceed with burial by default"],
+  answer: 1,
+  exp: "Statute permits reliance on a majority of the priority class; unresolved disputes go to the clerk of court."
+},
+// --- Recordkeeping & Reporting ---
+{
+  id: "DEAD-LAW-030",
+  states: ["NC"],
+  topic: "Recordkeeping & Reporting",
+  bank: "practice",
+  q: "A death certificate in NC must be filed with the local registrar within how many days of death?",
+  choices: ["3 days", "5 days", "10 days", "15 days"],
+  answer: 1,
+  exp: "The funeral director must file the certificate within 5 days and before final disposition."
+}, {
+  id: "DEAD-LAW-031",
+  states: ["NC"],
+  topic: "Recordkeeping & Reporting",
+  bank: "practice",
+  q: "Preneed contract records must be retained by the establishment for at least:",
+  choices: ["1 year after performance", "3 years after performance or cancellation", "5 years from signing", "Permanently"],
+  answer: 1,
+  exp: "Records must be kept for 3 years following performance, cancellation, or transfer."
+}, {
+  id: "DEAD-LAW-032",
+  states: ["NC"],
+  topic: "Recordkeeping & Reporting",
+  bank: "test",
+  q: "Which record must be available for Board inspection at the funeral establishment?",
+  choices: ["Employee tax filings", "Itemized statements of goods and services", "Family correspondence", "Vehicle maintenance logs"],
+  answer: 1,
+  exp: "Itemized statements and related transaction records must be open to Board inspection."
+},
+// --- Board Rules & Discipline ---
+{
+  id: "DEAD-LAW-040",
+  states: ["NC"],
+  topic: "Board Rules & Discipline",
+  bank: "practice",
+  q: "Which of the following is grounds for license discipline by the NC Board of Funeral Service?",
+  choices: ["Advertising prices", "Solicitation of dead human bodies", "Offering preneed contracts", "Employing trainees"],
+  answer: 1,
+  exp: "Solicitation of bodies (directly or through agents) is enumerated as grounds for discipline."
+}, {
+  id: "DEAD-LAW-041",
+  states: ["NC"],
+  topic: "Board Rules & Discipline",
+  bank: "practice",
+  q: "Before revoking a license, the Board must generally provide the licensee:",
+  choices: ["Nothing — revocation is summary", "Notice and an opportunity for a hearing", "A 5-year probation first", "A jury trial"],
+  answer: 1,
+  exp: "Due process under the Administrative Procedure Act requires notice and a hearing opportunity."
+}, {
+  id: "DEAD-LAW-042",
+  states: ["NC"],
+  topic: "Board Rules & Discipline",
+  bank: "practice",
+  q: "The maximum civil penalty the Board may assess per violation is:",
+  choices: ["$500", "$1,000", "$5,000", "$10,000"],
+  answer: 2,
+  exp: "The Board may assess civil penalties up to $5,000 per violation."
+}];
+const FLASHCARDS = [{
+  id: "DEAD-FC-001",
+  states: ["NC"],
+  topic: "Licensing & Permits",
+  bank: "practice",
+  front: "NC Board of Funeral Service",
+  back: "The licensing authority for funeral directors, embalmers, funeral service licensees, establishments, and preneed licensees in North Carolina."
+}, {
+  id: "DEAD-FC-002",
+  states: ["NC"],
+  topic: "Preneed Contracts",
+  bank: "practice",
+  front: "Article 13F",
+  back: "The article of G.S. Chapter 90 governing preneed funeral contracts, preneed licensing, and preneed trust requirements."
+}, {
+  id: "DEAD-FC-003",
+  states: ["NC"],
+  topic: "Disposition Authority",
+  bank: "practice",
+  front: "G.S. 130A-420",
+  back: "NC statute establishing the priority order of persons authorized to direct disposition of a decedent's body."
+}, {
+  id: "DEAD-FC-004",
+  states: ["NC"],
+  topic: "Recordkeeping & Reporting",
+  bank: "practice",
+  front: "Death certificate filing window",
+  back: "5 days from death — and always before final disposition — filed by the funeral director with the local registrar."
+}, {
+  id: "DEAD-FC-005",
+  states: ["NC"],
+  topic: "Board Rules & Discipline",
+  bank: "practice",
+  front: "Civil penalty ceiling",
+  back: "$5,000 per violation, assessable by the Board in addition to other disciplinary action."
+}, {
+  id: "DEAD-FC-006",
+  states: ["NC"],
+  topic: "Preneed Contracts",
+  bank: "practice",
+  front: "Preneed deposit deadline",
+  back: "10 business days from receipt — preneed funds must reach trust or be applied to a funded insurance policy."
+}];
+const MATCH_PAIRS = [{
+  id: "m1",
+  term: "Article 13F",
+  def: "Preneed contracts"
+}, {
+  id: "m2",
+  term: "G.S. 130A-420",
+  def: "Disposition priority"
+}, {
+  id: "m3",
+  term: "5 days",
+  def: "Death certificate filing"
+}, {
+  id: "m4",
+  term: "24 hours",
+  def: "Cremation waiting period"
+}, {
+  id: "m5",
+  term: "$5,000",
+  def: "Max civil penalty"
+}, {
+  id: "m6",
+  term: "5 hours",
+  def: "Annual CE requirement"
+}];
+const VIDEO_LESSON = {
+  id: "DEAD-VID-001",
+  states: ["NC"],
+  topic: "Preneed Contracts",
+  bank: "practice",
+  title: "Preneed Contracts in North Carolina",
+  segments: [{
+    title: "What makes a contract 'preneed'",
+    duration: 18,
+    questions: [{
+      q: "A contract is 'preneed' when funeral goods or services are:",
+      choices: ["Paid at the time of death", "Arranged and funded before death", "Provided at no charge", "Sold only by insurers"],
+      answer: 1,
+      exp: "Preneed means arranged and paid for in advance of need."
+    }]
+  }, {
+    title: "Licensing: who can sell",
+    duration: 16,
+    questions: [{
+      q: "Selling preneed contracts in NC requires:",
+      choices: ["No special license", "A preneed sales license", "A real estate license", "Board membership"],
+      answer: 1,
+      exp: "Individual sellers must hold a preneed sales license from the Board."
+    }, {
+      q: "The establishment itself must hold:",
+      choices: ["A preneed establishment permit", "A notary commission", "A bank charter", "Nothing additional"],
+      answer: 0,
+      exp: "Establishments need their own preneed permit in addition to individual sales licenses."
+    }]
+  }, {
+    title: "Trusting the funds",
+    duration: 20,
+    questions: [{
+      q: "Preneed funds must be deposited within:",
+      choices: ["24 hours", "10 business days", "30 days", "90 days"],
+      answer: 1,
+      exp: "10 business days from receipt, into trust or applied to insurance."
+    }]
+  }, {
+    title: "Cancellation & purchaser rights",
+    duration: 15,
+    questions: [{
+      q: "On revoking a revocable contract, the purchaser recovers:",
+      choices: ["Nothing", "Principal plus earnings, less permitted fees", "50% of payments", "Merchandise only"],
+      answer: 1,
+      exp: "Principal and accrued earnings, minus statutorily permitted fees."
+    }]
+  }]
+};
+const FLASHCARD_SETS = [{
+  id: "DEAD-SET-001",
+  states: ["NC"],
+  title: "Core Statutes & Citations",
+  topic: "Mixed review",
+  desc: "The numbers and cites that anchor everything else.",
+  cards: FLASHCARDS
+}, {
+  id: "DEAD-SET-002",
+  states: ["NC"],
+  title: "Preneed Contracts",
+  topic: "Preneed Contracts",
+  desc: "Trusting, funding, cancelling, and reporting.",
+  cards: [{
+    id: "DEAD-FC-010",
+    front: "Revocable vs. irrevocable",
+    back: "Revocable contracts can be cancelled by the purchaser for principal plus earnings, less permitted fees. Irrevocable contracts (commonly used for benefits eligibility) may only be transferred to another provider."
+  }, {
+    id: "DEAD-FC-011",
+    front: "Insurance-funded preneed",
+    back: "A life insurance policy assigned to fund the contract may be used in lieu of a trust deposit."
+  }, {
+    id: "DEAD-FC-012",
+    front: "Annual preneed report",
+    back: "Preneed establishments report contracts written, performed, and cancelled to the Board each year."
+  }, {
+    id: "DEAD-FC-013",
+    front: "Merchandise substitution",
+    back: "If contracted merchandise is unavailable at need, the establishment must substitute merchandise of equal or greater quality at no additional cost."
+  }, {
+    id: "DEAD-FC-014",
+    front: "Preneed sales license",
+    back: "Required for any individual selling preneed contracts — separate from the establishment's own preneed permit."
+  }]
+}, {
+  id: "DEAD-SET-003",
+  states: ["NC"],
+  title: "Disposition & Cremation",
+  topic: "Disposition Authority",
+  desc: "Who decides, in what order, and when cremation can proceed.",
+  cards: [{
+    id: "DEAD-FC-020",
+    front: "Authorizing agent",
+    back: "The person with legal priority to direct disposition under G.S. 130A-420 — directive, appointed agent, spouse, then descending kinship classes."
+  }, {
+    id: "DEAD-FC-021",
+    front: "Written directive",
+    back: "A decedent's own signed disposition instructions control over the wishes of any next of kin."
+  }, {
+    id: "DEAD-FC-022",
+    front: "24-hour rule",
+    back: "Cremation may not occur until 24 hours after death, absent a statutory waiver."
+  }, {
+    id: "DEAD-FC-023",
+    front: "Medical examiner release",
+    back: "When a death falls under medical examiner jurisdiction, cremation requires ME authorization before proceeding."
+  }, {
+    id: "DEAD-FC-024",
+    front: "Class disagreement",
+    back: "If equal-priority kin disagree, the establishment may rely on a majority of the class; unresolved disputes go to the clerk of court."
+  }]
+}, {
+  id: "DEAD-SET-004",
+  states: ["NC"],
+  title: "Licensing, CE & Discipline",
+  topic: "Licensing & Permits",
+  desc: "Credentials, traineeship, renewal, and how licenses are lost.",
+  cards: [{
+    id: "DEAD-FC-030",
+    front: "FSL",
+    back: "Funeral Service Licensee — the combined credential covering both funeral directing and embalming."
+  }, {
+    id: "DEAD-FC-031",
+    front: "Resident traineeship",
+    back: "A supervised, permitted traineeship with required case reports, completed under a licensed supervisor before examination."
+  }, {
+    id: "DEAD-FC-032",
+    front: "CE requirement",
+    back: "5 hours of Board-approved continuing education each year to renew."
+  }, {
+    id: "DEAD-FC-033",
+    front: "Establishment manager",
+    back: "Every funeral establishment must designate a licensed manager who is answerable to the Board for its operation."
+  }, {
+    id: "DEAD-FC-034",
+    front: "Civil penalty ceiling",
+    back: "$5,000 per violation, in addition to any suspension, revocation, or probation."
+  }]
+}];
+const EXAMS = [{
+  id: "DEAD-EX-A",
+  states: ["NC"],
+  title: "Full Practice Exam — Form A",
+  topic: null,
+  n: 10,
+  lastScore: 78,
+  desc: "10 questions across all five topics under exam conditions. Draws from both banks."
+}, {
+  id: "DEAD-EX-B",
+  states: ["NC"],
+  title: "Full Practice Exam — Form B",
+  topic: null,
+  n: 10,
+  lastScore: null,
+  desc: "A second mixed form with a fresh draw. Take it cold to check retention."
+}, {
+  id: "DEAD-EX-PRE",
+  states: ["NC"],
+  title: "Focus Exam — Preneed Contracts",
+  topic: "Preneed Contracts",
+  n: 4,
+  lastScore: null,
+  desc: "Every preneed question in the bank. The heaviest-weighted topic on the NC exam."
+}, {
+  id: "DEAD-EX-LIC",
+  states: ["NC"],
+  title: "Focus Exam — Licensing & Permits",
+  topic: "Licensing & Permits",
+  n: 4,
+  lastScore: 50,
+  desc: "Credentials, permits, and unlicensed-practice questions only."
+}];
+const QUIZZES = [{
+  id: "DEAD-QZ-MIX",
+  states: ["NC"],
+  title: "Quick 5 — Mixed",
+  topic: null,
+  n: 5,
+  desc: "Five random practice-bank questions, instant feedback."
+}, {
+  id: "DEAD-QZ-PRE",
+  states: ["NC"],
+  title: "Preneed Contracts",
+  topic: "Preneed Contracts",
+  n: 5,
+  desc: "Trusts, deposits, cancellation, and sales licensing."
+}, {
+  id: "DEAD-QZ-DIS",
+  states: ["NC"],
+  title: "Disposition Authority",
+  topic: "Disposition Authority",
+  n: 5,
+  desc: "Priority order, directives, and cremation timing."
+}, {
+  id: "DEAD-QZ-LIC",
+  states: ["NC"],
+  title: "Licensing & Permits",
+  topic: "Licensing & Permits",
+  n: 5,
+  desc: "Who needs which credential, and for how long."
+}, {
+  id: "DEAD-QZ-REC",
+  states: ["NC"],
+  title: "Recordkeeping & Reporting",
+  topic: "Recordkeeping & Reporting",
+  n: 5,
+  desc: "Filing windows, retention, and Board inspection."
+}, {
+  id: "DEAD-QZ-BRD",
+  states: ["NC"],
+  title: "Board Rules & Discipline",
+  topic: "Board Rules & Discipline",
+  n: 5,
+  desc: "Grounds for discipline, due process, and penalties."
+}];
+const MATCH_SETS = [{
+  id: "DEAD-MG-001",
+  states: ["NC"],
+  title: "Numbers & Deadlines",
+  desc: "Hours, days, and dollar amounts you have to know cold.",
+  pairs: MATCH_PAIRS
+}, {
+  id: "DEAD-MG-002",
+  states: ["NC"],
+  title: "Statutes & What They Govern",
+  desc: "Match each citation to its subject.",
+  pairs: [{
+    id: "s1",
+    term: "Article 13A",
+    def: "Practice of funeral service"
+  }, {
+    id: "s2",
+    term: "Article 13F",
+    def: "Preneed contracts"
+  }, {
+    id: "s3",
+    term: "G.S. 130A-420",
+    def: "Disposition priority"
+  }, {
+    id: "s4",
+    term: "G.S. 130A-115",
+    def: "Death registration"
+  }, {
+    id: "s5",
+    term: "Chapter 90",
+    def: "Medicine & allied occupations"
+  }, {
+    id: "s6",
+    term: "21 NCAC 34",
+    def: "Board administrative rules"
+  }]
+}, {
+  id: "DEAD-MG-003",
+  states: ["NC"],
+  title: "Vocabulary",
+  desc: "Core terms of art from the statutes.",
+  pairs: [{
+    id: "v1",
+    term: "FSL",
+    def: "Directing + embalming license"
+  }, {
+    id: "v2",
+    term: "Authorizing agent",
+    def: "Holds disposition priority"
+  }, {
+    id: "v3",
+    term: "At-need",
+    def: "Arranged after death"
+  }, {
+    id: "v4",
+    term: "Preneed",
+    def: "Funded before death"
+  }, {
+    id: "v5",
+    term: "Resident trainee",
+    def: "Supervised pre-licensure permit"
+  }, {
+    id: "v6",
+    term: "ME release",
+    def: "Required before some cremations"
+  }]
+}];
+const VIDEO_LESSONS = [VIDEO_LESSON, {
+  id: "DEAD-VID-002",
+  states: ["NC"],
+  topic: "Disposition Authority",
+  bank: "practice",
+  title: "Disposition Authority Basics",
+  segments: [{
+    title: "The priority list",
+    duration: 15,
+    questions: [{
+      q: "With no directive or appointed agent, first priority goes to:",
+      choices: ["Adult children", "The surviving spouse", "The executor", "Parents"],
+      answer: 1,
+      exp: "The surviving spouse holds first priority under G.S. 130A-420."
+    }]
+  }, {
+    title: "Written directives & appointed agents",
+    duration: 14,
+    questions: [{
+      q: "A decedent's signed written directive:",
+      choices: ["Is advisory only", "Controls over next-of-kin wishes", "Requires spousal consent", "Expires at death"],
+      answer: 1,
+      exp: "The decedent's own directive outranks every kinship class."
+    }]
+  }, {
+    title: "Cremation timing",
+    duration: 16,
+    questions: [{
+      q: "Absent a waiver, cremation may not occur until:",
+      choices: ["Immediately after death", "24 hours after death", "72 hours after death", "The death certificate is amended"],
+      answer: 1,
+      exp: "The 24-hour waiting period applies unless statutorily waived."
+    }]
+  }]
+}, {
+  id: "DEAD-VID-003",
+  states: ["NC"],
+  topic: "Recordkeeping & Reporting",
+  bank: "practice",
+  title: "Recordkeeping Essentials",
+  segments: [{
+    title: "Filing the death certificate",
+    duration: 14,
+    questions: [{
+      q: "The death certificate must be filed within:",
+      choices: ["3 days", "5 days", "10 days", "30 days"],
+      answer: 1,
+      exp: "5 days from death, and always before final disposition."
+    }]
+  }, {
+    title: "What the Board can inspect",
+    duration: 15,
+    questions: [{
+      q: "Which must be open to Board inspection at the establishment?",
+      choices: ["Employee tax filings", "Itemized statements of goods and services", "Personal correspondence", "Vehicle titles"],
+      answer: 1,
+      exp: "Transaction records, including itemized statements, are inspectable."
+    }]
+  }, {
+    title: "Retention windows",
+    duration: 13,
+    questions: [{
+      q: "Preneed contract records must be kept for:",
+      choices: ["1 year", "3 years after performance or cancellation", "7 years", "Permanently"],
+      answer: 1,
+      exp: "3 years following performance, cancellation, or transfer."
+    }]
+  }]
+}, {
+  id: "DEAD-VID-004",
+  states: ["NC"],
+  topic: "Board Rules & Discipline",
+  bank: "practice",
+  title: "Licensing & the Board: Complaint to Hearing",
+  comingSoon: true,
+  est: "≈6 min · 4 segments"
+}];
+
+/* Mock attempt history — practice-bank stats derive from this.
+   Each session: date, mode, and per-question results. */
+const SESSIONS = [{
+  date: "Jun 8",
+  mode: "quiz",
+  results: {
+    "DEAD-LAW-001": 0,
+    "DEAD-LAW-010": 0,
+    "DEAD-LAW-020": 1,
+    "DEAD-LAW-030": 1,
+    "DEAD-LAW-040": 0
+  }
+}, {
+  date: "Jun 12",
+  mode: "exam",
+  score: 58,
+  results: {
+    "DEAD-LAW-001": 1,
+    "DEAD-LAW-002": 0,
+    "DEAD-LAW-010": 0,
+    "DEAD-LAW-011": 1,
+    "DEAD-LAW-020": 1,
+    "DEAD-LAW-021": 0,
+    "DEAD-LAW-030": 1,
+    "DEAD-LAW-031": 0,
+    "DEAD-LAW-040": 1,
+    "DEAD-LAW-041": 0
+  }
+}, {
+  date: "Jun 16",
+  mode: "quiz",
+  results: {
+    "DEAD-LAW-002": 1,
+    "DEAD-LAW-011": 1,
+    "DEAD-LAW-012": 0,
+    "DEAD-LAW-021": 1,
+    "DEAD-LAW-031": 1
+  }
+}, {
+  date: "Jun 20",
+  mode: "exam",
+  score: 67,
+  results: {
+    "DEAD-LAW-001": 1,
+    "DEAD-LAW-003": 1,
+    "DEAD-LAW-010": 1,
+    "DEAD-LAW-012": 0,
+    "DEAD-LAW-020": 1,
+    "DEAD-LAW-022": 0,
+    "DEAD-LAW-030": 1,
+    "DEAD-LAW-032": 1,
+    "DEAD-LAW-041": 1,
+    "DEAD-LAW-042": 0
+  }
+}, {
+  date: "Jun 24",
+  mode: "quiz",
+  results: {
+    "DEAD-LAW-003": 1,
+    "DEAD-LAW-012": 1,
+    "DEAD-LAW-013": 1,
+    "DEAD-LAW-022": 1,
+    "DEAD-LAW-042": 0
+  }
+}, {
+  date: "Jun 29",
+  mode: "exam",
+  score: 78,
+  results: {
+    "DEAD-LAW-002": 1,
+    "DEAD-LAW-010": 1,
+    "DEAD-LAW-011": 1,
+    "DEAD-LAW-020": 1,
+    "DEAD-LAW-021": 1,
+    "DEAD-LAW-030": 1,
+    "DEAD-LAW-031": 1,
+    "DEAD-LAW-040": 0,
+    "DEAD-LAW-041": 1,
+    "DEAD-LAW-042": 0
+  }
+}];
+
+/* ---------------- STATS (practice bank only) ---------------- */
+function computeStats() {
+  const practiceIds = new Set(QUESTIONS.filter(q => q.bank === "practice").map(q => q.id));
+  const byId = Object.fromEntries(QUESTIONS.map(q => [q.id, q]));
+  let total = 0,
+    correct = 0;
+  const topicTally = {}; // topic -> [correct, total]
+  const latest = {}; // qid -> last result
+  const attempted = new Set();
+  const trend = [];
+  SESSIONS.forEach(s => {
+    let sc = 0,
+      st = 0;
+    Object.entries(s.results).forEach(([qid, r]) => {
+      if (!practiceIds.has(qid)) return; // test-only bank excluded from stats
+      const t = byId[qid].topic;
+      topicTally[t] = topicTally[t] || [0, 0];
+      topicTally[t][1]++;
+      if (r) topicTally[t][0]++;
+      total++;
+      if (r) correct++;
+      sc += r;
+      st++;
+      latest[qid] = r;
+      attempted.add(qid);
+    });
+    if (st) trend.push({
+      date: s.date,
+      acc: Math.round(sc / st * 100),
+      n: st,
+      mode: s.mode
+    });
+  });
+  const accuracy = total ? Math.round(correct / total * 100) : 0;
+  const coverage = Math.round(attempted.size / practiceIds.size * 100);
+  const missed = Object.entries(latest).filter(([, r]) => !r).map(([qid]) => byId[qid]);
+  const topics = TOPICS.map(t => {
+    const [c, n] = topicTally[t] || [0, 0];
+    return {
+      topic: t,
+      acc: n ? Math.round(c / n * 100) : 0,
+      n
+    };
+  }).sort((a, b) => a.acc - b.acc); // weakest first
+  const examTrend = SESSIONS.filter(s => s.mode === "exam").map(s => ({
+    date: s.date,
+    score: s.score
+  }));
+  const readiness = Math.round(accuracy * 0.6 + coverage * 0.25 + (examTrend.at(-1)?.score || 0) * 0.15);
+  const bestExam = examTrend.length ? Math.max(...examTrend.map(e => e.score)) : null;
+  const delta = trend.length > 1 ? trend.at(-1).acc - trend[0].acc : 0;
+  const modeSplit = trend.reduce((a, t) => {
+    a[t.mode] = (a[t.mode] || 0) + t.n;
+    return a;
+  }, {});
+
+  // Projected exam score: half recent exams, half recent accuracy
+  const lastExams = examTrend.slice(-2).map(e => e.score);
+  const examAvg = lastExams.length ? lastExams.reduce((a, b) => a + b, 0) / lastExams.length : accuracy;
+  const recent = trend.slice(-3);
+  const recentAcc = recent.length ? Math.round(recent.reduce((a, t) => a + t.acc * t.n, 0) / recent.reduce((a, t) => a + t.n, 0)) : accuracy;
+  const projected = Math.round(examAvg * 0.5 + recentAcc * 0.5);
+  const PASS = 75;
+
+  // Spaced review: missed items, plus correct items not seen in 7+ days ("today" = Jun 30 in this mock)
+  const day = d => Number(d.split(" ")[1]);
+  const TODAY = 30;
+  const lastSeen = {};
+  SESSIONS.forEach(s => Object.keys(s.results).forEach(q => {
+    if (practiceIds.has(q)) lastSeen[q] = day(s.date);
+  }));
+  const due = Object.keys(latest).filter(q => !latest[q] || TODAY - lastSeen[q] >= 7);
+
+  // This week: practice questions answered in the last 7 days
+  const weekGoal = 30;
+  const weekDone = trend.filter(t => TODAY - day(t.date) < 7).reduce((a, t) => a + t.n, 0);
+  return {
+    accuracy,
+    coverage,
+    missed,
+    topics,
+    trend,
+    examTrend,
+    readiness,
+    volume: total,
+    bestExam,
+    delta,
+    modeSplit,
+    projected,
+    PASS,
+    examAvg: Math.round(examAvg),
+    recentAcc,
+    due,
+    weekGoal,
+    weekDone
+  };
+}
+
+/* ---------------- SHARED UI ---------------- */
+const mono = {
+  fontFamily: "'DM Mono', monospace"
+};
+function Tag({
+  children,
+  color
+}) {
+  const C = useC();
+  const col = color || C.accent;
+  return /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...mono,
+      color: col,
+      border: `1px solid ${col}55`,
+      background: `${col}14`
+    },
+    className: "text-[10px] px-1.5 py-0.5 rounded uppercase tracking-wider"
+  }, children);
+}
+function Card({
+  children,
+  className = "",
+  onClick,
+  style
+}) {
+  const C = useC();
+  const hover = C.mode === "dark" ? "hover:brightness-125" : "hover:brightness-95";
+  return /*#__PURE__*/React.createElement("div", {
+    onClick: onClick,
+    style: {
+      background: C.surface,
+      border: `1px solid ${C.cardBorder}`,
+      ...style
+    },
+    className: `rounded-xl p-4 ${onClick ? `cursor-pointer ${hover} transition` : ""} ${className}`
+  }, children);
+}
+function BackBar({
+  title
+}) {
+  const C = useC();
+  const st = useSt();
+  return /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center gap-3 mb-5"
+  }, /*#__PURE__*/React.createElement("h2", {
+    className: "text-lg font-bold",
+    style: {
+      color: C.text
+    }
+  }, title), /*#__PURE__*/React.createElement(Tag, null, st));
+}
+function LineChart({
+  data,
+  valueKey,
+  color,
+  refValue,
+  refLabel
+}) {
+  const C = useC();
+  const col = color || C.accent;
+  if (!data.length) return null;
+  const w = 300,
+    h = 120,
+    padL = 26,
+    padR = 8,
+    padT = 10,
+    padB = 18;
+  const x = i => padL + i * (w - padL - padR) / Math.max(1, data.length - 1);
+  const y = v => padT + (1 - v / 100) * (h - padT - padB);
+  const vals = data.map(d => d[valueKey]);
+  const pts = vals.map((v, i) => `${x(i)},${y(v)}`).join(" ");
+  const area = `${x(0)},${y(0) + (h - padT - padB)} ${pts} ${x(vals.length - 1)},${h - padB}`;
+  return /*#__PURE__*/React.createElement("svg", {
+    viewBox: `0 0 ${w} ${h}`,
+    className: "block w-full",
+    role: "img"
+  }, [0, 25, 50, 75, 100].map(g => /*#__PURE__*/React.createElement("g", {
+    key: g
+  }, /*#__PURE__*/React.createElement("line", {
+    x1: padL,
+    x2: w - padR,
+    y1: y(g),
+    y2: y(g),
+    stroke: C.surfaceHi,
+    strokeWidth: "1"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: padL - 4,
+    y: y(g) + 3,
+    textAnchor: "end",
+    fontSize: "7",
+    fill: C.dim,
+    fontFamily: "DM Mono, monospace"
+  }, g))), refValue != null && /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("line", {
+    x1: padL,
+    x2: w - padR,
+    y1: y(refValue),
+    y2: y(refValue),
+    stroke: C.warn,
+    strokeWidth: "1",
+    strokeDasharray: "3 3"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: w - padR,
+    y: y(refValue) - 3,
+    textAnchor: "end",
+    fontSize: "7",
+    fill: C.warn,
+    fontFamily: "DM Mono, monospace"
+  }, refLabel)), /*#__PURE__*/React.createElement("polygon", {
+    points: area.replace(/^[^ ]+ /, `${x(0)},${h - padB} `),
+    fill: `${col}22`
+  }), /*#__PURE__*/React.createElement("polyline", {
+    points: pts,
+    fill: "none",
+    stroke: col,
+    strokeWidth: "2",
+    strokeLinejoin: "round"
+  }), vals.map((v, i) => {
+    const step = (w - padL - padR) / Math.max(1, vals.length - 1);
+    const x0 = Math.max(padL, x(i) - step / 2),
+      x1 = Math.min(w - padR, x(i) + step / 2);
+    const tx = Math.min(Math.max(x(i), 14), w - 14);
+    const below = y(v) < padT + 14;
+    const ty = below ? y(v) + 6 : y(v) - 17;
+    return /*#__PURE__*/React.createElement("g", {
+      key: i,
+      className: "pt"
+    }, /*#__PURE__*/React.createElement("rect", {
+      x: x0,
+      y: padT,
+      width: x1 - x0,
+      height: h - padT - padB,
+      fill: "transparent"
+    }), /*#__PURE__*/React.createElement("g", {
+      className: "guide"
+    }, /*#__PURE__*/React.createElement("rect", {
+      x: x0,
+      y: padT,
+      width: x1 - x0,
+      height: h - padT - padB,
+      fill: col,
+      opacity: "0.07"
+    }), /*#__PURE__*/React.createElement("line", {
+      x1: x(i),
+      x2: x(i),
+      y1: padT,
+      y2: h - padB,
+      stroke: col,
+      strokeWidth: "1",
+      strokeDasharray: "2 2"
+    })), /*#__PURE__*/React.createElement("circle", {
+      className: "dot",
+      cx: x(i),
+      cy: y(v),
+      r: "2.5",
+      fill: col,
+      stroke: C.surface,
+      strokeWidth: "1"
+    }), /*#__PURE__*/React.createElement("g", {
+      className: "pv"
+    }, /*#__PURE__*/React.createElement("rect", {
+      x: tx - 13,
+      y: ty,
+      width: "26",
+      height: "11",
+      rx: "2",
+      fill: C.text
+    }), /*#__PURE__*/React.createElement("text", {
+      x: tx,
+      y: ty + 7.8,
+      textAnchor: "middle",
+      fontSize: "7",
+      fill: C.surface,
+      fontFamily: "DM Mono, monospace"
+    }, v, "%")), /*#__PURE__*/React.createElement("text", {
+      className: "xl",
+      x: x(i),
+      y: h - 6,
+      textAnchor: i === vals.length - 1 ? "end" : "middle",
+      fontSize: "6.5",
+      fill: C.dim,
+      fontFamily: "DM Mono, monospace"
+    }, data[i].date));
+  }));
+}
+function SessionBars({
+  data
+}) {
+  const C = useC();
+  const w = 300,
+    h = 110,
+    padB = 18,
+    padT = 14,
+    gap = 10;
+  const bw = (w - gap * (data.length + 1)) / data.length;
+  const maxN = Math.max(...data.map(d => d.n));
+  return /*#__PURE__*/React.createElement("svg", {
+    viewBox: `0 0 ${w} ${h}`,
+    className: "block w-full",
+    role: "img"
+  }, data.map((d, i) => {
+    const bh = d.n / maxN * (h - padT - padB);
+    const bx = gap + i * (bw + gap);
+    const col = d.mode === "exam" ? C.primary : C.accent;
+    return /*#__PURE__*/React.createElement("g", {
+      key: i,
+      className: "bar"
+    }, /*#__PURE__*/React.createElement("rect", {
+      className: "bar-r",
+      x: bx,
+      y: h - padB - bh,
+      width: bw,
+      height: bh,
+      rx: "3",
+      fill: col,
+      opacity: d.mode === "exam" ? 1 : 0.65
+    }), /*#__PURE__*/React.createElement("text", {
+      className: "bar-n",
+      x: bx + bw / 2,
+      y: h - padB - bh - 4,
+      textAnchor: "middle",
+      fontSize: "7.5",
+      fill: C.text,
+      fontFamily: "DM Mono, monospace"
+    }, d.n), /*#__PURE__*/React.createElement("text", {
+      className: "bar-a",
+      x: bx + bw / 2,
+      y: h - padB - bh - 4,
+      textAnchor: "middle",
+      fontSize: "7.5",
+      fill: C.text,
+      fontFamily: "DM Mono, monospace"
+    }, d.n, "q \xB7 ", d.acc, "%"), /*#__PURE__*/React.createElement("text", {
+      x: bx + bw / 2,
+      y: h - 6,
+      textAnchor: "middle",
+      fontSize: "6.5",
+      fill: C.dim,
+      fontFamily: "DM Mono, monospace"
+    }, d.date));
+  }));
+}
+function SubBack({
+  label,
+  onClick
+}) {
+  const C = useC();
+  return /*#__PURE__*/React.createElement("button", {
+    onClick: onClick,
+    className: "flex items-center gap-1 text-sm mb-4",
+    style: {
+      color: C.accent
+    }
+  }, /*#__PURE__*/React.createElement(ChevronLeft, {
+    size: 15
+  }), " ", label);
+}
+const shuffled = a => [...a].sort(() => Math.random() - 0.5);
+// Test-only bank is reserved for practice exams — quizzes and topic drills never draw from it.
+const poolFor = (topic, st) => QUESTIONS.filter(q => q.states.includes(st) && q.bank === "practice" && (!topic || q.topic === topic));
+const examPool = (topic, st) => QUESTIONS.filter(q => q.states.includes(st) && (!topic || q.topic === topic));
+
+/* ---------------- DASHBOARD ---------------- */
+/* Shared stat-card anatomy: title (top) · value · meta · action — fixed-height slots so every card lines up */
+function Kpi({
+  title,
+  value,
+  meta,
+  action,
+  actionColor,
+  valueColor,
+  extra
+}) {
+  const C = useC();
+  return /*#__PURE__*/React.createElement("div", {
+    className: "flex flex-col flex-1 h-full min-w-0"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "h-4 flex items-center justify-between gap-1 text-[11px] leading-4",
+    style: {
+      color: C.dim
+    }
+  }, title), /*#__PURE__*/React.createElement("div", {
+    className: "flex-1 min-h-[12px]"
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "flex flex-col gap-1.5"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "h-7 flex items-baseline gap-1.5 text-xl leading-7 font-bold truncate",
+    style: {
+      color: valueColor || C.text
+    }
+  }, value), /*#__PURE__*/React.createElement("div", {
+    className: "h-4 flex items-center text-[10px] leading-4 min-w-0",
+    style: {
+      ...mono,
+      color: C.dim
+    }
+  }, meta), /*#__PURE__*/React.createElement("div", {
+    className: "h-4 flex items-center gap-1 text-[11px] leading-4 font-semibold truncate",
+    style: {
+      color: actionColor || C.accent
+    }
+  }, action)), extra);
+}
+function Bar({
+  value,
+  color,
+  marker
+}) {
+  const C = useC();
+  const pct = v => `${Math.max(0, Math.min(100, v))}%`;
+  return /*#__PURE__*/React.createElement("div", {
+    className: "relative w-full h-1.5 rounded-full",
+    style: {
+      background: C.surfaceHi
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "h-1.5 rounded-full",
+    style: {
+      width: pct(value),
+      background: color
+    }
+  }), marker != null && /*#__PURE__*/React.createElement("div", {
+    className: "absolute -top-1 w-0.5 h-3.5 rounded",
+    style: {
+      left: pct(marker),
+      background: C.text
+    }
+  }));
+}
+function ProjectedCard({
+  stats,
+  open,
+  setOpen
+}) {
+  const C = useC();
+  const {
+    projected,
+    PASS
+  } = stats;
+  const gap = projected - PASS;
+  const pass = gap >= 0;
+  const close = !pass && gap >= -5;
+  const col = pass ? C.success : close ? C.warn : C.danger;
+  const status = pass ? "On track to pass" : close ? "Almost there" : "Not ready yet";
+  return /*#__PURE__*/React.createElement(Card, {
+    className: "dash-card kpi-card kpi-proj col-span-2 md:col-span-1 md:gap-4",
+    onClick: () => setOpen(o => !o),
+    style: {
+      flexGrow: open ? 2.3 : 1
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "md:flex-1 md:min-w-0 flex flex-col"
+  }, /*#__PURE__*/React.createElement(Kpi, {
+    title: /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("span", {
+      className: "flex items-center gap-1 truncate"
+    }, "Projected exam score", /*#__PURE__*/React.createElement("span", {
+      className: "info-tip relative inline-flex",
+      tabIndex: 0,
+      "aria-label": "How this score is calculated",
+      onClick: e => e.stopPropagation()
+    }, /*#__PURE__*/React.createElement(Info, {
+      size: 12
+    }), /*#__PURE__*/React.createElement("span", {
+      role: "tooltip",
+      className: "info-pop absolute left-1/2 -translate-x-1/2 top-full mt-1.5 w-52 p-2 rounded-md text-[11px] leading-snug z-30 whitespace-normal",
+      style: {
+        background: C.text,
+        color: C.surface,
+        fontWeight: 400
+      }
+    }, "Average of your last 2 practice exams and your accuracy over your last 3 sessions. It estimates what you'd score on the real exam today."))), /*#__PURE__*/React.createElement(ChevronDown, {
+      size: 12,
+      className: "kpi-chev shrink-0",
+      style: {
+        "--r": open ? "180deg" : "0deg"
+      }
+    })),
+    value: /*#__PURE__*/React.createElement(React.Fragment, null, projected, "%", /*#__PURE__*/React.createElement("span", {
+      className: "text-[11px] font-normal",
+      style: {
+        ...mono,
+        color: C.dim
+      }
+    }, "pass ", PASS)),
+    valueColor: col,
+    meta: /*#__PURE__*/React.createElement(Bar, {
+      value: projected,
+      color: col,
+      marker: PASS
+    }),
+    action: /*#__PURE__*/React.createElement(React.Fragment, null, status, !pass && ` · ${-gap} pts short`),
+    actionColor: col
+  })), open && /*#__PURE__*/React.createElement("div", {
+    className: "kpi-detail mt-3 pt-3 md:mt-0 md:pt-0 md:pl-4 md:flex-1 md:min-w-0 flex flex-col justify-end gap-1.5 text-[11px]",
+    style: {
+      "--bd": C.cardBorder
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "h-4 flex justify-between gap-2"
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: C.dim
+    }
+  }, "Last 2 exams avg"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...mono,
+      color: C.text
+    }
+  }, stats.examAvg, "%")), /*#__PURE__*/React.createElement("div", {
+    className: "h-4 flex justify-between gap-2"
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: C.dim
+    }
+  }, "Last 3 sessions"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...mono,
+      color: C.text
+    }
+  }, stats.recentAcc, "%")), /*#__PURE__*/React.createElement("div", {
+    className: "flex flex-col gap-0.5"
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: C.dim
+    }
+  }, "Dragging it down"), /*#__PURE__*/React.createElement("span", {
+    className: "font-semibold leading-tight",
+    style: {
+      color: C.danger
+    }
+  }, stats.topics[0].topic))));
+}
+function Dashboard({
+  go,
+  stats
+}) {
+  const C = useC();
+  const [projOpen, setProjOpen] = useState(false);
+  const st = useSt();
+  const weakest = stats.topics[0];
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "mb-5"
+  }, /*#__PURE__*/React.createElement("h1", {
+    className: "text-2xl font-bold",
+    style: {
+      color: C.text
+    }
+  }, "Performance"), /*#__PURE__*/React.createElement("p", {
+    className: "text-sm mt-1",
+    style: {
+      color: C.dim
+    }
+  }, STATES.find(x => x.code === st)?.name, " Law Exam")), /*#__PURE__*/React.createElement("div", {
+    className: "kpi-row grid grid-cols-2 gap-3 mb-3"
+  }, /*#__PURE__*/React.createElement(ProjectedCard, {
+    stats: stats,
+    open: projOpen,
+    setOpen: setProjOpen
+  }), /*#__PURE__*/React.createElement(Card, {
+    className: "dash-card kpi-card",
+    onClick: () => go("review"),
+    style: {
+      border: `1px solid ${C.danger}44`
+    }
+  }, /*#__PURE__*/React.createElement(Kpi, {
+    title: "Missed \u2014 needs review",
+    value: stats.missed.length,
+    valueColor: C.danger,
+    meta: "answered wrong last time",
+    action: /*#__PURE__*/React.createElement(React.Fragment, null, "Review now ", /*#__PURE__*/React.createElement(ArrowRight, {
+      size: 11
+    })),
+    actionColor: C.danger
+  })), /*#__PURE__*/React.createElement(Card, {
+    className: "dash-card kpi-card",
+    onClick: () => go("quiz", {
+      topic: weakest.topic
+    })
+  }, /*#__PURE__*/React.createElement(Kpi, {
+    title: "Weakest topic",
+    value: `${weakest.acc}%`,
+    valueColor: C.danger,
+    meta: /*#__PURE__*/React.createElement("span", {
+      className: "truncate"
+    }, weakest.topic),
+    action: /*#__PURE__*/React.createElement(React.Fragment, null, "Drill now ", /*#__PURE__*/React.createElement(ArrowRight, {
+      size: 11
+    }))
+  })), /*#__PURE__*/React.createElement(Card, {
+    className: "dash-card kpi-card",
+    onClick: () => go("flashcards")
+  }, /*#__PURE__*/React.createElement(Kpi, {
+    title: "Due for review",
+    value: stats.due.length,
+    meta: /*#__PURE__*/React.createElement("span", {
+      className: "truncate"
+    }, "missed or 7+ days old"),
+    action: /*#__PURE__*/React.createElement(React.Fragment, null, "Start review ", /*#__PURE__*/React.createElement(ArrowRight, {
+      size: 11
+    }))
+  })), /*#__PURE__*/React.createElement(Card, {
+    className: "dash-card kpi-card",
+    onClick: () => go("quiz")
+  }, /*#__PURE__*/React.createElement(Kpi, {
+    title: "This week",
+    value: /*#__PURE__*/React.createElement(React.Fragment, null, stats.weekDone, /*#__PURE__*/React.createElement("span", {
+      className: "text-sm font-medium",
+      style: {
+        color: C.dim
+      }
+    }, "/ ", stats.weekGoal)),
+    meta: /*#__PURE__*/React.createElement(Bar, {
+      value: stats.weekDone / stats.weekGoal * 100,
+      color: C.primary
+    }),
+    action: /*#__PURE__*/React.createElement(React.Fragment, null, Math.max(0, stats.weekGoal - stats.weekDone), " to goal \xB7 Practice ", /*#__PURE__*/React.createElement(ArrowRight, {
+      size: 11
+    }))
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "grid md:grid-cols-2 gap-3 mb-3"
+  }, /*#__PURE__*/React.createElement(Card, {
+    className: "dash-card"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex justify-between items-baseline mb-2"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "text-sm font-semibold",
+    style: {
+      color: C.text
+    }
+  }, "Accuracy over time"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...mono,
+      color: C.primary
+    },
+    className: "text-[10px]"
+  }, "LATEST ", stats.trend.at(-1).acc, "%")), /*#__PURE__*/React.createElement(LineChart, {
+    data: stats.trend,
+    valueKey: "acc",
+    color: C.primary
+  })), /*#__PURE__*/React.createElement(Card, {
+    className: "dash-card"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex justify-between items-baseline mb-2"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "text-sm font-semibold",
+    style: {
+      color: C.text
+    }
+  }, "Practice exam scores"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...mono,
+      color: C.success
+    },
+    className: "text-[10px]"
+  }, "BEST ", stats.bestExam, "%")), /*#__PURE__*/React.createElement(LineChart, {
+    data: stats.examTrend,
+    valueKey: "score",
+    color: C.accent,
+    refValue: 75,
+    refLabel: "PASS 75"
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "grid md:grid-cols-2 gap-3 mb-3"
+  }, /*#__PURE__*/React.createElement(Card, {
+    className: "dash-card"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex justify-between items-baseline mb-3"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "text-sm font-semibold",
+    style: {
+      color: C.text
+    }
+  }, "Topic performance"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...mono,
+      color: C.dim
+    },
+    className: "text-[10px]"
+  }, "WEAKEST FIRST")), /*#__PURE__*/React.createElement("div", {
+    className: "space-y-1"
+  }, stats.topics.map(t => {
+    const col = t.acc < 60 ? C.danger : t.acc < 80 ? C.warn : C.success;
+    return /*#__PURE__*/React.createElement("div", {
+      key: t.topic,
+      className: "dash-row -mx-2 px-2 py-1.5 rounded-md",
+      title: `${t.n} attempts`
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "flex justify-between items-baseline text-xs mb-1.5"
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        color: C.text
+      }
+    }, t.topic), /*#__PURE__*/React.createElement("span", {
+      className: "font-semibold",
+      style: {
+        ...mono,
+        color: col
+      }
+    }, t.acc, "%")), /*#__PURE__*/React.createElement("div", {
+      className: "h-1 rounded-full",
+      style: {
+        background: C.surfaceHi
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "h-1 rounded-full",
+      style: {
+        width: `${t.acc}%`,
+        background: col
+      }
+    })));
+  }))), /*#__PURE__*/React.createElement(Card, {
+    className: "dash-card flex flex-col"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex justify-between items-baseline mb-2"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "text-sm font-semibold",
+    style: {
+      color: C.text
+    }
+  }, "Practice volume by session"), /*#__PURE__*/React.createElement("span", {
+    className: "flex gap-3 text-[10px]",
+    style: {
+      ...mono,
+      color: C.dim
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "flex items-center gap-1"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "w-2 h-2 rounded-sm inline-block",
+    style: {
+      background: C.primary
+    }
+  }), "EXAM ", stats.modeSplit.exam || 0), /*#__PURE__*/React.createElement("span", {
+    className: "flex items-center gap-1"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "w-2 h-2 rounded-sm inline-block",
+    style: {
+      background: C.accent,
+      opacity: 0.65
+    }
+  }), "QUIZ ", stats.modeSplit.quiz || 0))), /*#__PURE__*/React.createElement("div", {
+    className: "mt-auto pt-2"
+  }, /*#__PURE__*/React.createElement(SessionBars, {
+    data: stats.trend
+  })))), /*#__PURE__*/React.createElement(Card, {
+    className: "dash-card mb-3"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "text-sm font-semibold mb-2",
+    style: {
+      color: C.text
+    }
+  }, "Recent sessions"), /*#__PURE__*/React.createElement("div", {
+    className: "grid grid-cols-[1fr_1fr_1fr_1fr_14px] gap-2 text-[10px] uppercase tracking-wider pb-1.5 mb-1",
+    style: {
+      ...mono,
+      color: C.dim,
+      borderBottom: `1px solid ${C.cardBorder}`
+    }
+  }, /*#__PURE__*/React.createElement("span", null, "Date"), /*#__PURE__*/React.createElement("span", null, "Mode"), /*#__PURE__*/React.createElement("span", {
+    className: "text-right"
+  }, "Questions"), /*#__PURE__*/React.createElement("span", {
+    className: "text-right"
+  }, "Accuracy"), /*#__PURE__*/React.createElement("span", null)), [...stats.trend].reverse().map((row, i) => /*#__PURE__*/React.createElement("button", {
+    key: i,
+    onClick: () => {
+      go("session", {
+        idx: stats.trend.length - 1 - i
+      });
+      window.scrollTo(0, 0);
+    },
+    "aria-label": `Review ${row.mode} from ${row.date}`,
+    className: "sess-row dash-row -mx-2 px-2 w-[calc(100%+1rem)] text-left grid grid-cols-[1fr_1fr_1fr_1fr_14px] gap-2 items-center py-1.5 text-xs rounded-md",
+    style: {
+      borderBottom: i < stats.trend.length - 1 ? `1px solid ${C.cardBorder}` : "none"
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...mono,
+      color: C.dim
+    }
+  }, row.date), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement(Tag, {
+    color: row.mode === "exam" ? C.primary : undefined
+  }, row.mode)), /*#__PURE__*/React.createElement("span", {
+    className: "text-right",
+    style: {
+      ...mono,
+      color: C.text
+    }
+  }, row.n), /*#__PURE__*/React.createElement("span", {
+    className: "text-right font-semibold",
+    style: {
+      ...mono,
+      color: row.acc < 60 ? C.danger : row.acc < 80 ? C.warn : C.success
+    }
+  }, row.acc, "%"), /*#__PURE__*/React.createElement(ChevronRight, {
+    size: 14,
+    className: "sess-chev",
+    style: {
+      color: C.dim
+    }
+  })))));
+}
+
+/* ---------------- FLASHCARDS ---------------- */
+function FlashDeck({
+  set,
+  onExit
+}) {
+  const C = useC();
+  const [deck, setDeck] = useState(set.cards);
+  const [i, setI] = useState(0);
+  const [flipped, setFlipped] = useState(false);
+  const card = deck[i];
+  const shuffle = () => {
+    setDeck(shuffled(deck));
+    setI(0);
+    setFlipped(false);
+  };
+  const step = d => {
+    setI((i + d + deck.length) % deck.length);
+    setFlipped(false);
+  };
+  const face = {
+    position: "absolute",
+    inset: 0,
+    backfaceVisibility: "hidden",
+    WebkitBackfaceVisibility: "hidden",
+    borderRadius: "1rem",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    padding: "2rem"
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    className: "max-w-xl mx-auto"
+  }, /*#__PURE__*/React.createElement(SubBack, {
+    label: "All flashcard sets",
+    onClick: onExit
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "flex justify-between items-center mb-3"
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "font-bold",
+    style: {
+      color: C.text
+    }
+  }, set.title), /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...mono,
+      color: C.dim
+    },
+    className: "text-xs"
+  }, card.id)), /*#__PURE__*/React.createElement("div", {
+    className: "flex gap-2 items-center"
+  }, /*#__PURE__*/React.createElement(Tag, null, set.topic), /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...mono,
+      color: C.dim
+    },
+    className: "text-xs"
+  }, i + 1, " / ", deck.length))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      perspective: "1200px"
+    },
+    className: "h-[240px] select-none"
+  }, /*#__PURE__*/React.createElement("div", {
+    onClick: () => setFlipped(!flipped),
+    role: "button",
+    tabIndex: 0,
+    "aria-label": flipped ? "Show term" : "Show answer",
+    onKeyDown: e => (e.key === " " || e.key === "Enter") && setFlipped(!flipped),
+    className: "relative w-full h-full cursor-pointer",
+    style: {
+      transformStyle: "preserve-3d",
+      transform: flipped ? "rotateY(180deg)" : "none",
+      transition: "transform .45s cubic-bezier(.4,.1,.2,1)"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      ...face,
+      background: C.surface,
+      border: `1px solid ${C.accent}44`
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      ...mono,
+      color: C.accent
+    },
+    className: "text-[10px] uppercase tracking-widest mb-3"
+  }, "Term \u2014 tap to flip"), /*#__PURE__*/React.createElement("div", {
+    className: "text-xl font-bold",
+    style: {
+      color: C.text
+    }
+  }, card.front))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      ...face,
+      background: C.primary,
+      transform: "rotateY(180deg)"
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      ...mono,
+      color: `${C.onPrimary}AA`
+    },
+    className: "text-[10px] uppercase tracking-widest mb-3"
+  }, "Answer"), /*#__PURE__*/React.createElement("div", {
+    className: "text-base",
+    style: {
+      color: C.onPrimary
+    }
+  }, card.back))))), /*#__PURE__*/React.createElement("div", {
+    className: "flex justify-between mt-4"
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => step(-1),
+    className: "flex items-center gap-1 px-4 py-2 rounded-lg text-sm",
+    style: {
+      background: C.surface,
+      color: C.text,
+      border: `1px solid ${C.cardBorder}`
+    }
+  }, /*#__PURE__*/React.createElement(ChevronLeft, {
+    size: 15
+  }), " Prev"), /*#__PURE__*/React.createElement("button", {
+    onClick: shuffle,
+    className: "flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm",
+    style: {
+      background: C.surface,
+      color: C.accent,
+      border: `1px solid ${C.cardBorder}`
+    }
+  }, /*#__PURE__*/React.createElement(Shuffle, {
+    size: 14
+  }), " Shuffle"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => step(1),
+    className: "flex items-center gap-1 px-4 py-2 rounded-lg text-sm",
+    style: {
+      background: C.primary,
+      color: C.onPrimary
+    }
+  }, "Next ", /*#__PURE__*/React.createElement(ChevronRight, {
+    size: 15
+  }))));
+}
+function Flashcards() {
+  const C = useC();
+  const st = useSt();
+  const [sel, setSel] = useState(null);
+  if (sel) return /*#__PURE__*/React.createElement(FlashDeck, {
+    key: sel.id,
+    set: sel,
+    onExit: () => setSel(null)
+  });
+  return /*#__PURE__*/React.createElement("div", {
+    className: "max-w-2xl mx-auto"
+  }, /*#__PURE__*/React.createElement(BackBar, {
+    title: "Flashcards"
+  }), /*#__PURE__*/React.createElement("p", {
+    className: "text-sm mb-4 -mt-2",
+    style: {
+      color: C.dim
+    }
+  }, "Pick a set. Tap a card to flip it, and shuffle before a second pass."), /*#__PURE__*/React.createElement("div", {
+    className: "grid sm:grid-cols-2 gap-3"
+  }, FLASHCARD_SETS.filter(f => inState(f, st)).map(set => /*#__PURE__*/React.createElement(Card, {
+    key: set.id,
+    onClick: () => setSel(set),
+    style: {
+      border: `1px solid ${C.primary}55`
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex justify-between items-start mb-2"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "w-8 h-8 rounded-lg flex items-center justify-center",
+    style: {
+      background: `${C.primary}22`,
+      color: C.accent
+    }
+  }, /*#__PURE__*/React.createElement(Layers, {
+    size: 16
+  })), /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...mono,
+      color: C.accent
+    },
+    className: "text-[10px]"
+  }, set.cards.length, " cards")), /*#__PURE__*/React.createElement("div", {
+    className: "font-bold mb-0.5",
+    style: {
+      color: C.text
+    }
+  }, set.title), /*#__PURE__*/React.createElement("div", {
+    className: "text-xs mb-2",
+    style: {
+      color: C.dim
+    }
+  }, set.desc), /*#__PURE__*/React.createElement(Tag, null, set.topic)))));
+}
+
+/* ---------------- QUIZZES ---------------- */
+function QuizGame({
+  quiz,
+  onExit
+}) {
+  const C = useC();
+  const st = useSt();
+  const qs = useMemo(() => shuffled(poolFor(quiz.topic, st)).slice(0, quiz.n), [quiz, st]);
+  const [i, setI] = useState(0);
+  const [picked, setPicked] = useState(null);
+  const [score, setScore] = useState(0);
+  const [done, setDone] = useState(false);
+  const q = qs[i];
+  const pick = c => {
+    if (picked !== null) return;
+    setPicked(c);
+    if (c === q.answer) setScore(s => s + 1);
+  };
+  const next = () => {
+    if (i + 1 >= qs.length) setDone(true);else {
+      setI(i + 1);
+      setPicked(null);
+    }
+  };
+  if (done) return /*#__PURE__*/React.createElement("div", {
+    className: "max-w-xl mx-auto"
+  }, /*#__PURE__*/React.createElement(SubBack, {
+    label: "All quizzes",
+    onClick: onExit
+  }), /*#__PURE__*/React.createElement(Card, {
+    className: "text-center py-10"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "text-4xl font-bold mb-2",
+    style: {
+      color: score / qs.length >= 0.8 ? C.success : C.warn
+    }
+  }, score, " / ", qs.length), /*#__PURE__*/React.createElement("div", {
+    className: "text-sm mb-6",
+    style: {
+      color: C.dim
+    }
+  }, quiz.title, " \xB7 ", score / qs.length >= 0.8 ? "Strong round." : "Review the misses and run it again."), /*#__PURE__*/React.createElement("button", {
+    onClick: onExit,
+    className: "px-5 py-2 rounded-lg",
+    style: {
+      background: C.primary,
+      color: C.onPrimary
+    }
+  }, "Back to quizzes")));
+  return /*#__PURE__*/React.createElement("div", {
+    className: "max-w-xl mx-auto"
+  }, /*#__PURE__*/React.createElement(SubBack, {
+    label: "All quizzes",
+    onClick: onExit
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "flex justify-between items-center mb-2"
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...mono,
+      color: C.dim
+    },
+    className: "text-xs"
+  }, q.id, " \xB7 ", q.topic), /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...mono,
+      color: C.accent
+    },
+    className: "text-xs"
+  }, i + 1, " / ", qs.length)), /*#__PURE__*/React.createElement("div", {
+    className: "h-1 rounded-full mb-3",
+    style: {
+      background: C.surfaceHi
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "h-1 rounded-full transition-all",
+    style: {
+      width: `${(i + (picked !== null ? 1 : 0)) / qs.length * 100}%`,
+      background: C.accent
+    }
+  })), /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement("p", {
+    className: "font-semibold mb-4",
+    style: {
+      color: C.text
+    }
+  }, q.q), /*#__PURE__*/React.createElement("div", {
+    className: "space-y-2"
+  }, q.choices.map((c, ci) => {
+    let bg = C.surfaceHi,
+      border = "transparent";
+    if (picked !== null) {
+      if (ci === q.answer) {
+        bg = `${C.success}22`;
+        border = C.success;
+      } else if (ci === picked) {
+        bg = `${C.danger}22`;
+        border = C.danger;
+      }
+    }
+    return /*#__PURE__*/React.createElement("button", {
+      key: ci,
+      onClick: () => pick(ci),
+      disabled: picked !== null,
+      className: "w-full text-left px-4 py-2.5 rounded-lg text-sm transition",
+      style: {
+        background: bg,
+        color: C.text,
+        border: `1px solid ${border}`
+      }
+    }, c);
+  })), picked !== null && /*#__PURE__*/React.createElement("div", {
+    className: "mt-4 p-3 rounded-lg text-sm",
+    style: {
+      background: C.base,
+      color: C.dim
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: picked === q.answer ? C.success : C.danger
+    },
+    className: "font-semibold"
+  }, picked === q.answer ? "Correct. " : "Not quite. "), q.exp)), picked !== null && /*#__PURE__*/React.createElement("button", {
+    onClick: next,
+    className: "mt-4 w-full py-2.5 rounded-lg font-semibold",
+    style: {
+      background: C.primary,
+      color: C.onPrimary
+    }
+  }, i + 1 >= qs.length ? "See results" : "Next question →"));
+}
+function Quiz({
+  topic
+}) {
+  const C = useC();
+  const st = useSt();
+  const [sel, setSel] = useState(() => topic && QUIZZES.find(q => q.topic === topic && inState(q, st)) || null);
+  if (sel) return /*#__PURE__*/React.createElement(QuizGame, {
+    key: sel.id,
+    quiz: sel,
+    onExit: () => setSel(null)
+  });
+  return /*#__PURE__*/React.createElement("div", {
+    className: "max-w-2xl mx-auto"
+  }, /*#__PURE__*/React.createElement(BackBar, {
+    title: "Quizzes"
+  }), /*#__PURE__*/React.createElement("p", {
+    className: "text-sm mb-4 -mt-2",
+    style: {
+      color: C.dim
+    }
+  }, "Short rounds with instant feedback. Topic quizzes pull every question we have on that subject."), /*#__PURE__*/React.createElement("div", {
+    className: "grid sm:grid-cols-2 gap-3"
+  }, QUIZZES.filter(q => inState(q, st)).map(qz => {
+    const available = Math.min(qz.n, poolFor(qz.topic, st).length);
+    return /*#__PURE__*/React.createElement(Card, {
+      key: qz.id,
+      onClick: () => setSel(qz),
+      style: {
+        border: `1px solid ${C.primary}55`
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "flex justify-between items-start mb-2"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "w-8 h-8 rounded-lg flex items-center justify-center",
+      style: {
+        background: `${C.primary}22`,
+        color: C.accent
+      }
+    }, /*#__PURE__*/React.createElement(Zap, {
+      size: 16
+    })), /*#__PURE__*/React.createElement("span", {
+      style: {
+        ...mono,
+        color: C.accent
+      },
+      className: "text-[10px]"
+    }, available, " questions")), /*#__PURE__*/React.createElement("div", {
+      className: "font-bold mb-0.5",
+      style: {
+        color: C.text
+      }
+    }, qz.title), /*#__PURE__*/React.createElement("div", {
+      className: "text-xs",
+      style: {
+        color: C.dim
+      }
+    }, qz.desc));
+  })));
+}
+
+/* ---------------- PRACTICE EXAMS ---------------- */
+function ExamRun({
+  exam,
+  onExit
+}) {
+  const C = useC();
+  const st = useSt();
+  const qs = useMemo(() => shuffled(examPool(exam.topic, st)).slice(0, exam.n), [exam, st]);
+  const [phase, setPhase] = useState("active");
+  const [i, setI] = useState(0);
+  const [answers, setAnswers] = useState({});
+  const [flags, setFlags] = useState(new Set());
+  const [secs, setSecs] = useState(0);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  useEffect(() => {
+    if (phase !== "active") return;
+    const t = setInterval(() => setSecs(s => s + 1), 1000);
+    return () => clearInterval(t);
+  }, [phase]);
+  const fmt = s => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+  const q = qs[i];
+  const answered = Object.keys(answers).length;
+  const unanswered = qs.length - answered;
+  if (phase === "results") {
+    const correct = qs.filter(x => answers[x.id] === x.answer);
+    const missed = qs.filter(x => answers[x.id] !== x.answer);
+    const pct = Math.round(correct.length / qs.length * 100);
+    return /*#__PURE__*/React.createElement("div", {
+      className: "max-w-xl mx-auto"
+    }, /*#__PURE__*/React.createElement(SubBack, {
+      label: "All exams",
+      onClick: onExit
+    }), /*#__PURE__*/React.createElement(Card, {
+      className: "text-center py-8 mb-4"
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        ...mono,
+        color: C.dim
+      },
+      className: "text-[10px] uppercase tracking-widest mb-1"
+    }, exam.title), /*#__PURE__*/React.createElement("div", {
+      className: "text-5xl font-bold mb-1",
+      style: {
+        color: pct >= 75 ? C.success : pct >= 50 ? C.warn : C.danger
+      }
+    }, pct, "%"), /*#__PURE__*/React.createElement("div", {
+      className: "text-sm",
+      style: {
+        color: C.dim
+      }
+    }, correct.length, " of ", qs.length, " correct \xB7 ", fmt(secs), " elapsed")), missed.length > 0 && /*#__PURE__*/React.createElement("div", {
+      className: "space-y-3"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "text-sm font-semibold",
+      style: {
+        color: C.danger
+      }
+    }, "Missed questions (", missed.length, ")"), missed.map(m => /*#__PURE__*/React.createElement(Card, {
+      key: m.id,
+      style: {
+        border: `1px solid ${C.danger}44`
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        ...mono,
+        color: C.dim
+      },
+      className: "text-[10px] mb-1"
+    }, m.id, " \xB7 ", m.topic), /*#__PURE__*/React.createElement("p", {
+      className: "text-sm font-semibold mb-2",
+      style: {
+        color: C.text
+      }
+    }, m.q), /*#__PURE__*/React.createElement("p", {
+      className: "text-xs mb-1",
+      style: {
+        color: C.danger
+      }
+    }, "Your answer: ", answers[m.id] != null ? m.choices[answers[m.id]] : "— skipped"), /*#__PURE__*/React.createElement("p", {
+      className: "text-xs mb-2",
+      style: {
+        color: C.success
+      }
+    }, "Correct: ", m.choices[m.answer]), /*#__PURE__*/React.createElement("p", {
+      className: "text-xs",
+      style: {
+        color: C.dim
+      }
+    }, m.exp)))));
+  }
+  return /*#__PURE__*/React.createElement("div", {
+    className: "max-w-xl mx-auto"
+  }, /*#__PURE__*/React.createElement(SubBack, {
+    label: "All exams",
+    onClick: onExit
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "flex justify-between items-center mb-3"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "text-sm font-bold",
+    style: {
+      color: C.text
+    }
+  }, exam.title), /*#__PURE__*/React.createElement("div", {
+    className: "flex gap-3"
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...mono,
+      color: C.accent
+    },
+    className: "text-xs"
+  }, fmt(secs)), /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...mono,
+      color: C.dim
+    },
+    className: "text-xs"
+  }, answered, " / ", qs.length))), /*#__PURE__*/React.createElement("div", {
+    className: "flex gap-1.5 mb-4 flex-wrap"
+  }, qs.map((x, xi) => {
+    const isCur = xi === i,
+      has = answers[x.id] != null,
+      flg = flags.has(x.id);
+    return /*#__PURE__*/React.createElement("button", {
+      key: x.id,
+      onClick: () => setI(xi),
+      "aria-label": `Question ${xi + 1}`,
+      className: "w-7 sm:w-8 h-8 rounded-md text-xs font-semibold",
+      style: {
+        background: isCur ? C.primary : has ? `${C.success}33` : C.surface,
+        color: isCur ? C.onPrimary : has ? C.success : C.dim,
+        border: flg ? `2px solid ${C.warn}` : `2px solid ${isCur || has ? "transparent" : C.cardBorder}`,
+        fontFamily: "'DM Mono', monospace"
+      }
+    }, xi + 1);
+  })), /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement("div", {
+    className: "flex justify-between items-start mb-3"
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...mono,
+      color: C.dim
+    },
+    className: "text-[10px]"
+  }, q.id, " \xB7 ", q.topic, q.bank === "test" ? " · TEST BANK" : ""), /*#__PURE__*/React.createElement("button", {
+    onClick: () => {
+      const f = new Set(flags);
+      f.has(q.id) ? f.delete(q.id) : f.add(q.id);
+      setFlags(f);
+    },
+    className: "flex items-center gap-1 text-xs px-2 py-1 rounded",
+    style: {
+      background: flags.has(q.id) ? `${C.warn}33` : C.surfaceHi,
+      color: flags.has(q.id) ? C.warn : C.dim
+    }
+  }, /*#__PURE__*/React.createElement(Flag, {
+    size: 11,
+    fill: flags.has(q.id) ? "currentColor" : "none"
+  }), flags.has(q.id) ? "Flagged" : "Flag")), /*#__PURE__*/React.createElement("p", {
+    className: "font-semibold mb-4",
+    style: {
+      color: C.text
+    }
+  }, q.q), /*#__PURE__*/React.createElement("div", {
+    className: "space-y-2"
+  }, q.choices.map((c, ci) => /*#__PURE__*/React.createElement("button", {
+    key: ci,
+    onClick: () => setAnswers({
+      ...answers,
+      [q.id]: ci
+    }),
+    className: "w-full text-left px-4 py-2.5 rounded-lg text-sm",
+    style: {
+      background: answers[q.id] === ci ? `${C.primary}44` : C.surfaceHi,
+      border: `1px solid ${answers[q.id] === ci ? C.accent : "transparent"}`,
+      color: C.text
+    }
+  }, c)))), /*#__PURE__*/React.createElement("div", {
+    className: "flex justify-between mt-4 gap-2"
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => setI(Math.max(0, i - 1)),
+    disabled: i === 0,
+    className: "px-4 py-2 rounded-lg text-sm disabled:opacity-40",
+    style: {
+      background: C.surface,
+      color: C.text,
+      border: `1px solid ${C.cardBorder}`
+    }
+  }, "\u2190 Prev"), i < qs.length - 1 ? /*#__PURE__*/React.createElement("button", {
+    onClick: () => setI(i + 1),
+    className: "px-4 py-2 rounded-lg text-sm",
+    style: {
+      background: C.surface,
+      color: C.text,
+      border: `1px solid ${C.cardBorder}`
+    }
+  }, "Next \u2192") : null, /*#__PURE__*/React.createElement("button", {
+    onClick: () => unanswered > 0 ? setConfirmOpen(true) : setPhase("results"),
+    className: "px-4 py-2 rounded-lg text-sm font-semibold ml-auto",
+    style: {
+      background: answered === qs.length ? C.success : C.surface,
+      color: answered === qs.length ? "#FFFFFF" : C.warn
+    }
+  }, "Submit exam")), confirmOpen && unanswered > 0 && /*#__PURE__*/React.createElement("div", {
+    role: "alertdialog",
+    "aria-label": "Submit with unanswered questions",
+    className: "mt-3 p-4 rounded-xl flex flex-wrap items-center gap-3",
+    style: {
+      background: C.surface,
+      border: `1px solid ${C.warn}66`
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "text-sm flex-1 min-w-[12rem]",
+    style: {
+      color: C.text
+    }
+  }, unanswered, unanswered === 1 ? " question is" : " questions are", " unanswered and will count as wrong."), /*#__PURE__*/React.createElement("button", {
+    onClick: () => {
+      setConfirmOpen(false);
+      const first = qs.findIndex(x => answers[x.id] == null);
+      if (first >= 0) setI(first);
+    },
+    className: "px-3 py-1.5 rounded-lg text-sm",
+    style: {
+      background: C.surface,
+      color: C.text,
+      border: `1px solid ${C.cardBorder}`
+    }
+  }, "Go to first unanswered"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => setPhase("results"),
+    className: "px-3 py-1.5 rounded-lg text-sm font-semibold",
+    style: {
+      background: C.warn,
+      color: C.mode === "dark" ? C.onPrimary : "#FFFFFF"
+    }
+  }, "Submit anyway")));
+}
+function Exam() {
+  const C = useC();
+  const st = useSt();
+  const [sel, setSel] = useState(null);
+  if (sel) return /*#__PURE__*/React.createElement(ExamRun, {
+    key: sel.id,
+    exam: sel,
+    onExit: () => setSel(null)
+  });
+  return /*#__PURE__*/React.createElement("div", {
+    className: "max-w-2xl mx-auto"
+  }, /*#__PURE__*/React.createElement(BackBar, {
+    title: "Practice Exams"
+  }), /*#__PURE__*/React.createElement("p", {
+    className: "text-sm mb-4 -mt-2",
+    style: {
+      color: C.dim
+    }
+  }, "Exam conditions: no feedback until you submit, flag anything to revisit, timer counts up. Full forms draw from both banks."), /*#__PURE__*/React.createElement("div", {
+    className: "grid sm:grid-cols-2 gap-3"
+  }, EXAMS.filter(e => inState(e, st)).map(ex => {
+    const available = Math.min(ex.n, examPool(ex.topic, st).length);
+    return /*#__PURE__*/React.createElement(Card, {
+      key: ex.id,
+      onClick: () => setSel(ex),
+      style: {
+        border: `1px solid ${C.primary}55`
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "flex justify-between items-start mb-2"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "w-8 h-8 rounded-lg flex items-center justify-center",
+      style: {
+        background: `${C.primary}22`,
+        color: C.accent
+      }
+    }, /*#__PURE__*/React.createElement(ClipboardList, {
+      size: 16
+    })), /*#__PURE__*/React.createElement("span", {
+      style: {
+        ...mono,
+        color: C.accent
+      },
+      className: "text-[10px]"
+    }, available, " questions")), /*#__PURE__*/React.createElement("div", {
+      className: "font-bold mb-0.5",
+      style: {
+        color: C.text
+      }
+    }, ex.title), /*#__PURE__*/React.createElement("div", {
+      className: "text-xs mb-2",
+      style: {
+        color: C.dim
+      }
+    }, ex.desc), /*#__PURE__*/React.createElement("div", {
+      className: "flex items-center justify-between"
+    }, ex.lastScore != null ? /*#__PURE__*/React.createElement("span", {
+      style: {
+        ...mono,
+        color: ex.lastScore >= 75 ? C.success : C.warn
+      },
+      className: "text-[10px]"
+    }, "LAST: ", ex.lastScore, "%") : /*#__PURE__*/React.createElement("span", {
+      style: {
+        ...mono,
+        color: C.dim
+      },
+      className: "text-[10px]"
+    }, "NOT ATTEMPTED"), /*#__PURE__*/React.createElement("span", {
+      className: "flex items-center gap-1 text-xs font-semibold",
+      style: {
+        color: C.accent
+      }
+    }, "Start ", /*#__PURE__*/React.createElement(ArrowRight, {
+      size: 12
+    }))));
+  })));
+}
+
+/* ---------------- MATCHING GAME ---------------- */
+function MatchGame({
+  set,
+  onExit
+}) {
+  const C = useC();
+  const tiles = useMemo(() => shuffled(set.pairs.flatMap(p => [{
+    key: p.id + "-t",
+    pair: p.id,
+    label: p.term,
+    kind: "term"
+  }, {
+    key: p.id + "-d",
+    pair: p.id,
+    label: p.def,
+    kind: "def"
+  }])), [set]);
+  const [sel, setSel] = useState(null);
+  const [matched, setMatched] = useState(new Set());
+  const [wrong, setWrong] = useState(null);
+  const [moves, setMoves] = useState(0);
+  const done = matched.size === set.pairs.length;
+  const tap = t => {
+    if (matched.has(t.pair) || wrong) return;
+    if (!sel) {
+      setSel(t);
+      return;
+    }
+    if (sel.key === t.key) {
+      setSel(null);
+      return;
+    }
+    setMoves(m => m + 1);
+    if (sel.pair === t.pair && sel.kind !== t.kind) {
+      setMatched(new Set([...matched, t.pair]));
+      setSel(null);
+    } else {
+      setWrong([sel.key, t.key]);
+      setTimeout(() => {
+        setWrong(null);
+        setSel(null);
+      }, 600);
+    }
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    className: "max-w-xl mx-auto"
+  }, /*#__PURE__*/React.createElement(SubBack, {
+    label: "All matching sets",
+    onClick: onExit
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "flex justify-between items-center mb-3"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "text-sm font-bold",
+    style: {
+      color: C.text
+    }
+  }, set.title), /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...mono,
+      color: C.dim
+    },
+    className: "text-xs"
+  }, matched.size, " / ", set.pairs.length, " \xB7 ", moves, " moves")), done ? /*#__PURE__*/React.createElement(Card, {
+    className: "text-center py-10"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "text-3xl font-bold mb-2",
+    style: {
+      color: C.success
+    }
+  }, "All matched"), /*#__PURE__*/React.createElement("div", {
+    className: "text-sm mb-6",
+    style: {
+      color: C.dim
+    }
+  }, moves, " moves. Perfect is ", set.pairs.length, "."), /*#__PURE__*/React.createElement("button", {
+    onClick: onExit,
+    className: "px-5 py-2 rounded-lg",
+    style: {
+      background: C.primary,
+      color: C.onPrimary
+    }
+  }, "Pick another set")) : /*#__PURE__*/React.createElement("div", {
+    className: "grid grid-cols-2 sm:grid-cols-3 gap-2"
+  }, tiles.map(t => {
+    const isMatched = matched.has(t.pair);
+    const isSel = sel?.key === t.key;
+    const isWrong = wrong?.includes(t.key);
+    return /*#__PURE__*/React.createElement("button", {
+      key: t.key,
+      onClick: () => tap(t),
+      disabled: isMatched,
+      className: "rounded-lg p-3 text-xs min-h-[64px] transition",
+      style: {
+        background: isMatched ? `${C.success}1E` : isWrong ? `${C.danger}33` : isSel ? C.primary : C.surface,
+        color: isMatched ? C.success : isSel ? C.onPrimary : C.text,
+        border: `1px solid ${isMatched ? C.success : isWrong ? C.danger : isSel ? C.accent : C.cardBorder}`,
+        opacity: isMatched ? 0.6 : 1,
+        fontFamily: t.kind === "term" ? "'DM Mono', monospace" : "'DM Sans', sans-serif"
+      }
+    }, t.label);
+  })));
+}
+function Matching() {
+  const C = useC();
+  const st = useSt();
+  const [sel, setSel] = useState(null);
+  if (sel) return /*#__PURE__*/React.createElement(MatchGame, {
+    key: sel.id,
+    set: sel,
+    onExit: () => setSel(null)
+  });
+  return /*#__PURE__*/React.createElement("div", {
+    className: "max-w-2xl mx-auto"
+  }, /*#__PURE__*/React.createElement(BackBar, {
+    title: "Matching Game"
+  }), /*#__PURE__*/React.createElement("p", {
+    className: "text-sm mb-4 -mt-2",
+    style: {
+      color: C.dim
+    }
+  }, "Pair each term with its definition. Fewest moves wins."), /*#__PURE__*/React.createElement("div", {
+    className: "grid sm:grid-cols-2 gap-3"
+  }, MATCH_SETS.filter(m => inState(m, st)).map(set => /*#__PURE__*/React.createElement(Card, {
+    key: set.id,
+    onClick: () => setSel(set),
+    style: {
+      border: `1px solid ${C.primary}55`
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex justify-between items-start mb-2"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "w-8 h-8 rounded-lg flex items-center justify-center",
+    style: {
+      background: `${C.primary}22`,
+      color: C.accent
+    }
+  }, /*#__PURE__*/React.createElement(LayoutGrid, {
+    size: 16
+  })), /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...mono,
+      color: C.accent
+    },
+    className: "text-[10px]"
+  }, set.pairs.length, " pairs")), /*#__PURE__*/React.createElement("div", {
+    className: "font-bold mb-0.5",
+    style: {
+      color: C.text
+    }
+  }, set.title), /*#__PURE__*/React.createElement("div", {
+    className: "text-xs",
+    style: {
+      color: C.dim
+    }
+  }, set.desc)))));
+}
+
+/* ---------------- VIDEO LESSONS ---------------- */
+function VideoPlayer({
+  lesson,
+  onExit
+}) {
+  const C = useC();
+  const D = useC();
+  const segs = lesson.segments;
+  const totalDur = segs.reduce((a, s) => a + s.duration, 0);
+  const segStart = si => segs.slice(0, si).reduce((a, s) => a + s.duration, 0);
+  const [t, setT] = useState(0);
+  const [playing, setPlaying] = useState(false);
+  const [checkpoint, setCheckpoint] = useState(null);
+  const [qi, setQi] = useState(0);
+  const [picked, setPicked] = useState(null);
+  const [passedSegs, setPassedSegs] = useState(new Set());
+  const segAt = time => {
+    let acc = 0;
+    for (let i = 0; i < segs.length; i++) {
+      acc += segs[i].duration;
+      if (time < acc) return i;
+    }
+    return segs.length - 1;
+  };
+  const curSeg = segAt(Math.min(t, totalDur - 0.01));
+  useEffect(() => {
+    if (!playing || checkpoint !== null) return;
+    const iv = setInterval(() => {
+      setT(prev => {
+        const next = prev + 0.1;
+        const si = segAt(prev);
+        const boundary = segStart(si) + segs[si].duration;
+        if (next >= boundary) {
+          if (!passedSegs.has(si) && segs[si].questions.length) {
+            setPlaying(false);
+            setCheckpoint(si);
+            setQi(0);
+            setPicked(null);
+            return boundary - 0.01;
+          }
+          if (next >= totalDur) {
+            setPlaying(false);
+            return totalDur;
+          }
+        }
+        return next;
+      });
+    }, 100);
+    return () => clearInterval(iv);
+  }, [playing, checkpoint, passedSegs]);
+  const jumpTo = si => {
+    setCheckpoint(null);
+    setPicked(null);
+    setT(segStart(si));
+    setPlaying(true);
+  };
+  const answerCheckpoint = ci => {
+    if (picked === null) setPicked(ci);
+  };
+  const continueFromCheckpoint = () => {
+    const seg = segs[checkpoint];
+    if (qi + 1 < seg.questions.length) {
+      setQi(qi + 1);
+      setPicked(null);
+    } else {
+      setPassedSegs(new Set([...passedSegs, checkpoint]));
+      const nextStart = segStart(checkpoint) + seg.duration;
+      setCheckpoint(null);
+      setPicked(null);
+      if (nextStart < totalDur) {
+        setT(nextStart);
+        setPlaying(true);
+      } else setT(totalDur);
+    }
+  };
+  const fmt = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
+  const cq = checkpoint !== null ? segs[checkpoint].questions[qi] : null;
+  return /*#__PURE__*/React.createElement("div", {
+    className: "max-w-2xl mx-auto"
+  }, /*#__PURE__*/React.createElement(SubBack, {
+    label: "All lessons",
+    onClick: onExit
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center gap-2 mb-2 flex-wrap"
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...mono,
+      color: C.dim
+    },
+    className: "text-xs"
+  }, lesson.id), /*#__PURE__*/React.createElement(Tag, null, lesson.topic), /*#__PURE__*/React.createElement(Tag, {
+    color: C.success
+  }, "Practice bank")), /*#__PURE__*/React.createElement("h3", {
+    className: "text-lg font-bold mb-3",
+    style: {
+      color: C.text
+    }
+  }, lesson.title), /*#__PURE__*/React.createElement("div", {
+    className: "relative rounded-xl overflow-hidden mb-1",
+    style: {
+      background: `radial-gradient(120% 130% at 50% 0%, ${D.surfaceHi} 0%, ${D.base} 62%)`,
+      display: "grid",
+      gridTemplateColumns: "minmax(0, 1fr)",
+      border: `1px solid ${D.primary}44`
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    "aria-hidden": "true",
+    style: {
+      aspectRatio: "16/9",
+      gridArea: "1 / 1"
+    }
+  }), checkpoint === null ? /*#__PURE__*/React.createElement("div", {
+    className: "absolute inset-0 flex flex-col items-center justify-center"
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      ...mono,
+      color: D.accent
+    },
+    className: "text-[10px] uppercase tracking-widest mb-2"
+  }, "Segment ", curSeg + 1, " of ", segs.length), /*#__PURE__*/React.createElement("div", {
+    className: "text-xl font-bold mb-6 px-6 text-center",
+    style: {
+      color: D.text
+    }
+  }, segs[curSeg].title), /*#__PURE__*/React.createElement("button", {
+    onClick: () => setPlaying(!playing),
+    "aria-label": playing ? "Pause" : "Play",
+    className: "w-14 h-14 rounded-full flex items-center justify-center transition hover:scale-105",
+    style: {
+      background: D.primary,
+      color: D.onPrimary,
+      boxShadow: `0 0 32px ${D.primary}66`
+    }
+  }, playing ? /*#__PURE__*/React.createElement(Pause, {
+    size: 22,
+    fill: D.onPrimary
+  }) : /*#__PURE__*/React.createElement(Play, {
+    size: 22,
+    fill: D.onPrimary,
+    style: {
+      marginLeft: 3
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      ...mono,
+      color: D.dim
+    },
+    className: "text-xs mt-4"
+  }, fmt(t), " / ", fmt(totalDur), " \xB7 simulated playback")) : /*#__PURE__*/React.createElement("div", {
+    className: "relative p-5",
+    style: {
+      background: `${D.base}F2`,
+      gridArea: "1 / 1"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      ...mono,
+      color: D.warn
+    },
+    className: "text-[10px] uppercase tracking-widest mb-2"
+  }, "Checkpoint \xB7 ", segs[checkpoint].title, " \xB7 Q", qi + 1, "/", segs[checkpoint].questions.length), /*#__PURE__*/React.createElement("p", {
+    className: "font-semibold mb-3 text-sm",
+    style: {
+      color: D.text
+    }
+  }, cq.q), /*#__PURE__*/React.createElement("div", {
+    className: "space-y-2"
+  }, cq.choices.map((c, ci) => {
+    let bg = D.surface,
+      border = "transparent";
+    if (picked !== null) {
+      if (ci === cq.answer) {
+        bg = `${D.success}22`;
+        border = D.success;
+      } else if (ci === picked) {
+        bg = `${D.danger}22`;
+        border = D.danger;
+      }
+    }
+    return /*#__PURE__*/React.createElement("button", {
+      key: ci,
+      onClick: () => answerCheckpoint(ci),
+      disabled: picked !== null,
+      className: "w-full text-left px-3 py-2 rounded-lg text-xs",
+      style: {
+        background: bg,
+        color: D.text,
+        border: `1px solid ${border}`
+      }
+    }, c);
+  })), picked !== null && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("p", {
+    className: "text-xs mt-3",
+    style: {
+      color: D.dim
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: picked === cq.answer ? D.success : D.danger
+    },
+    className: "font-semibold"
+  }, picked === cq.answer ? "Correct. " : "Not quite. "), cq.exp), /*#__PURE__*/React.createElement("button", {
+    onClick: continueFromCheckpoint,
+    className: "mt-3 px-4 py-2 rounded-lg text-sm font-semibold",
+    style: {
+      background: D.primary,
+      color: D.onPrimary
+    }
+  }, qi + 1 < segs[checkpoint].questions.length ? "Next question" : "Resume video →")))), /*#__PURE__*/React.createElement("div", {
+    className: "flex gap-1 mb-1",
+    role: "group",
+    "aria-label": "Chapter scrubber"
+  }, segs.map((sg, si) => {
+    const start = segStart(si);
+    const prog = Math.min(1, Math.max(0, (t - start) / sg.duration));
+    return /*#__PURE__*/React.createElement("button", {
+      key: si,
+      onClick: () => jumpTo(si),
+      title: sg.title,
+      className: "h-2 rounded-full overflow-hidden relative",
+      style: {
+        flex: sg.duration,
+        background: C.surfaceHi
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "absolute inset-y-0 left-0 rounded-full",
+      style: {
+        width: `${prog * 100}%`,
+        background: passedSegs.has(si) ? C.success : C.accent
+      }
+    }));
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "flex justify-between text-[10px] mb-4",
+    style: {
+      ...mono,
+      color: C.dim
+    }
+  }, /*#__PURE__*/React.createElement("span", null, fmt(t)), /*#__PURE__*/React.createElement("span", null, fmt(totalDur))), /*#__PURE__*/React.createElement("div", {
+    className: "space-y-1.5"
+  }, segs.map((sg, si) => /*#__PURE__*/React.createElement("button", {
+    key: si,
+    onClick: () => jumpTo(si),
+    className: "w-full flex items-center justify-between px-3 py-2 rounded-lg text-left text-sm",
+    style: {
+      background: si === curSeg ? C.surfaceHi : C.surface,
+      color: C.text,
+      border: `1px solid ${si === curSeg ? C.accent + "66" : C.cardBorder}`
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "flex items-center gap-2"
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...mono,
+      color: passedSegs.has(si) ? C.success : C.dim
+    },
+    className: "text-xs flex items-center"
+  }, passedSegs.has(si) ? /*#__PURE__*/React.createElement(Check, {
+    size: 13
+  }) : String(si + 1).padStart(2, "0")), sg.title), /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...mono,
+      color: C.dim
+    },
+    className: "text-xs"
+  }, fmt(sg.duration), " \xB7 ", sg.questions.length, " Q")))));
+}
+function VideoLesson() {
+  const C = useC();
+  const st = useSt();
+  const [sel, setSel] = useState(null);
+  const fmtTotal = lesson => {
+    const d = lesson.segments.reduce((a, s) => a + s.duration, 0);
+    return `${Math.floor(d / 60)}:${String(d % 60).padStart(2, "0")}`;
+  };
+  if (sel) return /*#__PURE__*/React.createElement(VideoPlayer, {
+    key: sel.id,
+    lesson: sel,
+    onExit: () => setSel(null)
+  });
+  return /*#__PURE__*/React.createElement("div", {
+    className: "max-w-2xl mx-auto"
+  }, /*#__PURE__*/React.createElement(BackBar, {
+    title: "Video Lessons"
+  }), /*#__PURE__*/React.createElement("p", {
+    className: "text-sm mb-4 -mt-2",
+    style: {
+      color: C.dim
+    }
+  }, "Short lessons that pause at each segment for a checkpoint question. Answer to keep watching."), /*#__PURE__*/React.createElement("div", {
+    className: "space-y-3"
+  }, VIDEO_LESSONS.filter(v => inState(v, st)).map(lesson => {
+    const soon = lesson.comingSoon;
+    const qCount = soon ? null : lesson.segments.reduce((a, s) => a + s.questions.length, 0);
+    return /*#__PURE__*/React.createElement(Card, {
+      key: lesson.id,
+      onClick: soon ? undefined : () => setSel(lesson),
+      className: "flex gap-4 items-stretch",
+      style: {
+        opacity: soon ? 0.6 : 1,
+        border: `1px solid ${C.primary}55`
+      }
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "w-32 sm:w-40 shrink-0 rounded-lg flex items-center justify-center",
+      style: {
+        background: `radial-gradient(120% 130% at 50% 0%, ${C.surfaceHi} 0%, ${C.base} 70%)`,
+        aspectRatio: "16/9"
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "w-9 h-9 rounded-full flex items-center justify-center",
+      style: {
+        background: soon ? C.surfaceHi : C.primary,
+        color: C.onPrimary
+      }
+    }, /*#__PURE__*/React.createElement(Play, {
+      size: 15,
+      fill: soon ? C.dim : C.onPrimary,
+      style: {
+        marginLeft: 2
+      }
+    }))), /*#__PURE__*/React.createElement("div", {
+      className: "min-w-0 flex flex-col justify-center"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "flex items-center gap-2 mb-1 flex-wrap"
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        ...mono,
+        color: C.dim
+      },
+      className: "text-[10px]"
+    }, lesson.id), /*#__PURE__*/React.createElement(Tag, null, lesson.topic), soon && /*#__PURE__*/React.createElement(Tag, {
+      color: C.warn
+    }, "Coming soon")), /*#__PURE__*/React.createElement("div", {
+      className: "font-bold text-sm mb-1",
+      style: {
+        color: C.text
+      }
+    }, lesson.title), /*#__PURE__*/React.createElement("div", {
+      style: {
+        ...mono,
+        color: C.dim
+      },
+      className: "text-[10px]"
+    }, soon ? lesson.est : `${fmtTotal(lesson)} · ${lesson.segments.length} segments · ${qCount} checkpoint questions`)));
+  })));
+}
+
+/* ---------------- MISSED-QUESTION REVIEW ---------------- */
+function Review({
+  stats,
+  go
+}) {
+  const C = useC();
+  return /*#__PURE__*/React.createElement("div", {
+    className: "max-w-xl mx-auto"
+  }, /*#__PURE__*/React.createElement(BackBar, {
+    title: "Missed Questions"
+  }), stats.missed.length === 0 ? /*#__PURE__*/React.createElement(Card, {
+    className: "text-center py-10"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "font-bold mb-1",
+    style: {
+      color: C.success
+    }
+  }, "Nothing to review"), /*#__PURE__*/React.createElement("div", {
+    className: "text-sm",
+    style: {
+      color: C.dim
+    }
+  }, "Every practice question you have seen, you got right on the last try.")) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("p", {
+    className: "text-sm mb-4 flex items-start gap-2",
+    style: {
+      color: C.dim
+    }
+  }, /*#__PURE__*/React.createElement(AlertTriangle, {
+    size: 15,
+    style: {
+      color: C.warn,
+      marginTop: 2,
+      flexShrink: 0
+    }
+  }), "These ", stats.missed.length, " practice-bank questions were wrong on your most recent attempt. Read the explanation, then run a quiz to clear them."), /*#__PURE__*/React.createElement("div", {
+    className: "space-y-3 mb-4"
+  }, stats.missed.map(m => /*#__PURE__*/React.createElement(Card, {
+    key: m.id
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex justify-between items-start mb-2"
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...mono,
+      color: C.dim
+    },
+    className: "text-[10px]"
+  }, m.id), /*#__PURE__*/React.createElement(Tag, null, m.topic)), /*#__PURE__*/React.createElement("p", {
+    className: "text-sm font-semibold mb-2",
+    style: {
+      color: C.text
+    }
+  }, m.q), /*#__PURE__*/React.createElement("p", {
+    className: "text-xs mb-2",
+    style: {
+      color: C.success
+    }
+  }, /*#__PURE__*/React.createElement(Check, {
+    size: 11,
+    className: "inline mr-1",
+    style: {
+      verticalAlign: "-1px"
+    }
+  }), m.choices[m.answer]), /*#__PURE__*/React.createElement("p", {
+    className: "text-xs",
+    style: {
+      color: C.dim
+    }
+  }, m.exp)))), /*#__PURE__*/React.createElement("button", {
+    onClick: () => go("quiz"),
+    className: "w-full py-2.5 rounded-lg font-semibold flex items-center justify-center gap-2",
+    style: {
+      background: C.primary,
+      color: C.onPrimary
+    }
+  }, /*#__PURE__*/React.createElement(Zap, {
+    size: 15
+  }), " Drill these with a quiz")));
+}
+
+/* ---------------- SESSION REVIEW ---------------- */
+function SessionReview({
+  idx,
+  go
+}) {
+  const C = useC();
+  const s = SESSIONS[idx];
+  const [picked, setFilter] = useState(null);
+  if (!s) return null;
+  const byId = Object.fromEntries(QUESTIONS.map(q => [q.id, q]));
+  const items = Object.entries(s.results).map(([id, r]) => ({
+    q: byId[id],
+    r
+  })).filter(x => x.q);
+  const right = items.filter(x => x.r).length;
+  const pct = Math.round(right / items.length * 100);
+  const filter = picked || (items.length - right > 0 ? "missed" : "all");
+  const shown = filter === "missed" ? items.filter(x => !x.r) : items;
+  const col = v => v < 60 ? C.danger : v < 80 ? C.warn : C.success;
+  const isExam = s.mode === "exam";
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
+    onClick: () => go("dashboard"),
+    className: "text-xs flex items-center gap-1 mb-3 hover:underline",
+    style: {
+      color: C.dim
+    }
+  }, /*#__PURE__*/React.createElement(ChevronLeft, {
+    size: 14
+  }), " Dashboard"), /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center gap-2 mb-1"
+  }, /*#__PURE__*/React.createElement(Tag, {
+    color: isExam ? C.primary : undefined
+  }, s.mode), /*#__PURE__*/React.createElement("span", {
+    className: "text-xs",
+    style: {
+      ...mono,
+      color: C.dim
+    }
+  }, s.date)), /*#__PURE__*/React.createElement("h2", {
+    className: "text-2xl font-bold mb-5",
+    style: {
+      color: C.text
+    }
+  }, isExam ? "Practice exam" : "Quiz", " review"), /*#__PURE__*/React.createElement("div", {
+    className: "grid lg:grid-cols-[300px_minmax(0,1fr)] gap-6 items-start"
+  }, /*#__PURE__*/React.createElement("aside", {
+    className: "lg:sticky lg:top-20 space-y-3"
+  }, /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement("div", {
+    className: "text-[11px] mb-1",
+    style: {
+      color: C.dim
+    }
+  }, isExam ? "Score" : "Accuracy"), /*#__PURE__*/React.createElement("div", {
+    className: "text-4xl font-bold tracking-tight mb-3",
+    style: {
+      color: col(isExam ? s.score : pct)
+    }
+  }, isExam ? s.score : pct, "%"), /*#__PURE__*/React.createElement("div", {
+    className: "grid grid-cols-2 gap-2 mb-4"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "rounded-lg px-3 py-2",
+    style: {
+      background: `${C.success}14`
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "text-[10px] uppercase tracking-wider",
+    style: {
+      ...mono,
+      color: C.dim
+    }
+  }, "Correct"), /*#__PURE__*/React.createElement("div", {
+    className: "text-lg font-bold",
+    style: {
+      color: C.success
+    }
+  }, right)), /*#__PURE__*/React.createElement("div", {
+    className: "rounded-lg px-3 py-2",
+    style: {
+      background: `${C.danger}14`
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "text-[10px] uppercase tracking-wider",
+    style: {
+      ...mono,
+      color: C.dim
+    }
+  }, "Missed"), /*#__PURE__*/React.createElement("div", {
+    className: "text-lg font-bold",
+    style: {
+      color: C.danger
+    }
+  }, items.length - right))), /*#__PURE__*/React.createElement("div", {
+    className: "text-[10px] uppercase tracking-wider mb-2",
+    style: {
+      ...mono,
+      color: C.dim
+    }
+  }, "Questions"), /*#__PURE__*/React.createElement("div", {
+    className: "grid grid-cols-5 gap-1.5"
+  }, items.map((x, k) => /*#__PURE__*/React.createElement("button", {
+    key: x.q.id,
+    title: `Question ${k + 1} · ${x.r ? "Correct" : "Missed"}`,
+    onClick: () => {
+      setFilter("all");
+      setTimeout(() => document.getElementById(`sq-${x.q.id}`)?.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      }), 0);
+    },
+    className: "h-8 rounded-md text-[11px] font-semibold transition hover:scale-105",
+    style: {
+      ...mono,
+      background: x.r ? `${C.success}1F` : `${C.danger}1F`,
+      color: x.r ? C.success : C.danger
+    }
+  }, k + 1)))), items.length - right > 0 && /*#__PURE__*/React.createElement("button", {
+    onClick: () => go("review"),
+    className: "w-full py-2.5 rounded-lg text-sm font-semibold flex items-center justify-center gap-2",
+    style: {
+      background: C.primary,
+      color: C.onPrimary
+    }
+  }, /*#__PURE__*/React.createElement(RotateCcw, {
+    size: 15
+  }), " Review all missed questions")), /*#__PURE__*/React.createElement("div", {
+    className: "min-w-0"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex gap-1 mb-3 p-1 rounded-lg w-fit",
+    style: {
+      background: C.surfaceHi
+    }
+  }, [["missed", `Missed ${items.length - right}`], ["all", `All ${items.length}`]].map(([k, l]) => /*#__PURE__*/React.createElement("button", {
+    key: k,
+    onClick: () => setFilter(k),
+    className: "px-3 py-1 rounded-md text-xs font-medium transition",
+    style: {
+      background: filter === k ? C.surface : "transparent",
+      color: filter === k ? C.text : C.dim
+    }
+  }, l))), /*#__PURE__*/React.createElement("div", {
+    className: "space-y-3 mb-4"
+  }, shown.map(({
+    q,
+    r
+  }) => {
+    const n = items.findIndex(x => x.q.id === q.id) + 1;
+    const yours = r ? q.answer : (q.answer + 1) % q.choices.length; // mock: wrong pick
+    return /*#__PURE__*/React.createElement(Card, {
+      key: q.id
+    }, /*#__PURE__*/React.createElement("div", {
+      id: `sq-${q.id}`,
+      className: "scroll-mt-24"
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "flex items-center gap-3 mb-3"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "w-8 h-8 rounded-full flex items-center justify-center shrink-0",
+      style: {
+        background: `${r ? C.success : C.danger}1F`,
+        color: r ? C.success : C.danger
+      }
+    }, r ? /*#__PURE__*/React.createElement(Check, {
+      size: 16,
+      strokeWidth: 2.5
+    }) : /*#__PURE__*/React.createElement(X, {
+      size: 16,
+      strokeWidth: 2.5
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "min-w-0 flex-1"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "text-xs font-semibold",
+      style: {
+        color: C.text
+      }
+    }, "Question ", n), /*#__PURE__*/React.createElement("div", {
+      className: "text-[11px] truncate",
+      style: {
+        color: C.dim
+      }
+    }, q.topic)), /*#__PURE__*/React.createElement("span", {
+      className: "text-[10px] font-semibold uppercase tracking-wider px-2 py-1 rounded-full shrink-0",
+      style: {
+        ...mono,
+        background: `${r ? C.success : C.danger}1A`,
+        color: r ? C.success : C.danger
+      }
+    }, r ? "Correct" : "Missed")), /*#__PURE__*/React.createElement("p", {
+      className: "text-sm font-semibold mb-3",
+      style: {
+        color: C.text
+      }
+    }, q.q), /*#__PURE__*/React.createElement("div", {
+      className: "space-y-1.5 mb-3"
+    }, q.choices.map((ch, ci) => {
+      const correct = ci === q.answer,
+        picked = ci === yours;
+      const fg = correct ? C.success : picked ? C.danger : C.text;
+      return /*#__PURE__*/React.createElement("div", {
+        key: ci,
+        className: "flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs",
+        style: {
+          background: correct ? `${C.success}14` : picked ? `${C.danger}14` : C.surfaceHi + "80"
+        }
+      }, /*#__PURE__*/React.createElement("span", {
+        className: "w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-semibold shrink-0",
+        style: {
+          ...mono,
+          background: correct ? C.success : picked ? C.danger : C.surface,
+          color: correct || picked ? "#FFFFFF" : C.dim
+        }
+      }, correct ? /*#__PURE__*/React.createElement(Check, {
+        size: 12,
+        strokeWidth: 3
+      }) : picked ? /*#__PURE__*/React.createElement(X, {
+        size: 12,
+        strokeWidth: 3
+      }) : "ABCDEFG"[ci]), /*#__PURE__*/React.createElement("span", {
+        className: "flex-1",
+        style: {
+          color: fg,
+          fontWeight: correct || picked ? 600 : 400
+        }
+      }, ch), picked && !correct && /*#__PURE__*/React.createElement("span", {
+        className: "text-[10px] shrink-0",
+        style: {
+          ...mono,
+          color: C.danger
+        }
+      }, "Your answer"), picked && correct && /*#__PURE__*/React.createElement("span", {
+        className: "text-[10px] shrink-0",
+        style: {
+          ...mono,
+          color: C.success
+        }
+      }, "Your answer"));
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "rounded-lg px-3 py-2.5 text-xs",
+      style: {
+        background: `${C.primary}14`,
+        color: C.text
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "text-[10px] font-semibold uppercase tracking-wider mr-1.5",
+      style: {
+        ...mono,
+        color: C.dim
+      }
+    }, "Why"), q.exp));
+  })))));
+}
+
+/* ---------------- MARKETING SITE (LOGGED OUT) ---------------- */
+const PLAN = {
+  name: "Exam Pass",
+  price: "$99",
+  access: "6 months of access",
+  cta: "Get the Exam Pass",
+  blurb: "Built for the stretch between application and test day.",
+  features: [{
+    t: "Video lessons",
+    d: "Every lesson, with checkpoint questions."
+  }, {
+    t: "Unlimited practice exams",
+    d: "Timed, full-length, scored like the real thing."
+  }, {
+    t: "Flashcards, quizzes & matching",
+    d: "Every set for your state."
+  }, {
+    t: "Projected exam score",
+    d: "See if you'd pass today, against the 75% mark."
+  }, {
+    t: "Missed-question review",
+    d: "Every wrong answer, with the explanation."
+  }, {
+    t: "6 months of access",
+    d: "Covers application through test day."
+  }]
+};
+const FAQS = [{
+  q: "Is this the national board exam or the state law exam?",
+  a: "The state law portion. Anubis Law covers the statutes, rules, and Board procedures specific to the state you select — the part that changes when you cross a border, and the part national study guides skip."
+}, {
+  q: "Which states are available?",
+  a: "North Carolina is live today. You pick one state during signup and everything — questions, lessons, and your stats — is scoped to it. More states are in production."
+}, {
+  q: "What makes the video lessons different?",
+  a: "They stop. Each lesson is cut into short segments, and at every boundary the player pauses and asks you a checkpoint question before it will resume. You cannot passively watch your way through a lesson, which is exactly the failure mode of most video courses."
+}, {
+  q: "How is my projected exam score calculated?",
+  a: "It averages your last two practice exam scores with your accuracy over your last three study sessions. That puts it on the same scale as the real exam, so you can see how close you are to the 75% pass mark."
+}];
+function HeroDemo() {
+  const D = useC();
+  return /*#__PURE__*/React.createElement("div", {
+    className: "rounded-2xl overflow-hidden shadow-2xl",
+    style: {
+      border: `1px solid ${D.primary}44`
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "relative",
+    style: {
+      background: `radial-gradient(120% 130% at 50% 0%, ${D.surfaceHi} 0%, ${D.base} 62%)`,
+      aspectRatio: "16/10"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "absolute inset-0 p-5 sm:p-6 flex flex-col justify-center",
+    style: {
+      background: `${D.base}E8`
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      ...mono,
+      color: D.primary
+    },
+    className: "text-[10px] uppercase tracking-widest mb-2"
+  }, "Checkpoint \xB7 Trusting the funds \xB7 Q1/1"), /*#__PURE__*/React.createElement("p", {
+    className: "font-semibold mb-3 text-sm",
+    style: {
+      color: D.text
+    }
+  }, "Preneed funds must be deposited within:"), /*#__PURE__*/React.createElement("div", {
+    className: "space-y-1.5"
+  }, ["24 hours", "10 business days", "30 days", "90 days"].map((c, i) => /*#__PURE__*/React.createElement("div", {
+    key: c,
+    className: "px-3 py-2 rounded-lg text-xs flex items-center justify-between",
+    style: {
+      background: i === 1 ? `${D.success}22` : D.surface,
+      border: `1px solid ${i === 1 ? D.success : "transparent"}`,
+      color: D.text
+    }
+  }, c, i === 1 && /*#__PURE__*/React.createElement(Check, {
+    size: 13,
+    style: {
+      color: D.success
+    }
+  })))), /*#__PURE__*/React.createElement("p", {
+    className: "text-[11px] mt-3",
+    style: {
+      color: D.dim
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: D.success
+    },
+    className: "font-semibold"
+  }, "Correct. "), "10 business days from receipt, into trust or applied to insurance."))), /*#__PURE__*/React.createElement("div", {
+    className: "flex gap-1 px-3 py-2.5",
+    style: {
+      background: D.base
+    }
+  }, [18, 16, 20, 15].map((w, i) => /*#__PURE__*/React.createElement("span", {
+    key: i,
+    className: "h-1.5 rounded-full overflow-hidden",
+    style: {
+      flex: w,
+      background: D.surfaceHi
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "block h-full rounded-full",
+    style: {
+      width: i < 2 ? "100%" : i === 2 ? "62%" : "0%",
+      background: i < 2 ? D.success : D.primary
+    }
+  })))));
+}
+function Landing({
+  go,
+  theme,
+  setTheme
+}) {
+  const C = useC();
+  const [openFaq, setOpenFaq] = useState(0);
+  const jump = id => document.getElementById(id)?.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+  const links = [["features", "Features"], ["how", "How it works"], ["pricing", "Pricing"], ["faq", "FAQ"]];
+  const pillars = [{
+    icon: PlayCircle,
+    title: "Videos with built-in questions",
+    body: "Each lesson is split into short segments. After each one, the video pauses and asks a question before it continues."
+  }, {
+    icon: BarChart3,
+    title: "See if you're ready",
+    body: "Your projected exam score is based on your recent practice exams and sessions. It's shown against the 75% pass mark, along with your weakest topic."
+  }, {
+    icon: GraduationCap,
+    title: "Only your state's laws",
+    body: "Every question is tied to the state you pick, so you only study the rules that apply to you."
+  }];
+  const tools = [{
+    icon: Layers,
+    label: "Flashcards",
+    body: "Statute and vocabulary sets you can shuffle and drill in a few minutes."
+  }, {
+    icon: ClipboardList,
+    label: "Practice exams",
+    body: "Full forms and topic-focus exams under exam conditions — flagging, no feedback until you submit."
+  }, {
+    icon: Zap,
+    label: "Quizzes",
+    body: "Five-question rounds with an explanation after every answer."
+  }, {
+    icon: LayoutGrid,
+    label: "Matching",
+    body: "Pair citations with what they govern until the numbers stick."
+  }, {
+    icon: RotateCcw,
+    label: "Missed-question review",
+    body: "Everything you got wrong last time, in one list, with the reasoning."
+  }, {
+    icon: Timer,
+    label: "Session history",
+    body: "Every sitting logged with date, mode, volume, and accuracy."
+  }];
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: C.base
+    }
+  }, /*#__PURE__*/React.createElement("header", {
+    className: "sticky top-0 z-30",
+    style: {
+      background: `${C.nav}F2`,
+      borderBottom: `1px solid ${C.cardBorder}`,
+      backdropFilter: "blur(8px)"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "max-w-6xl mx-auto px-4 h-16 flex items-center gap-3"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center gap-2 shrink-0"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "text-lg font-bold tracking-tight",
+    style: {
+      color: C.text
+    }
+  }, "Anubis"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...mono,
+      color: C.primary,
+      border: `1px solid ${C.primary}`,
+      background: `${C.primary}1A`
+    },
+    className: "text-[10px] px-1.5 py-0.5 rounded uppercase tracking-wider"
+  }, "Law")), /*#__PURE__*/React.createElement("nav", {
+    className: "hidden md:flex gap-1 ml-4 flex-1"
+  }, links.map(([id, label]) => /*#__PURE__*/React.createElement("button", {
+    key: id,
+    onClick: () => jump(id),
+    className: "px-3 py-1.5 rounded-lg text-sm font-medium",
+    style: {
+      color: C.dim
+    }
+  }, label))), /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center gap-2 ml-auto"
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => setTheme(theme === "dark" ? "light" : "dark"),
+    "aria-label": "Toggle theme",
+    className: "p-2 rounded-lg",
+    style: {
+      background: C.surfaceHi,
+      color: C.text
+    }
+  }, theme === "dark" ? /*#__PURE__*/React.createElement(Sun, {
+    size: 15
+  }) : /*#__PURE__*/React.createElement(Moon, {
+    size: 15
+  })), /*#__PURE__*/React.createElement("button", {
+    onClick: () => go("login"),
+    className: "px-3 py-2 rounded-lg text-sm font-medium",
+    style: {
+      color: C.text
+    }
+  }, "Log in"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => go("signup"),
+    className: "px-4 py-2 rounded-lg text-sm font-semibold",
+    style: {
+      background: C.primary,
+      color: C.onPrimary
+    }
+  }, "Get started")))), /*#__PURE__*/React.createElement("section", {
+    className: "max-w-6xl mx-auto px-4 pt-14 pb-16 grid md:grid-cols-2 gap-10 items-center"
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      ...mono,
+      color: C.accent
+    },
+    className: "text-[11px] uppercase tracking-[0.2em] mb-3"
+  }, "State law exam prep \xB7 North Carolina"), /*#__PURE__*/React.createElement("h1", {
+    className: "text-4xl sm:text-5xl font-bold leading-[1.05] mb-4",
+    style: {
+      color: C.text
+    }
+  }, "Stop watching lectures.", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: C.primary
+    }
+  }, "Start answering.")), /*#__PURE__*/React.createElement("p", {
+    className: "text-base mb-6 max-w-md",
+    style: {
+      color: C.dim
+    }
+  }, "Anubis Law is exam prep for the state law portion of the funeral service licensing exam \u2014 built around video lessons that pause and quiz you before they let you keep going."), /*#__PURE__*/React.createElement("div", {
+    className: "flex flex-wrap gap-2 mb-5"
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => go("signup"),
+    className: "flex items-center gap-2 px-5 py-3 rounded-lg font-semibold text-sm",
+    style: {
+      background: C.primary,
+      color: C.onPrimary
+    }
+  }, "Get started ", /*#__PURE__*/React.createElement(ArrowRight, {
+    size: 15
+  })), /*#__PURE__*/React.createElement("button", {
+    onClick: () => jump("features"),
+    className: "px-5 py-3 rounded-lg font-semibold text-sm",
+    style: {
+      background: C.surface,
+      color: C.text,
+      border: `1px solid ${C.cardBorder}`
+    }
+  }, "See how it works")), /*#__PURE__*/React.createElement("p", {
+    className: "text-xs",
+    style: {
+      color: C.dim
+    }
+  }, "No card required \xB7 Companion to the DEAD! exam prep platform")), /*#__PURE__*/React.createElement(HeroDemo, null)), /*#__PURE__*/React.createElement("section", {
+    id: "features",
+    className: "max-w-6xl mx-auto px-4 py-14",
+    style: {
+      borderTop: `1px solid ${C.cardBorder}`
+    }
+  }, /*#__PURE__*/React.createElement("h2", {
+    className: "text-2xl font-bold mb-2",
+    style: {
+      color: C.text
+    }
+  }, "Study the way the exam tests you"), /*#__PURE__*/React.createElement("p", {
+    className: "text-sm mb-8 max-w-lg",
+    style: {
+      color: C.dim
+    }
+  }, "Most state law prep is a PDF and a few practice questions. Anubis Law trains you to recall the rules quickly, which is what the exam tests."), /*#__PURE__*/React.createElement("div", {
+    className: "grid md:grid-cols-3 gap-4"
+  }, pillars.map(p => {
+    const Icon = p.icon;
+    return /*#__PURE__*/React.createElement(Card, {
+      key: p.title
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "w-10 h-10 rounded-xl flex items-center justify-center mb-3",
+      style: {
+        background: `${C.primary}22`,
+        color: C.primary
+      }
+    }, /*#__PURE__*/React.createElement(Icon, {
+      size: 19
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "font-bold mb-1",
+      style: {
+        color: C.text
+      }
+    }, p.title), /*#__PURE__*/React.createElement("p", {
+      className: "text-sm",
+      style: {
+        color: C.dim
+      }
+    }, p.body));
+  }))), /*#__PURE__*/React.createElement("section", {
+    className: "max-w-6xl mx-auto px-4 py-14",
+    style: {
+      borderTop: `1px solid ${C.cardBorder}`
+    }
+  }, /*#__PURE__*/React.createElement("h2", {
+    className: "text-2xl font-bold mb-8",
+    style: {
+      color: C.text
+    }
+  }, "Everything in the box"), /*#__PURE__*/React.createElement("div", {
+    className: "grid sm:grid-cols-2 md:grid-cols-3 gap-4"
+  }, tools.map(t => {
+    const Icon = t.icon;
+    return /*#__PURE__*/React.createElement("div", {
+      key: t.label,
+      className: "flex gap-3"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "w-8 h-8 rounded-lg flex items-center justify-center shrink-0",
+      style: {
+        background: `${C.accent}1A`,
+        color: C.accent
+      }
+    }, /*#__PURE__*/React.createElement(Icon, {
+      size: 15
+    })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+      className: "font-semibold text-sm mb-0.5",
+      style: {
+        color: C.text
+      }
+    }, t.label), /*#__PURE__*/React.createElement("p", {
+      className: "text-xs",
+      style: {
+        color: C.dim
+      }
+    }, t.body)));
+  }))), /*#__PURE__*/React.createElement("section", {
+    id: "how",
+    className: "py-14",
+    style: {
+      background: C.surfaceHi
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "max-w-6xl mx-auto px-4"
+  }, /*#__PURE__*/React.createElement("h2", {
+    className: "text-2xl font-bold mb-8",
+    style: {
+      color: C.text
+    }
+  }, "Three steps"), /*#__PURE__*/React.createElement("div", {
+    className: "grid md:grid-cols-3 gap-4"
+  }, [["Pick your state", "Choose the state you're sitting for. Every question, lesson, and statistic is scoped to it."], ["Work the library", "Watch segmented lessons, drill flashcards, and sit full practice exams. Checkpoints catch the gaps as you go."], ["Watch your projected score climb", "One score, updated every session, with the weakest topic named so you always know what to open next."]].map(([title, body], i) => /*#__PURE__*/React.createElement("div", {
+    key: title
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      ...mono,
+      color: C.primary
+    },
+    className: "text-3xl font-bold mb-2"
+  }, "0", i + 1), /*#__PURE__*/React.createElement("div", {
+    className: "font-bold mb-1",
+    style: {
+      color: C.text
+    }
+  }, title), /*#__PURE__*/React.createElement("p", {
+    className: "text-sm",
+    style: {
+      color: C.dim
+    }
+  }, body)))))), /*#__PURE__*/React.createElement("section", {
+    id: "pricing",
+    className: "max-w-6xl mx-auto px-4 py-14"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "text-[11px] uppercase tracking-wider mb-2",
+    style: {
+      ...mono,
+      color: C.accent
+    }
+  }, "Pricing"), /*#__PURE__*/React.createElement("h2", {
+    className: "text-2xl md:text-3xl font-bold mb-8",
+    style: {
+      color: C.text,
+      textWrap: "balance"
+    }
+  }, "One price. Everything you need for exam day."), /*#__PURE__*/React.createElement("div", {
+    className: "rounded-2xl overflow-hidden grid md:grid-cols-[5fr_7fr]",
+    style: {
+      border: `1px solid ${C.cardBorder}`,
+      background: C.surface
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "p-6 md:p-8 flex flex-col",
+    style: {
+      background: `${C.primary}1F`,
+      borderRight: `1px solid ${C.cardBorder}`
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "font-bold",
+    style: {
+      color: C.text
+    }
+  }, PLAN.name), /*#__PURE__*/React.createElement("div", {
+    className: "text-xs mb-5",
+    style: {
+      color: C.dim
+    }
+  }, PLAN.blurb), /*#__PURE__*/React.createElement("div", {
+    className: "flex items-baseline gap-2"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "text-5xl font-bold tracking-tight",
+    style: {
+      color: C.text
+    }
+  }, PLAN.price), /*#__PURE__*/React.createElement("span", {
+    className: "text-sm",
+    style: {
+      color: C.dim
+    }
+  }, "one-time")), /*#__PURE__*/React.createElement("div", {
+    className: "text-xs mt-1 mb-6",
+    style: {
+      ...mono,
+      color: C.dim
+    }
+  }, PLAN.access), /*#__PURE__*/React.createElement("div", {
+    className: "mt-auto space-y-3"
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => go("signup"),
+    className: "w-full py-3 rounded-lg text-sm font-semibold flex items-center justify-center gap-2",
+    style: {
+      background: C.primary,
+      color: C.onPrimary
+    }
+  }, PLAN.cta, " ", /*#__PURE__*/React.createElement(ArrowRight, {
+    size: 15
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "text-[11px] text-center",
+    style: {
+      color: C.dim
+    }
+  }, "No subscription"))), /*#__PURE__*/React.createElement("div", {
+    className: "p-6 md:p-8"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "text-[11px] uppercase tracking-wider mb-4",
+    style: {
+      ...mono,
+      color: C.dim
+    }
+  }, "What's included"), /*#__PURE__*/React.createElement("ul", {
+    className: "grid sm:grid-cols-2 gap-x-6 gap-y-5"
+  }, PLAN.features.map(f => /*#__PURE__*/React.createElement("li", {
+    key: f.t,
+    className: "flex gap-3"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "w-6 h-6 rounded-full flex items-center justify-center shrink-0",
+    style: {
+      background: `${C.success}1F`
+    }
+  }, /*#__PURE__*/React.createElement(Check, {
+    size: 13,
+    style: {
+      color: C.success
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "min-w-0"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "text-sm font-semibold",
+    style: {
+      color: C.text
+    }
+  }, f.t), /*#__PURE__*/React.createElement("div", {
+    className: "text-xs mt-0.5",
+    style: {
+      color: C.dim
+    }
+  }, f.d)))))))), /*#__PURE__*/React.createElement("section", {
+    id: "faq",
+    className: "max-w-3xl mx-auto px-4 py-14",
+    style: {
+      borderTop: `1px solid ${C.cardBorder}`
+    }
+  }, /*#__PURE__*/React.createElement("h2", {
+    className: "text-2xl font-bold mb-6",
+    style: {
+      color: C.text
+    }
+  }, "Questions"), /*#__PURE__*/React.createElement("div", {
+    className: "space-y-2"
+  }, FAQS.map((f, i) => {
+    const open = openFaq === i;
+    return /*#__PURE__*/React.createElement("div", {
+      key: f.q,
+      className: "rounded-xl overflow-hidden",
+      style: {
+        background: C.surface,
+        border: `1px solid ${C.cardBorder}`
+      }
+    }, /*#__PURE__*/React.createElement("button", {
+      onClick: () => setOpenFaq(open ? -1 : i),
+      "aria-expanded": open,
+      className: "w-full flex items-center justify-between gap-3 px-4 py-3.5 text-left"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "font-semibold text-sm",
+      style: {
+        color: C.text
+      }
+    }, f.q), /*#__PURE__*/React.createElement(ChevronDown, {
+      size: 16,
+      style: {
+        color: C.dim,
+        transform: open ? "rotate(180deg)" : "none",
+        transition: "transform .2s",
+        flexShrink: 0
+      }
+    })), open && /*#__PURE__*/React.createElement("p", {
+      className: "px-4 pb-4 text-sm",
+      style: {
+        color: C.dim
+      }
+    }, f.a));
+  }))), /*#__PURE__*/React.createElement("section", {
+    className: "max-w-6xl mx-auto px-4 pb-16"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "rounded-2xl px-6 py-12 text-center",
+    style: {
+      background: C.primary
+    }
+  }, /*#__PURE__*/React.createElement("h2", {
+    className: "text-2xl sm:text-3xl font-bold mb-2",
+    style: {
+      color: C.onPrimary
+    }
+  }, "The law portion is the one you can actually study for."), /*#__PURE__*/React.createElement("p", {
+    className: "text-sm mb-6 max-w-md mx-auto",
+    style: {
+      color: `${C.onPrimary}CC`
+    }
+  }, "Pick your state, watch a lesson, and see where your projected exam score lands."), /*#__PURE__*/React.createElement("button", {
+    onClick: () => go("signup"),
+    className: "px-6 py-3 rounded-lg font-semibold text-sm inline-flex items-center gap-2 shadow-sm transition hover:-translate-y-px hover:shadow-md",
+    style: {
+      background: "#FFFFFF",
+      color: "#1A1509"
+    }
+  }, "Create your account ", /*#__PURE__*/React.createElement(ArrowRight, {
+    size: 15
+  })))), /*#__PURE__*/React.createElement("footer", {
+    className: "max-w-6xl mx-auto px-4 py-8 flex flex-wrap gap-3 items-center justify-between text-[11px]",
+    style: {
+      color: C.dim,
+      borderTop: `1px solid ${C.cardBorder}`
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: mono
+  }, "ANUBIS LAW \xB7 NC EDITION"), /*#__PURE__*/React.createElement("span", null, "\xA9 2026 Anubis Publications DBA DEAD!")));
+}
+
+/* ---------------- AUTH ---------------- */
+function Auth({
+  mode,
+  go,
+  onAuth
+}) {
+  const C = useC();
+  const signup = mode === "signup";
+  const [email, setEmail] = useState("");
+  const [pw, setPw] = useState("");
+  const [name, setName] = useState("");
+  const [stateCode, setStateCode] = useState("");
+  const canSubmit = !signup || !!stateCode; // state is required to create an account
+  const submit = () => {
+    if (canSubmit) onAuth(signup ? stateCode : undefined);
+  };
+  const field = (label, value, setter, type, placeholder) => /*#__PURE__*/React.createElement("div", {
+    className: "mb-3"
+  }, /*#__PURE__*/React.createElement("label", {
+    className: "block text-xs font-semibold mb-1.5",
+    style: {
+      color: C.text
+    }
+  }, label), /*#__PURE__*/React.createElement("input", {
+    type: type,
+    value: value,
+    placeholder: placeholder,
+    onChange: e => setter(e.target.value),
+    onKeyDown: e => e.key === "Enter" && submit(),
+    className: "w-full rounded-lg px-3 py-2.5 text-sm outline-none",
+    style: {
+      background: C.surface,
+      color: C.text,
+      border: `1px solid ${C.cardBorder}`,
+      fontFamily: "'DM Sans', sans-serif"
+    }
+  }));
+  return /*#__PURE__*/React.createElement("div", {
+    className: "min-h-screen grid md:grid-cols-2",
+    style: {
+      background: C.base
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "hidden md:flex flex-col justify-between p-10",
+    style: {
+      background: C.primary
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center gap-2"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "text-lg font-bold tracking-tight",
+    style: {
+      color: C.onPrimary
+    }
+  }, "Anubis"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...mono,
+      color: C.onPrimary,
+      border: `1px solid ${C.onPrimary}66`
+    },
+    className: "text-[10px] px-1.5 py-0.5 rounded uppercase tracking-wider"
+  }, "Law")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", {
+    className: "text-2xl font-bold leading-snug mb-3",
+    style: {
+      color: C.onPrimary
+    }
+  }, "Lessons that stop and ask, so nothing slides past you."), /*#__PURE__*/React.createElement("p", {
+    className: "text-sm",
+    style: {
+      color: `${C.onPrimary}CC`
+    }
+  }, "Segmented video, full practice exams, and a projected exam score that tells you the truth.")), /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...mono,
+      color: `${C.onPrimary}99`
+    },
+    className: "text-[10px]"
+  }, "\xA9 2026 ANUBIS PUBLICATIONS DBA DEAD!")), /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center justify-center p-6"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "w-full max-w-sm"
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => go("landing"),
+    className: "flex items-center gap-1 text-sm mb-6",
+    style: {
+      color: C.accent
+    }
+  }, /*#__PURE__*/React.createElement(ChevronLeft, {
+    size: 15
+  }), " Back to site"), /*#__PURE__*/React.createElement("h1", {
+    className: "text-2xl font-bold mb-1",
+    style: {
+      color: C.text
+    }
+  }, signup ? "Create your account" : "Welcome back"), /*#__PURE__*/React.createElement("p", {
+    className: "text-sm mb-6",
+    style: {
+      color: C.dim
+    }
+  }, signup ? "Pick the state you're testing in." : "Log in to pick up where you left off."), signup && field("Full name", name, setName, "text", "Jordan Ellis"), field("Email", email, setEmail, "email", "you@example.com"), field(signup ? "Create a password" : "Password", pw, setPw, "password", "••••••••"), signup && /*#__PURE__*/React.createElement("div", {
+    className: "mb-3"
+  }, /*#__PURE__*/React.createElement("label", {
+    className: "block text-xs font-semibold mb-1.5",
+    style: {
+      color: C.text
+    }
+  }, "Your state"), /*#__PURE__*/React.createElement("div", {
+    className: "relative"
+  }, /*#__PURE__*/React.createElement("select", {
+    value: stateCode,
+    onChange: e => setStateCode(e.target.value),
+    "aria-label": "Select your state",
+    className: "w-full appearance-none rounded-lg px-3 py-2.5 text-sm outline-none",
+    style: {
+      background: C.surface,
+      color: stateCode ? C.text : C.dim,
+      border: `1px solid ${C.cardBorder}`,
+      fontFamily: "'DM Sans', sans-serif"
+    }
+  }, /*#__PURE__*/React.createElement("option", {
+    value: "",
+    disabled: true
+  }, "Select a state\u2026"), STATES.map(st => /*#__PURE__*/React.createElement("option", {
+    key: st.code,
+    value: st.code,
+    disabled: !st.ready
+  }, st.name, st.ready ? "" : " — coming soon"))), /*#__PURE__*/React.createElement(ChevronDown, {
+    size: 16,
+    className: "absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none",
+    style: {
+      color: C.dim
+    }
+  })), /*#__PURE__*/React.createElement("p", {
+    className: "text-[11px] mt-1.5",
+    style: {
+      color: C.dim
+    }
+  }, "Every question, lesson, and stat is scoped to this state.")), !signup && /*#__PURE__*/React.createElement("button", {
+    className: "text-xs mb-4",
+    style: {
+      color: C.accent
+    }
+  }, "Forgot your password?"), /*#__PURE__*/React.createElement("button", {
+    onClick: submit,
+    disabled: !canSubmit,
+    className: "w-full py-2.5 rounded-lg font-semibold text-sm mt-2 disabled:opacity-40",
+    style: {
+      background: C.primary,
+      color: C.onPrimary
+    }
+  }, signup ? "Create account" : "Log in"), /*#__PURE__*/React.createElement("p", {
+    className: "text-xs text-center mt-4",
+    style: {
+      color: C.dim
+    }
+  }, signup ? "Already have an account? " : "New here? ", /*#__PURE__*/React.createElement("button", {
+    onClick: () => go(signup ? "login" : "signup"),
+    className: "font-semibold",
+    style: {
+      color: C.accent
+    }
+  }, signup ? "Log in" : "Create one")), /*#__PURE__*/React.createElement("p", {
+    className: "text-[11px] text-center mt-6 px-4 py-2 rounded-lg",
+    style: {
+      color: C.dim,
+      background: C.surfaceHi
+    }
+  }, "Prototype: any credentials will sign you in."))));
+}
+
+/* ---------------- APP SHELL ---------------- */
+const NAV = [{
+  key: "video",
+  label: "Video Lessons",
+  short: "Videos",
+  icon: Video,
+  featured: true
+}, {
+  key: "dashboard",
+  label: "Dashboard",
+  short: "Dashboard",
+  icon: LayoutDashboard
+}, {
+  key: "flashcards",
+  label: "Flashcards",
+  short: "Cards",
+  icon: Layers
+}, {
+  key: "exam",
+  label: "Practice Exam",
+  short: "Exams",
+  icon: ClipboardList
+}, {
+  key: "quiz",
+  label: "Quizzes",
+  short: "Quizzes",
+  icon: Zap
+}, {
+  key: "match",
+  label: "Matching",
+  short: "Match",
+  icon: LayoutGrid
+}];
+function NavBar({
+  screen,
+  go,
+  theme,
+  setTheme,
+  stateCode,
+  onSignOut
+}) {
+  const C = THEMES[theme];
+  return /*#__PURE__*/React.createElement("header", {
+    className: "sticky top-0 z-20",
+    style: {
+      background: C.nav,
+      borderBottom: `1px solid ${C.cardBorder}`
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "max-w-6xl mx-auto px-4 flex items-center gap-3 h-14"
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => go("dashboard"),
+    className: "logo-btn flex items-center gap-2 shrink-0",
+    "aria-label": "Anubis Law home"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "text-lg font-bold tracking-tight",
+    style: {
+      color: C.text
+    }
+  }, "Anubis"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      ...mono,
+      color: C.accent,
+      border: `1px solid ${C.accent}55`,
+      background: `${C.accent}14`
+    },
+    className: "text-[10px] px-1.5 py-0.5 rounded uppercase tracking-wider"
+  }, "Law")), /*#__PURE__*/React.createElement("nav", {
+    "aria-label": "Primary",
+    className: "hidden md:flex gap-2 overflow-x-auto flex-1 justify-end"
+  }, NAV.map(n => {
+    const active = screen === n.key;
+    const Icon = n.icon;
+    return /*#__PURE__*/React.createElement("button", {
+      key: n.key,
+      onClick: () => go(n.key),
+      "aria-current": active ? "page" : undefined,
+      title: n.label,
+      className: `nav-btn ${n.featured ? "nav-feat" : ""} flex items-center gap-2 px-3 py-2 rounded-lg text-sm whitespace-nowrap font-medium transition`,
+      style: {
+        background: active ? C.primary : n.featured ? `${C.primary}1A` : "transparent",
+        color: active ? C.onPrimary : n.featured ? C.accent : C.dim,
+        border: n.featured && !active ? `1px solid ${C.accent}55` : "1px solid transparent"
+      }
+    }, /*#__PURE__*/React.createElement(Icon, {
+      size: 15,
+      strokeWidth: 2.25
+    }), /*#__PURE__*/React.createElement("span", {
+      className: n.featured ? "" : "hidden md:inline"
+    }, n.label), n.featured && !active && /*#__PURE__*/React.createElement("span", {
+      style: {
+        ...mono,
+        background: C.accent,
+        color: C.mode === "dark" ? C.base : "#FFFFFF"
+      },
+      className: "text-[10px] px-1.5 py-0.5 rounded font-medium leading-none tracking-wide"
+    }, "NEW"));
+  })), /*#__PURE__*/React.createElement("span", {
+    className: "flex-1 md:hidden"
+  }), /*#__PURE__*/React.createElement("span", {
+    title: "Your state (set at signup)",
+    className: "flex items-center gap-1 px-2 py-1.5 rounded-lg text-xs shrink-0",
+    style: {
+      ...mono,
+      background: `${C.primary}22`,
+      color: C.text,
+      border: `1px solid ${C.primary}66`
+    }
+  }, /*#__PURE__*/React.createElement(MapPin, {
+    size: 12,
+    style: {
+      color: C.primary
+    }
+  }), " ", stateCode), /*#__PURE__*/React.createElement("button", {
+    onClick: () => setTheme(theme === "dark" ? "light" : "dark"),
+    "aria-label": theme === "dark" ? "Switch to light mode" : "Switch to dark mode",
+    className: "icon-btn p-2 rounded-lg shrink-0",
+    style: {
+      background: C.surfaceHi,
+      color: C.text
+    }
+  }, theme === "dark" ? /*#__PURE__*/React.createElement(Sun, {
+    size: 15
+  }) : /*#__PURE__*/React.createElement(Moon, {
+    size: 15
+  })), /*#__PURE__*/React.createElement("button", {
+    onClick: onSignOut,
+    "aria-label": "Sign out",
+    title: "Sign out",
+    className: "icon-btn p-2 rounded-lg shrink-0",
+    style: {
+      background: C.surfaceHi,
+      color: C.dim
+    }
+  }, /*#__PURE__*/React.createElement(LogOut, {
+    size: 15
+  }))));
+}
+function BottomNav({
+  screen,
+  go
+}) {
+  const C = useC();
+  return /*#__PURE__*/React.createElement("nav", {
+    "aria-label": "Primary mobile",
+    className: "md:hidden fixed bottom-0 inset-x-0 z-30",
+    style: {
+      background: C.nav,
+      borderTop: `1px solid ${C.cardBorder}`,
+      paddingBottom: "env(safe-area-inset-bottom, 0px)",
+      paddingLeft: "env(safe-area-inset-left, 0px)",
+      paddingRight: "env(safe-area-inset-right, 0px)"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "grid grid-cols-6"
+  }, NAV.map(n => {
+    const active = screen === n.key;
+    const Icon = n.icon;
+    return /*#__PURE__*/React.createElement("button", {
+      key: n.key,
+      onClick: () => {
+        go(n.key);
+        window.scrollTo(0, 0);
+      },
+      "aria-current": active ? "page" : undefined,
+      className: "tab-btn relative flex flex-col items-center justify-center gap-1 pt-2 pb-1.5 min-h-[56px]",
+      style: {
+        color: active ? C.text : C.dim
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "flex items-center justify-center w-11 h-7 rounded-full transition",
+      style: {
+        background: active ? C.primary : "transparent",
+        color: active ? C.onPrimary : n.featured ? C.accent : C.dim
+      }
+    }, /*#__PURE__*/React.createElement(Icon, {
+      size: 18,
+      strokeWidth: 2.25
+    })), /*#__PURE__*/React.createElement("span", {
+      className: "text-[10px] font-medium leading-none",
+      style: {
+        fontWeight: active ? 700 : 500
+      }
+    }, n.short), n.featured && !active && /*#__PURE__*/React.createElement("span", {
+      className: "absolute top-1.5 right-[22%] w-2 h-2 rounded-full",
+      style: {
+        background: C.accent,
+        border: `2px solid ${C.nav}`
+      }
+    }));
+  })));
+}
+const FONTS = `@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap');`;
+function App() {
+  const [view, setView] = useState("app"); // landing | login | signup | app
+  const [screen, setScreen] = useState("dashboard");
+  const [theme, setThemeRaw] = useState(() => {
+    try {
+      const t = localStorage.getItem("anubis-theme");
+      if (t === "light" || t === "dark") return t;
+    } catch (e) {}
+    try {
+      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    } catch (e) {
+      return "light";
+    }
+  });
+  const setTheme = t => {
+    setThemeRaw(t);
+    try {
+      localStorage.setItem("anubis-theme", t);
+    } catch (e) {}
+  };
+  const [stateCode, setStateCode] = useState("NC");
+  const stats = useMemo(() => computeStats(), []);
+  const C = THEMES[theme];
+  const [params, setParams] = useState(null);
+  const go = (s, p = null) => {
+    setScreen(s);
+    setParams(p);
+  };
+  const shell = children => /*#__PURE__*/React.createElement(ThemeCtx.Provider, {
+    value: C
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "'DM Sans', sans-serif"
+    }
+  }, /*#__PURE__*/React.createElement("style", null, `
+          ${FONTS}
+          button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid ${C.accent}; outline-offset: 2px; }
+          :root { --dash-hover: ${C.accent}; --row-hover: ${C.surfaceHi}; }
+          .dash-card { transition: border-color .15s, box-shadow .15s, transform .15s; }
+          .dash-card:hover { border-color: color-mix(in srgb, var(--dash-hover) 55%, transparent) !important; box-shadow: 0 4px 14px -6px color-mix(in srgb, var(--dash-hover) 40%, transparent); transform: translateY(-1px); }
+          .nav-btn:not([aria-current]):hover { background: ${C.surfaceHi} !important; color: ${C.text} !important; }
+          .nav-feat:not([aria-current]):hover { background: ${C.primary}33 !important; color: ${C.accent} !important; border-color: ${C.accent} !important; }
+          .nav-btn[aria-current]:hover { filter: brightness(${C.mode === "dark" ? 1.08 : 0.95}); }
+          .tab-btn:not([aria-current]):active > span:first-child { background: ${C.surfaceHi} !important; }
+          .kpi-card { display: flex; flex-direction: column; }
+          @media (min-width: 768px) {
+            .kpi-proj { flex-direction: row; align-items: stretch; }
+            .kpi-row { display: flex; }
+            .kpi-card { flex: 1 1 0; min-width: 0; transition: flex-grow .3s ease, border-color .15s, box-shadow .15s, transform .15s; }
+            .kpi-detail { border-left: 1px solid var(--bd); animation: kpiIn .25s ease; }
+          }
+          @media (max-width: 767px) { .kpi-detail { border-top: 1px solid var(--bd); } }
+          @keyframes kpiIn { from { opacity: 0; } to { opacity: 1; } }
+          .kpi-chev { transition: transform .15s; transform: rotate(var(--r)); }
+          @media (min-width: 768px) { .kpi-chev { transform: rotate(calc(var(--r) - 90deg)); } }
+          .sess-row { cursor: pointer; }
+          .sess-row .sess-chev { transition: transform .15s; }
+          .sess-row:hover .sess-chev { transform: translateX(2px); color: ${C.text}; }
+          .info-tip { cursor: help; }
+          .info-tip .info-pop { opacity: 0; visibility: hidden; transition: opacity .12s; pointer-events: none; }
+          .info-tip:hover .info-pop, .info-tip:focus .info-pop { opacity: 1; visibility: visible; }
+          .icon-btn { transition: background .15s, color .15s; }
+          .icon-btn:hover { background: ${C.cardBorder} !important; color: ${C.text} !important; }
+          .logo-btn { transition: opacity .15s; }
+          .logo-btn:hover { opacity: .75; }
+          .dash-row { transition: background .12s; }
+          .dash-row:hover { background: var(--row-hover); }
+          .pt { cursor: default; }
+          .pt .dot { transition: r .12s; }
+          .pt:hover .dot { r: 4; }
+          .pt .pv, .bar .bar-a { opacity: 0; transition: opacity .12s; pointer-events: none; }
+          .pt:hover .pv, .bar:hover .bar-a { opacity: 1; }
+          .pt .guide { opacity: 0; transition: opacity .12s; pointer-events: none; }
+          .pt:hover .guide { opacity: 1; }
+          .pt:hover .xl { fill: ${C.text}; font-weight: 600; }
+          .bar .bar-n { transition: opacity .12s; }
+          .bar:hover .bar-n { opacity: 0; }
+          .bar .bar-r { transition: filter .12s; }
+          .bar:hover .bar-r { filter: brightness(1.12); }
+          @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+        `), children));
+  if (view === "landing") return shell( /*#__PURE__*/React.createElement(Landing, {
+    go: setView,
+    theme: theme,
+    setTheme: setTheme
+  }));
+  if (view === "login" || view === "signup") {
+    return shell( /*#__PURE__*/React.createElement(Auth, {
+      mode: view,
+      go: setView,
+      onAuth: code => {
+        // Signup: state is chosen here, once. Login: returning user keeps their state
+        // (mocked as NC for this prototype since there's no persisted account).
+        setStateCode(code || stateCode || "NC");
+        setView("app");
+        setScreen("dashboard");
+      }
+    }));
+  }
+  return shell( /*#__PURE__*/React.createElement(StateCtx.Provider, {
+    value: stateCode
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "min-h-screen flex flex-col pb-[calc(64px+env(safe-area-inset-bottom,0px))] md:pb-0",
+    style: {
+      background: C.base,
+      fontFamily: "'DM Sans', sans-serif"
+    }
+  }, /*#__PURE__*/React.createElement(NavBar, {
+    screen: screen,
+    go: go,
+    theme: theme,
+    setTheme: setTheme,
+    stateCode: stateCode,
+    onSignOut: () => {
+      setStateCode(null);
+      setView("landing");
+    }
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "w-full flex-1 max-w-6xl mx-auto px-4 py-6"
+  }, screen === "dashboard" && /*#__PURE__*/React.createElement(Dashboard, {
+    go: go,
+    stats: stats
+  }), screen === "flashcards" && /*#__PURE__*/React.createElement(Flashcards, null), screen === "quiz" && /*#__PURE__*/React.createElement(Quiz, {
+    key: params?.topic || "all",
+    topic: params?.topic
+  }), screen === "exam" && /*#__PURE__*/React.createElement(Exam, null), screen === "match" && /*#__PURE__*/React.createElement(Matching, null), screen === "video" && /*#__PURE__*/React.createElement(VideoLesson, null), screen === "review" && /*#__PURE__*/React.createElement(Review, {
+    stats: stats,
+    go: go
+  }), screen === "session" && /*#__PURE__*/React.createElement(SessionReview, {
+    key: params?.idx,
+    idx: params?.idx,
+    go: go
+  })), /*#__PURE__*/React.createElement("footer", {
+    className: "w-full max-w-6xl mx-auto px-4 py-6 mt-4 flex items-center justify-between text-[11px]",
+    style: {
+      color: C.dim,
+      borderTop: `1px solid ${C.cardBorder}`
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: mono
+  }, "ANUBIS LAW \xB7 NC EDITION"), /*#__PURE__*/React.createElement("span", null, "\xA9 2026 Anubis Publications DBA DEAD!")), /*#__PURE__*/React.createElement(BottomNav, {
+    screen: screen,
+    go: go
+  }))));
+}
+ReactDOM.createRoot(document.getElementById("root")).render( /*#__PURE__*/React.createElement(App, null));
+</script>
+
+</body></html>

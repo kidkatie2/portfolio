@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anubis Law — Kate Chaparro</title>
+<meta name="description" content="Anubis Law, exam prep for the state law portion of the funeral service licensing exam. Product design for Anubis Publications.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://kidkatie2.github.io/portfolio/anubis.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Kate Chaparro">
+<meta property="og:title" content="Anubis Law — state law exam prep">
+<meta property="og:description" content="Anubis Law, exam prep for the state law portion of the funeral service licensing exam. Product design for Anubis Publications.">
+<meta property="og:url" content="https://kidkatie2.github.io/portfolio/anubis.html">
+<meta property="og:image" content="https://kidkatie2.github.io/portfolio/images/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Kate Chaparro — Senior Product Designer">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Anubis Law — state law exam prep">
+<meta name="twitter:description" content="Anubis Law, exam prep for the state law portion of the funeral service licensing exam. Product design for Anubis Publications.">
+<meta name="twitter:image" content="https://kidkatie2.github.io/portfolio/images/og-card.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/shell.css">
+<link rel="stylesheet" href="assets/theme.css">
+<script src="assets/theme.js"></script>
+<style>
+  :root {
+    --accent: #0E7C6B;
+    --accent-soft: #d6ebe6;
+    --g-paper: #f0ece2;
+    --g-ink: #0a0a0a;
+  }
+  :root[data-theme="dark"] {
+    --accent: #4FC7B0;
+    --accent-soft: #15302b;
+  }
+
+  .g-wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+
+  /* ---------- Section scaffolding ---------- */
+  .g-section { border-top: 1px solid var(--rule); padding: 64px 0; }
+  .g-section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 32px; }
+  .g-section-num {
+    font-size: 12px; font-weight: 600; color: var(--accent);
+    letter-spacing: 0.08em; flex-shrink: 0;
+  }
+  .g-section-head h2 {
+    font-size: 22px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.25;
+  }
+  .g-section-head h2 .accent { color: var(--accent); }
+  .g-body { max-width: 720px; }
+  .g-body p { color: var(--ink-2); margin-bottom: 18px; font-size: 14px; line-height: 1.7; }
+  .g-body p:last-child { margin-bottom: 0; }
+  .g-body strong { color: var(--ink); font-weight: 600; }
+  .g-body code {
+    background: var(--surface); border: 1px solid var(--rule);
+    padding: 1px 6px; border-radius: 3px; font-size: 13px; color: var(--ink);
+  }
+
+  /* ---------- Screenshot presentation ---------- */
+  .shots { display: flex; gap: 28px; flex-wrap: wrap; }
+  .shot { flex: 1 1 200px; max-width: 260px; }
+  .shot img {
+    width: 100%; height: auto; display: block;
+    border: 1px solid var(--rule-strong); border-radius: 14px;
+    background: var(--g-paper);
+  }
+  .shot figcaption {
+    margin-top: 10px; font-size: 11px; line-height: 1.5;
+    color: var(--ink-3); letter-spacing: 0.04em;
+  }
+  .shot figcaption strong {
+    display: block; color: var(--ink-2); font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px;
+  }
+
+  .shots-hero { align-items: flex-start; }
+  .shots-hero .shot { max-width: 236px; }
+
+  /* ---------- Decision blocks ---------- */
+  .decision { margin-top: 40px; display: grid; grid-template-columns: 1fr 236px; gap: 40px; align-items: start; }
+  .decision:first-of-type { margin-top: 0; }
+  .decision-text h3 {
+    font-size: 15px; font-weight: 600; margin-bottom: 12px; letter-spacing: -0.005em;
+  }
+  .decision-text h3::before { content: '> '; color: var(--accent); }
+  .decision-text p { color: var(--ink-2); font-size: 14px; line-height: 1.7; margin-bottom: 14px; }
+  .decision-text p:last-child { margin-bottom: 0; }
+  .decision-text strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Math / data table ---------- */
+  .g-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 13px; }
+  .g-table caption {
+    text-align: left; font-size: 11px; letter-spacing: 0.06em; color: var(--ink-3);
+    text-transform: uppercase; padding-bottom: 10px;
+  }
+  .g-table th, .g-table td {
+    text-align: right; padding: 8px 12px; border-bottom: 1px solid var(--rule);
+    font-variant-numeric: tabular-nums;
+  }
+  .g-table th {
+    color: var(--ink-3); font-weight: 500; font-size: 11px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .g-table th:first-child, .g-table td:first-child { text-align: left; }
+  .g-table tbody tr:last-child td { border-bottom: none; }
+  .g-table .is-key { color: var(--accent); font-weight: 600; }
+  .g-table-scroll { overflow-x: auto; }
+
+  /* ---------- Spec list ---------- */
+  .g-specs { list-style: none; border-top: 1px solid var(--rule); margin-top: 8px; }
+  .g-specs li {
+    display: flex; gap: 20px; padding: 12px 0; border-bottom: 1px solid var(--rule);
+    font-size: 13px; align-items: baseline;
+  }
+  .g-specs .k {
+    flex: 0 0 150px; color: var(--ink-3); letter-spacing: 0.05em;
+    text-transform: uppercase; font-size: 11px;
+  }
+  .g-specs .v { color: var(--ink-2); }
+  .g-specs .v strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Theme swatch grid ---------- */
+  .themes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; }
+  .theme-card { }
+  .theme-card img {
+    width: 100%; height: auto; display: block;
+    border: 1px solid var(--rule-strong); border-radius: 12px;
+  }
+  .theme-card-meta { margin-top: 12px; }
+  .theme-card-name {
+    font-size: 13px; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; display: flex; align-items: center; gap: 8px;
+  }
+  .theme-tag {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.08em;
+    background: var(--ink); color: var(--bg); padding: 2px 5px; border-radius: 2px;
+  }
+  .theme-tag.is-free { background: var(--accent); }
+  .theme-card-desc { font-size: 12px; color: var(--ink-3); line-height: 1.55; margin-top: 5px; }
+
+  /* ---------- Closing CTA ---------- */
+  .g-cta { border-top: 1px solid var(--rule); padding: 64px 0 72px; }
+  .g-cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+  .g-cta-text h2 { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
+  .g-cta-text p { font-size: 13px; color: var(--ink-3); }
+  .g-cta-links { display: flex; gap: 12px; flex-wrap: wrap; }
+  .g-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 22px; font-size: 13px; font-weight: 600;
+    letter-spacing: 0.04em; border: 1px solid var(--ink); border-radius: 4px;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .g-btn-primary { background: var(--ink); color: var(--bg); }
+  .g-btn-primary:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .g-btn-ghost { color: var(--ink-2); border-color: var(--rule-strong); }
+  .g-btn-ghost:hover { color: var(--ink); border-color: var(--ink); }
+
+
+  /* ---------- Anubis Law: theme-matched media ---------- */
+  .th-dark { display: none !important; }
+  :root[data-theme="dark"] .th-light { display: none !important; }
+  :root[data-theme="dark"] .th-dark { display: block !important; }
+  .hero-cta { margin-top: 28px; }
+  .media { margin-top: 36px; }
+  .media img, .media video {
+    width: 100%; height: auto; display: block;
+    border: 1px solid var(--rule-strong); border-radius: 12px;
+  }
+  .media figcaption, .grid figcaption {
+    margin-top: 10px; font-size: 11px; line-height: 1.5; color: var(--ink-3); letter-spacing: 0.04em;
+  }
+  .media figcaption strong, .grid figcaption strong {
+    display: block; color: var(--ink-2); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px;
+  }
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 48px; align-items: start; }
+  .split .media { margin-top: 0; }
+  @media (max-width: 860px) { .split { grid-template-columns: 1fr; gap: 28px; } }
+  .grid { display: grid; gap: 24px; margin-top: 36px; align-items: start; }
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .grid img { width: 100%; height: auto; display: block; border: 1px solid var(--rule-strong); border-radius: 12px; }
+  .phones { display: flex; gap: 28px; flex-wrap: wrap; margin-top: 36px; }
+  .phones figure { flex: 0 1 260px; }
+  .phones figcaption { margin-top: 10px; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; color: var(--ink-2); }
+  .phones img { width: 100%; height: auto; display: block; border: 1px solid var(--rule-strong); border-radius: 18px; }
+  @media (max-width: 760px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .phones figure { flex-basis: 45%; }
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .decision { grid-template-columns: 1fr; gap: 24px; }
+    .decision .shot { max-width: 200px; }
+  }
+  @media (max-width: 620px) {
+    .g-section { padding: 44px 0; }
+    .g-section-head { flex-direction: column; gap: 6px; }
+    .shots { gap: 18px; }
+    .shot { flex-basis: 140px; }
+    .g-specs li { flex-direction: column; gap: 3px; }
+    .g-specs .k { flex-basis: auto; }
+  }
+</style>
+<style>
+  /* Footer follows the light theme */
+  :root:not([data-theme="dark"]) footer:not(.sa-end),
+  :root:not([data-theme="dark"]) .kc-shell-footer,
+  :root:not([data-theme="dark"]) .kc-footer { background: transparent; color: rgba(16,18,24,0.55); border-top: 1px solid rgba(16,18,24,0.12); }
+  :root:not([data-theme="dark"]) .footer-meta strong,
+  :root:not([data-theme="dark"]) .kc-shell-footer-meta strong,
+  :root:not([data-theme="dark"]) .kc-footer-meta strong { color: rgba(16,18,24,0.9); }
+  :root:not([data-theme="dark"]) .footer-socials a,
+  :root:not([data-theme="dark"]) .kc-shell-footer-socials a,
+  :root:not([data-theme="dark"]) .kc-footer-socials a { color: rgba(16,18,24,0.7); }
+  :root:not([data-theme="dark"]) .contact,
+  :root:not([data-theme="dark"]) footer { --accent: #c2410c; }
+  :root:not([data-theme="dark"]) .kc-contact,
+  :root:not([data-theme="dark"]) .kc-shell-footer,
+  :root:not([data-theme="dark"]) .kc-footer { --kc-accent: #c2410c; }
+  :root[data-theme="dark"] .footer-meta strong,
+  :root[data-theme="dark"] .kc-footer-meta strong,
+  :root[data-theme="dark"] .kc-shell-footer-meta strong { color: #e8ecf5; }
+  .nav-toggle-li { display: flex; align-items: center; margin-left: 10px; }
+  .nav-toggle-li button { margin: 0; }
+  @media (max-width: 560px) {
+    .nav-toggle-li { margin-left: 2px; }
+    .theme-toggle .label, .kc-theme-toggle .label { display: none; }
+    .theme-toggle, .kc-theme-toggle { padding-left: 8px; padding-right: 8px; }
+  }
+</style>
+</head>
+<body>
+
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">KATE<span class="slash">/</span>CHAPARRO</a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="is-active">Work</a></li>
+      <li><a href="index.html#about-section">About</a></li>
+      <li><a href="index.html#contact-section">Contact</a></li>
+      <li><a href="cv.html">CV</a></li>
+      <li class="nav-toggle-li"><button class="theme-toggle" data-theme-toggle aria-label="Toggle theme">
+              <span class="icon">☾</span>
+              <span class="label">DARK</span>
+            </button></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="case-page-hero">
+  <a class="case-back" href="index.html">← back to index</a>
+  <div class="case-eyebrow">Case Study 07 / Freelance · Web app</div>
+  <h1><span class="accent">Anubis Law</span> — state law exam prep.</h1>
+  <p class="case-lead">Exam prep for the state law portion of the funeral service licensing exam. Designed for Anubis Publications. North Carolina first.</p>
+  <a class="g-btn g-btn-primary hero-cta" href="anubis-prototype/" target="_blank" rel="noopener">Look around the prototype →</a>
+</section>
+
+<section class="case-meta-strip">
+  <div class="case-meta-inner">
+    <div class="case-meta-item"><span class="case-meta-label">role</span><span class="case-meta-value">Product design — solo</span></div>
+    <div class="case-meta-item"><span class="case-meta-label">client</span><span class="case-meta-value">Anubis Publications</span></div>
+    <div class="case-meta-item"><span class="case-meta-label">status</span><span class="case-meta-value">In development</span></div>
+  </div>
+</section>
+
+<div class="g-wrap">
+
+  <section class="g-section" style="border-top:none;">
+    <div class="g-section-head">
+      <span class="g-section-num">01</span>
+      <h2>Video <span class="accent">checkpoints</span></h2>
+    </div>
+    <div class="split">
+      <div class="g-body">
+        <p>Lessons are split into short segments. After each one, the video stops on a question. Answer it to keep watching.</p>
+      </div>
+      <figure class="media">
+        <video class="th-light" src="images/anubis/checkpoint-light.mp4" poster="images/anubis/checkpoint-light-poster.png" autoplay muted loop playsinline aria-label="A lesson plays, pauses on a checkpoint question, the answer is marked correct, and the next segment starts."></video>
+        <video class="th-dark" src="images/anubis/checkpoint-dark.mp4" poster="images/anubis/checkpoint-dark-poster.png" autoplay muted loop playsinline aria-label="A lesson plays, pauses on a checkpoint question, the answer is marked correct, and the next segment starts."></video>
+        <figcaption><strong>Lesson</strong>Pauses, asks, resumes.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="g-section">
+    <div class="g-section-head">
+      <span class="g-section-num">02</span>
+      <h2>Projected <span class="accent">score</span></h2>
+    </div>
+    <div class="g-body">
+      <p>One number against the 75% pass mark: the last two practice exams averaged with the last three sessions. The weakest topic is named, and every card opens the next study action.</p>
+    </div>
+    <figure class="media"><img class="th-light" src="images/anubis/dashboard-light.png" alt="Dashboard: projected exam score 73% against a 75% pass mark, expanded to show its inputs, with cards for missed questions, weakest topic, due for review, and this week, above accuracy and exam-score charts." loading="lazy"><img class="th-dark" src="images/anubis/dashboard-dark.png" alt="Dashboard: projected exam score 73% against a 75% pass mark, expanded to show its inputs, with cards for missed questions, weakest topic, due for review, and this week, above accuracy and exam-score charts." loading="lazy"><figcaption><strong>Dashboard</strong>Score breakdown expanded.</figcaption></figure>
+  </section>
+
+  <section class="g-section">
+    <div class="g-section-head">
+      <span class="g-section-num">03</span>
+      <h2>Practice <span class="accent">exams</span></h2>
+    </div>
+    <div class="g-body">
+      <p>Exam conditions: flag questions to revisit, no feedback until you submit. Exams draw from a separate test bank, so dashboard stats aren't inflated by questions you've already seen.</p>
+    </div>
+    <div class="grid grid-2">
+      <figure><img class="th-light" src="images/anubis/exam-light.png" alt="A practice exam question marked Flagged, with a numbered question navigator and a Submit exam button." loading="lazy"><img class="th-dark" src="images/anubis/exam-dark.png" alt="A practice exam question marked Flagged, with a numbered question navigator and a Submit exam button." loading="lazy"><figcaption><strong>Exam</strong>Flag and revisit.</figcaption></figure>
+      <figure><img class="th-light" src="images/anubis/results-light.png" alt="Exam results: 80%, 8 of 10 correct, with each missed question showing your answer, the correct answer, and the reason." loading="lazy"><img class="th-dark" src="images/anubis/results-dark.png" alt="Exam results: 80%, 8 of 10 correct, with each missed question showing your answer, the correct answer, and the reason." loading="lazy"><figcaption><strong>Results</strong>Each miss, with the reason.</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="g-section">
+    <div class="g-section-head">
+      <span class="g-section-num">04</span>
+      <h2><span class="accent">Drills</span></h2>
+    </div>
+    <div class="g-body">
+      <p>Five-question quizzes that explain every answer. Flashcards and matching for citations and deadlines.</p>
+    </div>
+    <div class="grid grid-3">
+      <figure><img class="th-light" src="images/anubis/quiz-light.png" alt="A quiz question answered correctly, with the explanation below and a Next question button." loading="lazy"><img class="th-dark" src="images/anubis/quiz-dark.png" alt="A quiz question answered correctly, with the explanation below and a Next question button." loading="lazy"><figcaption><strong>Quiz</strong>Explanation after every answer.</figcaption></figure>
+      <figure><img class="th-light" src="images/anubis/flashcard-light.png" alt="A flashcard flipped to its answer, describing the NC Board of Funeral Service." loading="lazy"><img class="th-dark" src="images/anubis/flashcard-dark.png" alt="A flashcard flipped to its answer, describing the NC Board of Funeral Service." loading="lazy"><figcaption><strong>Flashcards</strong>Tap to flip.</figcaption></figure>
+      <figure><img class="th-light" src="images/anubis/match-light.png" alt="A matching game with citations and deadlines, two pairs matched and one tile selected." loading="lazy"><img class="th-dark" src="images/anubis/match-dark.png" alt="A matching game with citations and deadlines, two pairs matched and one tile selected." loading="lazy"><figcaption><strong>Matching</strong>Citation to subject.</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="g-section">
+    <div class="g-section-head">
+      <span class="g-section-num">05</span>
+      <h2>On <span class="accent">phones</span></h2>
+    </div>
+    <div class="g-body">
+      <p>A bottom tab bar replaces the top nav.</p>
+    </div>
+    <div class="phones">
+      <figure><img class="th-light" src="images/anubis/phone-dashboard-light.png" alt="The dashboard on a phone, with the projected score card on top and a bottom tab bar." loading="lazy"><img class="th-dark" src="images/anubis/phone-dashboard-dark.png" alt="The dashboard on a phone, with the projected score card on top and a bottom tab bar." loading="lazy"><figcaption>Dashboard</figcaption></figure>
+      <figure><img class="th-light" src="images/anubis/phone-quiz-light.png" alt="A quiz question on a phone, answered correctly with the explanation shown." loading="lazy"><img class="th-dark" src="images/anubis/phone-quiz-dark.png" alt="A quiz question on a phone, answered correctly with the explanation shown." loading="lazy"><figcaption>Quiz</figcaption></figure>
+      <figure><img class="th-light" src="images/anubis/phone-flashcard-light.png" alt="A flashcard on a phone, flipped to its answer." loading="lazy"><img class="th-dark" src="images/anubis/phone-flashcard-dark.png" alt="A flashcard on a phone, flipped to its answer." loading="lazy"><figcaption>Flashcards</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="g-section">
+    <div class="g-section-head">
+      <span class="g-section-num">06</span>
+      <h2>Marketing <span class="accent">site</span></h2>
+    </div>
+    <div class="g-body">
+      <p>Features, pricing, FAQ, and sign-up. One plan: $99 for six months of access.</p>
+    </div>
+    <figure class="media"><img class="th-light" src="images/anubis/landing-light.png" alt="The Anubis Law landing page: the headline Stop watching lectures. Start answering., a Get started button, and a checkpoint question demo." loading="lazy"><img class="th-dark" src="images/anubis/landing-dark.png" alt="The Anubis Law landing page: the headline Stop watching lectures. Start answering., a Get started button, and a checkpoint question demo." loading="lazy"><figcaption><strong>Landing</strong>Hero with a live checkpoint demo.</figcaption></figure>
+  </section>
+
+</div>
+
+<div class="g-wrap">
+  <section class="g-cta">
+    <div class="g-cta-inner">
+      <div class="g-cta-text">
+        <h2>Anubis Law is in development</h2>
+        <p>The prototype runs on mock data. North Carolina first.</p>
+      </div>
+      <div class="g-cta-links">
+        <a class="g-btn g-btn-primary" href="anubis-prototype/" target="_blank" rel="noopener">Look around the prototype →</a>
+        <a class="g-btn g-btn-ghost" href="dead/index.html">DEAD! case studies</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-meta">
+      <strong>Kate Chaparro</strong> · Senior Product Designer · 2026
+    </div>
+    <div class="footer-socials">
+      <a href="cv.html">CV</a>
+      <a href="https://www.linkedin.com/in/katechaparro/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://happy-novel-ashen.figma.site/" target="_blank" rel="noopener">Portfolio</a>
+      <a href="mailto:chaparrokate02@gmail.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function updateTime() {
+    const now = new Date();
+    const opts = { timeZone: 'America/Los_Angeles', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    const t = new Intl.DateTimeFormat('en-US', opts).format(now);
+    const el = document.getElementById('status-time');
+    if (el) el.textContent = t + ' PT';
+  }
+  updateTime();
+  setInterval(updateTime, 1000);
+</script>
+
+<script src="assets/flair.js" defer></script>
+<script>
+  (function () {
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var vids = document.querySelectorAll('video');
+    function sync() {
+      vids.forEach(function (v) {
+        var shown = getComputedStyle(v).display !== 'none';
+        if (reduce) { v.removeAttribute('autoplay'); v.controls = true; v.pause(); return; }
+        if (shown) { v.play().catch(function () {}); } else { v.pause(); }
+      });
+    }
+    sync();
+    new MutationObserver(sync).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  })();
+</script>
+</body>
+</html>

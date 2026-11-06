@@ -46,6 +46,14 @@
     margin-bottom: 28px;
   }
   .cv-hero h1 .accent { color: var(--accent); }
+  .cv-summary {
+    max-width: 760px;
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--ink-2);
+    margin-bottom: 28px;
+  }
   .cv-hero-meta {
     display: flex;
     flex-wrap: wrap;
@@ -229,12 +237,13 @@
 <header class="cv-hero">
   <div class="cv-eyebrow">Curriculum Vitae</div>
   <h1><span class="accent">Kate Chaparro</span>, senior product designer</h1>
+  <p class="cv-summary">Senior UX designer with 8+ years shaping AI products, design systems, and complex B2B and SaaS workflows, taking work from user research through high-fidelity React prototypes and production front-end code.</p>
   <div class="cv-hero-meta">
     <span><span class="k">email</span><a href="mailto:chaparrokate02@gmail.com">chaparrokate02@gmail.com</a></span>
     <span><span class="k">linkedin</span><a href="https://www.linkedin.com/in/katechaparro/" target="_blank" rel="noopener">in/katechaparro</a></span>
     <span><span class="k">based</span>SF Bay Area</span>
   </div>
-  <a class="cv-download" href="assets/KateChaparro-Resume.pdf" download>↓ Download PDF</a>
+  <a class="cv-download" href="assets/KateChaparro-Resume.pdf?v=2" download>↓ Download PDF</a>
 </header>
 
 <!-- ============ EXPERIENCE ============ -->
@@ -252,17 +261,52 @@
     </div>
     <div class="cv-entry-body">
       <ul>
-        <li><strong>AI task notifications:</strong> designed in-app and email notification system for AI Chat, the platform's legislative AI model, enabling users to leave a running task and return to resume or review completed work.</li>
-        <li><strong>AI document generation:</strong> led end-to-end design of Artifacts v1.0, a generative AI feature for creating, editing, downloading, and uploading legislative documents and presentations — powering a core user job-to-be-done with the platform's proprietary legislative knowledge; sharing and scheduled tasks scoped for future releases.</li>
-        <li><strong>Conversational memory UX:</strong> owned end-to-end design of AI Chat's memory capability — in-thread indicators, a management view, and edit/delete controls — eliminating the need for users to restate business objectives in every chat.</li>
-        <li><strong>Sponsored content product design:</strong> led reader-facing design for Perspectives, a sponsored content product enabling sponsors to publish position-driven articles on issue topics; first Perspectives placement sold for $60,000.</li>
+        <li><strong>AI scheduled tasks:</strong> led end-to-end UX for Scheduled Tasks in AI Chat, letting government affairs users run any request on a recurring schedule, designing create, run, manage, error, and approval flows, a dedicated history-panel section, and developer-ready handoff.</li>
+        <li><strong>AI document generation:</strong> led design of AI Chat's document and report generation (PDF, Word, PPT, inline widgets), defining the style guides, tuning rules, and research-grounded report templates the AI follows, and auditing customer outputs in PostHog to drive fixes.</li>
+        <li><strong>Prototyping &amp; front-end contribution:</strong> established an HTML and React prototyping workflow for high-fidelity interactive testing, replacing static specs for complex interaction problems; routinely commit code to the product's front end.</li>
+        <li><strong>Conversational memory UX:</strong> owned end-to-end design of AI Chat's memory capability (in-thread indicators, a management view, and edit/delete controls), eliminating the need for users to restate business objectives in every chat.</li>
+        <li><strong>Sponsored content product design:</strong> led reader-facing design for Perspectives, a sponsored content product enabling sponsors to publish position-driven articles on issue topics; first Perspectives placement sold for $60,000. Subsequent sales included one placement to Kalshi for $100,000 and four to Meta for $400,000.</li>
         <li><strong>Early-stage growth impact:</strong> joined at Series A and contributed to design maturity that supported the company's successful Series B raise, growing valuation from $5M to $25M.</li>
         <li><strong>Design system governance &amp; adoption:</strong> established scalable design system processes and governance models, documented in Figma and Storybook, driving higher adoption and design–engineering alignment.</li>
-        <li><strong>UI/UX cohesion &amp; standardization:</strong> led extensive clean-up and unification of components, interactions, and workflows across web, mobile, and responsive experiences — improving consistency, usability, and maintainability while reducing design and development debt.</li>
+        <li><strong>UI/UX cohesion &amp; standardization:</strong> led extensive clean-up and unification of components, interactions, and workflows across web, mobile, and responsive experiences, improving consistency, usability, and maintainability while reducing design and development debt.</li>
         <li><strong>Acquisition integration:</strong> redesigned core product areas to absorb features from acquired platforms, balancing legacy user expectations with a cohesive product experience.</li>
-        <li><strong>Complex feature ownership:</strong> designed end-to-end commenting system originating in 360 Views, the platform's executive-facing overview feature, now scoping to an MVP rollout across the full product — including data model evaluation in collaboration with engineering.</li>
-        <li><strong>Prototype-driven design process:</strong> established an HTML and React prototyping workflow for high-fidelity interactive testing, replacing static specs for complex interaction problems.</li>
+        <li><strong>Complex feature ownership:</strong> designed end-to-end commenting system originating in 360 Views, the platform's executive-facing overview feature, now scoping to an MVP rollout across the full product, including data model evaluation in collaboration with engineering.</li>
         <li><strong>Executive-facing product design:</strong> redesigned 360 Views for a primary executive audience, solving for "what changed and what matters" over exhaustive data display.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cv-entry">
+    <div class="cv-entry-side">
+      <div class="cv-entry-role">Principal Designer</div>
+      <div class="cv-entry-org">DEAD! &amp; Anubis Publications</div>
+      <div class="cv-entry-dates">Present</div>
+      <span class="cv-entry-tag">Freelance</span>
+    </div>
+    <div class="cv-entry-body">
+      <ul>
+        <li><strong>Anubis Law:</strong> designed a state law exam prep web app with video lessons that pause for checkpoint questions and a projected exam score measured against the pass mark; now in development.</li>
+        <li>Redesigned existing testing website with new branding, updated UI, improved UX features, and in compliance with ADA guidelines.</li>
+        <li>Newest feature additions include a Gradebook for instructors, a matching game, and flashcards.</li>
+        <li>Designed a new experience for the website where students can study by playing a game of trivia (Jeopardy!), designed first for desktop and then for mobile native, including the updated branding.</li>
+        <li>Redesigned the logo and branding for the company, including fresh marketing materials, guidelines, and digital assets.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cv-entry">
+    <div class="cv-entry-side">
+      <div class="cv-entry-role">Senior UX/UI Designer</div>
+      <div class="cv-entry-org">Zeal IT Consultants</div>
+      <div class="cv-entry-dates">Jul. 2022 — Oct. 2024</div>
+    </div>
+    <div class="cv-entry-body">
+      <ul>
+        <li><strong>Client list:</strong> McKesson Corporation, Supplylogix, Lennar Homes, Archer Systems, Bankers Financial Group, Movement Financial.</li>
+        <li><strong>Mentorship &amp; leadership:</strong> provided expert guidance to new designers in UX principles and Figma, fostering skill development and a culture of continuous improvement.</li>
+        <li><strong>Educational initiatives in UI/UX design:</strong> established the Center of Excellence (COE), leading discussions on UX maturity and accessibility through presentations and guest speakers. Created Design Camp, a 14-week internal UX course for developers and product owners, developing curriculum and leading sessions.</li>
+        <li><strong>Design sprints &amp; workshops:</strong> led multiple design sprints, managing workshops, prototype design, and research interviews, securing funded software development projects.</li>
+        <li><strong>UX research expertise:</strong> conducted user interviews, surveys, and usability tests to gather insights that directly shaped design decisions and improved product functionality.</li>
       </ul>
     </div>
   </div>
@@ -288,40 +332,6 @@
 
   <div class="cv-entry">
     <div class="cv-entry-side">
-      <div class="cv-entry-role">CTO &amp; Principal Designer</div>
-      <div class="cv-entry-org">DEAD! &amp; Anubis Publications</div>
-      <div class="cv-entry-dates">Present</div>
-      <span class="cv-entry-tag">Freelance</span>
-    </div>
-    <div class="cv-entry-body">
-      <ul>
-        <li>Redesigned existing testing website with new branding, updated UI, improved UX features, and in compliance with ADA guidelines.</li>
-        <li>Newest feature additions include a Gradebook for instructors, a matching game, and flashcards.</li>
-        <li>Designed a new experience for the website where students can study by playing a game of trivia (Jeopardy!) — designed first for desktop and then for mobile native, including the updated branding.</li>
-        <li>Redesigned the logo and branding for the company, including fresh marketing materials, guidelines, and digital assets.</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="cv-entry">
-    <div class="cv-entry-side">
-      <div class="cv-entry-role">Lead UX/UI Designer</div>
-      <div class="cv-entry-org">Zeal IT Consultants</div>
-      <div class="cv-entry-dates">Jul. 2022 — Oct. 2024</div>
-    </div>
-    <div class="cv-entry-body">
-      <ul>
-        <li><strong>Client list:</strong> McKesson Corporation, Supplylogix, Lennar Homes, Archer Systems, Bankers Financial Group, Movement Financial.</li>
-        <li><strong>Mentorship &amp; leadership:</strong> provided expert guidance to new designers in UX principles and Figma, fostering skill development and a culture of continuous improvement.</li>
-        <li><strong>Educational initiatives in UI/UX design:</strong> established the Center of Excellence (COE), leading discussions on UX maturity and accessibility through presentations and guest speakers. Created Design Camp, a 14-week internal UX course for developers and product owners, developing curriculum and leading sessions.</li>
-        <li><strong>Design sprints &amp; workshops:</strong> led multiple design sprints, managing workshops, prototype design, and research interviews, securing funded software development projects.</li>
-        <li><strong>UX research expertise:</strong> conducted user interviews, surveys, and usability tests to gather insights that directly shaped design decisions and improved product functionality.</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="cv-entry">
-    <div class="cv-entry-side">
       <div class="cv-entry-role">Senior UX/UI Designer</div>
       <div class="cv-entry-org">Capital One Enterprises</div>
       <div class="cv-entry-dates">Feb. 2021 — Jul. 2022</div>
@@ -329,7 +339,7 @@
     <div class="cv-entry-body">
       <ul>
         <li><strong>UI/UX design and innovation:</strong> enhanced the design and functionality of a SaaS product in the auto-financing sector, transitioning it from a single-task system to a comprehensive multi-lender SaaS product and CRM. Focused on creating interfaces for MVP and scalable future states.</li>
-        <li><strong>User research leadership:</strong> led multiple user research initiatives, from drafting discussion guides to conducting in-depth empathy interviews and synthesizing data — providing critical insights that informed strategic decisions and were communicated effectively to cross-functional teams.</li>
+        <li><strong>User research leadership:</strong> led multiple user research initiatives, from drafting discussion guides to conducting in-depth empathy interviews and synthesizing data. These efforts provided critical insights that informed strategic decisions and were communicated effectively to cross-functional teams.</li>
         <li><strong>Strategic development:</strong> directed the strategic overhaul of B2B software to expand its capabilities, including spearheading the transition to a multi-lender platform and initiating the software's evolution into a SaaS model.</li>
       </ul>
     </div>
@@ -375,11 +385,10 @@
     </div>
     <div class="cv-entry-body">
       <ul>
-        <li>Led the UI/UX design and testing for native mobile apps on Android and iOS, and created responsive web pages for desktop and mobile, enhancing user engagement and experience. Successfully directed a significant product launch from concept to soft launch within four months.</li>
-        <li>Actively participated in agile environments, collaborating closely with development teams to enhance productivity and ensure alignment with project goals.</li>
-        <li>Conducted extensive user research and testing to derive insights that significantly influenced UX decisions for various applications. Contributed to a major study analyzing the impact of COVID-19 on small business owners and presented the findings to senior leaders.</li>
-        <li>Supported the design language system by developing mobile components for both Android and iOS that integrated with web components within brand standards, including providing comprehensive implementation guidance.</li>
-        <li>Facilitated design sprints aimed at improving insurance processes, focusing on customization and efficient management of quotes.</li>
+        <li><strong>Native mobile &amp; web:</strong> led UI/UX design and testing for Android and iOS apps and responsive web, taking a major product launch from concept to soft launch in four months.</li>
+        <li><strong>User research:</strong> ran research and usability testing that shaped UX decisions across multiple apps; contributed to a major study on COVID-19's impact on small business owners and presented findings to senior leaders.</li>
+        <li><strong>Design language system:</strong> built Android and iOS components that integrated with web components within brand standards, with implementation guidance for engineering.</li>
+        <li><strong>Design sprints &amp; agile delivery:</strong> facilitated sprints to improve insurance quote customization and management, working closely with development teams in agile cycles.</li>
       </ul>
     </div>
   </div>
@@ -392,10 +401,9 @@
     </div>
     <div class="cv-entry-body">
       <ul>
-        <li><strong>Design and branding:</strong> spearheaded the creation of web and mobile design mockups, transitioning from wireframes to PSD files for secondary sites, and extended company branding with new logos for products. Developed diverse marketing materials, including posters, brochures, and social media ads for platforms like Facebook and Instagram.</li>
-        <li><strong>Print and media production:</strong> gained extensive experience in InDesign, handling print preparation for instructional manuals, forms, and guides. Saved the company over $150,000 by internalizing product photography and video production tasks.</li>
-        <li><strong>Project management and collaboration:</strong> managed up to seven projects simultaneously under tight deadlines, collaborating effectively with marketing, IT, legal, and operations departments to ensure project alignment and success.</li>
-        <li><strong>Skill enhancement:</strong> broadened expertise across packaging, print, web design, branding identity, and video editing, consistently applying these skills to enhance company branding and operational efficiency.</li>
+        <li><strong>Design &amp; branding:</strong> created web and mobile mockups for secondary sites, new product logos, and marketing across print and social: posters, brochures, and Facebook and Instagram ads.</li>
+        <li><strong>Print &amp; media production:</strong> owned InDesign print prep for manuals, forms, and guides; saved the company over $150,000 by bringing product photography and video production in-house.</li>
+        <li><strong>Project management:</strong> ran up to seven concurrent projects on tight deadlines with marketing, IT, legal, and operations, spanning packaging, print, web, brand identity, and video.</li>
       </ul>
     </div>
   </div>
@@ -416,9 +424,9 @@
 
 </section>
 
-<!-- ============ EDUCATION & CERTIFICATIONS ============ -->
+<!-- ============ EDUCATION & SKILLS ============ -->
 <div class="cv-section-head">
-  <h2>education_&amp;_certifications</h2>
+  <h2>education_&amp;_skills</h2>
 </div>
 
 <section class="cv-entries">
@@ -427,24 +435,16 @@
     <span class="what"><strong>Bachelor of Fine Arts</strong> in Visual Communication Design</span>
   </div>
   <div class="cv-simple-row">
-    <span class="when">Aug. 2024</span>
-    <span class="what"><strong>Salesforce AI Associate</strong> — Certified</span>
-  </div>
-  <div class="cv-simple-row">
-    <span class="when">Aug. 2024</span>
-    <span class="what"><strong>Salesforce</strong> — Certified</span>
-  </div>
-  <div class="cv-simple-row">
     <span class="when">May 2024</span>
     <span class="what"><strong>AI Product Design Course</strong> with Robert Redmond (IBM)</span>
   </div>
   <div class="cv-simple-row">
     <span class="when">Apr. 2024</span>
-    <span class="what"><strong>AI for Designers</strong> — Interaction Design Foundation, with Ioana Teleanu</span>
+    <span class="what"><strong>AI for Designers</strong>, Interaction Design Foundation, with Ioana Teleanu</span>
   </div>
   <div class="cv-simple-row">
     <span class="when">Skills &amp; Tools</span>
-    <span class="what">Figma, Storybook, HTML/CSS, React prototyping, design systems, InDesign, iOS/Android, user research, usability testing</span>
+    <span class="what">Figma, Storybook, HTML/CSS, React prototyping, frontend deploying, design systems, InDesign, iOS/Android, user research</span>
   </div>
 </section>
 

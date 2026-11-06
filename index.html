@@ -81,6 +81,10 @@
     animation: pulse 2.4s ease-in-out infinite;
   }
   @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
+  .avail-dot { display: inline-block; position: relative; width: 7px; height: 7px; margin-right: 8px; border-radius: 50%; background: currentColor; box-shadow: 0 0 6px currentColor; vertical-align: 0.05em; }
+  .avail-dot::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: currentColor; animation: avail-glow 2s ease-out infinite; }
+  @keyframes avail-glow { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(2.8); opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .avail-dot::after { animation: none; opacity: 0; } }
   .status-time { color: var(--ink-3); font-variant-numeric: tabular-nums; }
   .status-right { display: flex; gap: 4px; align-items: center; color: var(--ink-3); }
   .status-right > span { padding: 0 6px; border-left: 1px solid var(--rule); }
@@ -487,7 +491,7 @@
         <div class="about-stat"><span class="about-stat-label">based</span><span class="about-stat-value">San Mateo, CA</span></div>
         <div class="about-stat"><span class="about-stat-label">stack</span><span class="about-stat-value">Figma · HTML · React</span></div>
         <div class="about-stat"><span class="about-stat-label">years</span><span class="about-stat-value">9 in design</span></div>
-        <div class="about-stat"><span class="about-stat-label">availability</span><span class="about-stat-value" style="color: var(--status);">● Open</span></div>
+        <div class="about-stat"><span class="about-stat-label">availability</span><span class="about-stat-value" style="color: var(--status);"><span class="avail-dot" aria-hidden="true"></span>Open</span></div>
       </div>
     </aside>
     <div class="about-content">

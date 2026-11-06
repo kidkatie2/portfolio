@@ -1,124 +1,150 @@
 // ============================================================
-// Kate Chaparro — Portfolio theme + palette picker
-// kc-theme holds light/dark. kc-palette holds an optional extra
-// palette layered on top (lavender on light, green on dark).
-// Runs immediately to avoid a flash of the wrong colors.
+// Kate Chaparro — Portfolio theme toggle + color menu
+// Mode (light/dark) follows the system; color is random per visit.
+// Choices made in the nav last for the visit (sessionStorage). Runs immediately to avoid a flash.
 // ============================================================
 
 (function() {
-  var OPTIONS = [
-    { id: 'light',    base: 'light', palette: null,       label: 'Light',    sw: '#fff0e6', ring: '#dd5045' },
-    { id: 'dark',     base: 'dark',  palette: null,       label: 'Dark',     sw: '#0e1118', ring: '#dd5045' },
-    { id: 'lavender', base: 'light', palette: 'lavender', label: 'Lavender', sw: '#e8e0fb', ring: '#7c4dcc' },
-    { id: 'green',    base: 'dark',  palette: 'green',    label: 'Green',    sw: '#0c1410', ring: '#5fe08a' }
+  var COLORS = [
+    { id: null,       label: 'Orange',   dot: '#dd5045' },
+    { id: 'lavender', label: 'Lavender', dot: '#9b6ee8' },
+    { id: 'green',    label: 'Green',    dot: '#2fae62' }
   ];
   var root = document.documentElement;
 
-  function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
-  function set(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} }
+  function set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function sget(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } }
+  function sset(k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} }
 
-  // Load palette styles next to this script (works from / and /dead/).
+  // Palette styles live next to this script (works from / and /dead/).
   var src = document.currentScript && document.currentScript.src;
   if (src) document.write('<link rel="stylesheet" href="' + src.replace(/theme\.js(\?.*)?$/, 'palettes.css') + '">');
 
-  function current() {
-    var pal = root.getAttribute('data-palette');
-    if (pal) return pal;
-    return root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  // Mode follows the system setting. A toggle click overrides it for this visit only.
+  var mq = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+  function systemMode() { return mq && mq.matches ? 'dark' : 'light'; }
+  var sessionMode = sget('kc-theme');
+  setMode(sessionMode === 'dark' || sessionMode === 'light' ? sessionMode : systemMode());
+  if (mq && mq.addEventListener) mq.addEventListener('change', function() {
+    if (!sget('kc-theme')) { setMode(systemMode()); refreshToggles(); }
+  });
+
+  // Color is picked at random once per visit, unless the visitor picks one.
+  var pal = sget('kc-palette');
+  if (pal == null) {
+    pal = COLORS[Math.floor(Math.random() * COLORS.length)].id || 'orange';
+    sset('kc-palette', pal);
+  }
+  setPalette(pal);
+
+  function setMode(m) {
+    root.setAttribute('data-theme', m);
+    set('kc-theme', m); // mirrored for the hosted Anubis prototype
   }
 
-  function apply(id) {
-    var o = OPTIONS.filter(function(x) { return x.id === id; })[0] || OPTIONS[0];
-    root.setAttribute('data-theme', o.base);
-    if (o.palette) root.setAttribute('data-palette', o.palette);
-    else root.removeAttribute('data-palette');
-    return o;
+  function setPalette(id) {
+    var ok = COLORS.some(function(c) { return c.id && c.id === id; });
+    if (ok) root.setAttribute('data-palette', id); else root.removeAttribute('data-palette');
+  }
+  function currentColor() {
+    var id = root.getAttribute('data-palette');
+    return COLORS.filter(function(c) { return c.id === id; })[0] || COLORS[0];
   }
 
-  var stored = get('kc-theme');
-  var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  var base = stored || (prefersDark ? 'dark' : 'light');
-  var pal = get('kc-palette');
-  var match = OPTIONS.filter(function(x) { return x.palette && x.palette === pal && x.base === base; })[0];
-  apply(match ? match.id : base);
-
-  function updateButton(btn) {
-    var o = OPTIONS.filter(function(x) { return x.id === current(); })[0];
+  function updateToggle(btn, theme) {
     var icon = btn.querySelector('.icon');
     var label = btn.querySelector('.label');
-    if (icon) icon.innerHTML = '<span class="dot" style="background:' + o.ring + '"></span>';
-    if (label) label.textContent = o.label.toUpperCase();
-    btn.setAttribute('aria-label', 'Color theme: ' + o.label);
+    if (icon) icon.textContent = theme === 'dark' ? '☀' : '☾';
+    if (label) label.textContent = 'MODE';
+    btn.setAttribute('aria-label', 'Mode: ' + theme + '. Switch to ' + (theme === 'dark' ? 'light' : 'dark'));
+  }
+
+  function refreshToggles() {
+    var m = root.getAttribute('data-theme');
+    document.querySelectorAll('[data-theme-toggle]').forEach(function(b) { updateToggle(b, m); });
+  }
+
+  function refreshColor() {
+    var c = currentColor();
+    document.querySelectorAll('.kc-pal-btn').forEach(function(b) {
+      b.querySelector('.dot').style.background = c.dot;
+      b.setAttribute('aria-label', 'Color: ' + c.label);
+    });
+    document.querySelectorAll('.kc-pal-menu button').forEach(function(b) {
+      b.setAttribute('aria-checked', b.dataset.label === c.label ? 'true' : 'false');
+    });
+  }
+
+  function buildColorMenu(toggle) {
+    var wrap = document.createElement('span');
+    wrap.className = 'kc-pal';
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'kc-pal-btn';
+    btn.setAttribute('aria-haspopup', 'menu');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.innerHTML = '<span class="dot"></span>';
+    var menu = document.createElement('ul');
+    menu.className = 'kc-pal-menu';
+    menu.setAttribute('role', 'menu');
+    menu.hidden = true;
+    COLORS.forEach(function(c) {
+      var li = document.createElement('li');
+      li.setAttribute('role', 'none');
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('role', 'menuitemradio');
+      b.dataset.label = c.label;
+      b.innerHTML = '<span class="kc-pal-sw" style="background:' + c.dot + '"></span>' + c.label;
+      b.addEventListener('click', function() {
+        setPalette(c.id);
+        sset('kc-palette', c.id || 'orange');
+        refreshColor();
+        close();
+        btn.focus();
+      });
+      li.appendChild(b);
+      menu.appendChild(li);
+    });
+    wrap.appendChild(btn);
+    wrap.appendChild(menu);
+    toggle.parentNode.insertBefore(wrap, toggle);
+
+    function open() {
+      menu.hidden = false;
+      btn.setAttribute('aria-expanded', 'true');
+      (menu.querySelector('[aria-checked="true"]') || menu.querySelector('button')).focus();
+    }
+    function close() {
+      menu.hidden = true;
+      btn.setAttribute('aria-expanded', 'false');
+    }
+    btn.addEventListener('click', function(e) { e.stopPropagation(); menu.hidden ? open() : close(); });
+    document.addEventListener('click', function(e) { if (!wrap.contains(e.target)) close(); });
+    wrap.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') { close(); btn.focus(); }
+      if (!menu.hidden && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
+        e.preventDefault();
+        var items = [].slice.call(menu.querySelectorAll('button'));
+        var i = items.indexOf(document.activeElement);
+        items[(i + (e.key === 'ArrowDown' ? 1 : items.length - 1)) % items.length].focus();
+      }
+    });
   }
 
   function init() {
     var buttons = document.querySelectorAll('[data-theme-toggle]');
     buttons.forEach(function(btn) {
-      var wrap = document.createElement('span');
-      wrap.className = 'kc-pal';
-      btn.parentNode.insertBefore(wrap, btn);
-      wrap.appendChild(btn);
-      btn.setAttribute('aria-haspopup', 'menu');
-      btn.setAttribute('aria-expanded', 'false');
-
-      var menu = document.createElement('ul');
-      menu.className = 'kc-pal-menu';
-      menu.setAttribute('role', 'menu');
-      menu.hidden = true;
-      OPTIONS.forEach(function(o) {
-        var li = document.createElement('li');
-        li.setAttribute('role', 'none');
-        var b = document.createElement('button');
-        b.type = 'button';
-        b.setAttribute('role', 'menuitemradio');
-        b.dataset.id = o.id;
-        b.innerHTML = '<span class="kc-pal-sw" style="background:' + o.sw + ';box-shadow:inset 0 0 0 3px ' + o.sw + ',inset 0 0 0 7px ' + o.ring + '"></span>' + o.label;
-        b.addEventListener('click', function() {
-          apply(o.id);
-          set('kc-theme', o.base);
-          set('kc-palette', o.palette);
-          refresh();
-          close();
-          btn.focus();
-        });
-        li.appendChild(b);
-        menu.appendChild(li);
-      });
-      wrap.appendChild(menu);
-
-      function open() {
-        menu.hidden = false;
-        btn.setAttribute('aria-expanded', 'true');
-        var on = menu.querySelector('[aria-checked="true"]') || menu.querySelector('button');
-        on.focus();
-      }
-      function close() {
-        menu.hidden = true;
-        btn.setAttribute('aria-expanded', 'false');
-      }
-      btn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        menu.hidden ? open() : close();
-      });
-      document.addEventListener('click', function(e) { if (!wrap.contains(e.target)) close(); });
-      wrap.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') { close(); btn.focus(); }
-        if (!menu.hidden && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
-          e.preventDefault();
-          var items = [].slice.call(menu.querySelectorAll('button'));
-          var i = items.indexOf(document.activeElement);
-          items[(i + (e.key === 'ArrowDown' ? 1 : items.length - 1)) % items.length].focus();
-        }
+      updateToggle(btn, root.getAttribute('data-theme'));
+      buildColorMenu(btn);
+      btn.addEventListener('click', function() {
+        var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        setMode(next);
+        sset('kc-theme', next);
+        refreshToggles();
       });
     });
-    refresh();
-  }
-
-  function refresh() {
-    document.querySelectorAll('[data-theme-toggle]').forEach(updateButton);
-    document.querySelectorAll('.kc-pal-menu button').forEach(function(b) {
-      b.setAttribute('aria-checked', b.dataset.id === current() ? 'true' : 'false');
-    });
+    refreshColor();
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

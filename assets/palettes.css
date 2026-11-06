@@ -1,0 +1,155 @@
+/* Color palettes. Each works in light and dark mode.
+   Orange is the default (no data-palette). Selectors use
+   :root[data-theme][data-palette] so they beat each page's own
+   light/dark blocks regardless of load order. */
+
+/* ---------- Lavender · light ---------- */
+:root[data-theme="light"][data-palette="lavender"] {
+  --bg: #f3efff; --surface: #e8e0fb; --surface-deep: #dcd1f6;
+  --ink: #1a1530; --ink-2: #554a78; --ink-3: #6a5e8c;
+  --status: #4f7a5a;
+  --rule: #ddd2f2; --rule-strong: #b9a6e3;
+  --kc-bg: #f3efff; --kc-surface: #e8e0fb;
+  --kc-ink: #1a1530; --kc-ink-2: #554a78; --kc-ink-3: #6a5e8c;
+  --kc-accent: #7c4dcc; --kc-status: #4f7a5a;
+  --kc-rule: #ddd2f2; --kc-rule-strong: #b9a6e3;
+  --text-primary: #1a1530; --text-secondary: #554a78; --text-tertiary: #6a5e8c;
+  --paper: #f3efff;
+  --gray-50: #f7f4ff; --gray-100: #efe9fd; --gray-200: #e0d6f5; --gray-300: #c9bce6;
+  --gray-400: #6a5e8c; --gray-500: #6a5e8c; --gray-600: #4f4470; --gray-700: #3a3058;
+}
+:root[data-theme="light"][data-palette="lavender"]:not([data-project-accent]) { --accent: #7c4dcc; --accent-soft: #e2d6fb; }
+
+/* ---------- Lavender · dark ---------- */
+:root[data-theme="dark"][data-palette="lavender"] {
+  --bg: #12101c; --surface: #1b1829; --surface-deep: #232036;
+  --ink: #ece8f8; --ink-2: #b3a9d4; --ink-3: #8a80ac;
+  --status: #88b070;
+  --rule: #2a2540; --rule-strong: #3b3458;
+  --kc-bg: #12101c; --kc-surface: #1b1829;
+  --kc-ink: #ece8f8; --kc-ink-2: #b3a9d4; --kc-ink-3: #8a80ac;
+  --kc-accent: #b394ff; --kc-status: #88b070;
+  --kc-rule: #2a2540; --kc-rule-strong: #3b3458;
+  --text-primary: #ece8f8; --text-secondary: #b3a9d4; --text-tertiary: #8a80ac;
+  --paper: #12101c;
+  --gray-50: #16141f; --gray-100: #1b1829; --gray-200: #2a2540; --gray-300: #3b3458;
+  --gray-400: #8a80ac; --gray-500: #9a90bc; --gray-600: #b3a9d4; --gray-700: #d2cbe8;
+  --white: #1b1829;
+}
+:root[data-theme="dark"][data-palette="lavender"]:not([data-project-accent]) { --accent: #b394ff; --accent-soft: #2c2448; }
+
+/* ---------- Green · light ---------- */
+:root[data-theme="light"][data-palette="green"] {
+  --bg: #eef6f0; --surface: #ddeee2; --surface-deep: #cfe5d6;
+  --ink: #0f1f16; --ink-2: #44624f; --ink-3: #557362;
+  --status: #1f7a45;
+  --rule: #d2e6d8; --rule-strong: #9fc7ac;
+  --kc-bg: #eef6f0; --kc-surface: #ddeee2;
+  --kc-ink: #0f1f16; --kc-ink-2: #44624f; --kc-ink-3: #557362;
+  --kc-accent: #1f7a45; --kc-status: #1f7a45;
+  --kc-rule: #d2e6d8; --kc-rule-strong: #9fc7ac;
+  --text-primary: #0f1f16; --text-secondary: #44624f; --text-tertiary: #557362;
+  --paper: #eef6f0;
+  --gray-50: #f3f9f5; --gray-100: #e6f2ea; --gray-200: #d2e6d8; --gray-300: #b5d4bf;
+  --gray-400: #557362; --gray-500: #557362; --gray-600: #3d5847; --gray-700: #2a4033;
+}
+:root[data-theme="light"][data-palette="green"]:not([data-project-accent]) { --accent: #1f7a45; --accent-soft: #cdebd8; }
+
+/* ---------- Green · dark ---------- */
+:root[data-theme="dark"][data-palette="green"] {
+  --bg: #0c1410; --surface: #13201a; --surface-deep: #1a2a22;
+  --ink: #dff5e6; --ink-2: #9cc4ab; --ink-3: #74997f;
+  --status: #5fe08a;
+  --rule: #1f3328; --rule-strong: #2d4a3a;
+  --kc-bg: #0c1410; --kc-surface: #13201a;
+  --kc-ink: #dff5e6; --kc-ink-2: #9cc4ab; --kc-ink-3: #74997f;
+  --kc-accent: #5fe08a; --kc-status: #5fe08a;
+  --kc-rule: #1f3328; --kc-rule-strong: #2d4a3a;
+  --text-primary: #dff5e6; --text-secondary: #9cc4ab; --text-tertiary: #74997f;
+  --paper: #0c1410;
+  --gray-50: #101a15; --gray-100: #13201a; --gray-200: #1f3328; --gray-300: #2d4a3a;
+  --gray-400: #74997f; --gray-500: #84a892; --gray-600: #9cc4ab; --gray-700: #c2e0cc;
+  --white: #13201a;
+}
+:root[data-theme="dark"][data-palette="green"]:not([data-project-accent]) { --accent: #5fe08a; --accent-soft: #163322; }
+
+/* ---------- Footer / contact (hardcoded on each page) ---------- */
+:root[data-theme="light"][data-palette="lavender"] .contact,
+:root[data-theme="light"][data-palette="lavender"] footer { --accent: #7c4dcc; }
+:root[data-theme="light"][data-palette="lavender"] .kc-contact,
+:root[data-theme="light"][data-palette="lavender"] .kc-shell-footer,
+:root[data-theme="light"][data-palette="lavender"] .kc-footer { --kc-accent: #7c4dcc; }
+:root[data-theme="light"][data-palette="lavender"] .cv-download { color: #6a3db8; border-color: #6a3db8; }
+
+:root[data-theme="light"][data-palette="green"] .contact,
+:root[data-theme="light"][data-palette="green"] footer { --accent: #1f7a45; }
+:root[data-theme="light"][data-palette="green"] .kc-contact,
+:root[data-theme="light"][data-palette="green"] .kc-shell-footer,
+:root[data-theme="light"][data-palette="green"] .kc-footer { --kc-accent: #1f7a45; }
+:root[data-theme="light"][data-palette="green"] .cv-download { color: #1a6b3c; border-color: #1a6b3c; }
+
+:root[data-theme="dark"][data-palette="lavender"] .contact,
+:root[data-theme="dark"][data-palette="lavender"] footer,
+:root[data-theme="dark"][data-palette="lavender"] .kc-contact,
+:root[data-theme="dark"][data-palette="lavender"] .kc-shell-footer,
+:root[data-theme="dark"][data-palette="lavender"] .kc-footer { background: #0b0a12; border-top-color: #1d1a2c; --accent: #b394ff; --kc-accent: #b394ff; }
+:root[data-theme="dark"][data-palette="lavender"] .contact-row,
+:root[data-theme="dark"][data-palette="lavender"] .kc-contact-row,
+:root[data-theme="dark"][data-palette="lavender"] .contact-row:first-child,
+:root[data-theme="dark"][data-palette="lavender"] .kc-contact-row:first-child { border-color: #1d1a2c; }
+:root[data-theme="dark"][data-palette="lavender"] .footer-meta strong,
+:root[data-theme="dark"][data-palette="lavender"] .kc-footer-meta strong,
+:root[data-theme="dark"][data-palette="lavender"] .kc-shell-footer-meta strong { color: #ece8f8; }
+
+:root[data-theme="dark"][data-palette="green"] .contact,
+:root[data-theme="dark"][data-palette="green"] footer,
+:root[data-theme="dark"][data-palette="green"] .kc-contact,
+:root[data-theme="dark"][data-palette="green"] .kc-shell-footer,
+:root[data-theme="dark"][data-palette="green"] .kc-footer { background: #070d0a; border-top-color: #15241c; --accent: #5fe08a; --kc-accent: #5fe08a; }
+:root[data-theme="dark"][data-palette="green"] .contact-row,
+:root[data-theme="dark"][data-palette="green"] .kc-contact-row,
+:root[data-theme="dark"][data-palette="green"] .contact-row:first-child,
+:root[data-theme="dark"][data-palette="green"] .kc-contact-row:first-child { border-color: #15241c; }
+:root[data-theme="dark"][data-palette="green"] .footer-meta strong,
+:root[data-theme="dark"][data-palette="green"] .kc-footer-meta strong,
+:root[data-theme="dark"][data-palette="green"] .kc-shell-footer-meta strong { color: #dff5e6; }
+
+/* Gradebook's navy code block keeps its own grays in light mode */
+:root[data-theme="light"][data-palette] .formula {
+  --gray-400: #64748B; --gray-500: #64748B; --gray-600: #475569; --gray-700: #334155;
+}
+
+/* ---------- Color menu ---------- */
+.kc-pal { position: relative; display: inline-flex; margin-right: 6px; }
+.kc-pal-btn {
+  background: none; border: 1px solid var(--rule, var(--kc-rule)); cursor: pointer;
+  padding: 4px 8px; display: inline-flex; align-items: center; line-height: 1; height: 100%;
+}
+.kc-pal-btn:hover { border-color: var(--accent, var(--kc-accent)); }
+.kc-pal-btn .dot { display: block; width: 11px; height: 11px; border-radius: 50%; }
+.kc-pal-menu {
+  position: absolute; top: calc(100% + 6px); right: 0; z-index: 1000;
+  min-width: 140px; padding: 4px; margin: 0; list-style: none;
+  background: var(--bg, var(--kc-bg)); color: var(--ink, var(--kc-ink));
+  border: 1px solid var(--rule-strong, var(--kc-rule-strong));
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  font-family: 'JetBrains Mono', 'SF Mono', monospace; font-size: 11px; letter-spacing: 0.04em;
+}
+.kc-pal-menu[hidden] { display: none; }
+.kc-pal-menu button {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  padding: 8px 10px; background: none; border: 0; cursor: pointer;
+  color: inherit; font: inherit; letter-spacing: inherit; text-align: left; text-transform: uppercase;
+}
+.kc-pal-menu button:hover, .kc-pal-menu button:focus-visible { background: var(--surface, var(--kc-surface)); outline: none; }
+.kc-pal-menu button[aria-checked="true"]::after { content: '✓'; margin-left: auto; }
+.kc-pal-sw { width: 12px; height: 12px; border-radius: 50%; flex: none; }
+@media (max-width: 560px) { .kc-pal { margin-right: 4px; } .kc-pal-btn { padding: 4px 7px; } }
+
+/* Phone: make room for the color button */
+@media (max-width: 420px) {
+  :root .nav-links a, :root .kc-nav-links a { padding-left: 4px; padding-right: 4px; letter-spacing: 0; }
+  :root .kc-pal { margin-right: 2px; }
+  :root .kc-pal-btn { padding: 4px 6px; }
+  :root .theme-toggle, :root .kc-theme-toggle { padding-left: 6px; padding-right: 6px; }
+}

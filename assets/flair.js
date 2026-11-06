@@ -137,7 +137,74 @@
     draw();
   }
 
+  /* ---------- Click to copy in the contact section ---------- */
+  var ICON_COPY = '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><rect x="5" y="5" width="9" height="9" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M11 2.5H3.5a1 1 0 0 0-1 1V11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
+  var ICON_CHECK = '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text).catch(function () { return legacyCopy(text); });
+    }
+    return legacyCopy(text);
+  }
+  function legacyCopy(text) {
+    return new Promise(function (resolve, reject) {
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly', '');
+      ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+      document.body.appendChild(ta); ta.select();
+      var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+      ta.remove(); ok ? resolve() : reject();
+    });
+  }
+
+  function setupCopy() {
+    var links = document.querySelectorAll('.contact-row a, .kc-contact-row a');
+    if (!links.length) return;
+    var css = document.createElement('style');
+    css.textContent =
+      '.cc-link{position:relative;cursor:copy;width:fit-content;max-width:100%;align-self:flex-start}' +
+      '.cc-ico{position:absolute;left:100%;top:50%;transform:translateY(-50%);margin-left:10px;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;opacity:0;transition:opacity .15s;font-size:11px;letter-spacing:.06em;text-transform:uppercase;pointer-events:none}' +
+      '.cc-link:hover .cc-ico,.cc-link:focus-visible .cc-ico,.cc-link.is-copied .cc-ico{opacity:1}' +
+      '@media (hover:none),(max-width:560px){.cc-ico{left:auto;right:0;top:auto;bottom:100%;transform:none;margin:0 0 6px}.cc-link:hover .cc-ico{opacity:0}.cc-link.is-copied .cc-ico{opacity:1}}' +
+      '.cc-done{display:none}.cc-link.is-copied .cc-done{display:inline}';
+    document.head.appendChild(css);
+    var live = document.createElement('span');
+    live.setAttribute('aria-live', 'polite');
+    live.style.cssText = 'position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)';
+    document.body.appendChild(live);
+
+    links.forEach(function (a) {
+      var href = a.getAttribute('href') || '';
+      if (href.indexOf('tel:') === 0) return;
+      var value = href.indexOf('mailto:') === 0 ? href.slice(7) : a.href;
+      var label = href.indexOf('mailto:') === 0 ? 'Email' : 'Link';
+      a.classList.add('cc-link');
+      a.removeAttribute('target');
+      a.setAttribute('title', 'Copy ' + value);
+      var ico = document.createElement('span');
+      ico.className = 'cc-ico';
+      ico.innerHTML = '<span class="cc-svg">' + ICON_COPY + '</span><span class="cc-done">Copied</span>';
+      a.appendChild(ico);
+      var timer;
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        copyText(value).then(function () {
+          a.classList.add('is-copied');
+          ico.querySelector('.cc-svg').innerHTML = ICON_CHECK;
+          live.textContent = label + ' copied to clipboard';
+          clearTimeout(timer);
+          timer = setTimeout(function () {
+            a.classList.remove('is-copied');
+            ico.querySelector('.cc-svg').innerHTML = ICON_COPY;
+          }, 1800);
+        }, function () { window.location.href = a.href; });
+      });
+    });
+  }
+
   function init() {
+    setupCopy();
     buildTrain();
     if (!reduce) startFavicon();
   }

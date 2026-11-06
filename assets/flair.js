@@ -176,9 +176,9 @@
 
     links.forEach(function (a) {
       var href = a.getAttribute('href') || '';
-      if (href.indexOf('tel:') === 0) return;
-      var value = href.indexOf('mailto:') === 0 ? href.slice(7) : a.href;
-      var label = href.indexOf('mailto:') === 0 ? 'Email' : 'Link';
+      var isMail = href.indexOf('mailto:') === 0, isTel = href.indexOf('tel:') === 0;
+      var value = isMail ? href.slice(7) : isTel ? a.textContent.trim() : a.href;
+      var label = isMail ? 'Email' : isTel ? 'Phone number' : 'Link';
       a.classList.add('cc-link');
       a.removeAttribute('target');
       a.setAttribute('title', 'Copy ' + value);

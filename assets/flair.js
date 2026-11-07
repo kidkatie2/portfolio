@@ -203,7 +203,59 @@
     });
   }
 
+  /* ---------- Custom cursor: accent dot + trailing ring ---------- */
+  function setupCursor() {
+    if (!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    var css = document.createElement('style');
+    css.textContent =
+      'html.kc-cur, html.kc-cur *{cursor:none!important}' +
+      'html.kc-cur input, html.kc-cur textarea, html.kc-cur select, html.kc-cur [contenteditable]{cursor:auto!important}' +
+      '.kc-cur-dot, .kc-cur-ring{position:fixed;left:0;top:0;pointer-events:none;z-index:2147483647;border-radius:50%;opacity:0;' +
+        '--c:var(--accent, var(--kc-accent, #dd5045))}' +
+      '.kc-cur-dot{width:6px;height:6px;margin:-3px 0 0 -3px;background:var(--c);transition:opacity .2s, transform .15s}' +
+      '.kc-cur-ring{width:30px;height:30px;margin:-15px 0 0 -15px;border:1.5px solid var(--c);' +
+        'transition:opacity .2s, width .2s, height .2s, margin .2s, background-color .2s, border-color .2s}' +
+      'html.kc-cur-on .kc-cur-dot, html.kc-cur-on .kc-cur-ring{opacity:1}' +
+      'html.kc-cur-link .kc-cur-ring{width:46px;height:46px;margin:-23px 0 0 -23px;background:color-mix(in srgb, var(--c) 14%, transparent)}' +
+      'html.kc-cur-link .kc-cur-dot{opacity:0}' +
+      'html.kc-cur-down .kc-cur-ring{width:22px;height:22px;margin:-11px 0 0 -11px}' +
+      'html.kc-cur-text .kc-cur-dot, html.kc-cur-text .kc-cur-ring{opacity:0}';
+    document.head.appendChild(css);
+
+    var dot = document.createElement('div'); dot.className = 'kc-cur-dot';
+    var ring = document.createElement('div'); ring.className = 'kc-cur-ring';
+    document.body.appendChild(ring); document.body.appendChild(dot);
+    var root = document.documentElement;
+    root.classList.add('kc-cur');
+
+    var x = -100, y = -100, rx = -100, ry = -100, raf = null;
+    var LINK = 'a, button, [role="button"], [role="menuitemradio"], label, summary, select, .cc-link';
+    var TEXT = 'input, textarea, [contenteditable]';
+
+    function place(el, px, py) { el.style.transform = 'translate3d(' + px + 'px,' + py + 'px,0)'; }
+    function tick() {
+      rx += (x - rx) * 0.22; ry += (y - ry) * 0.22;
+      place(ring, rx, ry);
+      raf = (Math.abs(x - rx) > 0.1 || Math.abs(y - ry) > 0.1) ? requestAnimationFrame(tick) : null;
+    }
+    document.addEventListener('mousemove', function (e) {
+      x = e.clientX; y = e.clientY;
+      if (!root.classList.contains('kc-cur-on')) { rx = x; ry = y; root.classList.add('kc-cur-on'); }
+      place(dot, x, y);
+      if (reduce) { rx = x; ry = y; place(ring, x, y); }
+      else if (!raf) raf = requestAnimationFrame(tick);
+      var t = e.target;
+      root.classList.toggle('kc-cur-text', !!(t.closest && t.closest(TEXT)));
+      root.classList.toggle('kc-cur-link', !!(t.closest && t.closest(LINK)));
+    }, { passive: true });
+    document.addEventListener('mousedown', function () { root.classList.add('kc-cur-down'); });
+    document.addEventListener('mouseup', function () { root.classList.remove('kc-cur-down'); });
+    document.documentElement.addEventListener('mouseleave', function () { root.classList.remove('kc-cur-on'); });
+    window.addEventListener('blur', function () { root.classList.remove('kc-cur-on'); });
+  }
+
   function init() {
+    setupCursor();
     setupCopy();
     buildTrain();
     if (!reduce) startFavicon();

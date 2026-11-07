@@ -220,10 +220,9 @@
   function setupCursor() {
     var PX = 2;
     var ARROW = ['X.......', 'XX......', 'XFX.....', 'XFFX....', 'XFFFX...', 'XFFFFX..', 'XFFFFFX.', 'XFFXXXXX', 'XFX.....', 'XX......', 'X.......'];
-    var HAND = ['...XX.......', '..XFFX......', '..XFFX......', '..XFFX......', '..XFFXXXXX..', '..XFFXFFXFXX',
-      'XXXFFXFFXFFX', 'XFFXFFFFFFFX', 'XFFFFFFFFFFX', '.XFFFFFFFFFX', '..XFFFFFFFX.', '...XFFFFFFX.', '...XXXXXXXX.'];
+    var HAND = ['..XX......', '.XFFX.....', '.XFFX.....', '.XFFXXXXX.', 'XXFFXFXFXX', 'XFFFFFFFFX', 'XFFFFFFFFX', '.XFFFFFFFX', '..XFFFFFX.', '..XXXXXXX.'];
     var arrow = pixelSvg(ARROW, PX) + ' 0 0, auto';
-    var hand = pixelSvg(HAND, PX) + ' ' + Math.round(3.5 * PX) + ' 0, pointer';
+    var hand = pixelSvg(HAND, PX) + ' ' + Math.round(2.5 * PX) + ' 0, pointer';
     var css = document.createElement('style');
     css.textContent =
       'html, body{cursor:' + arrow + '}' +

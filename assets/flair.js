@@ -218,11 +218,12 @@
     return 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")';
   }
   function setupCursor() {
-    var PX = 3;
+    var PX = 2;
     var ARROW = ['X.......', 'XX......', 'XFX.....', 'XFFX....', 'XFFFX...', 'XFFFFX..', 'XFFFFFX.', 'XFFXXXXX', 'XFX.....', 'XX......', 'X.......'];
-    var HAND = ['..XX....', '.XFFX...', '.XFFX...', '.XFFXXX.', 'XXFFXFFX', 'XFFFFFFX', 'XFFFFFFX', '.XFFFFX.', '.XXXXXX.'];
+    var HAND = ['...XX.......', '..XFFX......', '..XFFX......', '..XFFX......', '..XFFXXXXX..', '..XFFXFFXFXX',
+      'XXXFFXFFXFFX', 'XFFXFFFFFFFX', 'XFFFFFFFFFFX', '.XFFFFFFFFFX', '..XFFFFFFFX.', '...XFFFFFFX.', '...XXXXXXXX.'];
     var arrow = pixelSvg(ARROW, PX) + ' 0 0, auto';
-    var hand = pixelSvg(HAND, PX) + ' ' + Math.round(2.5 * PX) + ' 0, pointer';
+    var hand = pixelSvg(HAND, PX) + ' ' + Math.round(3.5 * PX) + ' 0, pointer';
     var css = document.createElement('style');
     css.textContent =
       'html, body{cursor:' + arrow + '}' +

@@ -55,7 +55,7 @@
     var icon = btn.querySelector('.icon');
     var label = btn.querySelector('.label');
     if (icon) icon.textContent = theme === 'dark' ? '☀' : '☾';
-    if (label) label.textContent = 'MODE';
+    if (label) label.textContent = theme === 'dark' ? 'LIGHT' : 'DARK';
     btn.setAttribute('aria-label', 'Mode: ' + theme + '. Switch to ' + (theme === 'dark' ? 'light' : 'dark'));
   }
 

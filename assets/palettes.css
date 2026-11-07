@@ -153,3 +153,7 @@
   :root .kc-pal-btn { padding: 4px 6px; }
   :root .theme-toggle, :root .kc-theme-toggle { padding-left: 6px; padding-right: 6px; }
 }
+
+/* Sticky header on every page */
+.nav, .kc-nav, .kc-shell-nav { position: sticky; top: 0; z-index: 900; }
+html { scroll-padding-top: 76px; }

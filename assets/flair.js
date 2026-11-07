@@ -203,7 +203,36 @@
     });
   }
 
+  /* ---------- Pixel cursors (arrow + hand), black and white ---------- */
+  function pixelSvg(rows, px) {
+    var w = rows[0].length, h = rows.length, r = '';
+    rows.forEach(function (row, y) {
+      for (var x = 0; x < w; x++) {
+        var c = row[x];
+        if (c === 'X') r += '<rect x="' + x + '" y="' + y + '" width="1" height="1" fill="#101218"/>';
+        else if (c === 'F') r += '<rect x="' + x + '" y="' + y + '" width="1" height="1" fill="#fff"/>';
+      }
+    });
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + w * px + '" height="' + h * px +
+      '" viewBox="0 0 ' + w + ' ' + h + '" shape-rendering="crispEdges">' + r + '</svg>';
+    return 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")';
+  }
+  function setupCursor() {
+    var PX = 3;
+    var ARROW = ['X.......', 'XX......', 'XFX.....', 'XFFX....', 'XFFFX...', 'XFFFFX..', 'XFFFFFX.', 'XFFXXXXX', 'XFX.....', 'XX......', 'X.......'];
+    var HAND = ['..XX....', '.XFFX...', '.XFFX...', '.XFFXXX.', 'XXFFXFFX', 'XFFFFFFX', 'XFFFFFFX', '.XFFFFX.', '.XXXXXX.'];
+    var arrow = pixelSvg(ARROW, PX) + ' 0 0, auto';
+    var hand = pixelSvg(HAND, PX) + ' ' + Math.round(2.5 * PX) + ' 0, pointer';
+    var css = document.createElement('style');
+    css.textContent =
+      'html, body{cursor:' + arrow + '}' +
+      'a, button, [role="button"], [role="menuitemradio"], label, summary, select, .cc-link, [data-theme-toggle]{cursor:' + hand + '!important}' +
+      'input, textarea, [contenteditable]{cursor:text}';
+    document.head.appendChild(css);
+  }
+
   function init() {
+    setupCursor();
     setupCopy();
     buildTrain();
     if (!reduce) startFavicon();

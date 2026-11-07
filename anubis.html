@@ -176,6 +176,12 @@
   .media figcaption strong, .grid figcaption strong {
     display: block; color: var(--ink-2); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px;
   }
+  /* Dashboard figure fits in one window height on desktop; caption on one line */
+  .media.fit figcaption strong { display: inline; margin-right: 8px; }
+  @media (min-width: 861px) {
+    .media.fit { margin-top: 24px; }
+    .media.fit img { width: auto; max-width: 100%; max-height: calc(100svh - 270px); }
+  }
   .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 48px; align-items: start; }
   .split .media { margin-top: 0; }
   @media (max-width: 860px) { .split { grid-template-columns: 1fr; gap: 28px; } }
@@ -296,7 +302,7 @@
     <div class="g-body">
       <p>One number against the 75% pass mark: the last two practice exams averaged with the last three sessions. The weakest topic is named, and every card opens the next study action.</p>
     </div>
-    <figure class="media"><img class="th-light" src="images/anubis/dashboard-light.png" alt="Dashboard: projected exam score 73% against a 75% pass mark, expanded to show its inputs, with cards for missed questions, weakest topic, due for review, and this week, above accuracy and exam-score charts." loading="lazy"><img class="th-dark" src="images/anubis/dashboard-dark.png" alt="Dashboard: projected exam score 73% against a 75% pass mark, expanded to show its inputs, with cards for missed questions, weakest topic, due for review, and this week, above accuracy and exam-score charts." loading="lazy"><figcaption><strong>Dashboard</strong>Score breakdown expanded.</figcaption></figure>
+    <figure class="media fit"><img class="th-light" src="images/anubis/dashboard-light.png" alt="Dashboard: projected exam score 73% against a 75% pass mark, expanded to show its inputs, with cards for missed questions, weakest topic, due for review, and this week, above accuracy and exam-score charts." loading="lazy"><img class="th-dark" src="images/anubis/dashboard-dark.png" alt="Dashboard: projected exam score 73% against a 75% pass mark, expanded to show its inputs, with cards for missed questions, weakest topic, due for review, and this week, above accuracy and exam-score charts." loading="lazy"><figcaption><strong>Dashboard</strong>Score breakdown expanded.</figcaption></figure>
   </section>
 
   <section class="g-section">
